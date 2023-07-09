@@ -23,7 +23,7 @@ namespace VelvetLeaves.Data.Models
         [InverseProperty("Favorites")]
         public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
 
-        public virtual ICollection<Address>? Addresses { get; set; }
+        
 
     }
 }
