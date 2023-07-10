@@ -34,7 +34,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("FavoritesId");
 
-                    b.ToTable("ApplicationUserProduct");
+                    b.ToTable("ApplicationUserProduct", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -202,7 +202,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.ApplicationUser", b =>
@@ -290,7 +290,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationUserProduct", b =>

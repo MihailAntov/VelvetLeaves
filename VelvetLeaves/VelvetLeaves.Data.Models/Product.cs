@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static VelvetLeaves.Common.ValidationConstants.Product;
 
 namespace VelvetLeaves.Data.Models
 {
@@ -14,13 +10,13 @@ namespace VelvetLeaves.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(40)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
-        [InverseProperty("Favorites")]
+
         public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
 
         
