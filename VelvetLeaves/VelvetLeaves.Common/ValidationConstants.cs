@@ -24,6 +24,7 @@ namespace VelvetLeaves.Common
             public const int NameMaxLength = 50;
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 250;
+            public const int GalleryMaxItems = 27;
 
         }
 

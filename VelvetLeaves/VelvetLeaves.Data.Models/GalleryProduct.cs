@@ -21,5 +21,8 @@ namespace VelvetLeaves.Data.Models
         public Product Product { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
+
+        //position inside gallery 
+        public int Position { get; set; }
     }
 }
