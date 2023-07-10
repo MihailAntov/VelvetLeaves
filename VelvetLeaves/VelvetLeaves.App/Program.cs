@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.App;
+using VelvetLeaves.Services;
+using VelvetLeaves.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 });
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

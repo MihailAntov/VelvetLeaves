@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj" />
+    <ProjectReference Include="..\VelvetLeaves.Data\VelvetLeaves.Data.csproj" />
+    <ProjectReference Include="..\VelvetLeaves.ViewModels\VelvetLeaves.ViewModels.csproj" />
+  </ItemGroup>
 
 </Project>
