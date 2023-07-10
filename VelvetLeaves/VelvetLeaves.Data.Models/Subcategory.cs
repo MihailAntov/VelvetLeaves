@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static VelvetLeaves.Common.ValidationConstants.Category;
+using static VelvetLeaves.Common.ValidationConstants.Image;
+
 
 namespace VelvetLeaves.Data.Models
 {
@@ -12,6 +15,7 @@ namespace VelvetLeaves.Data.Models
         public string Name { get; set; } = null!;
 
         [Required]
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 
         [Required]
@@ -21,5 +25,8 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
 
+        [Required]
+        [MaxLength(UrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
     }
 }

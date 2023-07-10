@@ -1,6 +1,9 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static VelvetLeaves.Common.ValidationConstants.Product;
+using static VelvetLeaves.Common.ValidationConstants.Image;
+
 
 namespace VelvetLeaves.Data.Models
 {
@@ -17,12 +20,15 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; } = new HashSet<ApplicationUser>();
 
+        [ForeignKey(nameof(Subcategory))]
         public int SubcategoryId { get; set; }
+        [Required]
         public Subcategory Subcategory { get; set; } = null!;
 
-        
-
+        [Required]
+        [MaxLength(UrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
     }
 }

@@ -2,6 +2,8 @@
 
 using System.ComponentModel.DataAnnotations;
 using static VelvetLeaves.Common.ValidationConstants.Category;
+using static VelvetLeaves.Common.ValidationConstants.Image;
+
 
 namespace VelvetLeaves.Data.Models
 {
@@ -15,5 +17,9 @@ namespace VelvetLeaves.Data.Models
         public string Name { get; set; } = null!;
 
         public virtual ICollection<Subcategory> Subcategories { get; set; } = new HashSet<Subcategory>();
+
+        [Required]
+        [MaxLength(UrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
     }
 }
