@@ -19,6 +19,9 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<ApplicationUser>? ApplicationUsers { get; set; }
 
+        public int SubcategoryId { get; set; }
+        public Subcategory Subcategory { get; set; } = null!;
+
         
 
     }

@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VelvetLeaves.Common\VelvetLeaves.Common.csproj" />
+  </ItemGroup>
+
 </Project>
