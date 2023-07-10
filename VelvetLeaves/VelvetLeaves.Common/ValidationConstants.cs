@@ -32,5 +32,26 @@ namespace VelvetLeaves.Common
         {
             public const int UrlMaxLength = 2048;
         }
+
+        public static class Address
+        {
+            public const int CityMinLength = 2;
+            public const int CityMaxLength = 40;
+            public const int CountryMinLength = 3;
+            public const int CountryMaxLength = 40;
+            public const int StreetAddressMinLength = 5;
+            public const int StreetAddressMaxLength = 100;        
+        }
+
+        public static class Color
+        {
+            public const int ColorLength = 6;
+        }
+
+        public static class AppPreferences
+        {
+            public const int RootProductsNameMinLength = 3;
+            public const int RootProductsNameMaxLength = 20;
+        }
     }
 }

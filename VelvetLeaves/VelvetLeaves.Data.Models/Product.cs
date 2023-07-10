@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static VelvetLeaves.Common.ValidationConstants.Product;
 using static VelvetLeaves.Common.ValidationConstants.Image;
+using static VelvetLeaves.Common.ValidationConstants.Color;
 using System.Drawing;
 
 namespace VelvetLeaves.Data.Models
@@ -33,7 +34,7 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
 
-
+        [MaxLength(ColorLength)]
         public string? Color { get; set; }
 
         

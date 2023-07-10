@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using static VelvetLeaves.Common.ValidationConstants.Address;
+
 
 namespace VelvetLeaves.Data.Models
 {
@@ -13,12 +12,15 @@ namespace VelvetLeaves.Data.Models
         public Guid Id { get; set; }
 
         [Required]
+        [MaxLength(CountryMaxLength)]
         public string Country { get; set; } = null!;
 
         [Required]
+        [MaxLength(CityMaxLength)]
         public string City { get; set; } = null!;
 
         [Required]
+        [MaxLength(StreetAddressMaxLength)]
         public string StreetAddress { get; set; } = null!;
 
         [Required]

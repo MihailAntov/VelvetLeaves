@@ -20,7 +20,6 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        
         public ICollection<GalleryProduct> GalleriesProducts { get; set; } = new HashSet<GalleryProduct>();
 
         [Required]

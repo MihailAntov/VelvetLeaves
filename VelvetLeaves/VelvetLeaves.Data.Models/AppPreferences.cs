@@ -2,6 +2,8 @@
 
 using System.ComponentModel.DataAnnotations;
 
+using static VelvetLeaves.Common.ValidationConstants.AppPreferences;
+
 namespace VelvetLeaves.Data.Models
 {
     public class AppPreferences
@@ -14,5 +16,9 @@ namespace VelvetLeaves.Data.Models
 
         [Required]
         public string FaviconUrl { get; set; } = null!;
+
+        [Required]
+        [MaxLength(RootProductsNameMaxLength)]
+        public string RootProductsName { get; set; } = null!;
     }
 }
