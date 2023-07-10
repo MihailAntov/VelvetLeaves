@@ -20,9 +20,8 @@ namespace VelvetLeaves.Data.Models
         [Required]
         public Product Product { get; set; } = null!;
 
-        public string ImageUrl { get; set; } = null!;
-
         //position inside gallery 
+        [Required]
         public int Position { get; set; }
     }
 }
