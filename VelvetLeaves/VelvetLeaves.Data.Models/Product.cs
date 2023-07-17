@@ -34,8 +34,8 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
 
-        [MaxLength(ColorLength)]
-        public string? Color { get; set; }
+
+        public virtual ICollection<Color> Colors { get; set; } = new HashSet<Color>();
 
         
     }
