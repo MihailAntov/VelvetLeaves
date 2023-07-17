@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.App;
-using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.Services.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +51,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name:"admin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

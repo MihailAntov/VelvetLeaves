@@ -5,7 +5,7 @@ using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Category;
 
-namespace VelvetLeaves.Services
+namespace VelvetLeaves.Services.Admin
 {
     public class CategoryService : ICategoryService
     {

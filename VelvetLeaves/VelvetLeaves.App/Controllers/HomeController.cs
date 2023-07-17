@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VelvetLeaves.App.Models;
+using VelvetLeaves.ViewModels.Menu;
 
 namespace VelvetLeaves.App.Controllers
 {
@@ -15,6 +16,8 @@ namespace VelvetLeaves.App.Controllers
 
         public IActionResult Index()
         {
+            
+            
             return View();
         }
 
