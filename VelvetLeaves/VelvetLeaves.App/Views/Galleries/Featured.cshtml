@@ -1,0 +1,28 @@
+﻿@model GalleryViewModel
+
+@foreach (var product in Model.Products)
+{
+	<img src="@product.PictureUrl" class="img-circle" alt="Cinque Terre">
+}
+
+<div class="container">
+	<h2>Featured Gallery</h2>
+
+	<div class="row">
+		@foreach (var product in Model.Products)
+		{
+			<div class="col-md-4">
+				<div class="thumbnail">
+					<a href="/products/details/@product.Id" target="_blank">
+						<img src="@product.PictureUrl" alt="Lights" style="width:100%">
+						<div class="caption">
+							<p>@product.Name</p>
+							<p>@product.Price</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		}
+
+	</div>
+</div>
