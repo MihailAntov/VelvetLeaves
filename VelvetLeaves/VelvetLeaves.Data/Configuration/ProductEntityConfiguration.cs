@@ -24,20 +24,58 @@ namespace VelvetLeaves.Data.Configuration
             };
 
             var productList = new List<Product> {
-                new Product {Id = 1, Name = "Red Silver Earings", Description = "Red earings with silver frames.", SubcategoryId = 1, Colors = new List<Color>{colorList[0]}, Materials = new List<Material> {materialList[0] } }, 
-                new Product {Id = 2, Name = "Red-Blue Steel Earings", Description = "Red-blue earings with steel frames.", SubcategoryId = 1, Colors = new List<Color>{colorList[0], colorList[1] }, Materials = new List<Material> {materialList[1] } }, 
-                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2, Colors = new List<Color>{colorList[2]}, Materials = new List<Material> {materialList[0] } }, 
-                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3, Colors = new List<Color>{colorList[1]}, Materials = new List<Material> {materialList[0], materialList[2] } }, 
-                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, Materials = new List<Material> {materialList[3] } }, 
-                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, Materials = new List<Material> {materialList[3] } }, 
-                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding with traditional sewing pattern.", SubcategoryId = 5, Materials = new List<Material> {materialList[3] } }, 
+                new Product {Id = 1, Name = "Red Silver Earings", Description = "Red earings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg" }, 
+                new Product {Id = 2, Name = "Red-Blue Steel Earings", Description = "Red-blue earings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg" }, 
+                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg"}, 
+                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" }, 
+                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg"}, 
+                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg"}, 
+                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding with traditional sewing pattern.", SubcategoryId = 5, ImageUrl = "bag.jpg" }, 
             };
-
-
 
             builder.Entity<Color>().HasData(colorList);
             builder.Entity<Material>().HasData(materialList);
             builder.Entity<Product>().HasData(productList);
+
+            builder.Entity<Color>()
+                .HasMany(c=> c.Products)
+                .WithMany(p=> p.Colors)
+                .UsingEntity<Dictionary<string, object>>("ProductsColors",
+                r => r.HasOne<Product>().WithMany().HasForeignKey("ProductId"),
+                    l => l.HasOne<Color>().WithMany().HasForeignKey("ColorId"),
+                    mt =>
+                    {
+                        mt.HasKey("ProductId", "ColorId");
+                        mt.HasData(
+                            new { ProductId = 1, ColorId = 1 },
+                            new { ProductId = 2, ColorId = 1 },
+                            new { ProductId = 2, ColorId = 2 },
+                            new { ProductId = 3, ColorId = 3 },
+                            new { ProductId = 4, ColorId = 2 });
+                    });
+
+            builder.Entity<Material>()
+                .HasMany(c => c.Products)
+                .WithMany(p => p.Materials)
+                .UsingEntity<Dictionary<string, object>>("ProductsMaterials",
+                r => r.HasOne<Product>().WithMany().HasForeignKey("ProductId"),
+                    l => l.HasOne<Material>().WithMany().HasForeignKey("MaterialId"),
+                    mt =>
+                    {
+                        mt.HasKey("ProductId", "MaterialId");
+                        mt.HasData(
+                            new { ProductId = 1, MaterialId = 1 },
+                            new { ProductId = 2, MaterialId = 2 },
+                            new { ProductId = 3, MaterialId = 1 },
+                            new { ProductId = 4, MaterialId = 1 },
+                            new { ProductId = 4, MaterialId = 3 },
+                            new { ProductId = 5, MaterialId = 4 },
+                            new { ProductId = 6, MaterialId = 4 },
+                            new { ProductId = 7, MaterialId = 4 });
+                    });
+
+
+
         }
     }
 }
