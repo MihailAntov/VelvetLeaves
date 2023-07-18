@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VelvetLeaves.Data.Configuration;
 using VelvetLeaves.Data.Models;
 
 namespace VelvetLeaves.Data
@@ -24,7 +25,12 @@ namespace VelvetLeaves.Data
         {
             builder.Entity<GalleryProduct>().HasKey(gp => new { gp.GalleryId, gp.ProductId });
 
-            
+            builder.ApplyConfiguration(new CategoryEntityConfiguration());
+            builder.ApplyConfiguration(new SubCategoryEntityConfiguration());
+            builder.SeedColorsAndProducts();
+
+
+
 
             base.OnModelCreating(builder);
         }

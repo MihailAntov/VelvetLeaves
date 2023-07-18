@@ -12,7 +12,7 @@ namespace VelvetLeaves.Data.Configuration
         {
             builder.HasData(new List<Category>(){
                 new Category { Name = "Jewelry", ImageUrl = "jewelry.jpg", Id = 1 },
-                new Category { Name = "Bags", ImageUrl = "bag.jpg", Id = 2},
+                new Category { Name = "Textile", ImageUrl = "textile.jpg", Id = 2},
             });
         }
     }

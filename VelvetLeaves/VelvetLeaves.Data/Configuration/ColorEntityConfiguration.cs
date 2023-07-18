@@ -10,7 +10,7 @@ namespace VelvetLeaves.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Color> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

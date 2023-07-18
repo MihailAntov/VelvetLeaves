@@ -12,11 +12,11 @@ namespace VelvetLeaves.Data.Configuration
         {
             builder.HasData(new List<Subcategory>()
             {
-                {new Subcategory {Name = "Silver",Id = 1, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
-                {new Subcategory {Name = "Steel",Id = 2, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
-                {new Subcategory {Name = "Clay",Id = 3, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
-                {new Subcategory {Name = "Hand Bags",Id = 4, CategoryId = 2, ImageUrl = "bag.jpg"} },
-                {new Subcategory {Name = "Small Bags",Id = 5, CategoryId = 2, ImageUrl = "bag.jpg"} }
+                {new Subcategory {Name = "Earings",Id = 1, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
+                {new Subcategory {Name = "Necklaces",Id = 2, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
+                {new Subcategory {Name = "Rings",Id = 3, CategoryId = 1, ImageUrl = "jewelry.jpg"} },
+                {new Subcategory {Name = "Bags",Id = 4, CategoryId = 2, ImageUrl = "bag.jpg"} },
+                {new Subcategory {Name = "Book Bindings",Id = 5, CategoryId = 2, ImageUrl = "bag.jpg"} }
             });
         }
     }
