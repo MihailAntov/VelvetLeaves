@@ -29,6 +29,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 
 var app = builder.Build();

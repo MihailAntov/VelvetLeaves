@@ -10,9 +10,9 @@ namespace VelvetLeaves.Data.Configuration
         {
             var colorList = new List<Color>
             {
-                new Color {Id = 1, ColorValue = "#ff0000", Name = "Red"},
-                new Color {Id = 2, ColorValue = "#0000ff", Name = "Blue"},
-                new Color {Id = 3, ColorValue = "#00ff00", Name = "Green"}
+                new Color {Id = 1, ColorValue = "ff0000", Name = "Red"},
+                new Color {Id = 2, ColorValue = "0000ff", Name = "Blue"},
+                new Color {Id = 3, ColorValue = "00ff00", Name = "Green"}
             };
 
             var materialList = new List<Material>
@@ -24,13 +24,13 @@ namespace VelvetLeaves.Data.Configuration
             };
 
             var productList = new List<Product> {
-                new Product {Id = 1, Name = "Red Silver Earings", Description = "Red earings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg" }, 
-                new Product {Id = 2, Name = "Red-Blue Steel Earings", Description = "Red-blue earings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg" }, 
-                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg"}, 
-                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" }, 
-                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg"}, 
-                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg"}, 
-                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding with traditional sewing pattern.", SubcategoryId = 5, ImageUrl = "bag.jpg" }, 
+                new Product {Id = 1, Name = "Red Silver Earings", Description = "Red earings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg", Price = 50.00M }, 
+                new Product {Id = 2, Name = "Red-Blue Steel Earings", Description = "Red-blue earings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg", Price = 45.00M }, 
+                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg", Price = 35.00M}, 
+                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" , Price = 25.00M}, 
+                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M}, 
+                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M}, 
+                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding with traditional sewing pattern.", SubcategoryId = 5, ImageUrl = "bag.jpg", Price = 70.00M }, 
             };
 
             builder.Entity<Color>().HasData(colorList);

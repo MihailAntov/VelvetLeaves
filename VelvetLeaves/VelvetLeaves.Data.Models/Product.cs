@@ -32,6 +32,9 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
+        [Required]
+        public decimal Price { get; set; }
+
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
 
         public virtual ICollection<Color> Colors { get; set; } = new HashSet<Color>();
