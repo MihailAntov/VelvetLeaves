@@ -1,2 +1,48 @@
-﻿@ViewBag["Title"] = "Products"
+﻿@{
+	ViewData["Title"] = "Products";
+}
+@model IEnumerable<ProductViewModel>;
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Product List</title>
+	<!-- Add Bootstrap CSS CDN link -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container">
+		
+			<div class="col-md-4">
+				<h2>Product List</h2>
+				<ul class="list-group">
+
+					@{
+						int count = 0;
+					}
+					@foreach (var product in Model)
+					{
+						
+						<li class="list-group-item d-inline-flex">
+							<div class="d-flex flex-row">
+								<div class="img-thumbnail">
+									<img src="~/img/@product.PictureUrl" alt="Product Image" class="img-fluid">
+									<h5>@product.Name</h5>
+									<p>Price: @product.Price BGN</p>
+								</div>
+								
+							</div>
+						</li>
+					}
+
+
+
+				</ul>
+			</div>
+		</div>
+	
+	
+</body>
+</html>
 

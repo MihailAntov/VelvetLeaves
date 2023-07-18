@@ -11,10 +11,16 @@ namespace VelvetLeaves.App.Controllers
         {
             this.productService = productService;
         }
-        public async Task<IActionResult> Products(int categoryId)
+        public async Task<IActionResult> ProductsByCategory(int categoryId)
         {
-            var model = await productService.AllProducts(categoryId);
-            return View();
+            var model = await productService.AllProductsByCategoryAsync(categoryId);
+            return View("Products",model);
+        }
+
+        public async Task<IActionResult> ProductsBySubcategory(int subcategoryId)
+        {
+            var model = await productService.AllProductsBySubCategoryAsync(subcategoryId);
+            return View("Products", model);
         }
     }
 }

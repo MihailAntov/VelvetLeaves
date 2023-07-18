@@ -6,7 +6,8 @@ namespace VelvetLeaves.Services.Contracts
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductViewModel>> AllProductsByCategory(int categoryId);
+        Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId);
+        Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId);
         
     }
 }

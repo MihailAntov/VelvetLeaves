@@ -15,7 +15,7 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<ProductViewModel>> AllProductsByCategory(int categoryId)
+        public async Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId)
         {
             var products = await _context.Products
                 .Where(p => p.Subcategory.CategoryId == categoryId)
@@ -26,6 +26,23 @@ namespace VelvetLeaves.Services
                     Price = p.Price,
                     PictureUrl = p.ImageUrl
                 }).ToArrayAsync();
+
+            return products;
+        }
+
+        public async Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId)
+        {
+            var products = await _context.Products
+                .Where(p => p.Subcategory.Id == subcategoryId)
+                .Select(p => new ProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    PictureUrl = p.ImageUrl
+                }).ToArrayAsync();
+
+            return products;
         }
     }
 }
