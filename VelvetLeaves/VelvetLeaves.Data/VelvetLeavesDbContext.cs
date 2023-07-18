@@ -23,7 +23,9 @@ namespace VelvetLeaves.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<GalleryProduct>().HasKey(gp => new { gp.GalleryId, gp.ProductId });
+
             
+
             base.OnModelCreating(builder);
         }
     }

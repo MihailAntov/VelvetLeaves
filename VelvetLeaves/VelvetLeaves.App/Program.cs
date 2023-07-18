@@ -5,6 +5,7 @@ using VelvetLeaves.Data.Models;
 using VelvetLeaves.App;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services.Admin;
+using VelvetLeaves.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,10 @@ builder.Services.AddDbContext<VelvetLeavesDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<VelvetLeavesDbContext>();
+    
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
@@ -25,6 +29,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IMenuService, MenuService>();
 
 var app = builder.Build();
 
@@ -54,7 +59,7 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Gallery}/{action=Featured}/{id?}");
+    pattern: "{controller=Galleries}/{action=Featured}/{id?}");
 app.MapRazorPages();
 
 app.Run();

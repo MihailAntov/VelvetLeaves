@@ -2,7 +2,7 @@
 
 namespace VelvetLeaves.App.Controllers
 {
-    public class GalleryController : Controller
+    public class GalleriesController : Controller
     {
         public IActionResult Featured()
         {

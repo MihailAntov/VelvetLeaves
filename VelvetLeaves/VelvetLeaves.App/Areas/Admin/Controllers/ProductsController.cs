@@ -9,5 +9,10 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Categories()
+        {
+            return View();
+        }
     }
 }
