@@ -55,5 +55,11 @@ namespace VelvetLeaves.Common
             public const int RootProductsNameMinLength = 3;
             public const int RootProductsNameMaxLength = 20;
         }
+
+        public static class Material
+        {
+            public const int NameMaxLength = 40;
+            public const int NameMinLength = 3;
+        }
     }
 }

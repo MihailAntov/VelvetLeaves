@@ -34,8 +34,9 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
 
-
         public virtual ICollection<Color> Colors { get; set; } = new HashSet<Color>();
+
+        public virtual ICollection<Material> Materials { get; set; } = new HashSet<Material>();
 
         
     }
