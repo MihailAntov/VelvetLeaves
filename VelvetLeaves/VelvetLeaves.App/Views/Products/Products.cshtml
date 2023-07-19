@@ -12,49 +12,170 @@
 </head>
 <body>
 
-		<div class="row">
-			<aside class="col-lg-3">
-				<form>
-					<label for="color">Color:</label>
-					<select id="color" name="color" multiple>
-						<option value="red">Red</option>
-						<option value="blue">Blue</option>
-						<option value="green">Green</option>
-					</select>
-					<br>
-					<label for="material">Material:</label>
-					<input type="text" id="material" name="material">
-					<br>
-					<label for="price">Price:</label>
-					<input type="range" id="price-min" name="price-min" min="0" max="100" step="1" value="0">
-					<input type="range" id="price-max" name="price-max" min="0" max="100" step="1" value="100">
-					<br>
-					<input type="submit" value="Search">
-				</form>
-			</aside>
+	@*<div class="row">
+	<aside class="col-lg-3">
+	<form>
+	<label for="color">Color:</label>
+	<select id="color" name="color" multiple>
+	<option value="red">Red</option>
+	<option value="blue">Blue</option>
+	<option value="green">Green</option>
+	</select>
+	<br>
+	<label for="material">Material:</label>
+	<input type="text" id="material" name="material">
+	<br>
+	<label for="price">Price:</label>
+	<input type="range" id="price-min" name="price-min" min="0" max="100" step="1" value="0">
+	<input type="range" id="price-max" name="price-max" min="0" max="100" step="1" value="100">
+	<br>
+	<input type="submit" value="Search">
+	</form>
+	</aside>
 
-			<main class="col-lg-9">
-				<h2>Product List</h2>
-				<div class="container">
-					<div class="row">
+	<main class="col-lg-9">
+	<h2>Product List</h2>
+	<div class="container">
+	<div class="row">
 
 
-					@foreach (var product in Model.Products)
-					{
+	@foreach (var product in Model.Products)
+	{
 
-						<div class="col-lg-4">	
-									<img src="~/img/@product.PictureUrl" alt="Product Image" class="img-fluid">			
-									<h5>@product.Name</h5>
-									<p>Price: @product.Price BGN</p>
-														
+	<div class="col-lg-4">
+	<img src="~/img/@product.PictureUrl" alt="Product Image" class="img-fluid">
+	<h5>@product.Name</h5>
+	<p>Price: @product.Price BGN</p>
+
+	</div>
+	}
+
+	</div>
+
+	</div>
+	</main>
+	</div>*@
+
+
+	<form method="get">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<!-- Sidebar with filters -->
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Filters</h5>
+
+							<!-- Colors dropdown -->
+
+
+							<button class="btn btn-outline-info d-block" type="button">Colors:</button>
+							<div class="form-group" id="colorsCheck" style="display:none">
+								@foreach (var material in Model.MaterialOptions)
+								{
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+										<label class="form-check-label" for="flexCheckDefault">
+											@material
+										</label>
+									</div>
+								}
+							</div>
+							<br />
+							
+								<button class="btn-outline-info btn d-block" type="button">Materials:</button>
+								<div class="form-group" id="materialsCheck" style="display:none">
+									@foreach (var material in Model.MaterialOptions)
+									{
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">
+												@material
+											</label>
+										</div>
+									}
+								</div>
+								<br />
+
+								<button class="btn-outline-info btn d-block" type="button">Tags:</button>
+								<div class="form-group" id="materialsCheck" style="display:none">
+									@foreach (var tag in Model.TagOptions)
+									{
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">
+												@tag
+											</label>
+										</div>
+									}
+								</div>
+								<br />
+
+
+							<button class="btn btn-primary" type="submit">Apply</button>
+
+
+
+
 						</div>
-					}
+					</div>
+				</div>
 
+				<div class="col-md-9">
+					<!-- Search bar -->
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Search...">
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="button">Search</button>
+						</div>
 					</div>
 
+					<!-- Gallery -->
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card mb-3">
+								<img src="product1.jpg" class="card-img-top" alt="Product 1">
+								<div class="card-body">
+									<h5 class="card-title">Product 1</h5>
+									<p class="card-text">$10.00</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card mb-3">
+								<img src="product2.jpg" class="card-img-top" alt="Product 2">
+								<div class="card-body">
+									<h5 class="card-title">Product 2</h5>
+									<p class="card-text">$20.00</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card mb-3">
+								<img src="product3.jpg" class="card-img-top" alt="Product 3">
+								<div class="card-body">
+									<h5 class="card-title">Product 3</h5>
+									<p class="card-text">$30.00</p>
+								</div>
+							</div>
+						</div>
+						<!-- Add more products here -->
+					</div>
+
+					<!-- Page selector -->
+					<label for="itemsPerPage">Items per page:</label>
+					<div class="form-group col-md-4 d-flex">
+						<select class="form-control" id="itemsPerPage">
+							<option value="3">3</option>
+							<option value="6">6</option>
+							<option value="9">9</option>
+						</select>
+					</div>
 				</div>
-			</main>
+
+			</div>
 		</div>
+	</form>
 </body>
 </html>
 

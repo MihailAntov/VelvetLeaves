@@ -5,6 +5,7 @@ using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Service.Models;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Product;
 
 namespace VelvetLeaves.Services
@@ -47,6 +48,11 @@ namespace VelvetLeaves.Services
             return products;
         }
 
+		public Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
 		{
             var products = _context.Products.AsQueryable();
@@ -62,6 +68,11 @@ namespace VelvetLeaves.Services
 
             var materials = await products.SelectMany(p => p.Materials.Select(m => m.Name)).Distinct().ToArrayAsync();
             return materials;
+		}
+
+		public Task<IEnumerable<string>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)

@@ -40,6 +40,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ICollection<Color> Colors { get; set; } = new HashSet<Color>();
 
         public virtual ICollection<Material> Materials { get; set; } = new HashSet<Material>();
+        public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 
         
     }

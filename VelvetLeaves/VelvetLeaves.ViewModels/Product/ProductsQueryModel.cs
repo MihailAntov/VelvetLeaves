@@ -11,6 +11,7 @@ namespace VelvetLeaves.ViewModels.Product
 		public ProductsSorting ProductsSorting { get; set; }
 		public IEnumerable<int> ColorIds { get; set; }  = new HashSet<int>();
 		public IEnumerable<string> Materials { get; set; } = new HashSet<string>();
+		public IEnumerable<string> Tags { get; set; } = new HashSet<string>();
 		public string? SearchString { get; set; }
 		public int ProductsPerPage { get; set; } = 6;
 		public int TotalProducts { get; set; }
@@ -19,6 +20,7 @@ namespace VelvetLeaves.ViewModels.Product
 		public int? SubCategoryId { get; set; }
 		public IEnumerable<ColorSelectViewModel> ColorOptions { get; set; } = new HashSet<ColorSelectViewModel>();
 		public IEnumerable<string> MaterialOptions { get; set; } = new HashSet<string>();
+		public IEnumerable<string> TagOptions { get; set; } = new HashSet<string>();
 
 		public IEnumerable<ProductViewModel> Products { get; set; } = new HashSet<ProductViewModel>();
 	}

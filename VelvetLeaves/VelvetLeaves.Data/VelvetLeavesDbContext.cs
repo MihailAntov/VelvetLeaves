@@ -21,6 +21,7 @@ namespace VelvetLeaves.Data
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Color> Colors { get; set; } = null!;
+        public DbSet<Tag> Tags { get; set; } = null!;
 
         public DbSet<Material> Materials { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
