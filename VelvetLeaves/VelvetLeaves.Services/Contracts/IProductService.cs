@@ -1,5 +1,6 @@
 ﻿
 
+using VelvetLeaves.Service.Models;
 using VelvetLeaves.ViewModels.Product;
 
 namespace VelvetLeaves.Services.Contracts
@@ -8,6 +9,8 @@ namespace VelvetLeaves.Services.Contracts
     {
         Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId);
         Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId);
+
+        Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model);
         
     }
 }

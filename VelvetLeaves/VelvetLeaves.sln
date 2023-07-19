@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.App", "VelvetLeaves.App\VelvetLeaves.App.csproj", "{F5405446-F1CD-42AC-8B86-48DCFE41C7C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.App", "VelvetLeaves.App\VelvetLeaves.App.csproj", "{F5405446-F1CD-42AC-8B86-48DCFE41C7C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Data", "VelvetLeaves.Data\VelvetLeaves.Data.csproj", "{297C83A5-BB98-4C15-A474-23BC75B3426B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Data", "VelvetLeaves.Data\VelvetLeaves.Data.csproj", "{297C83A5-BB98-4C15-A474-23BC75B3426B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Data.Models", "VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj", "{F2B7A104-A484-49B2-A47C-B16FA1D0FA95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Data.Models", "VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj", "{F2B7A104-A484-49B2-A47C-B16FA1D0FA95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Common", "VelvetLeaves.Common\VelvetLeaves.Common.csproj", "{9CDE175B-2BE4-41DD-BF29-6D1D0E4D9261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Common", "VelvetLeaves.Common\VelvetLeaves.Common.csproj", "{9CDE175B-2BE4-41DD-BF29-6D1D0E4D9261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.ViewModels", "VelvetLeaves.ViewModels\VelvetLeaves.ViewModels.csproj", "{5C24ADD3-A140-497F-9FB7-D0229FC8C451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.ViewModels", "VelvetLeaves.ViewModels\VelvetLeaves.ViewModels.csproj", "{5C24ADD3-A140-497F-9FB7-D0229FC8C451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Services", "VelvetLeaves.Services\VelvetLeaves.Services.csproj", "{F4A72133-3800-4975-AD4B-5393A69333F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Services", "VelvetLeaves.Services\VelvetLeaves.Services.csproj", "{F4A72133-3800-4975-AD4B-5393A69333F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Service.Models", "VelvetLeaves.Service.Models\VelvetLeaves.Service.Models.csproj", "{D8BAFB61-578E-40BA-BABA-99F619DF85E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{F4A72133-3800-4975-AD4B-5393A69333F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4A72133-3800-4975-AD4B-5393A69333F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4A72133-3800-4975-AD4B-5393A69333F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BAFB61-578E-40BA-BABA-99F619DF85E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BAFB61-578E-40BA-BABA-99F619DF85E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BAFB61-578E-40BA-BABA-99F619DF85E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BAFB61-578E-40BA-BABA-99F619DF85E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

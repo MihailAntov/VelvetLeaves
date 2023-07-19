@@ -36,10 +36,10 @@
 											@category.Name
 										</button>
 										<div class="dropdown-menu">
-											<a asp-controller="Products" asp-action="ProductsByCategory" asp-route-categoryId="@category.Id" class="dropdown-item" type="button">All</a>
+											<a asp-area="" asp-controller="Products" asp-action="ProductsByCategory" asp-route-categoryId="@category.Id" class="dropdown-item" type="button">All</a>
 											@foreach (var subcategory in category.Subcategories)
 											{
-												<a class="dropdown-item" asp-controller="Products" asp-action="ProductsBySubcategory" asp-route-subcategoryId="@subcategory.Id" type="button">@subcategory.Name</a>
+												<a asp-area="" class="dropdown-item" asp-controller="Products" asp-action="ProductsBySubcategory" asp-route-subcategoryId="@subcategory.Id" type="button">@subcategory.Name</a>
 											}
 
 										</div>

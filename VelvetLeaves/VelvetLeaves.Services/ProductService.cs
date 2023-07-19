@@ -2,6 +2,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
+using VelvetLeaves.Service.Models;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Product;
 
@@ -44,5 +46,25 @@ namespace VelvetLeaves.Services
 
             return products;
         }
-    }
+
+		public Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
+		{
+            IQueryable<Product> products = _context.Products.AsQueryable();
+
+			if (model.CategoryId.HasValue)
+			{
+                products = products.Where(p => p.Subcategory.CategoryId == model.CategoryId);
+			}
+
+			if (model.SubCategoryId.HasValue)
+			{
+                products = products.Where(p => p.SubcategoryId == model.SubCategoryId);
+			}
+
+            if(model.SearchString != null)
+			{
+                products = products.Where(p => p.Name.Contains(model.SearchString));
+			}
+		}
+	}
 }

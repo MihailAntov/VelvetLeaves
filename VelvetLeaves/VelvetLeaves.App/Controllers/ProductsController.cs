@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Product;
 
 namespace VelvetLeaves.App.Controllers
 {
@@ -22,5 +23,10 @@ namespace VelvetLeaves.App.Controllers
             var model = await productService.AllProductsBySubCategoryAsync(subcategoryId);
             return View("Products", model);
         }
+
+        public async Task<IActionResult> ProductsFiltered(ProductsQueryModel model)
+		{
+
+		}
     }
 }
