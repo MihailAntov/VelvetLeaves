@@ -9,31 +9,21 @@ namespace VelvetLeaves.App.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
-        private readonly IColorService colorService;
-        public ProductsController(IProductService productService, IColorService colorService)
+        public ProductsController(IProductService productService)
         {
             this.productService = productService;
-            this.colorService = colorService;
         }
-        //public async Task<IActionResult> ProductsByCategory(int categoryId)
-        //{
-        //    var model = await productService.AllProductsByCategoryAsync(categoryId);
-        //    return View("Products",model);
-        //}
-
-        //public async Task<IActionResult> ProductsBySubcategory(int subcategoryId)
-        //{
-        //    var model = await productService.AllProductsBySubCategoryAsync(subcategoryId);
-        //    return View("Products", model);
-        //}
+        
 
         public async Task<IActionResult> ProductsFiltered(ProductsQueryModel queryModel)
 		{
             ProductsFilteredAndPagedServiceModel serviceModel = await productService.ProductsFilteredAndPagedAsync(queryModel);
+            
             queryModel.Products = serviceModel.Products;
             queryModel.TotalProducts = serviceModel.TotalProductCount;
-            //queryModel.ColorOptions = await colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            queryModel.ColorOptions = await productService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
             queryModel.MaterialOptions = await productService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            queryModel.TagOptions = await productService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
 
             return View("Products",queryModel);
 		}

@@ -48,10 +48,28 @@ namespace VelvetLeaves.Services
             return products;
         }
 
-		public Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId)
+		public async Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId)
 		{
-			throw new NotImplementedException();
-		}
+            var products = _context.Products.AsQueryable();
+            if (categoryId.HasValue)
+            {
+                products = products.Where(p => p.Subcategory.CategoryId == categoryId);
+            }
+
+            if (subcategoryId.HasValue)
+            {
+                products = products.Where(p => p.SubcategoryId == subcategoryId);
+            }
+
+            var colors = await products.SelectMany(p => p.Colors).Distinct()
+                .Select(c=> new ColorSelectViewModel()
+				{
+                    ColorValue = c.ColorValue,
+                    Id = c.Id
+				})
+                .ToArrayAsync();
+            return colors;
+        }
 
 		public async Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
 		{
@@ -70,10 +88,22 @@ namespace VelvetLeaves.Services
             return materials;
 		}
 
-		public Task<IEnumerable<string>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
+		public async Task<IEnumerable<string>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
 		{
-			throw new NotImplementedException();
-		}
+            var products = _context.Products.AsQueryable();
+            if (categoryId.HasValue)
+            {
+                products = products.Where(p => p.Subcategory.CategoryId == categoryId);
+            }
+
+            if (subcategoryId.HasValue)
+            {
+                products = products.Where(p => p.SubcategoryId == subcategoryId);
+            }
+
+            var tags = await products.SelectMany(p => p.Tags.Select(m => m.Name)).Distinct().ToArrayAsync();
+            return tags;
+        }
 
 		public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
 		{

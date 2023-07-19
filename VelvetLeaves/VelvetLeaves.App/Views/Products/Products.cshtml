@@ -11,53 +11,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
-	@*<div class="row">
-	<aside class="col-lg-3">
-	<form>
-	<label for="color">Color:</label>
-	<select id="color" name="color" multiple>
-	<option value="red">Red</option>
-	<option value="blue">Blue</option>
-	<option value="green">Green</option>
-	</select>
-	<br>
-	<label for="material">Material:</label>
-	<input type="text" id="material" name="material">
-	<br>
-	<label for="price">Price:</label>
-	<input type="range" id="price-min" name="price-min" min="0" max="100" step="1" value="0">
-	<input type="range" id="price-max" name="price-max" min="0" max="100" step="1" value="100">
-	<br>
-	<input type="submit" value="Search">
-	</form>
-	</aside>
-
-	<main class="col-lg-9">
-	<h2>Product List</h2>
-	<div class="container">
-	<div class="row">
-
-
-	@foreach (var product in Model.Products)
-	{
-
-	<div class="col-lg-4">
-	<img src="~/img/@product.PictureUrl" alt="Product Image" class="img-fluid">
-	<h5>@product.Name</h5>
-	<p>Price: @product.Price BGN</p>
-
-	</div>
-	}
-
-	</div>
-
-	</div>
-	</main>
-	</div>*@
-
-
 	<form method="get">
+		<input type="number" style="display:none" value="@Model.CategoryId" asp-for="CategoryId"/>
+		<input type="number" style="display:none" value="@Model.SubCategoryId" asp-for="SubCategoryId"/>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
@@ -68,48 +24,55 @@
 
 							<!-- Colors dropdown -->
 
-
-							<button class="btn btn-outline-info d-block" type="button">Colors:</button>
-							<div class="form-group" id="colorsCheck" style="display:none">
-								@foreach (var material in Model.MaterialOptions)
-								{
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">
-											@material
-										</label>
-									</div>
-								}
+							<div>
+								<button class="btn btn-outline-info d-block filterButton" id="colorsButton" type="button">Colors</button>
+								<div class="form-group" id="colorsOptions" style="display:block">
+									<br />
+									@foreach (var color in Model.ColorOptions)
+									{
+										<div class="form-check">
+											<input class="form-check-input" type="text" value="" id="Color @color.Id">
+											@*<label class="form-check-label" for="flexCheckDefault">
+										@material
+										</label>*@
+											<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;" asp-validation-for="ColorIds"></span>
+										</div>
+									}
+								</div>
 							</div>
 							<br />
-							
-								<button class="btn-outline-info btn d-block" type="button">Materials:</button>
-								<div class="form-group" id="materialsCheck" style="display:none">
+							<div>
+								<button class="btn-outline-info btn d-block filterButton" id="materialsButtons" type="button">Materials</button>
+								<br />
+								<div class="form-group" id="materialsOptions" style="display:block">
 									@foreach (var material in Model.MaterialOptions)
 									{
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">
+											<input class="form-check-input" type="checkbox" value="@material" id="@material">
+											<label class="form-check-label" for="@material">
 												@material
 											</label>
 										</div>
 									}
 								</div>
+							</div>
+							<br />
+							<div>
+								<button class="btn-outline-info btn d-block filterButton" id="tagsButton" type="button">Tags</button>
 								<br />
-
-								<button class="btn-outline-info btn d-block" type="button">Tags:</button>
-								<div class="form-group" id="materialsCheck" style="display:none">
+								<div class="form-group" id="tagsOptions" style="display:block">
 									@foreach (var tag in Model.TagOptions)
 									{
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">
+											<input class="form-check-input" type="checkbox" value="@tag" id="@tag">
+											<label class="form-check-label" for="@tag">
 												@tag
 											</label>
 										</div>
 									}
 								</div>
-								<br />
+							</div>
+							<br />
 
 
 							<button class="btn btn-primary" type="submit">Apply</button>
@@ -124,58 +87,60 @@
 				<div class="col-md-9">
 					<!-- Search bar -->
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="Search...">
+						<input type="text" class="form-control" asp-for="SearchString" placeholder="Search...">
 						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">Search</button>
+							<button class="btn btn-primary" type="submit">Search</button>
 						</div>
 					</div>
 
 					<!-- Gallery -->
-					<div class="row">
-						<div class="col-md-4">
-							<div class="card mb-3">
-								<img src="product1.jpg" class="card-img-top" alt="Product 1">
-								<div class="card-body">
-									<h5 class="card-title">Product 1</h5>
-									<p class="card-text">$10.00</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card mb-3">
-								<img src="product2.jpg" class="card-img-top" alt="Product 2">
-								<div class="card-body">
-									<h5 class="card-title">Product 2</h5>
-									<p class="card-text">$20.00</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card mb-3">
-								<img src="product3.jpg" class="card-img-top" alt="Product 3">
-								<div class="card-body">
-									<h5 class="card-title">Product 3</h5>
-									<p class="card-text">$30.00</p>
-								</div>
-							</div>
-						</div>
-						<!-- Add more products here -->
-					</div>
 
-					<!-- Page selector -->
-					<label for="itemsPerPage">Items per page:</label>
-					<div class="form-group col-md-4 d-flex">
-						<select class="form-control" id="itemsPerPage">
-							<option value="3">3</option>
-							<option value="6">6</option>
-							<option value="9">9</option>
-						</select>
+
+					<div class="row">
+						@foreach (var product in Model.Products)
+						{
+							<div class="col-md-4">
+								<div class="card mb-3">
+									<img src="~/img/@product.PictureUrl" class="card-img-top" alt="@product.Name">
+									<div class="card-body">
+										<h5 class="card-title">@product.Name</h5>
+										<p class="card-text">@product.Price BGN</p>
+									</div>
+								</div>
+							</div>
+						}
+
 					</div>
+					<div class="text-center">
+						<!-- Page selector -->
+						<label for="itemsPerPage">Items per page:</label>
+						<div class="form-group col-md-4 d-flex m-auto">
+							<select asp-for="ProductsPerPage" class="form-control align-content-center" id="itemsPerPage">
+								<option value="3">3</option>
+								<option value="6">6</option>
+								<option value="9">9</option>
+							</select>
+						</div>
+					</div>
+					<br />
+					<br />
+					<br />
 				</div>
 
 			</div>
 		</div>
 	</form>
+	
+	
+
+	@section Scripts {
+
+	<script type="text/javascript" src="@Url.Content("~/js/filterProducts.js")"></script>
+
+	}
+	
+
 </body>
+
 </html>
 
