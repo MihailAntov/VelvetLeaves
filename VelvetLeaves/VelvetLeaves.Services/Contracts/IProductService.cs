@@ -11,6 +11,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId);
 
         Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model);
+        Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId);
         
     }
 }
