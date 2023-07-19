@@ -1,7 +1,7 @@
 ﻿@{
 	ViewData["Title"] = "Products";
 }
-@model IEnumerable<ProductViewModel>;
+@model ProductsQueryModel;
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@
 					<div class="row">
 
 
-					@foreach (var product in Model)
+					@foreach (var product in Model.Products)
 					{
 
 						<div class="col-lg-4">	
