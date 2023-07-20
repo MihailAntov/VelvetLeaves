@@ -16,9 +16,10 @@
 
 </head>
 <body>
+	<img src="/img/bg.jpg"/>
 	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container-fluid">
+		<nav id="mainNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			@*<div id="innerNavBar" class="container-fluid">*@
 				<a class="navbar-brand text-lg-center" asp-area="" asp-controller="Galleries" asp-action="Featured">Velvet Leaves</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
@@ -55,10 +56,11 @@
 					</ul>
 					<partial name="_LoginPartial" />
 				</div>
-			</div>
+			@*</div>*@
 		</nav>
 	</header>
 	<div class="container">
+		
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>

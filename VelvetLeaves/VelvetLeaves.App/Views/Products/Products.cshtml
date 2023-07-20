@@ -19,22 +19,20 @@
 				<div class="col-md-3">
 					<!-- Sidebar with filters -->
 					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Filters</h5>
+							<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filtersMenu" aria-expanded="false" aria-controls="multiCollapseExample2">Filters</button>
+						<div class="card-body collapse" id="filtersMenu">
 
 							<!-- Colors dropdown -->
-
+							
 							<div>
-								<button class="btn btn-outline-info d-block filterButton" id="colorsButton" type="button">Colors</button>
-								<div class="form-group" id="colorsOptions" style="display:block">
+								<button class="btn btn-outline-info d-block filterButton filter-menu" id="colorsButton" type="button">Colors</button>
+								<div class="form-group filter-menu" id="colorsOptions" style="display:none">
 									<br />
 									@foreach (var color in Model.ColorOptions)
 									{
 										<div class="form-check">
 											<input name="colorIds" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id">
-											@*<label class="form-check-label" for="flexCheckDefault">
-										@material
-										</label>*@
+											
 											<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;" asp-validation-for="ColorIds"></span>
 										</div>
 									}
@@ -42,9 +40,9 @@
 							</div>
 							<br />
 							<div>
-								<button class="btn-outline-info btn d-block filterButton" id="materialsButtons" type="button">Materials</button>
+								<button class="btn-outline-info btn d-block filterButton filter-menu" id="materialsButtons" type="button">Materials</button>
+								<div class="form-group filter-menu" id="materialsOptions" style="display:none">
 								<br />
-								<div class="form-group" id="materialsOptions" style="display:block">
 									@foreach (var material in Model.MaterialOptions)
 									{
 										<div class="form-check">
@@ -58,9 +56,9 @@
 							</div>
 							<br />
 							<div>
-								<button class="btn-outline-info btn d-block filterButton" id="tagsButton" type="button">Tags</button>
+								<button class="btn-outline-info btn d-block filterButton filter-menu" id="tagsButton" type="button">Tags</button>
+								<div class="form-group filter-menu" id="tagsOptions" style="display:none">
 								<br />
-								<div class="form-group" id="tagsOptions" style="display:block">
 									@foreach (var tag in Model.TagOptions)
 									{
 										<div class="form-check">

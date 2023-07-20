@@ -17,6 +17,11 @@ namespace VelvetLeaves.App.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductsFiltered(ProductsQueryModel queryModel)
 		{
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            
             ProductsFilteredAndPagedServiceModel serviceModel = await productService.ProductsFilteredAndPagedAsync(queryModel);
             
             queryModel.Products = serviceModel.Products;
