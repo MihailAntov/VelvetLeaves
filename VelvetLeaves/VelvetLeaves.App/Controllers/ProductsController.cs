@@ -13,8 +13,8 @@ namespace VelvetLeaves.App.Controllers
         {
             this.productService = productService;
         }
-        
 
+        [HttpGet]
         public async Task<IActionResult> ProductsFiltered(ProductsQueryModel queryModel)
 		{
             ProductsFilteredAndPagedServiceModel serviceModel = await productService.ProductsFilteredAndPagedAsync(queryModel);

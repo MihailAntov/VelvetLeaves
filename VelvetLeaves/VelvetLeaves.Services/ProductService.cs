@@ -18,35 +18,35 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId)
-        {
-            var products = await _context.Products
-                .Where(p => p.Subcategory.CategoryId == categoryId)
-                .Select(p => new ProductViewModel()
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price,
-                    PictureUrl = p.ImageUrl
-                }).ToArrayAsync();
+        //public async Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId)
+        //{
+        //    var products = await _context.Products
+        //        .Where(p => p.Subcategory.CategoryId == categoryId)
+        //        .Select(p => new ProductViewModel()
+        //        {
+        //            Id = p.Id,
+        //            Name = p.Name,
+        //            Price = p.Price,
+        //            PictureUrl = p.ImageUrl
+        //        }).ToArrayAsync();
 
-            return products;
-        }
+        //    return products;
+        //}
 
-        public async Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId)
-        {
-            var products = await _context.Products
-                .Where(p => p.Subcategory.Id == subcategoryId)
-                .Select(p => new ProductViewModel()
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price,
-                    PictureUrl = p.ImageUrl
-                }).ToArrayAsync();
+        //public async Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId)
+        //{
+        //    var products = await _context.Products
+        //        .Where(p => p.Subcategory.Id == subcategoryId)
+        //        .Select(p => new ProductViewModel()
+        //        {
+        //            Id = p.Id,
+        //            Name = p.Name,
+        //            Price = p.Price,
+        //            PictureUrl = p.ImageUrl
+        //        }).ToArrayAsync();
 
-            return products;
-        }
+        //    return products;
+        //}
 
 		public async Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId)
 		{
@@ -126,7 +126,7 @@ namespace VelvetLeaves.Services
 
 			if (model.ColorIds.Any())
 			{
-                products = products.Where(p => p.Colors.Select(c => c.Id).Intersect(model.ColorIds).Count() == model.ColorIds.Count());
+                products = products.Where(p => p.Colors.Select(c => c.Id).Any(id=> model.ColorIds.Contains(id)));
 			}
 
             var productsFiltered = await products
