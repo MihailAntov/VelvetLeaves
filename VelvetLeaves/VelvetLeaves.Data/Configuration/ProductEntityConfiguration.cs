@@ -38,22 +38,49 @@ namespace VelvetLeaves.Data.Configuration
                 new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
             };
 
+            
+
+           
+
+
+
+            var productList = new List<Product> {
+                new Product {Id = 1, Name = "Red Silver Earrings", Description = "Red earrings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg", Price = 50.00M, ProductSeriesId = 1 }, 
+                new Product {Id = 2, Name = "Red-Blue Steel Earrings", Description = "Red-blue earrings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg", Price = 45.00M, ProductSeriesId = 2 }, 
+                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg", Price = 35.00M, ProductSeriesId = 3 }, 
+                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" , Price = 25.00M, ProductSeriesId = 4 }, 
+                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M, ProductSeriesId = 5 }, 
+                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M, ProductSeriesId = 5 }, 
+                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding.", SubcategoryId = 5, ImageUrl = "bag.jpg", Price = 70.00M, ProductSeriesId = 6 }, 
+            };
+
+            builder.Entity<Color>().HasData(colorList);
+            builder.Entity<Material>().HasData(materialList);
+            builder.Entity<Product>().HasData(productList);
+            builder.Entity<Tag>().HasData(tagList);
+            builder.Entity<ProductSeries>().HasData(productSeriesList);
+
+            builder.Entity<ProductSeries>()
+                .HasMany(ps => ps.Products)
+                .WithOne(p => p.ProductSeries)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.Entity<Tag>()
-                .HasMany(c => c.ProductSeries)
-                .WithMany(p => p.DefaultTags)
-                .UsingEntity<Dictionary<string, object>>("ProductsSeriesTags",
-                r => r.HasOne<ProductSeries>().WithMany().HasForeignKey("ProductSeriesId"),
-                    l => l.HasOne<Tag>().WithMany().HasForeignKey("TagId"),
-                    mt =>
-                    {
-                        mt.HasKey("ProductSeriesId", "TagId");
-                        mt.HasData(
-                            new { ProductSeriesId = 1, TagId = 2 },
-                            new { ProductSeriesId = 2, TagId = 2 },
-                            new { ProductSeriesId = 3, TagId = 2 },
-                            new { ProductSeriesId = 5, TagId = 1 },
-                            new { ProductSeriesId = 6, TagId = 1 });
-                    });
+               .HasMany(c => c.ProductSeries)
+               .WithMany(p => p.DefaultTags)
+               .UsingEntity<Dictionary<string, object>>("ProductsSeriesTags",
+               r => r.HasOne<ProductSeries>().WithMany().HasForeignKey("ProductSeriesId"),
+                   l => l.HasOne<Tag>().WithMany().HasForeignKey("TagId"),
+                   mt =>
+                   {
+                       mt.HasKey("ProductSeriesId", "TagId");
+                       mt.HasData(
+                           new { ProductSeriesId = 1, TagId = 2 },
+                           new { ProductSeriesId = 2, TagId = 2 },
+                           new { ProductSeriesId = 3, TagId = 2 },
+                           new { ProductSeriesId = 5, TagId = 1 },
+                           new { ProductSeriesId = 6, TagId = 1 });
+                   });
 
             builder.Entity<Material>()
                 .HasMany(c => c.ProductSeries)
@@ -72,23 +99,6 @@ namespace VelvetLeaves.Data.Configuration
                             new { ProductSeriesId = 5, MaterialId = 4 },
                             new { ProductSeriesId = 6, MaterialId = 4 });
                     });
-
-
-
-            var productList = new List<Product> {
-                new Product {Id = 1, Name = "Red Silver Earrings", Description = "Red earrings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg", Price = 50.00M }, 
-                new Product {Id = 2, Name = "Red-Blue Steel Earrings", Description = "Red-blue earrings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg", Price = 45.00M }, 
-                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg", Price = 35.00M}, 
-                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" , Price = 25.00M}, 
-                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M}, 
-                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M}, 
-                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding.", SubcategoryId = 5, ImageUrl = "bag.jpg", Price = 70.00M }, 
-            };
-
-            builder.Entity<Color>().HasData(colorList);
-            builder.Entity<Material>().HasData(materialList);
-            builder.Entity<Product>().HasData(productList);
-            builder.Entity<Tag>().HasData(tagList);
 
             builder.Entity<Color>()
                 .HasMany(c=> c.Products)
