@@ -2,7 +2,7 @@
 
 namespace VelvetLeaves.ViewModels.Product
 {
-    public class ProductViewModel
+    public class ProductListViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

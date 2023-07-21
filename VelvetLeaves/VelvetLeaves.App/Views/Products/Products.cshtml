@@ -99,6 +99,7 @@
 						@foreach (var product in Model.Products)
 						{
 							<div class="col-md-4">
+								<a class="text-decoration-none text-black fw-normal" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
 								<div class="card mb-3">
 									<img src="~/img/@product.PictureUrl" class="card-img-top" alt="@product.Name">
 									<div class="card-body">
@@ -106,6 +107,8 @@
 										<p class="card-text">@product.Price BGN</p>
 									</div>
 								</div>
+								</a>
+								
 							</div>
 						}
 

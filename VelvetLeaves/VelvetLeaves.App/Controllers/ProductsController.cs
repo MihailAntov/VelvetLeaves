@@ -32,5 +32,11 @@ namespace VelvetLeaves.App.Controllers
 
             return View("Products",queryModel);
 		}
+
+		[HttpGet]
+        public async Task<IActionResult> Details(int id)
+		{
+            return View();
+		}
     }
 }

@@ -142,7 +142,7 @@ namespace VelvetLeaves.Services
             var productsFiltered = await products
                 .Skip(model.CurrentPage - 1)
                 .Take(model.ProductsPerPage)
-                .Select(p => new ProductViewModel()
+                .Select(p => new ProductListViewModel()
                 {
                     Id = p.Id,
                     Name = p.Name,

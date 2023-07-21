@@ -4,7 +4,7 @@ namespace VelvetLeaves.Service.Models
 {
 	public class ProductsFilteredAndPagedServiceModel
 	{
-		public IEnumerable<ProductViewModel> Products { get; set; } = new HashSet<ProductViewModel>();
+		public IEnumerable<ProductListViewModel> Products { get; set; } = new HashSet<ProductListViewModel>();
 		public int TotalProductCount { get; set; }
 	}
 }

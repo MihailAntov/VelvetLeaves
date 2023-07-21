@@ -22,6 +22,6 @@ namespace VelvetLeaves.ViewModels.Product
 		public IEnumerable<string> MaterialOptions { get; set; } = new HashSet<string>();
 		public IEnumerable<string> TagOptions { get; set; } = new HashSet<string>();
 
-		public IEnumerable<ProductViewModel> Products { get; set; } = new HashSet<ProductViewModel>();
+		public IEnumerable<ProductListViewModel> Products { get; set; } = new HashSet<ProductListViewModel>();
 	}
 }

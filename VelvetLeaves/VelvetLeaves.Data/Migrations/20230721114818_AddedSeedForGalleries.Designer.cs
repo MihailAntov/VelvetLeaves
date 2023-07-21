@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VelvetLeaves.Data;
 
@@ -11,9 +12,10 @@ using VelvetLeaves.Data;
 namespace VelvetLeaves.Data.Migrations
 {
     [DbContext(typeof(VelvetLeavesDbContext))]
-    partial class VelvetLeavesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721114818_AddedSeedForGalleries")]
+    partial class AddedSeedForGalleries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
