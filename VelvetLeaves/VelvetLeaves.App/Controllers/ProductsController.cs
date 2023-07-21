@@ -9,9 +9,15 @@ namespace VelvetLeaves.App.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
-        public ProductsController(IProductService productService)
+        private readonly IColorService colorService;
+        private readonly IMaterialService materialService;
+        private readonly ITagService tagService;
+        public ProductsController(IProductService productService, IColorService colorService, IMaterialService materialService, ITagService tagService)
         {
             this.productService = productService;
+            this.colorService = colorService;
+            this.materialService = materialService;
+            this.tagService = tagService;
         }
 
         [HttpGet]
@@ -26,9 +32,9 @@ namespace VelvetLeaves.App.Controllers
             
             queryModel.Products = serviceModel.Products;
             queryModel.TotalProducts = serviceModel.TotalProductCount;
-            queryModel.ColorOptions = await productService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            queryModel.MaterialOptions = await productService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            queryModel.TagOptions = await productService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            queryModel.ColorOptions = await colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            queryModel.MaterialOptions = await materialService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            queryModel.TagOptions = await tagService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
 
             return View("Products",queryModel);
 		}
@@ -36,7 +42,13 @@ namespace VelvetLeaves.App.Controllers
 		[HttpGet]
         public async Task<IActionResult> Details(int id)
 		{
-            return View();
+            if (!await productService.ExistsByIdAsync(id))
+            {
+                return BadRequest();
+            }
+            var model = await productService.DetailsByIdAsync(id);
+
+            return View(model);
 		}
     }
 }

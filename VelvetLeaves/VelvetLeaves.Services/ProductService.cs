@@ -18,94 +18,41 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        //public async Task<IEnumerable<ProductViewModel>> AllProductsByCategoryAsync(int categoryId)
-        //{
-        //    var products = await _context.Products
-        //        .Where(p => p.Subcategory.CategoryId == categoryId)
-        //        .Select(p => new ProductViewModel()
-        //        {
-        //            Id = p.Id,
-        //            Name = p.Name,
-        //            Price = p.Price,
-        //            PictureUrl = p.ImageUrl
-        //        }).ToArrayAsync();
-
-        //    return products;
-        //}
-
-        //public async Task<IEnumerable<ProductViewModel>> AllProductsBySubCategoryAsync(int subcategoryId)
-        //{
-        //    var products = await _context.Products
-        //        .Where(p => p.Subcategory.Id == subcategoryId)
-        //        .Select(p => new ProductViewModel()
-        //        {
-        //            Id = p.Id,
-        //            Name = p.Name,
-        //            Price = p.Price,
-        //            PictureUrl = p.ImageUrl
-        //        }).ToArrayAsync();
-
-        //    return products;
-        //}
-
-		public async Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId)
-		{
-            var products = _context.Products.AsQueryable();
-            if (categoryId.HasValue)
-            {
-                products = products.Where(p => p.Subcategory.CategoryId == categoryId);
-            }
-
-            if (subcategoryId.HasValue)
-            {
-                products = products.Where(p => p.SubcategoryId == subcategoryId);
-            }
-
-            var colors = await products.SelectMany(p => p.Colors).Distinct()
-                .Select(c=> new ColorSelectViewModel()
-				{
-                    ColorValue = c.ColorValue,
-                    Id = c.Id
-				})
-                .ToArrayAsync();
-            return colors;
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            var result = await _context.Products.AnyAsync(p => p.Id == id);
+            return result;
         }
 
-		public async Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
-		{
-            var products = _context.Products.AsQueryable();
-			if (categoryId.HasValue)
-			{
-                products = products.Where(p => p.Subcategory.CategoryId == categoryId);
-			}
+        public async Task<ProductDetailsViewModel> DetailsByIdAsync(int id)
+        {
+            ProductDetailsViewModel model = await _context
+                .Products
+                .Where(p => p.Id == id)
+                .Select(p => new ProductDetailsViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    ImageUrl = p.ImageUrl,
+                    ProductSeries = p.ProductSeries
+                                    .Products
+                                    .Where(lp => lp.Id != id)
+                                    .Select(lp=> new ProductListViewModel()
+                                    {
+                                        Id = lp.Id, 
+                                        Name = lp.Name,
+                                        ImageUrl = lp.ImageUrl,
+                                        Price =lp.Price
+                                    }).ToArray()
+                                    
+                }).FirstAsync();
 
-			if (subcategoryId.HasValue)
-			{
-                products = products.Where(p => p.SubcategoryId == subcategoryId);
-			}
-
-            var materials = await products.SelectMany(p => p.Materials.Select(m => m.Name)).Distinct().ToArrayAsync();
-            return materials;
-		}
-
-		public async Task<IEnumerable<string>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
-		{
-            var products = _context.Products.AsQueryable();
-            if (categoryId.HasValue)
-            {
-                products = products.Where(p => p.Subcategory.CategoryId == categoryId);
-            }
-
-            if (subcategoryId.HasValue)
-            {
-                products = products.Where(p => p.SubcategoryId == subcategoryId);
-            }
-
-            var tags = await products.SelectMany(p => p.Tags.Select(m => m.Name)).Distinct().ToArrayAsync();
-            return tags;
+            return model;
         }
 
-		public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
+        public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
 		{
             IQueryable<Product> products = _context.Products.AsQueryable();
 
@@ -146,7 +93,7 @@ namespace VelvetLeaves.Services
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    PictureUrl = p.ImageUrl,
+                    ImageUrl = p.ImageUrl,
                     Price = p.Price
                 }).ToArrayAsync();
 

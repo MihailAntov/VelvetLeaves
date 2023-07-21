@@ -32,6 +32,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IGalleryService, GalleryService>();
+builder.Services.AddScoped<IMaterialService, MaterialService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IColorService, ColorService>();
 
 var app = builder.Build();
 
