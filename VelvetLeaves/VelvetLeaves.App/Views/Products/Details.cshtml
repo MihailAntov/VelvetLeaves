@@ -7,46 +7,56 @@
 }
 
 <div class="container-fluid">
-	<h2>@ViewData["Title"]</h2>
+
 
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-md-5">
 			<div class="card mb-1">
 				<img src="~/img/@Model.Images.First()" />
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-7">
 			<div class="card mb-1 p-3">
 				<h4 class="mb-2 m-auto">@Model.Name</h4>
 
 				<p class="d-inline-flex m-auto mb-2">Price: @Model.Price</p>
 				<button class="d-inline-flex m-auto mb-3 btn btn-primary">BUY</button>
-				<textarea class="p-3" disabled>@Model.Description</textarea>
+				<textarea class="p-3 mb-3" disabled>@Model.Description</textarea>
+				<p class="p-3 mb-3 m-auto">Materials:</p>
+				@foreach(var material in Model.Materials)
+				{
+					<div class="card d-inline-flex">@material</div>
+				
+				}
+
+				<p class="p-3 mb-3 m-auto">Tags:</p>
+				@foreach(var tag in Model.Tags)
+				{
+				<p class="p-3 mb-1">@tag</p>
+				}
 			</div>
+			
 		</div>
+		
 
 
 	</div>
 
 	<div class="row">
-		@if (Model.ProductSeries.Any())
-		{
-			<h4>Similar Products:</h4>
-
-			@foreach (var linkedProduct in Model.ProductSeries)
+			@foreach (var picture in Model.Images)
 			{
 				<div class="col-md-1">
-					<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@linkedProduct.Name">
-						<a class="text-decoration-none text-black fw-normal" asp-controller="Products" asp-action="Show" asp-route-id="@linkedProduct.Id">
+					<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@Model.Name">
+						
 							<div class="card-body">
-								<img src="~/img/@linkedProduct.ImageUrl" class="card-img-bottom" alt="@linkedProduct.Name">
+								<img src="~/img/@picture" class="card-img-bottom" alt="@Model.Name">
 							</div>
-						</a>
+						
 					</div>
 				</div>
 			}
 
-		}
+		
 
 
 	</div>

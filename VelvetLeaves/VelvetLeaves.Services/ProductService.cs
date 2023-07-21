@@ -36,6 +36,8 @@ namespace VelvetLeaves.Services
                     Description = p.Description,
                     Price = p.Price,
                     Images = p.Images.Select(i=> i.Url).ToArray(),
+                    Materials = p.Materials.Select(m=> m.Name).ToArray(),
+                    Tags = p.Tags.Select(t=> t.Name).ToArray(),
                     ProductSeries = p.ProductSeries
                                     .Products
                                     .Where(lp => lp.Id != id)
