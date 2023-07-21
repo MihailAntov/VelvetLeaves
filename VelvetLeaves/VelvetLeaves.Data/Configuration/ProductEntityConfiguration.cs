@@ -38,6 +38,26 @@ namespace VelvetLeaves.Data.Configuration
                 new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
             };
 
+            var imageList = new List<Image>
+            {
+                new Image {Id = 1, Url = "jewelry.jpg" , ProductId = 1},
+                new Image {Id = 2, Url = "jewelry.jpg" , ProductId = 1},
+                new Image {Id = 3, Url = "jewelry.jpg" , ProductId = 1},
+                new Image {Id = 4, Url = "jewelry.jpg" , ProductId = 2},
+                new Image {Id = 5, Url = "jewelry.jpg" , ProductId = 2},
+                new Image {Id = 6, Url = "jewelry.jpg" , ProductId = 2},
+                new Image {Id = 7, Url = "jewelry.jpg" , ProductId = 3},
+                new Image {Id = 8, Url = "jewelry.jpg" , ProductId = 3},
+                new Image {Id = 9, Url = "jewelry.jpg" , ProductId = 4},
+                new Image {Id = 10, Url = "jewelry.jpg" , ProductId = 4},
+                new Image {Id = 11, Url = "bag.jpg" , ProductId = 5},
+                new Image {Id = 12, Url = "bag.jpg" , ProductId = 5},
+                new Image {Id = 13, Url = "bag.jpg" , ProductId = 6},
+                new Image {Id = 14, Url = "bag.jpg" , ProductId = 6},
+                new Image {Id = 15, Url = "bag.jpg" , ProductId = 7},
+                new Image {Id = 16, Url = "bag.jpg" , ProductId = 7}
+                
+            };
             
 
            
@@ -45,13 +65,13 @@ namespace VelvetLeaves.Data.Configuration
 
 
             var productList = new List<Product> {
-                new Product {Id = 1, Name = "Red Silver Earrings", Description = "Red earrings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg", Price = 50.00M, ProductSeriesId = 1 }, 
-                new Product {Id = 2, Name = "Red-Blue Steel Earrings", Description = "Red-blue earrings with steel frames.", SubcategoryId = 1,ImageUrl = "jewelry.jpg", Price = 45.00M, ProductSeriesId = 2 }, 
-                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2,ImageUrl = "jewelry.jpg", Price = 35.00M, ProductSeriesId = 3 }, 
-                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3,ImageUrl = "jewelry.jpg" , Price = 25.00M, ProductSeriesId = 4 }, 
-                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M, ProductSeriesId = 5 }, 
-                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, ImageUrl = "bag.jpg", Price = 120.00M, ProductSeriesId = 5 }, 
-                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding.", SubcategoryId = 5, ImageUrl = "bag.jpg", Price = 70.00M, ProductSeriesId = 6 }, 
+                new Product {Id = 1, Name = "Red Silver Earrings", Description = "Red earrings with silver frames.", SubcategoryId = 1, Price = 50.00M, ProductSeriesId = 1 }, 
+                new Product {Id = 2, Name = "Red-Blue Steel Earrings", Description = "Red-blue earrings with steel frames.", SubcategoryId = 1, Price = 45.00M, ProductSeriesId = 2 }, 
+                new Product {Id = 3, Name = "Green Silver Necklace", Description = "Green necklace with a silver frame.", SubcategoryId = 2, Price = 35.00M, ProductSeriesId = 3 }, 
+                new Product {Id = 4, Name = "Blue Glass Ring", Description = "Blue ring made out of glass and silver.", SubcategoryId = 3 , Price = 25.00M, ProductSeriesId = 4 }, 
+                new Product {Id = 5, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, Price = 120.00M, ProductSeriesId = 5 }, 
+                new Product {Id = 6, Name = "Traditional Hand Bag", Description = "Hand bag with traditional sewing pattern.", SubcategoryId = 4, Price = 120.00M, ProductSeriesId = 5 }, 
+                new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding.", SubcategoryId = 5, Price = 70.00M, ProductSeriesId = 6 }, 
             };
 
             builder.Entity<Color>().HasData(colorList);
@@ -59,6 +79,7 @@ namespace VelvetLeaves.Data.Configuration
             builder.Entity<Product>().HasData(productList);
             builder.Entity<Tag>().HasData(tagList);
             builder.Entity<ProductSeries>().HasData(productSeriesList);
+            builder.Entity<Image>().HasData(imageList);
 
             builder.Entity<ProductSeries>()
                 .HasMany(ps => ps.Products)
