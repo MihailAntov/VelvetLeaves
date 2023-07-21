@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VelvetLeaves.Data.Models;
 
 namespace VelvetLeaves.Data.Configuration
@@ -28,6 +27,53 @@ namespace VelvetLeaves.Data.Configuration
                 new Tag {Id = 1, Name = "Traditional Sewing Pattern"},
                 new Tag {Id = 2, Name = "Silk Cocoons"}
             };
+
+            var productSeriesList = new List<ProductSeries>
+            {
+                new ProductSeries{Id = 1, Name = "Silver Earrings", SubcategoryId = 1, DefaultName="Silver Earrings", DefaultDescription = "Earrings with silver frames.", DefaultPrice = 50.00M},
+                new ProductSeries{Id = 2, Name = "Steel Earrings", SubcategoryId = 1, DefaultName="Steel Earrings", DefaultDescription = "Earrings with steel frames.", DefaultPrice = 50.00M},
+                new ProductSeries{Id = 3, Name = "Silver Necklace", SubcategoryId = 2, DefaultName="Silver Necklace", DefaultDescription = "Necklace with a silver frame.", DefaultPrice = 50.00M},
+                new ProductSeries{Id = 4, Name = "Glass Ring", SubcategoryId = 3, DefaultName="Glass Ring", DefaultDescription = "Ring made out of glass and silver.", DefaultPrice = 50.00M},
+                new ProductSeries{Id = 5, Name = "Traditional Bag", SubcategoryId = 4, DefaultName="Traditional Bag", DefaultDescription = "Hand bag with traditional sewing pattern.", DefaultPrice = 50.00M},
+                new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
+            };
+
+            builder.Entity<Tag>()
+                .HasMany(c => c.ProductSeries)
+                .WithMany(p => p.DefaultTags)
+                .UsingEntity<Dictionary<string, object>>("ProductsSeriesTags",
+                r => r.HasOne<ProductSeries>().WithMany().HasForeignKey("ProductSeriesId"),
+                    l => l.HasOne<Tag>().WithMany().HasForeignKey("TagId"),
+                    mt =>
+                    {
+                        mt.HasKey("ProductSeriesId", "TagId");
+                        mt.HasData(
+                            new { ProductSeriesId = 1, TagId = 2 },
+                            new { ProductSeriesId = 2, TagId = 2 },
+                            new { ProductSeriesId = 3, TagId = 2 },
+                            new { ProductSeriesId = 5, TagId = 1 },
+                            new { ProductSeriesId = 6, TagId = 1 });
+                    });
+
+            builder.Entity<Material>()
+                .HasMany(c => c.ProductSeries)
+                .WithMany(p => p.DefaultMaterials)
+                .UsingEntity<Dictionary<string, object>>("ProductsSeriesMaterials",
+                r => r.HasOne<ProductSeries>().WithMany().HasForeignKey("ProductSeriesId"),
+                    l => l.HasOne<Material>().WithMany().HasForeignKey("MaterialId"),
+                    mt =>
+                    {
+                        mt.HasKey("ProductSeriesId", "MaterialId");
+                        mt.HasData(
+                            new { ProductSeriesId = 1, MaterialId = 1 },
+                            new { ProductSeriesId = 2, MaterialId = 2 },
+                            new { ProductSeriesId = 3, MaterialId = 1 },
+                            new { ProductSeriesId = 4, MaterialId = 3 },
+                            new { ProductSeriesId = 5, MaterialId = 4 },
+                            new { ProductSeriesId = 6, MaterialId = 4 });
+                    });
+
+
 
             var productList = new List<Product> {
                 new Product {Id = 1, Name = "Red Silver Earrings", Description = "Red earrings with silver frames.", SubcategoryId = 1, ImageUrl = "jewelry.jpg", Price = 50.00M }, 

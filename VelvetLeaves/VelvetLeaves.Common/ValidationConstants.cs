@@ -67,5 +67,11 @@ namespace VelvetLeaves.Common
             public const int NameMaxLength = 40;
             public const int NameMinLength = 3;
 		}
+
+        public static class ProductSeries
+        {
+            public const int NameMaxLength = 40;
+            public const int NameMinLength = 3;
+        }
     }
 }

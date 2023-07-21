@@ -12,5 +12,7 @@ namespace VelvetLeaves.Data.Models
 		[MaxLength(NameMaxLength)]
 		public string Name { get; set; } = null!;
 		public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+
+		public virtual ICollection<ProductSeries> ProductSeries { get; set; } = new HashSet<ProductSeries>();
 	}
 }

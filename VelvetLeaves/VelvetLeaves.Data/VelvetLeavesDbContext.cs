@@ -22,8 +22,9 @@ namespace VelvetLeaves.Data
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Color> Colors { get; set; } = null!;
         public DbSet<Tag> Tags { get; set; } = null!;
-
         public DbSet<Material> Materials { get; set; } = null!;
+        public DbSet<ProductSeries> ProductSeries { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<GalleryProduct>().HasKey(gp => new { gp.GalleryId, gp.ProductId });

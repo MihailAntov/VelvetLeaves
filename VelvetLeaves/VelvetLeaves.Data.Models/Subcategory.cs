@@ -25,8 +25,11 @@ namespace VelvetLeaves.Data.Models
 
         public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
 
+        public virtual ICollection<ProductSeries> ProductSeries { get; set; } = null!;
+
         [Required]
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
+
     }
 }

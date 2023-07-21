@@ -28,6 +28,13 @@ namespace VelvetLeaves.Data.Models
         [Required]
         public Subcategory Subcategory { get; set; } = null!;
 
+        [ForeignKey(nameof(ProductSeries))]
+        [Required]
+        public int ProductSeriesId { get; set; }
+
+        [Required]
+        public ProductSeries ProductSeries { get; set; } = null!;
+
         [Required]
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
@@ -42,6 +49,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ICollection<Material> Materials { get; set; } = new HashSet<Material>();
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 
+        
         
     }
 }
