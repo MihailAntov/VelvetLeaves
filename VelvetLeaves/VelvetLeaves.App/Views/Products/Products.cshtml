@@ -31,7 +31,7 @@
 									@foreach (var color in Model.ColorOptions)
 									{
 										<div class="form-check">
-											<input name="colorIds" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id">
+											<input name="colorIds" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id" @(Model.ColorIds.Any(m=>m == color.Id) ? "checked" : "")>
 											
 											<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;" asp-validation-for="ColorIds"></span>
 										</div>
@@ -46,7 +46,8 @@
 									@foreach (var material in Model.MaterialOptions)
 									{
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="@material" id="@material">
+											<input name="materials" class="form-check-input" type="checkbox" value="@material" id="@material" @(Model.Materials.Any(m=>m == material) ? "checked" : "")>
+											
 											<label class="form-check-label" for="@material">
 												@material
 											</label>
@@ -62,7 +63,7 @@
 									@foreach (var tag in Model.TagOptions)
 									{
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="@tag" id="@tag">
+											<input name="tags" class="form-check-input" type="checkbox" value="@tag" id="@tag" @(Model.Tags.Any(m=>m == tag) ? "checked" : "")>
 											<label class="form-check-label" for="@tag">
 												@tag
 											</label>

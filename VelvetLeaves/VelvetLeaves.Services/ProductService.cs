@@ -129,6 +129,16 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.Colors.Select(c => c.Id).Any(id=> model.ColorIds.Contains(id)));
 			}
 
+            if (model.Materials.Any())
+            {
+                products = products.Where(p => p.Materials.Any(m=> model.Materials.Contains(m.Name)));
+            }
+
+            if (model.Tags.Any())
+            {
+                products = products.Where(p => p.Tags.Any(t => model.Tags.Contains(t.Name)));
+            }
+
             var productsFiltered = await products
                 .Skip(model.CurrentPage - 1)
                 .Take(model.ProductsPerPage)
