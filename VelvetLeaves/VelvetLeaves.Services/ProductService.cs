@@ -35,7 +35,7 @@ namespace VelvetLeaves.Services
                     Name = p.Name,
                     Description = p.Description,
                     Price = p.Price,
-                    ImageUrl = p.ImageUrl,
+                    Images = p.Images.Select(i=> i.Url).ToArray(),
                     ProductSeries = p.ProductSeries
                                     .Products
                                     .Where(lp => lp.Id != id)
@@ -43,7 +43,7 @@ namespace VelvetLeaves.Services
                                     {
                                         Id = lp.Id, 
                                         Name = lp.Name,
-                                        ImageUrl = lp.ImageUrl,
+                                        ImageUrl = lp.Images.Select(i=> i.Url).First(),
                                         Price =lp.Price
                                     }).ToArray()
                                     
@@ -93,7 +93,7 @@ namespace VelvetLeaves.Services
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrl = p.Images.Select(i=>i.Url).First(),
                     Price = p.Price
                 }).ToArrayAsync();
 

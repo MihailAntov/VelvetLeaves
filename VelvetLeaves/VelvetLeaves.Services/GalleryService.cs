@@ -29,7 +29,7 @@ namespace VelvetLeaves.Services
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
-						ImageUrl = gp.Product.ImageUrl,
+						ImageUrl = gp.Product.Images.Select(i=> i.Url).First(),
 						Price = gp.Product.Price
 					}).ToArray()
 				}).ToArrayAsync();
@@ -50,7 +50,7 @@ namespace VelvetLeaves.Services
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
-						ImageUrl = gp.Product.ImageUrl,
+						ImageUrl = gp.Product.Images.Select(i=> i.Url).First(),
 						Price = gp.Product.Price
 					}).ToArray()
 				}).FirstOrDefaultAsync();
