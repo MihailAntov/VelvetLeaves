@@ -3,14 +3,14 @@
 }
 @model ProductsQueryModel;
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 <html>
 <head>
 	<title>Product List</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body>*@
 	<form method="get">
 		<input type="number" style="display:none" value="@Model.CategoryId" asp-for="CategoryId"/>
 		<input type="number" style="display:none" value="@Model.SubCategoryId" asp-for="SubCategoryId"/>
@@ -101,7 +101,7 @@
 							<div class="col-md-4">
 								<a class="text-decoration-none text-black fw-normal" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
 								<div class="card mb-3">
-									<img src="~/img/@product.PictureUrl" class="card-img-top" alt="@product.Name">
+									<img src="~/img/@product.ImageUrl" class="card-img-top" alt="@product.Name">
 									<div class="card-body">
 										<h5 class="card-title">@product.Name</h5>
 										<p class="card-text">@product.Price BGN</p>
@@ -142,7 +142,7 @@
 	}
 	
 
-</body>
+@*</body>
 
 </html>
-
+*@
