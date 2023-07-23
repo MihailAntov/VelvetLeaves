@@ -1,10 +1,8 @@
-﻿
-
-using VelvetLeaves.ViewModels.Gallery;
+﻿using VelvetLeaves.ViewModels.Gallery;
 
 namespace VelvetLeaves.Services.Contracts
 {
-	public interface IGalleryService
+    public interface IGalleryService
 	{
 		Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync();
 

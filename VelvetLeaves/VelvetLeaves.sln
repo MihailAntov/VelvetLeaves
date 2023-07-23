@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.ViewModels", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Services", "VelvetLeaves.Services\VelvetLeaves.Services.csproj", "{F4A72133-3800-4975-AD4B-5393A69333F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Service.Models", "VelvetLeaves.Service.Models\VelvetLeaves.Service.Models.csproj", "{D8BAFB61-578E-40BA-BABA-99F619DF85E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Service.Models", "VelvetLeaves.Service.Models\VelvetLeaves.Service.Models.csproj", "{D8BAFB61-578E-40BA-BABA-99F619DF85E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

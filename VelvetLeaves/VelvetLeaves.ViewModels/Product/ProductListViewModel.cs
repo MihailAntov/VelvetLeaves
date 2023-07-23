@@ -1,6 +1,4 @@
-﻿
-
-namespace VelvetLeaves.ViewModels.Product
+﻿namespace VelvetLeaves.ViewModels.Product
 {
     public class ProductListViewModel
     {

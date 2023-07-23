@@ -1,5 +1,4 @@
-﻿
-using VelvetLeaves.ViewModels.Product;
+﻿using VelvetLeaves.ViewModels.Product;
 
 namespace VelvetLeaves.ViewModels.Gallery
 {

@@ -1,6 +1,4 @@
-﻿
-
-using VelvetLeaves.ViewModels.Menu;
+﻿using VelvetLeaves.ViewModels.Menu;
 
 namespace VelvetLeaves.Services.Contracts
 {

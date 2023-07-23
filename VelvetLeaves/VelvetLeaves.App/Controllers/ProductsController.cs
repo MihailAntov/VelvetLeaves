@@ -4,7 +4,7 @@ using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Product;
 
-namespace VelvetLeaves.App.Controllers
+namespace VelvetLeaves.Web.App.Controllers
 {
     public class ProductsController : Controller
     {
@@ -22,26 +22,26 @@ namespace VelvetLeaves.App.Controllers
 
         [HttpGet]
         public async Task<IActionResult> ProductsFiltered(ProductsQueryModel queryModel)
-		{
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            
+
             ProductsFilteredAndPagedServiceModel serviceModel = await productService.ProductsFilteredAndPagedAsync(queryModel);
-            
+
             queryModel.Products = serviceModel.Products;
             queryModel.TotalProducts = serviceModel.TotalProductCount;
             queryModel.ColorOptions = await colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
             queryModel.MaterialOptions = await materialService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
             queryModel.TagOptions = await tagService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
 
-            return View("Products",queryModel);
-		}
+            return View("Products", queryModel);
+        }
 
-		[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
-		{
+        {
             if (!await productService.ExistsByIdAsync(id))
             {
                 return BadRequest();
@@ -49,6 +49,6 @@ namespace VelvetLeaves.App.Controllers
             var model = await productService.DetailsByIdAsync(id);
 
             return View(model);
-		}
+        }
     }
 }

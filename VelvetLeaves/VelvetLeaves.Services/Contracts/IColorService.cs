@@ -1,6 +1,4 @@
-﻿
-
-using VelvetLeaves.ViewModels.Colors;
+﻿using VelvetLeaves.ViewModels.Colors;
 
 namespace VelvetLeaves.Services.Contracts
 {

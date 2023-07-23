@@ -33,6 +33,7 @@ namespace VelvetLeaves.Data
             builder.ApplyConfiguration(new SubCategoryEntityConfiguration());
             builder.SeedColorsAndProducts();
             builder.SeedGalleries();
+            builder.SeedUsers();
 
             base.OnModelCreating(builder);
         }

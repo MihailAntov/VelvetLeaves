@@ -3,12 +3,12 @@
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
-using VelvetLeaves.ViewModels.Gallery;
 using VelvetLeaves.ViewModels.Product;
+using VelvetLeaves.ViewModels.Gallery;
 
 namespace VelvetLeaves.Services
 {
-	public class GalleryService : IGalleryService
+    public class GalleryService : IGalleryService
 	{
 		private readonly VelvetLeavesDbContext _context;
 		public GalleryService(VelvetLeavesDbContext context)

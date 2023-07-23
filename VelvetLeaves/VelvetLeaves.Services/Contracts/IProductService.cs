@@ -1,8 +1,8 @@
 ﻿
 
 using VelvetLeaves.Service.Models;
-using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Product;
+using VelvetLeaves.ViewModels.Colors;
 
 namespace VelvetLeaves.Services.Contracts
 {

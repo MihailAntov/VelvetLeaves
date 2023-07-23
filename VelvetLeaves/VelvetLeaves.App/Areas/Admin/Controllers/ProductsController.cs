@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace VelvetLeaves.App.Areas.Admin.Controllers
+namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductsController : Controller

@@ -15,7 +15,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
         public async Task<IActionResult> MakeAdmin()
         {
-            if(!await _roleManager.RoleExistsAsync("Admin"))
+            if (!await _roleManager.RoleExistsAsync("Admin"))
             {
                 await _roleManager.CreateAsync(new IdentityRole("Admin"));
             }

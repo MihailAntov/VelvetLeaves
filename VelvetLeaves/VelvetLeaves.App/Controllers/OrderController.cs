@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace VelvetLeaves.App.Controllers
+namespace VelvetLeaves.Web.App.Controllers
 {
     public class OrderController : Controller
     {

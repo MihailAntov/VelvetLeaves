@@ -3,14 +3,7 @@
 }
 @model ProductsQueryModel;
 
-@*<!DOCTYPE html>
-<html>
-<head>
-	<title>Product List</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>*@
 	<form method="get">
 		<input type="number" style="display:none" value="@Model.CategoryId" asp-for="CategoryId"/>
 		<input type="number" style="display:none" value="@Model.SubCategoryId" asp-for="SubCategoryId"/>
@@ -142,7 +135,4 @@
 	}
 	
 
-@*</body>
 
-</html>
-*@
