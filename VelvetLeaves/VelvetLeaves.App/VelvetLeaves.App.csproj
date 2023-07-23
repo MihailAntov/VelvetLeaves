@@ -23,6 +23,7 @@
     <ProjectReference Include="..\VelvetLeaves.Data\VelvetLeaves.Data.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Services\VelvetLeaves.Services.csproj" />
     <ProjectReference Include="..\VelvetLeaves.ViewModels\VelvetLeaves.ViewModels.csproj" />
+    <ProjectReference Include="..\VelvetLeaves.Web.Infrastructure\VelvetLeaves.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

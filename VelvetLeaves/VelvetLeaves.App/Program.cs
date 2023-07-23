@@ -6,6 +6,7 @@ using VelvetLeaves.App;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services.Admin;
 using VelvetLeaves.Services;
+using VelvetLeaves.Web.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.ConfigureExternalCookie(options =>
 {
     options.LoginPath = "/User/Login";
+    options.LogoutPath = "/Galleries/Featured";
 });
 
 builder.Services.AddControllersWithViews();
@@ -42,9 +44,11 @@ builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IColorService, ColorService>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.SeedAdmin();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
