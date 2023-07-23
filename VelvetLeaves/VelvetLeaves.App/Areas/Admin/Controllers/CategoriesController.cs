@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.ViewModels.Category;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
@@ -7,9 +8,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,Moderator")]
     public class CategoriesController : Controller
     {
-        public IActionResult All()
+        [HttpGet]
+        public IActionResult Add()
         {
             return View();
+        }
+
+        public IActionResult Add(CategoryFormViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.Data;
+using VelvetLeaves.Services.Contracts;
 
 namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
-        public IActionResult Index()
+        private readonly ICategoryService _categoryService;
+        public ProductsController(ICategoryService categoryService)
         {
+            _categoryService = categoryService;
+        }
+        public IActionResult All()
+        {
+            var model = _categoryService.AllCategoriesAsync();
+            
             return View();
         }
 

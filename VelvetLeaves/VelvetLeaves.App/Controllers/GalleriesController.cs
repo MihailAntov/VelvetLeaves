@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
+using static VelvetLeaves.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
 
 namespace VelvetLeaves.Web.App.Controllers
 {
@@ -29,6 +30,11 @@ namespace VelvetLeaves.Web.App.Controllers
 
         public async Task<IActionResult> Featured()
         {
+            if (User.IsAdmin())
+            {
+                return Redirect("Admin/Products/All");
+            }
+            
             var featuredGallery = await galleryService.GetGalleryByIdAsync(1);
             if (featuredGallery == null)
             {

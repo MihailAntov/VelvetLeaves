@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.ViewModels.User;
+using VelvetLeaves.Web.Infrastructure.Extensions;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Controllers
 {
@@ -53,7 +55,11 @@ namespace VelvetLeaves.App.Controllers
                     //}
                     
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Featured", "Galleries");
+                    if (this.User.IsAdmin())
+                    {
+                        return Redirect("Admin/Controllers/Index");
+                    }
+                    return RedirectToAction("Featured", "Galleries");
                     
                 }
                 foreach (var error in result.Errors)
@@ -87,6 +93,7 @@ namespace VelvetLeaves.App.Controllers
                 if (result.Succeeded)
                 {
                     //_logger.LogInformation("User logged in.");
+                    
                     return RedirectToAction("Featured","Galleries");
                 }
                 if (result.RequiresTwoFactor)
