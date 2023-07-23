@@ -2,14 +2,85 @@
 
 
 <div class="container-fluid">
-	<<ul class="list-group">
-		@foreach(var category in Model)
+	<ul class="list-group">
+		@foreach (var category in Model)
 		{
 			<li class="list-group-item">
-				@category.Name
+				<div class="row p-2">
+					<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="false" aria-controls="@category.Anchor">@category.Name</a>
+					<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
+																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+				</div>
+				<div class="collapse" id="@category.Anchor">
+
+					<ul class="list-group">
+						@foreach (var subcategory in category.Subcategories)
+						{
+							<li class="list-group-item">
+								<div class="row p-2">
+									<a class="btn btn-info col-2" data-bs-toggle="collapse" href="#@subcategory.Anchor" role="button" aria-expanded="false" aria-controls="@subcategory.Anchor">@subcategory.Name</a>
+									<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
+																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+								</div>
+								<div class="collapse" id="@subcategory.Anchor">
+
+									<ul class="list-group">
+										@foreach (var series in subcategory.ProductSeries)
+										{
+											<li class="list-group-item card">
+												<div class="row p-2">
+													<a class="btn btn-primary col-2" data-bs-toggle="collapse" href="#@series.Anchor" role="button" aria-expanded="false" aria-controls="@series.Anchor">@series.Name</a>
+													<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
+																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+												</div>
+												<div class="collapse card-body" id="@series.Anchor">
+
+													<ul class="list-group">
+														@foreach (var product in series.Products)
+														{
+
+															<li class="list-group-item card">
+
+																<div class="row">
+																	<p class="col-2 p-3 d-inline-flex p-2 me-auto mb-auto mt-auto"> @product.Name </p>
+																	<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="~/img/@product.ImageUrl">
+																	<a class="col-1 btn btn-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
+																	<a class="col-1 btn btn-danger d-flex mt-auto mb-auto me-2">Remove</a>
+
+
+																</div>
+															</li>
+
+
+
+														}
+														<li class="list-group-item">
+															<a class="btn btn-outline-dark">Add new</a>
+														</li>
+													</ul>
+
+												</div>
+											</li>
+										}
+										<li class="list-group-item">
+
+											<a class="btn btn-outline-primary">Add new</a>
+										</li>
+									</ul>
+								</div>
+
+							</li>
+						}
+						<li class="list-group-item">
+							<a class="btn btn-outline-info">Add new</a>
+
+						</li>
+					</ul>
+				</div>
 			</li>
 		}
 
 	</ul>
 
 </div>
+

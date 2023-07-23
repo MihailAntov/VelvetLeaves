@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Category;
+using VelvetLeaves.ViewModels.Product;
+using VelvetLeaves.ViewModels.ProductSeries;
+using VelvetLeaves.ViewModels.Subcategory;
 
 namespace VelvetLeaves.Services.Admin
 {
@@ -24,6 +27,45 @@ namespace VelvetLeaves.Services.Admin
                     Id = c.Id,
                     Name = c.Name,
                     ImageUrl = c.ImageUrl
+                }).ToArrayAsync();
+
+            return categories;
+        }
+
+        public async Task<IEnumerable<CategoryListViewModel>> GetProductTreeAsync()
+        {
+            var categories = await _context
+                .Categories
+                .Select(c => new CategoryListViewModel()
+                {
+                    Id = c.Id, 
+                    Name = c.Name,
+                    Anchor = c.Name.Replace(" ", ""),
+                    ImageUrl = c.ImageUrl,
+                    Subcategories = c.Subcategories
+                    .Select(sc=> new SubcategoryListViewModel()
+                    {
+                        Id = sc.Id,
+                        Name = sc.Name,
+                        Anchor = sc.Name.Replace(" ",""),
+                        ImageUrl = sc.ImageUrl,
+                        ProductSeries = sc.ProductSeries
+                        .Select(ps=> new ProductSeriesListViewModel()
+                        {
+                            Id = ps.Id,
+                            Name = ps.Name,
+                            Anchor = ps.Name.Replace(" ", ""),
+                            Products = ps.Products
+                            .Select(p=> new ProductListViewModel()
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                ImageUrl = p.Images.First().Url
+                            })
+                                
+                        })
+                    })
+
                 }).ToArrayAsync();
 
             return categories;

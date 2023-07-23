@@ -14,11 +14,11 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         {
             _categoryService = categoryService;
         }
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var model = _categoryService.AllCategoriesAsync();
+            var model = await _categoryService.GetProductTreeAsync();
             
-            return View();
+            return View(model);
         }
 
         public IActionResult Categories()
