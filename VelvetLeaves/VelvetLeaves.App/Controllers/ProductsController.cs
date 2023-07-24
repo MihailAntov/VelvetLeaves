@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Service.Models;
 using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
@@ -6,6 +7,7 @@ using VelvetLeaves.ViewModels.Product;
 
 namespace VelvetLeaves.Web.App.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
@@ -20,6 +22,7 @@ namespace VelvetLeaves.Web.App.Controllers
             this.tagService = tagService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> ProductsFiltered(ProductsQueryModel queryModel)
         {
@@ -39,6 +42,7 @@ namespace VelvetLeaves.Web.App.Controllers
             return View("Products", queryModel);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

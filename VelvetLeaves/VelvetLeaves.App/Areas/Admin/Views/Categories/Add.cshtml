@@ -1,0 +1,31 @@
+﻿@model CategoryFormViewModel
+@{
+    ViewData["Title"] = "Add Category";
+
+}
+
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Add Category</h1>
+        <form id="categoryForm" enctype="multipart/form-data" method="post">
+            <div class="mb-3">
+                <!-- Category Name Input -->
+                <label for="name" class="form-label">Name:</label>
+                <input asp-for="Name" type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <!-- Image URL Input -->
+                <label for="imageurl" class="form-label">Upload Image:</label>
+                <input asp-for="Image" type="file">
+            </div>
+            <button type="submit" asp-area="Admin" asp-controller="Categories" asp-action="Add" class="btn btn-primary">Add Category</button>
+        </form>
+    </div>
+
+    <!-- Add the Bootstrap JS script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // JavaScript code to handle form submission (same as before)
+        // ...
+    </script>

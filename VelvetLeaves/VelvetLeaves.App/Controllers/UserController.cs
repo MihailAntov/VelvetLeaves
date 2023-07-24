@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -11,6 +12,7 @@ using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserStore<ApplicationUser> _userStore;
@@ -26,6 +28,7 @@ namespace VelvetLeaves.App.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             RegisterFormViewModel model = new RegisterFormViewModel();
@@ -35,6 +38,7 @@ namespace VelvetLeaves.App.Controllers
             return View(model);
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterFormViewModel model)
         {
             
@@ -73,12 +77,14 @@ namespace VelvetLeaves.App.Controllers
             
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginFormViewModel model)
         {
             

@@ -14,8 +14,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Add(CategoryFormViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+
+            }
             throw new NotImplementedException();
         }
     }
