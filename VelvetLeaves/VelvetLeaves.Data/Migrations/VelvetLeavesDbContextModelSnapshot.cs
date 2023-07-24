@@ -535,49 +535,49 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d5efb630-a753-4137-b699-b8f6d833fdd4",
+                            Id = "f90863a7-c2f1-4b99-861a-d9ed65f4896c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c31230be-a2ee-48d6-9a00-9aa279f03467",
+                            ConcurrencyStamp = "6f03b79b-e4f5-45f5-aa4a-a4a3ab4b6ec4",
                             Email = "user@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@VLS.COM",
                             NormalizedUserName = "USER@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFf3p8COJACRgb9nQsZgvL3aM71mzk+yw0mSBnskcQMhHdx8FMqcIHbZei5CNnPNbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxypKGRYeuGx0se8MJbKspdgQc7iL93GlRA7Mf6GW7Jwu6YbA9gpnpjHG8b/iX/sQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb464959-0248-4825-8022-89c720bcc2d3",
+                            SecurityStamp = "53bcf490-8555-4c67-869f-1cb2f276ed6b",
                             TwoFactorEnabled = false,
                             UserName = "user@vls.com"
                         },
                         new
                         {
-                            Id = "0c14119a-80ca-40af-b2b0-ac77f3074015",
+                            Id = "0b97bc22-e107-4d1b-8822-6f078cb429b2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "364296ba-f592-4a6b-a22e-c9b4ef9e86ba",
+                            ConcurrencyStamp = "a3b4ac42-0480-415a-90c3-234e94376992",
                             Email = "moderator@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODERATOR@VLS.COM",
                             NormalizedUserName = "MODERATOR@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMbvrU0QJHMiW2rIIjeR1hALFIHXhSrp1SUOyDisB96d4c31zRFDVnLMuzFZKKBw8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK8x073UBVnqzO2UkfTbQbtVffjW1AyymKoc5EfFm2Sr+VyMLeFEgrVsKLqrvYl3+w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "163770a9-38ca-485c-85b2-5b8745198c2a",
+                            SecurityStamp = "6d0dc55b-a9dc-4f1a-81a6-95c3d1f89f86",
                             TwoFactorEnabled = false,
                             UserName = "moderator@vls.com"
                         },
                         new
                         {
-                            Id = "096e1c0c-2d77-4680-980b-1ea878007b9c",
+                            Id = "85c09e2a-381e-4a5b-a181-9145d15f30a1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff92dafe-64b7-45c3-a3bc-d23bc9c58b75",
+                            ConcurrencyStamp = "83789666-db0f-4884-bbdc-1ff952e18d82",
                             Email = "admin@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@VLS.COM",
                             NormalizedUserName = "ADMIN@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIaxGuaT6g7tgjbIlTUpE1GGVMBUVxNAqT0kUl4734zM+Tot6fF0r7Op0dpPMtRLMA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNxhqg+2YQaOjBBEauNXI2pLjsOKUEIjJCqe3SKjjrB691FIkOKIo72mVOEcxIGlw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "64ede6aa-79f8-4aed-b164-0d0f712405ac",
+                            SecurityStamp = "d863cedc-8edc-470f-8f3c-f430d12ca1df",
                             TwoFactorEnabled = false,
                             UserName = "admin@vls.com"
                         });
@@ -617,10 +617,10 @@ namespace VelvetLeaves.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -635,13 +635,13 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Jewelry"
                         },
                         new
                         {
                             Id = 2,
-                            ImageUrl = "textile.jpg",
+                            ImageId = "textile.jpg",
                             Name = "Textile"
                         });
                 });
@@ -702,10 +702,10 @@ namespace VelvetLeaves.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -721,14 +721,14 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             Description = "Handcrafted jewelry made of silk cocoons",
-                            ImageUrl = "silk.jpg",
+                            ImageId = "silk.jpg",
                             Name = "Silk Cocoons"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Handcrafted jewelry made of glass",
-                            ImageUrl = "glass.jpg",
+                            ImageId = "glass.jpg",
                             Name = "Glass"
                         });
                 });
@@ -779,19 +779,12 @@ namespace VelvetLeaves.Data.Migrations
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
@@ -802,99 +795,83 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            ProductId = 1,
-                            Url = "jewelry.jpg"
+                            Id = "64be89ae1409e5a61554e6ed",
+                            ProductId = 1
                         },
                         new
                         {
-                            Id = 2,
-                            ProductId = 1,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c68cac3fdf11a06fbbb",
+                            ProductId = 1
                         },
                         new
                         {
-                            Id = 3,
-                            ProductId = 1,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c6df878c3764a814981",
+                            ProductId = 1
                         },
                         new
                         {
-                            Id = 4,
-                            ProductId = 2,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c733df251037e15d70a",
+                            ProductId = 2
                         },
                         new
                         {
-                            Id = 5,
-                            ProductId = 2,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c7a0ef21ca57c247498",
+                            ProductId = 2
                         },
                         new
                         {
-                            Id = 6,
-                            ProductId = 2,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c813d909293463359d6",
+                            ProductId = 2
                         },
                         new
                         {
-                            Id = 7,
-                            ProductId = 3,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c870b7f086367ebb6a5",
+                            ProductId = 3
                         },
                         new
                         {
-                            Id = 8,
-                            ProductId = 3,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c8d7d5c466b820b73af",
+                            ProductId = 3
                         },
                         new
                         {
-                            Id = 9,
-                            ProductId = 4,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c9332b088f8d6063040",
+                            ProductId = 4
                         },
                         new
                         {
-                            Id = 10,
-                            ProductId = 4,
-                            Url = "jewelry.jpg"
+                            Id = "64be8c99f991d074063b5098",
+                            ProductId = 4
                         },
                         new
                         {
-                            Id = 11,
-                            ProductId = 5,
-                            Url = "bag.jpg"
+                            Id = "64be8c9f41c19cda7ab19853",
+                            ProductId = 5
                         },
                         new
                         {
-                            Id = 12,
-                            ProductId = 5,
-                            Url = "bag.jpg"
+                            Id = "64be8ca5b7f1ea12383c364a",
+                            ProductId = 5
                         },
                         new
                         {
-                            Id = 13,
-                            ProductId = 6,
-                            Url = "bag.jpg"
+                            Id = "64be8caa293917f47210277e",
+                            ProductId = 6
                         },
                         new
                         {
-                            Id = 14,
-                            ProductId = 6,
-                            Url = "bag.jpg"
+                            Id = "64be8cae1813d7aff61e173b",
+                            ProductId = 6
                         },
                         new
                         {
-                            Id = 15,
-                            ProductId = 7,
-                            Url = "bag.jpg"
+                            Id = "64be8cb3b390e17c62039322",
+                            ProductId = 7
                         },
                         new
                         {
-                            Id = 16,
-                            ProductId = 7,
-                            Url = "bag.jpg"
+                            Id = "64be8cb81a39dd6ed0351ebb",
+                            ProductId = 7
                         });
                 });
 
@@ -1170,10 +1147,10 @@ namespace VelvetLeaves.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1190,35 +1167,35 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Earings"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Necklaces"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Rings"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 2,
-                            ImageUrl = "bag.jpg",
+                            ImageId = "bag.jpg",
                             Name = "Bags"
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 2,
-                            ImageUrl = "bag.jpg",
+                            ImageId = "bag.jpg",
                             Name = "Book Bindings"
                         });
                 });

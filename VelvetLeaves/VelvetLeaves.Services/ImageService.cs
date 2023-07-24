@@ -62,14 +62,24 @@ namespace VelvetLeaves.Services
             
         }
 
+		public async Task CreateFromStringAsync(string id, string content)
+		{
+           await _imagesCollection.InsertOneAsync(new Image()
+            {
+                Id = id,
+                Content = content
+            });
+		}
+
 		public Task<List<string>> GetAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<string?> GetAsync(string id)
+		public async Task<string?> GetAsync(string id)
 		{
-			throw new NotImplementedException();
+            var result = await ((await _imagesCollection.FindAsync(i=>i.Id == id)).ToListAsync());
+            return result.ToString();
 		}
 
 		public Task RemoveAsync(string id)

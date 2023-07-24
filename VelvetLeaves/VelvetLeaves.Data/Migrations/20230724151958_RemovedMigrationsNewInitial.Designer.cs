@@ -12,8 +12,8 @@ using VelvetLeaves.Data;
 namespace VelvetLeaves.Data.Migrations
 {
     [DbContext(typeof(VelvetLeavesDbContext))]
-    [Migration("20230718150640_AddedPriceToModelAndSeed")]
-    partial class AddedPriceToModelAndSeed
+    [Migration("20230724151958_RemovedMigrationsNewInitial")]
+    partial class RemovedMigrationsNewInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,21 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasIndex("FavoritesId");
 
                     b.ToTable("ApplicationUserProduct");
+                });
+
+            modelBuilder.Entity("ColorProductSeries", b =>
+                {
+                    b.Property<int>("DefaultColorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductSeriesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DefaultColorsId", "ProductSeriesId");
+
+                    b.HasIndex("ProductSeriesId");
+
+                    b.ToTable("ColorProductSeries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -290,6 +305,137 @@ namespace VelvetLeaves.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProductsSeriesMaterials", b =>
+                {
+                    b.Property<int>("ProductSeriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductSeriesId", "MaterialId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.ToTable("ProductsSeriesMaterials");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductSeriesId = 1,
+                            MaterialId = 1
+                        },
+                        new
+                        {
+                            ProductSeriesId = 2,
+                            MaterialId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 3,
+                            MaterialId = 1
+                        },
+                        new
+                        {
+                            ProductSeriesId = 4,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductSeriesId = 5,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 6,
+                            MaterialId = 4
+                        });
+                });
+
+            modelBuilder.Entity("ProductsSeriesTags", b =>
+                {
+                    b.Property<int>("ProductSeriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductSeriesId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductsSeriesTags");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductSeriesId = 1,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 2,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 3,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 5,
+                            TagId = 1
+                        },
+                        new
+                        {
+                            ProductSeriesId = 6,
+                            TagId = 1
+                        });
+                });
+
+            modelBuilder.Entity("ProductsTags", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductsTags");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            TagId = 1
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            TagId = 1
+                        });
+                });
+
             modelBuilder.Entity("VelvetLeaves.Data.Models.Address", b =>
                 {
                     b.Property<Guid>("Id")
@@ -387,6 +533,56 @@ namespace VelvetLeaves.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f90863a7-c2f1-4b99-861a-d9ed65f4896c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6f03b79b-e4f5-45f5-aa4a-a4a3ab4b6ec4",
+                            Email = "user@vls.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@VLS.COM",
+                            NormalizedUserName = "USER@VLS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxypKGRYeuGx0se8MJbKspdgQc7iL93GlRA7Mf6GW7Jwu6YbA9gpnpjHG8b/iX/sQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "53bcf490-8555-4c67-869f-1cb2f276ed6b",
+                            TwoFactorEnabled = false,
+                            UserName = "user@vls.com"
+                        },
+                        new
+                        {
+                            Id = "0b97bc22-e107-4d1b-8822-6f078cb429b2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a3b4ac42-0480-415a-90c3-234e94376992",
+                            Email = "moderator@vls.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MODERATOR@VLS.COM",
+                            NormalizedUserName = "MODERATOR@VLS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK8x073UBVnqzO2UkfTbQbtVffjW1AyymKoc5EfFm2Sr+VyMLeFEgrVsKLqrvYl3+w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6d0dc55b-a9dc-4f1a-81a6-95c3d1f89f86",
+                            TwoFactorEnabled = false,
+                            UserName = "moderator@vls.com"
+                        },
+                        new
+                        {
+                            Id = "85c09e2a-381e-4a5b-a181-9145d15f30a1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "83789666-db0f-4884-bbdc-1ff952e18d82",
+                            Email = "admin@vls.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@VLS.COM",
+                            NormalizedUserName = "ADMIN@VLS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNxhqg+2YQaOjBBEauNXI2pLjsOKUEIjJCqe3SKjjrB691FIkOKIo72mVOEcxIGlw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d863cedc-8edc-470f-8f3c-f430d12ca1df",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@vls.com"
+                        });
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.AppPreferences", b =>
@@ -423,10 +619,10 @@ namespace VelvetLeaves.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -441,13 +637,13 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Jewelry"
                         },
                         new
                         {
                             Id = 2,
-                            ImageUrl = "textile.jpg",
+                            ImageId = "textile.jpg",
                             Name = "Textile"
                         });
                 });
@@ -508,10 +704,10 @@ namespace VelvetLeaves.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -521,6 +717,22 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Galleries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Handcrafted jewelry made of silk cocoons",
+                            ImageId = "silk.jpg",
+                            Name = "Silk Cocoons"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Handcrafted jewelry made of glass",
+                            ImageId = "glass.jpg",
+                            Name = "Glass"
+                        });
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.GalleryProduct", b =>
@@ -539,6 +751,130 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("GalleriesProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            GalleryId = 1,
+                            ProductId = 1,
+                            Position = 1
+                        },
+                        new
+                        {
+                            GalleryId = 1,
+                            ProductId = 2,
+                            Position = 2
+                        },
+                        new
+                        {
+                            GalleryId = 1,
+                            ProductId = 3,
+                            Position = 3
+                        },
+                        new
+                        {
+                            GalleryId = 2,
+                            ProductId = 4,
+                            Position = 1
+                        });
+                });
+
+            modelBuilder.Entity("VelvetLeaves.Data.Models.Image", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Image");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "64be89ae1409e5a61554e6ed",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = "64be8c68cac3fdf11a06fbbb",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = "64be8c6df878c3764a814981",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = "64be8c733df251037e15d70a",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = "64be8c7a0ef21ca57c247498",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = "64be8c813d909293463359d6",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = "64be8c870b7f086367ebb6a5",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = "64be8c8d7d5c466b820b73af",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = "64be8c9332b088f8d6063040",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = "64be8c99f991d074063b5098",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = "64be8c9f41c19cda7ab19853",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = "64be8ca5b7f1ea12383c364a",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = "64be8caa293917f47210277e",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = "64be8cae1813d7aff61e173b",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = "64be8cb3b390e17c62039322",
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = "64be8cb81a39dd6ed0351ebb",
+                            ProductId = 7
+                        });
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.Material", b =>
@@ -622,11 +958,6 @@ namespace VelvetLeaves.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -635,10 +966,15 @@ namespace VelvetLeaves.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProductSeriesId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubcategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductSeriesId");
 
                     b.HasIndex("SubcategoryId");
 
@@ -648,64 +984,156 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Red earings with silver frames.",
-                            ImageUrl = "jewelry.jpg",
-                            Name = "Red Silver Earings",
+                            Description = "Red earrings with silver frames.",
+                            Name = "Red Silver Earrings",
                             Price = 50.00m,
+                            ProductSeriesId = 1,
                             SubcategoryId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Red-blue earings with steel frames.",
-                            ImageUrl = "jewelry.jpg",
-                            Name = "Red-Blue Steel Earings",
+                            Description = "Red-blue earrings with steel frames.",
+                            Name = "Red-Blue Steel Earrings",
                             Price = 45.00m,
+                            ProductSeriesId = 2,
                             SubcategoryId = 1
                         },
                         new
                         {
                             Id = 3,
                             Description = "Green necklace with a silver frame.",
-                            ImageUrl = "jewelry.jpg",
                             Name = "Green Silver Necklace",
                             Price = 35.00m,
+                            ProductSeriesId = 3,
                             SubcategoryId = 2
                         },
                         new
                         {
                             Id = 4,
                             Description = "Blue ring made out of glass and silver.",
-                            ImageUrl = "jewelry.jpg",
                             Name = "Blue Glass Ring",
                             Price = 25.00m,
+                            ProductSeriesId = 4,
                             SubcategoryId = 3
                         },
                         new
                         {
                             Id = 5,
                             Description = "Hand bag with traditional sewing pattern.",
-                            ImageUrl = "bag.jpg",
                             Name = "Traditional Hand Bag",
                             Price = 120.00m,
+                            ProductSeriesId = 5,
                             SubcategoryId = 4
                         },
                         new
                         {
                             Id = 6,
                             Description = "Hand bag with traditional sewing pattern.",
-                            ImageUrl = "bag.jpg",
                             Name = "Traditional Hand Bag",
                             Price = 120.00m,
+                            ProductSeriesId = 5,
                             SubcategoryId = 4
                         },
                         new
                         {
                             Id = 7,
-                            Description = "Blue book binding with traditional sewing pattern.",
-                            ImageUrl = "bag.jpg",
+                            Description = "Blue book binding.",
                             Name = "Blue Book Binding",
                             Price = 70.00m,
+                            ProductSeriesId = 6,
+                            SubcategoryId = 5
+                        });
+                });
+
+            modelBuilder.Entity("VelvetLeaves.Data.Models.ProductSeries", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DefaultDescription")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("DefaultName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("DefaultPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("SubcategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubcategoryId");
+
+                    b.ToTable("ProductSeries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DefaultDescription = "Earrings with silver frames.",
+                            DefaultName = "Silver Earrings",
+                            DefaultPrice = 50.00m,
+                            Name = "Silver Earrings",
+                            SubcategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DefaultDescription = "Earrings with steel frames.",
+                            DefaultName = "Steel Earrings",
+                            DefaultPrice = 50.00m,
+                            Name = "Steel Earrings",
+                            SubcategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DefaultDescription = "Necklace with a silver frame.",
+                            DefaultName = "Silver Necklace",
+                            DefaultPrice = 50.00m,
+                            Name = "Silver Necklace",
+                            SubcategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DefaultDescription = "Ring made out of glass and silver.",
+                            DefaultName = "Glass Ring",
+                            DefaultPrice = 50.00m,
+                            Name = "Glass Ring",
+                            SubcategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DefaultDescription = "Hand bag with traditional sewing pattern.",
+                            DefaultName = "Traditional Bag",
+                            DefaultPrice = 50.00m,
+                            Name = "Traditional Bag",
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DefaultDescription = "Book binding.",
+                            DefaultName = "Book Binding",
+                            DefaultPrice = 50.00m,
+                            Name = "Book Binding",
                             SubcategoryId = 5
                         });
                 });
@@ -721,10 +1149,10 @@ namespace VelvetLeaves.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageId")
                         .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -741,36 +1169,66 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Earings"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Necklaces"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            ImageUrl = "jewelry.jpg",
+                            ImageId = "jewelry.jpg",
                             Name = "Rings"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 2,
-                            ImageUrl = "bag.jpg",
+                            ImageId = "bag.jpg",
                             Name = "Bags"
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 2,
-                            ImageUrl = "bag.jpg",
+                            ImageId = "bag.jpg",
                             Name = "Book Bindings"
+                        });
+                });
+
+            modelBuilder.Entity("VelvetLeaves.Data.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Traditional Sewing Pattern"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Silk Cocoons"
                         });
                 });
 
@@ -785,6 +1243,21 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasOne("VelvetLeaves.Data.Models.Product", null)
                         .WithMany()
                         .HasForeignKey("FavoritesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ColorProductSeries", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.Color", null)
+                        .WithMany()
+                        .HasForeignKey("DefaultColorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelvetLeaves.Data.Models.ProductSeries", null)
+                        .WithMany()
+                        .HasForeignKey("ProductSeriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -885,6 +1358,51 @@ namespace VelvetLeaves.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductsSeriesMaterials", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.Material", null)
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelvetLeaves.Data.Models.ProductSeries", null)
+                        .WithMany()
+                        .HasForeignKey("ProductSeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductsSeriesTags", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.ProductSeries", null)
+                        .WithMany()
+                        .HasForeignKey("ProductSeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelvetLeaves.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductsTags", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VelvetLeaves.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("VelvetLeaves.Data.Models.Address", b =>
                 {
                     b.HasOne("VelvetLeaves.Data.Models.ApplicationUser", null)
@@ -911,6 +1429,17 @@ namespace VelvetLeaves.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("VelvetLeaves.Data.Models.Image", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("VelvetLeaves.Data.Models.Order", b =>
                 {
                     b.HasOne("VelvetLeaves.Data.Models.Address", "Address")
@@ -932,8 +1461,27 @@ namespace VelvetLeaves.Data.Migrations
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.Product", b =>
                 {
+                    b.HasOne("VelvetLeaves.Data.Models.ProductSeries", "ProductSeries")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductSeriesId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("VelvetLeaves.Data.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductSeries");
+
+                    b.Navigation("Subcategory");
+                });
+
+            modelBuilder.Entity("VelvetLeaves.Data.Models.ProductSeries", b =>
+                {
+                    b.HasOne("VelvetLeaves.Data.Models.Subcategory", "Subcategory")
+                        .WithMany("ProductSeries")
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -969,8 +1517,20 @@ namespace VelvetLeaves.Data.Migrations
                     b.Navigation("GalleriesProducts");
                 });
 
+            modelBuilder.Entity("VelvetLeaves.Data.Models.Product", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("VelvetLeaves.Data.Models.ProductSeries", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("VelvetLeaves.Data.Models.Subcategory", b =>
                 {
+                    b.Navigation("ProductSeries");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

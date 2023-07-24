@@ -13,6 +13,7 @@ namespace VelvetLeaves.Services.Contracts
         public  Task<string?> GetAsync(string id);
 
         public  Task<string?> CreateAsync(IFormFile content);
+        public Task CreateFromStringAsync(string id, string content);
 
         public  Task UpdateAsync(string id, IFormFile content);
 

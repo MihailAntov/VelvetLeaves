@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using VelvetLeaves.Data.Models;
 
 namespace VelvetLeaves.Data.Configuration
@@ -57,6 +58,8 @@ namespace VelvetLeaves.Data.Configuration
                 new Image {Id = "64be8cb3b390e17c62039322", ProductId = 7},
                 new Image {Id = "64be8cb81a39dd6ed0351ebb", ProductId = 7} 
             };
+
+           
             
 
            
