@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Data\VelvetLeaves.Data.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Service.Models\VelvetLeaves.Service.Models.csproj" />

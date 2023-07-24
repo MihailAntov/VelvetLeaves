@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<VelvetLeavesDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IGalleryService, GalleryService>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IColorService, ColorService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 
 var app = builder.Build();

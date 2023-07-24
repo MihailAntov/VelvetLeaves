@@ -6,5 +6,7 @@ namespace VelvetLeaves.Services.Contracts
     {
         public Task<IEnumerable<CategoryListViewModel>> AllCategoriesAsync();
         public Task<IEnumerable<CategoryListViewModel>> GetProductTreeAsync();
+
+        public Task AddCategoryAsync(string categoryName, string url);
     }
 }

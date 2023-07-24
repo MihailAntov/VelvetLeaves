@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Product;
@@ -16,6 +17,17 @@ namespace VelvetLeaves.Services
         public CategoryService(VelvetLeavesDbContext context)
         {
             _context = context;
+        }
+
+        public async Task AddCategoryAsync(string categoryName, string url)
+        {
+            var category = new Category
+            {
+                Name = categoryName,
+                ImageUrl = url
+            };
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CategoryListViewModel>> AllCategoriesAsync()

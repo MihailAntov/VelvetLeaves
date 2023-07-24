@@ -5,8 +5,9 @@ namespace VelvetLeaves.ViewModels.Category
 {
     public class CategoryFormViewModel
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
-        public IFormFile Image { get; set; } 
+        
+        public IFormFile Image { get; set; } = null!;
     }
 }
