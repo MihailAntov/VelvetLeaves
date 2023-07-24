@@ -31,7 +31,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return View(model);
             }
 
-            IList<string> urls = await _imageService.WriteToDisk(model.Image);
+            IList<string> urls = await _imageService.WriteToDisk(model.Image, model.Name);
 
             if(urls.Count > 0)
             {

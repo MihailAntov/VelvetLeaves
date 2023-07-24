@@ -22,6 +22,7 @@ namespace VelvetLeaves.Services
                 {
                     Id = c.Id,
                     Name = c.Name,
+                    ImageUrl = c.ImageUrl,
                     Subcategories = c.Subcategories.Select(sc => new SubcategoryMenuViewModel()
                     {
                         Id = sc.Id,

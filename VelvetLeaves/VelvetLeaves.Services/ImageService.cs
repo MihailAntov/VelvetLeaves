@@ -13,7 +13,7 @@ namespace VelvetLeaves.Services
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<IList<string>> WriteToDisk(IFormFile file)
+        public async Task<IList<string>> WriteToDisk(IFormFile file, string fileName)
         {
             
 
@@ -22,19 +22,27 @@ namespace VelvetLeaves.Services
             IList<string> result = new List<string>();  
             string path = Path.Combine(wwwPath, "Img");
 
+            string[] permittedExtensions = { ".jpg", ".png" };
+
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+            {
+                return result;
+            }
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            string fileName = Path.GetRandomFileName();
+            string fullFileName = fileName + ext;
 
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            using (FileStream stream = new FileStream(Path.Combine(path,fullFileName), FileMode.Create))
             {
                 await file.CopyToAsync(stream);
 
-                result.Add(Path.Combine(path, fileName));
+                result.Add(fullFileName);
             }
 
             return result;
