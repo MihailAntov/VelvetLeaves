@@ -31,13 +31,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return View(model);
             }
 
-            IList<string> urls = await _imageService.WriteToDisk(model.Image, model.Name);
 
-            if(urls.Count > 0)
-            {
-                string url = urls[0];
-                await _categoryService.AddCategoryAsync(model.Name, url);
-            }
+            string? imageId = await _imageService.CreateAsync(model.Image);
+
+            if(imageId == null)
+			{
+                ModelState.AddModelError("Image", "Image upload unsuccessful.");
+			}
+
+            await _categoryService.AddCategoryAsync(model.Name, imageId!) ;
+            
 
             return RedirectToAction("All","Products");
 

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VelvetLeaves.Data.Images\VelvetLeaves.Data.Images.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Data\VelvetLeaves.Data.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Service.Models\VelvetLeaves.Service.Models.csproj" />

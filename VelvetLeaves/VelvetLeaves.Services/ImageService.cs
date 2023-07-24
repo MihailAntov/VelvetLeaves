@@ -1,6 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using VelvetLeaves.Data.Configuration;
+using VelvetLeaves.Data.Images;
 using VelvetLeaves.Services.Contracts;
 
 namespace VelvetLeaves.Services
@@ -8,46 +12,72 @@ namespace VelvetLeaves.Services
     public class ImageService : IImageService
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        public ImageService(IHostingEnvironment hostingEnvironment)
+        private readonly IMongoCollection<Image> _imagesCollection;
+        public ImageService(IHostingEnvironment hostingEnvironment, IOptions<ImageDatabaseSettings> imageDatabaseSettings)
         {
             _hostingEnvironment = hostingEnvironment;
+
+            var mongoClient = new MongoClient(
+            imageDatabaseSettings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                imageDatabaseSettings.Value.DatabaseName);
+
+            _imagesCollection = mongoDatabase.GetCollection<Image>(
+                imageDatabaseSettings.Value.ImagesCollectionName);
         }
 
-        public async Task<IList<string>> WriteToDisk(IFormFile file, string fileName)
-        {
+		public async Task<string?> CreateAsync(IFormFile content)
+		{
+            //string imgContent = content.
+            //await _imagesCollection.InsertOneAsync(newBook);
+            string? id = null;
+            using (var memoryStream = new MemoryStream())
+            {
+                await content.CopyToAsync(memoryStream);
+                
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    var image = new Image()
+                    {
+                        
+                        Content = Convert.ToBase64String(memoryStream.ToArray())
+                    };
+
+                    
+                    
+
+                    var result = _imagesCollection.InsertOneAsync(image);
+
+                    id = image.Id;
+                    
+                }
+                
+            }
             
-
-            string wwwPath = _hostingEnvironment.WebRootPath;
-            //string contentPath = _hostingEnvironment.ContentRootPath;
-            IList<string> result = new List<string>();  
-            string path = Path.Combine(wwwPath, "Img");
-
-            string[] permittedExtensions = { ".jpg", ".png" };
-
-            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
-            {
-                return result;
-            }
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fullFileName = fileName + ext;
-
-            using (FileStream stream = new FileStream(Path.Combine(path,fullFileName), FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-
-                result.Add(fullFileName);
-            }
-
-            return result;
-
-
+            return id;
+            
         }
-    }
+
+		public Task<List<string>> GetAllAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<string?> GetAsync(string id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task RemoveAsync(string id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task UpdateAsync(string id, IFormFile content)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

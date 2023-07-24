@@ -6,6 +6,7 @@ using VelvetLeaves.App;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services;
 using VelvetLeaves.Web.Infrastructure.Extensions;
+using VelvetLeaves.Data.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<VelvetLeavesDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.Configure<ImageDatabaseSettings>(
+    builder.Configuration.GetSection("ImageDatabase"));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -43,7 +47,7 @@ builder.Services.AddScoped<IGalleryService, GalleryService>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IColorService, ColorService>();
-builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddSingleton<IImageService, ImageService>();
 
 
 var app = builder.Build();
