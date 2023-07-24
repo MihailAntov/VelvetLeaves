@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using static VelvetLeaves.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
 
 namespace VelvetLeaves.Web.App.Controllers
 {
+    [Authorize]
     public class GalleriesController : Controller
     {
         private readonly IGalleryService galleryService;
@@ -11,6 +13,8 @@ namespace VelvetLeaves.Web.App.Controllers
         {
             this.galleryService = galleryService;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Show(int id)
         {
@@ -22,19 +26,18 @@ namespace VelvetLeaves.Web.App.Controllers
             return View(gallery);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var galleries = await galleryService.AllGalleriesAsync();
             return View(galleries);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Featured()
         {
-            if (User.IsAdmin())
-            {
-                return Redirect("Admin/Products/All");
-            }
-            
+            //TODO replace 1 with app preferences variable
+
             var featuredGallery = await galleryService.GetGalleryByIdAsync(1);
             if (featuredGallery == null)
             {

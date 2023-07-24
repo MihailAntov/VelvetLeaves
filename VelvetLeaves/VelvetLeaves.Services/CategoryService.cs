@@ -8,7 +8,7 @@ using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.ViewModels.Subcategory;
 
-namespace VelvetLeaves.Services.Admin
+namespace VelvetLeaves.Services
 {
     public class CategoryService : ICategoryService
     {
@@ -38,31 +38,31 @@ namespace VelvetLeaves.Services.Admin
                 .Categories
                 .Select(c => new CategoryListViewModel()
                 {
-                    Id = c.Id, 
+                    Id = c.Id,
                     Name = c.Name,
                     Anchor = c.Name.Replace(" ", ""),
                     ImageUrl = c.ImageUrl,
                     Subcategories = c.Subcategories
-                    .Select(sc=> new SubcategoryListViewModel()
+                    .Select(sc => new SubcategoryListViewModel()
                     {
                         Id = sc.Id,
                         Name = sc.Name,
-                        Anchor = sc.Name.Replace(" ",""),
+                        Anchor = sc.Name.Replace(" ", ""),
                         ImageUrl = sc.ImageUrl,
                         ProductSeries = sc.ProductSeries
-                        .Select(ps=> new ProductSeriesListViewModel()
+                        .Select(ps => new ProductSeriesListViewModel()
                         {
                             Id = ps.Id,
                             Name = ps.Name,
                             Anchor = ps.Name.Replace(" ", ""),
                             Products = ps.Products
-                            .Select(p=> new ProductListViewModel()
+                            .Select(p => new ProductListViewModel()
                             {
                                 Id = p.Id,
                                 Name = p.Name,
                                 ImageUrl = p.Images.First().Url
                             })
-                                
+
                         })
                     })
 

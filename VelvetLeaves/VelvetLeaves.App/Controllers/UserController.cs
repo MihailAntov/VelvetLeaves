@@ -57,9 +57,9 @@ namespace VelvetLeaves.App.Controllers
                         await _signInManager.SignInAsync(user, isPersistent: false);
                     if (this.User.IsAdmin())
                     {
-                        return Redirect("Admin/Controllers/Index");
+                        return Redirect("Admin/Products/All");
                     }
-                    return RedirectToAction("Featured", "Galleries");
+                    return Redirect("/Home/Index");
                     
                 }
                 foreach (var error in result.Errors)
@@ -93,8 +93,8 @@ namespace VelvetLeaves.App.Controllers
                 if (result.Succeeded)
                 {
                     //_logger.LogInformation("User logged in.");
-                    
-                    return RedirectToAction("Featured","Galleries");
+
+                    return Redirect("/Home/Index");
                 }
                 if (result.RequiresTwoFactor)
                 {
