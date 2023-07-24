@@ -11,8 +11,8 @@ namespace VelvetLeaves.Data.Configuration
         {
             var galleryList = new List<Gallery>
             {
-                new Gallery {Id = 1, Name = "Silk Cocoons",Description = "Handcrafted jewelry made of silk cocoons",ImageId="silk.jpg"},
-                new Gallery {Id = 2, Name = "Glass",Description = "Handcrafted jewelry made of glass",ImageId="glass.jpg"}
+                new Gallery {Id = 1, Name = "Silk Cocoons",Description = "Handcrafted jewelry made of silk cocoons",ImageId="64be8c870b7f086367ebb6a5"},
+                new Gallery {Id = 2, Name = "Glass",Description = "Handcrafted jewelry made of glass",ImageId="64be8c9332b088f8d6063040"}
             };
 
             builder.Entity<Gallery>()

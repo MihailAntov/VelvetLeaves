@@ -76,8 +76,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 
                 Task.Run(async () =>
                 {
-                    if (await imageService.GetAsync(image.Key) == null)
-                    {
+                    
                         string path = Path.Combine(hostingEnvironment.WebRootPath, "seed", image.Value);
                         byte[] bytes = await File.ReadAllBytesAsync(path);
                         string content = Convert.ToBase64String(bytes);
@@ -86,7 +85,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 
 
                         await imageService.CreateFromStringAsync(image.Key, content);
-                    }
+                    
                     
                 }).GetAwaiter()
                 .GetResult();

@@ -40,7 +40,7 @@
 											@category.Name
 										</button>
 										<div class="dropdown-menu">
-											<img style="width:100%;max-height:10rem;overflow-hidden" src="data:img/jpg;base64,@imageService.GetAsync(category.ImageId)">
+											<img style="width:100%;max-height:10rem;overflow-hidden" src="data:img/jpg;base64,@await imageService.GetAsync(category.ImageId)">
 											<a asp-area="" asp-controller="Products" asp-action="ProductsFiltered" asp-route-categoryId="@category.Id" class="dropdown-item" type="button">All</a>
 											@foreach (var subcategory in category.Subcategories)
 											{

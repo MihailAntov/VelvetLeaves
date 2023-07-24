@@ -1,5 +1,5 @@
 ﻿@model ProductDetailsViewModel
-
+@inject IImageService imageService
 
 @{
 	ViewData["Title"] = Model.Name;
@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-md-5">
 			<div class="card mb-1">
-				<img src="~/img/@Model.Images.First()" />
+				<img src="data:img/jpg;base64,@await imageService.GetAsync(Model.Images.First())" />
 			</div>
 		</div>
 		<div class="col-md-7">
@@ -49,7 +49,7 @@
 					<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@Model.Name">
 						
 							<div class="card-body">
-								<img src="~/img/@picture" class="card-img-bottom" alt="@Model.Name">
+								<img src="data:img/jpg;base64,@await imageService.GetAsync(picture)" class="card-img-bottom" alt="@Model.Name">
 							</div>
 						
 					</div>

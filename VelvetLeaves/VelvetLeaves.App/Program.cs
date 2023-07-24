@@ -50,10 +50,12 @@ builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.SeedAdmin();
+app.SeedImages();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
