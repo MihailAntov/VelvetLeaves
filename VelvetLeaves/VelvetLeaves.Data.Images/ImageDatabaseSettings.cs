@@ -1,6 +1,6 @@
 ﻿
 
-namespace VelvetLeaves.Data.Configuration
+namespace VelvetLeaves.Data.Images
 {
 	public class ImageDatabaseSettings
 	{

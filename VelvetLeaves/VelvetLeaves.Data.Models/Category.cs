@@ -19,7 +19,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ICollection<Subcategory> Subcategories { get; set; } = new HashSet<Subcategory>();
 
         [Required]
-        [MaxLength(UrlMaxLength)]
-        public string ImageUrl { get; set; } = null!;
+        [MaxLength(IdMaxLength)]
+        public string ImageId { get; set; } = null!;
     }
 }

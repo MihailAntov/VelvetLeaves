@@ -9,6 +9,6 @@ namespace VelvetLeaves.ViewModels.Gallery
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
 
-        public string ImageUrl { get; set; } = null!;
+        public string ImageId { get; set; } = null!;
     }
 }

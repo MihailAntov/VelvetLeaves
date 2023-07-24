@@ -1,9 +1,7 @@
 ﻿using static VelvetLeaves.Common.ValidationConstants.Image;
 
 using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VelvetLeaves.Data.Models
@@ -11,10 +9,8 @@ namespace VelvetLeaves.Data.Models
     public class Image
     {
 		[Key]
-		public int Id { get; set; }
-
-		[MaxLength(UrlMaxLength)]
-		public string Url { get; set; } = null!;
+		[MaxLength(IdMaxLength)]
+		public string Id { get; set; } = null!;
 
 		[ForeignKey(nameof(Product))]
 		[Required]

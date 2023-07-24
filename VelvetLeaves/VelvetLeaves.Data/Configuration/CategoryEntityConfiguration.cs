@@ -11,8 +11,8 @@ namespace VelvetLeaves.Data.Configuration
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasData(new List<Category>(){
-                new Category { Name = "Jewelry", ImageUrl = "jewelry.jpg", Id = 1 },
-                new Category { Name = "Textile", ImageUrl = "textile.jpg", Id = 2},
+                new Category { Name = "Jewelry", ImageId = "jewelry.jpg", Id = 1 },
+                new Category { Name = "Textile", ImageId = "textile.jpg", Id = 2},
             });
         }
     }

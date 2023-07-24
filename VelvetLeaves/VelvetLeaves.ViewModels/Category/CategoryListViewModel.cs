@@ -7,7 +7,7 @@ namespace VelvetLeaves.ViewModels.Category
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Anchor { get; set; } = null!;
-        public string ImageUrl { get; set; } = null!;
+        public string ImageId { get; set; } = null!;
         public IEnumerable<SubcategoryListViewModel> Subcategories { get; set; } = new HashSet<SubcategoryListViewModel>();
     }
 }

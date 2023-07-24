@@ -19,12 +19,12 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        public async Task AddCategoryAsync(string categoryName, string url)
+        public async Task AddCategoryAsync(string categoryName, string imageId)
         {
             var category = new Category
             {
                 Name = categoryName,
-                ImageUrl = url
+                ImageId = imageId
             };
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
@@ -53,14 +53,14 @@ namespace VelvetLeaves.Services
                     Id = c.Id,
                     Name = c.Name,
                     Anchor = c.Name.Replace(" ", ""),
-                    ImageUrl = c.ImageUrl,
+                    ImageId = c.ImageId,
                     Subcategories = c.Subcategories
                     .Select(sc => new SubcategoryListViewModel()
                     {
                         Id = sc.Id,
                         Name = sc.Name,
                         Anchor = sc.Name.Replace(" ", ""),
-                        ImageUrl = sc.ImageUrl,
+                        ImageId = sc.ImageId,
                         ProductSeries = sc.ProductSeries
                         .Select(ps => new ProductSeriesListViewModel()
                         {
@@ -72,7 +72,7 @@ namespace VelvetLeaves.Services
                             {
                                 Id = p.Id,
                                 Name = p.Name,
-                                ImageUrl = p.Images.First().Url
+                                ImageId = p.Images.First().Id
                             })
 
                         })

@@ -30,7 +30,7 @@ namespace VelvetLeaves.Common
 
         public static class Image
         {
-            public const int UrlMaxLength = 2048;
+            public const int IdMaxLength = 24;
         }
 
         public static class Address

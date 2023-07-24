@@ -25,6 +25,8 @@ namespace VelvetLeaves.Services
 
             _imagesCollection = mongoDatabase.GetCollection<Image>(
                 imageDatabaseSettings.Value.ImagesCollectionName);
+
+
         }
 
 		public async Task<string?> CreateAsync(IFormFile content)

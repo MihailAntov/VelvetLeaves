@@ -23,7 +23,7 @@ namespace VelvetLeaves.Data.Models
         public ICollection<GalleryProduct> GalleriesProducts { get; set; } = new HashSet<GalleryProduct>();
 
         [Required]
-        [MaxLength(UrlMaxLength)]
-        public string ImageUrl { get; set; } = null!;
+        [MaxLength(IdMaxLength)]
+        public string ImageId { get; set; } = null!;
     }
 }

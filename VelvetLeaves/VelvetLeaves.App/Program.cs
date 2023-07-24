@@ -6,7 +6,7 @@ using VelvetLeaves.App;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services;
 using VelvetLeaves.Web.Infrastructure.Extensions;
-using VelvetLeaves.Data.Configuration;
+using VelvetLeaves.Data.Images;
 
 var builder = WebApplication.CreateBuilder(args);
 

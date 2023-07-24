@@ -24,12 +24,12 @@ namespace VelvetLeaves.Services
 					Id = g.Id,
 					Name = g.Name,
 					Description = g.Description,
-					ImageUrl = g.ImageUrl,
+					ImageId = g.ImageId,
 					Products = g.GalleriesProducts.Select(gp=> new ProductListViewModel()
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
-						ImageUrl = gp.Product.Images.Select(i=> i.Url).First(),
+						ImageId = gp.Product.Images.Select(i=> i.Id).First(),
 						Price = gp.Product.Price
 					}).ToArray()
 				}).ToArrayAsync();
@@ -45,12 +45,12 @@ namespace VelvetLeaves.Services
 					Id = g.Id,
 					Name = g.Name,
 					Description = g.Description,
-					ImageUrl = g.ImageUrl,
+					ImageId = g.ImageId,
 					Products = g.GalleriesProducts.Select(gp => new ProductListViewModel()
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
-						ImageUrl = gp.Product.Images.Select(i=> i.Url).First(),
+						ImageId = gp.Product.Images.Select(i=> i.Id).First(),
 						Price = gp.Product.Price
 					}).ToArray()
 				}).FirstOrDefaultAsync();

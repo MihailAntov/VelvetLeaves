@@ -35,7 +35,7 @@ namespace VelvetLeaves.Services
                     Name = p.Name,
                     Description = p.Description,
                     Price = p.Price,
-                    Images = p.Images.Select(i=> i.Url).ToArray(),
+                    Images = p.Images.Select(i=> i.Id).ToArray(),
                     Materials = p.Materials.Select(m=> m.Name).ToArray(),
                     Tags = p.Tags.Select(t=> t.Name).ToArray(),
                     ProductSeries = p.ProductSeries
@@ -45,7 +45,7 @@ namespace VelvetLeaves.Services
                                     {
                                         Id = lp.Id, 
                                         Name = lp.Name,
-                                        ImageUrl = lp.Images.Select(i=> i.Url).First(),
+                                        ImageId = lp.Images.Select(i=> i.Id).First(),
                                         Price =lp.Price
                                     }).ToArray()
                                     
@@ -95,7 +95,7 @@ namespace VelvetLeaves.Services
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    ImageUrl = p.Images.Select(i=>i.Url).First(),
+                    ImageId = p.Images.Select(i=>i.Id).First(),
                     Price = p.Price
                 }).ToArrayAsync();
 

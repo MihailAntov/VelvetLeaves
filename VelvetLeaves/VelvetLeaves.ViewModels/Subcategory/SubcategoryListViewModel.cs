@@ -10,7 +10,7 @@ namespace VelvetLeaves.ViewModels.Subcategory
         public string Name { get; set; } = null!;
         public string Anchor { get; set; } = null!;
 
-        public string ImageUrl { get; set; } = null!;
+        public string ImageId { get; set; } = null!;
         public IEnumerable<ProductSeriesListViewModel> ProductSeries { get; set; } = null!;
     }
 }

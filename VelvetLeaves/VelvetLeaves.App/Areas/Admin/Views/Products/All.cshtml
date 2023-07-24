@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<CategoryListViewModel>
-
+@inject IImageService imageService
 
 <div class="container-fluid">
 	<ul class="list-group">
@@ -43,7 +43,7 @@
 
 																<div class="row">
 																	<p class="col-2 p-3 d-inline-flex p-2 me-auto mb-auto mt-auto"> @product.Name </p>
-																	<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="~/img/@product.ImageUrl">
+																	<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="data:img/jpg;base64,@imageService.GetAsync(product.ImageId)">
 																	<a class="col-1 btn btn-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
 																	<a class="col-1 btn btn-danger d-flex mt-auto mb-auto me-2">Remove</a>
 

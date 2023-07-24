@@ -1,4 +1,5 @@
 ﻿@model GalleryViewModel
+@inject IImageService imageService
 @{
 	ViewData["Title"] = @Model.Name;
 
@@ -13,7 +14,7 @@
 							<div class="col-md-4">
 								<a class="text-decoration-none text-black fw-normal" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
 								<div class="card mb-3">
-									<img src="~/img/@product.ImageUrl" class="card-img-top" alt="@product.Name">
+									<img src="data:img/jpg;base64,@imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
 									<div class="card-body">
 										<h5 class="card-title">@product.Name</h5>
 										<p class="card-text">@product.Price BGN</p>

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<GalleryViewModel>
+@inject IImageService imageService
 @{
 	ViewData["Title"] = "Galleries";
 
@@ -17,7 +18,7 @@
 						<a class="text-decoration-none text-black fw-normal" asp-controller="Galleries" asp-action="Show" asp-route-id="@gallery.Id">
 							<div class="card-body">
 								<h5 class="card-title ">@gallery.Name</h5>
-								<img src="~/img/@gallery.ImageUrl" class="card-img-bottom" alt="@gallery.Name">
+								<img src="data:img/jpg;base64,@imageService.GetAsync(gallery.ImageId)" class="card-img-bottom" alt="@gallery.Name">
 							</div>
 						</a>
 					</div>
