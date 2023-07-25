@@ -1,8 +1,10 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Subcategory;
 
 namespace VelvetLeaves.Services
 {
@@ -29,5 +31,17 @@ namespace VelvetLeaves.Services
 
 
 		}
-	}
+
+        public async Task<IEnumerable<SubcategorySelectViewModel>> AllSubcategoriesAsync()
+        {
+			var subcategories = await _context.Subcategories
+				.Select(sc => new SubcategorySelectViewModel()
+				{
+					Id = sc.Id,
+					Name = sc.Name
+				}).ToArrayAsync();
+
+			return subcategories;
+        }
+    }
 }

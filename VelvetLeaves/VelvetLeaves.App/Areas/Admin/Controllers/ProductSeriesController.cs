@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.ProductSeries;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
@@ -9,16 +10,46 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	public class ProductSeriesController : Controller
 	{
 		private readonly ICategoryService _categoryService;
-		private readonly ISubcategoryService subcategoryService;
-		[HttpGet]
+		private readonly ISubcategoryService _subcategoryService;
+		private readonly IColorService _colorService;
+		private readonly IMaterialService _materialService;
+		private readonly ITagService _tagService;
+
+        public ProductSeriesController
+			(ICategoryService categoryService,
+			ISubcategoryService subcategoryService,
+			IColorService colorService,
+			IMaterialService materialService,
+			ITagService tagService)
+        {
+            _categoryService = categoryService;
+            _subcategoryService = subcategoryService;
+			_colorService = colorService;
+			_materialService = materialService;
+			_tagService = tagService;
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> Add(int categoryId, int subcategoryId)
 		{
 			var model = new ProductSeriesFormViewModel();
 			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
+			model.SubcategoryOptions = await _subcategoryService.AllSubcategoriesAsync();
 			if (categoryId > 0 && categoryId <= model.CategoryOptions.Count())
 			{
 				model.CategoryId = categoryId;
 			}
+
+			if(subcategoryId > 0 && subcategoryId <= model.SubcategoryOptions.Count())
+            {
+				model.SubcategoryId = subcategoryId;
+            }
+
+			model.ColorOptions = await _colorService.GetColorOptionsAsync(categoryId, subcategoryId);
+			model.MaterialOptions = await _materialService.GetMaterialOptionsAsync(categoryId, subcategoryId);
+			//model.
+
+
 			return View(model);
 		}
 

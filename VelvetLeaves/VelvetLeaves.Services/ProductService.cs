@@ -83,7 +83,7 @@ namespace VelvetLeaves.Services
 
             if (model.Materials.Any())
             {
-                products = products.Where(p => p.Materials.Any(m=> model.Materials.Contains(m.Name)));
+                products = products.Where(p => p.Materials.Any(m=> model.Materials.Contains(m.Id)));
             }
 
             if (model.Tags.Any())

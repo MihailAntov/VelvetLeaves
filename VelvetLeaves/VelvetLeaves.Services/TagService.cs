@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Tag;
 
 namespace VelvetLeaves.Services
 {
@@ -14,7 +15,7 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<string>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
+        public async Task<IEnumerable<TagListViewModel>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
         {
             var products = _context.Products.AsQueryable();
             if (categoryId.HasValue)
@@ -27,8 +28,14 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }
 
-            var tags = await products.SelectMany(p => p.Tags.Select(m => m.Name)).Distinct().ToArrayAsync();
+            var tags = await products.SelectMany(p => p.Tags.Select(t => new TagListViewModel()
+            {
+                Id = t.Id,
+                Name  = t.Name
+            })).Distinct().ToArrayAsync();
             return tags;
         }
+
+        
     }
 }

@@ -1,9 +1,11 @@
 ﻿
+using VelvetLeaves.ViewModels.Material;
+
 namespace VelvetLeaves.Services.Contracts
 {
     public interface IMaterialService
     {
-        Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId);
+        Task<IEnumerable<MaterialListViewModel>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId);
 
     }
 }

@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Material;
 
 namespace VelvetLeaves.Services
 {
@@ -14,7 +15,7 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<string>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
+        public async Task<IEnumerable<MaterialListViewModel>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
         {
             var products = _context.Products.AsQueryable();
             if (categoryId.HasValue)
@@ -27,7 +28,11 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }
 
-            var materials = await products.SelectMany(p => p.Materials.Select(m => m.Name)).Distinct().ToArrayAsync();
+            var materials = await products.SelectMany(p => p.Materials.Select(m => new MaterialListViewModel()
+            {
+                Id = m.Id,
+                Name = m.Name,
+            })).Distinct().ToArrayAsync();
             return materials;
         }
     }
