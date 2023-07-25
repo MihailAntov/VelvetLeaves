@@ -11,18 +11,18 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
     
     public class ProductsController : Controller
     {
-        private readonly ICategoryService _categoryService;
-        public ProductsController(ICategoryService categoryService)
+        private readonly IProductService _productService;
+        public ProductsController(IProductService productService)
         {
-            _categoryService = categoryService;
+            _productService = productService;
         }
         /// <summary>
         /// Returns all products, grouped by product series, then by subcategory, then by category, to be browsed in a tree-like structure.
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int? categoryId, int? subcategoryId, int? productSeriesId)
         {
-            var model = await _categoryService.GetProductTreeAsync();
+            var model = await _productService.GetProductTreeAsync(categoryId, subcategoryId, productSeriesId);
             
             return View(model);
         }

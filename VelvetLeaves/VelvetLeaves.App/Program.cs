@@ -48,6 +48,8 @@ builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
+builder.Services.AddScoped<ISubcategoryService, SubcategoryService>();
+builder.Services.AddScoped<IProductSeriesService, ProductSeriesService>();
 
 
 
@@ -55,7 +57,9 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.SeedAdmin();
-app.SeedImages();
+
+//Uncomment this to seed initial images
+//app.SeedImages();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

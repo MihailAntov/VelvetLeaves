@@ -1,31 +1,31 @@
 ﻿@model CategoryFormViewModel
 @{
-    ViewData["Title"] = "Add Category";
+	ViewData["Title"] = "Add Category";
 
 }
 
 
-    <div class="container mt-5">
-        <h1 class="mb-4">Add Category</h1>
-        <form id="categoryForm" enctype="multipart/form-data" method="post">
-            <div class="mb-3">
-                <!-- Category Name Input -->
-                <label for="name" class="form-label">Name:</label>
-                <input asp-for="Name" type="text" id="name" name="name" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <!-- Image URL Input -->
-                <label for="imageurl" class="form-label">Upload Image:</label>
-                <input asp-for="Image" type="file">
-            </div>
-            <button type="submit" asp-area="Admin" asp-controller="Categories" asp-action="Add" class="btn btn-primary">Add Category</button>
-        </form>
-    </div>
+<div class="container mt-5">
+	
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Category Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Category Image</label>
+			<input asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
+		</div>
+		<div>
 
-    <!-- Add the Bootstrap JS script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+			<button type="submit" asp-area="Admin" asp-controller="Categories" asp-action="Add" class="btn btn-primary">Add Category</button>
+		</div>
+	</form>
+</div>
 
-    <script>
-        // JavaScript code to handle form submission (same as before)
-        // ...
-    </script>
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

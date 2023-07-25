@@ -1,0 +1,47 @@
+﻿@model SubcategoryFormViewModel
+@{
+	ViewData["Title"] = "Add Subcategory";
+
+}
+
+
+<div class="container mt-5">
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Category</label>
+			<select asp-for="CategoryId" class="form-select" aria-label="Default select example">
+				@foreach(var category in Model.CategoryOptions)
+				{
+					@if(category.Id == Model.CategoryId)
+					{
+						<option value="@category.Id" selected>@category.Name</option>
+					}
+					else
+					{
+					<option value="@category.Id">@category.Name</option>
+					}
+				}
+			</select>
+
+		</div>
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Subcategory Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Category Image</label>
+			<input asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
+		</div>
+		<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Subcategories" asp-action="Add" class="btn btn-primary">Add Subcategory</button>
+		</div>
+	</form>
+</div>
+
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

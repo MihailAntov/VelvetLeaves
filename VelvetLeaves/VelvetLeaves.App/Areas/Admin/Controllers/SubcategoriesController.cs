@@ -10,15 +10,25 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	public class SubcategoriesController : Controller
 	{
 		private readonly IImageService _imageService;
-		public SubcategoriesController(IImageService imageService)
+		private readonly ISubcategoryService _subcategoryService;
+		private readonly ICategoryService _categoryService;
+		public SubcategoriesController(IImageService imageService, ISubcategoryService subcategoryService, ICategoryService categoryService)
 		{
 			_imageService = imageService;
+			_subcategoryService = subcategoryService;
+			_categoryService = categoryService;	
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Add(int categoryId)
 		{
-			return View();
+			var model = new SubcategoryFormViewModel();
+			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
+			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
+            {
+				model.CategoryId = categoryId;
+            }
+			return View(model);
 		}
 
 		[HttpPost]
@@ -37,10 +47,10 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				ModelState.AddModelError("Image", "Image upload unsuccessful.");
 			}
 
-			await _categoryService.AddCategoryAsync(model.Name, imageId!);
+			await _subcategoryService.AddAsync(model.Name, model.CategoryId, imageId!);
 
 
-			return RedirectToAction("All", "Products");
+			return Redirect($"Admin/Products/All?Category={model.CategoryId}");
 		}
 	}
 }

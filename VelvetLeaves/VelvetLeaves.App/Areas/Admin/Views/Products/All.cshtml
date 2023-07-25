@@ -1,28 +1,49 @@
-﻿@model IEnumerable<CategoryListViewModel>
+﻿@model ProductTreeViewModel
+@*@model IEnumerable<CategoryListViewModel>*@
 @inject IImageService imageService
+@{
+	int expandedCategory = Model.CategoryId.HasValue ? Model.CategoryId.Value : 0;
+	int expandedSubcategory = Model.SubcategoryId.HasValue ? Model.SubcategoryId.Value : 0;
+	int expandedProductSeries = Model.ProductSeriesId.HasValue ? Model.ProductSeriesId.Value : 0;
+	
+	
+}
 
+<div class="container">
+	<a asp-controller="Categories" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Category</a>
+	<a asp-controller="Subcategories" asp-action="Add" class="btn btn-info col-sm w-auto m-1">Add Subcategory</a>
+	<a asp-controller="ProductSeries" asp-action="Add" class="btn btn-primary col-sm w-auto m-1">Add Product Series</a>
+	<a asp-controller="Products" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Product</a>
+
+	<a asp-controller="Colors" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Color</a>
+	<a asp-controller="Materials" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Material</a>
+	<a asp-controller="Tags" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Tag</a>
+</div>
+
+<br />
 <div class="container-fluid">
 	<ul class="list-group">
-		@foreach (var category in Model)
+		@foreach (var category in Model.Products)
 		{
 			<li class="list-group-item">
 				<div class="row p-2">
-					<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="false" aria-controls="@category.Anchor">@category.Name</a>
-					<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
-																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+					<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="true" aria-controls="@category.Anchor">@category.Name</a>
+					
+					<a asp-controller="Categories" asp-action="Edit" asp-route-categoryId="@category.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-success"><i class="fa-solid fa-pencil"></i></a>
+								<a asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@category.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success"><i class="fa-solid fa-trash"></i></a>
 				</div>
-				<div class="collapse" id="@category.Anchor">
-
+				<div class="@(expandedCategory == category.Id ? "collapse.show" : "collapse")" id="@category.Anchor">
+					
 					<ul class="list-group">
 						@foreach (var subcategory in category.Subcategories)
 						{
 							<li class="list-group-item">
 								<div class="row p-2">
 									<a class="btn btn-info col-2" data-bs-toggle="collapse" href="#@subcategory.Anchor" role="button" aria-expanded="false" aria-controls="@subcategory.Anchor">@subcategory.Name</a>
-									<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
-																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+									<a asp-controller="Subcategories" asp-action="Edit" asp-route-subcategoryId="@subcategory.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-info"><i class="fa-solid fa-pencil"></i></a>
+								<a asp-controller="Subcategories" asp-action="Delete" asp-route-subcategoryId="@subcategory.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-info"><i class="fa-solid fa-trash"></i></a>
 								</div>
-								<div class="collapse" id="@subcategory.Anchor">
+								<div class="@(expandedSubcategory == subcategory.Id ? "collapse.show" : "collapse")" id="@subcategory.Anchor">
 
 									<ul class="list-group">
 										@foreach (var series in subcategory.ProductSeries)
@@ -30,10 +51,10 @@
 											<li class="list-group-item card">
 												<div class="row p-2">
 													<a class="btn btn-primary col-2" data-bs-toggle="collapse" href="#@series.Anchor" role="button" aria-expanded="false" aria-controls="@series.Anchor">@series.Name</a>
-													<a class="col-1 btn btn-outline-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
-																	<a class="col-1 btn btn-outline-danger d-flex mt-auto mb-auto me-2">Remove</a>
+													<a asp-controller="ProductSeries" asp-action="Edit" asp-route-productSeriesId="@series.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-primary"><i class="fa-solid fa-pencil"></i></a>
+								<a asp-controller="ProductSeries" asp-action="Delete" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-primary"><i class="fa-solid fa-trash"></i></a>
 												</div>
-												<div class="collapse card-body" id="@series.Anchor">
+												<div class="@(expandedProductSeries == series.Id ? "collapse.show" : "collapse")" id="@series.Anchor">
 
 													<ul class="list-group">
 														@foreach (var product in series.Products)
@@ -44,8 +65,8 @@
 																<div class="row">
 																	<p class="col-2 p-3 d-inline-flex p-2 me-auto mb-auto mt-auto"> @product.Name </p>
 																	<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
-																	<a class="col-1 btn btn-warning ms-auto me-2 d-flex mt-auto mb-auto">Edit</a>
-																	<a class="col-1 btn btn-danger d-flex mt-auto mb-auto me-2">Remove</a>
+																	<a asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-dark"><i class="fa-solid fa-pencil"></i></a>
+								<a asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-dark"><i class="fa-solid fa-trash"></i></a>
 
 
 																</div>
@@ -55,7 +76,7 @@
 
 														}
 														<li class="list-group-item">
-															<a class="btn btn-outline-dark">Add new</a>
+															<a asp-controller="Products" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" asp-route-ProductSeriesId="@series.Id" class="btn btn-outline-dark">Add new</a>
 														</li>
 													</ul>
 
@@ -64,7 +85,7 @@
 										}
 										<li class="list-group-item">
 
-											<a class="btn btn-outline-primary">Add new</a>
+											<a asp-controller="ProductSeries" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" class="btn btn-outline-primary">Add new</a>
 										</li>
 									</ul>
 								</div>
@@ -72,7 +93,8 @@
 							</li>
 						}
 						<li class="list-group-item">
-							<a class="btn btn-outline-info">Add new</a>
+							
+							<a asp-controller="Subcategories" asp-action="Add" asp-route-CategoryId="@category.Id" class="btn btn-outline-info">Add new</a>
 
 						</li>
 					</ul>
@@ -84,3 +106,6 @@
 
 </div>
 
+@section Scripts {
+	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+}

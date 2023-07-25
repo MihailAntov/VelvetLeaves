@@ -8,10 +8,18 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	[Authorize(Roles = "Admin,Moderator")]
 	public class ProductSeriesController : Controller
 	{
+		private readonly ICategoryService _categoryService;
+		private readonly ISubcategoryService subcategoryService;
 		[HttpGet]
-		public async Task<IActionResult> Add(int subcategoryId)
+		public async Task<IActionResult> Add(int categoryId, int subcategoryId)
 		{
-			return View();
+			var model = new ProductSeriesFormViewModel();
+			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
+			if (categoryId > 0 && categoryId <= model.CategoryOptions.Count())
+			{
+				model.CategoryId = categoryId;
+			}
+			return View(model);
 		}
 
 		[HttpPost]
