@@ -1,6 +1,6 @@
-﻿@model SubcategoryFormViewModel
+﻿@model ProductSeriesFormViewModel
 @{
-	ViewData["Title"] = "Add Subcategory";
+	ViewData["Title"] = "Add product Series";
 
 }
 
@@ -24,16 +24,30 @@
 			</select>
 
 		</div>
+
 		<div class="mb-3">
-			<label asp-for="Name" class="form-label">Subcategory Name</label>
+			<label asp-for="SubcategoryId" class="form-label">Subcategory</label>
+			<select asp-for="SubcategoryId" class="form-select" aria-label="Default select example">
+				@foreach(var subcategory in Model.SubcategoryOptions)
+				{
+					@if(subcategory.Id == Model.CategoryId)
+					{
+						<option value="@subcategory.Id" selected>@subcategory.Name</option>
+					}
+					else
+					{
+					<option value="@subcategory.Id">@subcategory.Name</option>
+					}
+				}
+			</select>
+
+		</div>
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Product Series Name</label>
 			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
-		<div class="mb-3">
-			<label asp-for="Image" class="form-label">Category Image</label>
-			<input asp-for="Image" class="form-control" type="file" id="formFile">
-			<span asp-validation-for="Image" class="text-danger"></span>
-		</div>
+
 		<div>
 
 			<button type="submit" asp-area="Admin" asp-controller="Subcategories" asp-action="Add" class="btn btn-primary">Add Subcategory</button>

@@ -38,7 +38,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			if (categoryId > 0 && categoryId <= model.CategoryOptions.Count())
 			{
 				model.CategoryId = categoryId;
-			}
+            }
+            
 
 			if(subcategoryId > 0 && subcategoryId <= model.SubcategoryOptions.Count())
             {
@@ -47,7 +48,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 			model.ColorOptions = await _colorService.GetColorOptionsAsync(categoryId, subcategoryId);
 			model.MaterialOptions = await _materialService.GetMaterialOptionsAsync(categoryId, subcategoryId);
-			//model.
+			model.TagOptions = await _tagService.GetTagOptionsAsync(categoryId, subcategoryId);
 
 
 			return View(model);

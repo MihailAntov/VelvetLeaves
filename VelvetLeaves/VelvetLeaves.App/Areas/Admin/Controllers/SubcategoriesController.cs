@@ -22,6 +22,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Add(int categoryId)
 		{
+			return RedirectToRoute($"Admin/Products/All?categoryId={categoryId}");
+			//TODO fix routing
 			var model = new SubcategoryFormViewModel();
 			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
 			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
@@ -50,7 +52,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			await _subcategoryService.AddAsync(model.Name, model.CategoryId, imageId!);
 
 
-			return Redirect($"Admin/Products/All?Category={model.CategoryId}");
+			//return Redirect($"Admin/Products/All?categoryId={model.CategoryId}");
+			return RedirectToAction("Products", "All", $"categoryId=${model.CategoryId}");
+			
 		}
 	}
 }
