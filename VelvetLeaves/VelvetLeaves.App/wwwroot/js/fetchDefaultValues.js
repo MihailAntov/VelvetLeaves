@@ -1,5 +1,5 @@
 ﻿const productSeriesSelect = document.querySelector(".form-select.productseries-select");
-console.log(productSeriesSelect);
+
 productSeriesSelect.addEventListener("change", handleSelect);
 
 function handleSelect(e) {
@@ -8,41 +8,41 @@ function handleSelect(e) {
         type: 'GET',
         dataType: 'JSON',
         url: '/Admin/Products/FetchDefaultValues/',
-        data: { "productSeriesId": e.currentTarget.value }
+        data: { "productSeriesId": e.target.value }
         ,
         success: function (response) {
-           
-            const colorSelect = document.querySelectorAll(".form-check.color-select > input");
-            for (const option of colorSelect) {
-                if (Array.from(response["colorIds"]).includes(option.value)) {
-                    option.setAttribute("selected", "selected");
-                } else {
-                    option.removeAttribute("selected")
-                }
-            }
+            console.log(e.target.value);
+            /*console.log(response);*/
+            //const colorSelect = document.querySelectorAll(".form-check.color-select > input");
+            //for (const option of [...colorSelect]) {
+            //    if (Array.from(response["colorIds"]).includes(option.value)) {
+            //        option.setAttribute("selected", "selected");
+            //    } else {
+            //        option.removeAttribute("selected")
+            //    }
+            //}
 
-            const materialSelect = document.querySelectorAll(".form-check.material-select > input");
-            for (const option of materialSelect) {
-                if (Array.from(response["materialIds"]).includes(option.value)) {
-                    option.setAttribute("selected", "selected");
-                } else {
-                    option.removeAttribute("selected")
-                }
-            }
+            //const materialSelect = document.querySelectorAll(".form-check.material-select > input");
+            //for (const option of [...materialSelect]) {
+            //    if (Array.from(response["materialIds"]).includes(option.value)) {
+            //        option.setAttribute("selected", "selected");
+            //    } else {
+            //        option.removeAttribute("selected")
+            //    }
+            //}
 
-            const tagSelect = document.querySelectorAll(".form-check.tag-select > input");
-            for (const option of tagSelect) {
-                if (Array.from(response["TagIds"]).includes(option.value)) {
-                    option.setAttribute("selected", "selected");
-                } else {
-                    option.removeAttribute("selected")
-                }
-            }
-            
+            //const tagSelect = document.querySelectorAll(".form-check.tag-select > input");
+            //for (const option of [...tagSelect]) {
+            //    if (Array.from(response["tagIds"]).includes(option.value)) {
+            //        option.setAttribute("selected", "selected");
+            //    } else {
+            //        option.removeAttribute("selected")
+            //    }
+            //}
 
             const nameInput = document.querySelector(".form-control.name-input");
+
             nameInput.value = response.name;
-            
 
             const descriptionInput = document.querySelector(".form-control.description-input");
             descriptionInput.value = response.description;

@@ -43,7 +43,9 @@ namespace VelvetLeaves.Services
 
         public async Task<ProductSeriesDefaultValues> GetDefaultValues(int productSeriesId)
         {
-            var productSeries = await _context.ProductSeries.Select(ps => new ProductSeriesDefaultValues()
+            var productSeries = await _context.ProductSeries
+                .Where(ps=> ps.Id == productSeriesId)
+                .Select(ps => new ProductSeriesDefaultValues()
             {
                 ColorIds = ps.DefaultColors.Select(c=> c.Id),
                 MaterialIds = ps.DefaultMaterials.Select(c=> c.Id),

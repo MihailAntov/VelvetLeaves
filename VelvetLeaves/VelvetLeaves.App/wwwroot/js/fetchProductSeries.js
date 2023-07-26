@@ -23,6 +23,14 @@ function handleSelect(e) {
                 productSeriesSelect.appendChild(option);
             }
 
+            const event = new Event("change", {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+            });
+
+            productSeriesSelect.dispatchEvent(event);
+
 
 
         },

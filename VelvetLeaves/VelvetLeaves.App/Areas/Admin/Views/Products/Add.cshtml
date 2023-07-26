@@ -63,7 +63,7 @@
 
 		<div class="mb-3">
 			<label asp-for="Name" class="form-label">Product Series Name</label>
-			<input asp-for="Name" value="@Model.Name" class="form-control  name-input" autocomplete="Enter series name here" aria-required="true" />
+			<input asp-for="Name" value="@Model.Name" class="form-control name-input" autocomplete="Enter series name here" aria-required="true" />
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
 
@@ -71,7 +71,7 @@
 
 		<div class="mb-3">
 			<label asp-for="Description" class="form-label">Description:</label>
-			<textarea asp-for="Description" class="form-control  description-input" rows="4">@Model.Description</textarea>
+			<textarea asp-for="Description" class="form-control description-input" rows="4">@Model.Description</textarea>
 			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
 
