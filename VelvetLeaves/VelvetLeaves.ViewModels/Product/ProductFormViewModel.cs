@@ -25,9 +25,9 @@ namespace VelvetLeaves.ViewModels.Product
         public int CategoryId { get; set; }
 
 
-        public IEnumerable<ColorSelectViewModel> DefaultColors { get; set; } = new HashSet<ColorSelectViewModel>();
-        public IEnumerable<MaterialListViewModel> DefaultSubcategories { get; set; } = new HashSet<MaterialListViewModel>();
-        public IEnumerable<TagListViewModel> DefaultTags { get; set; } = new HashSet<TagListViewModel>();
+        public IEnumerable<int> DefaultColorIds { get; set; } = new HashSet<int>();
+        public IEnumerable<int> DefaultMaterialIds { get; set; } = new HashSet<int>();
+        public IEnumerable<int> DefaultTagIds { get; set; } = new HashSet<int>();
 
 
 

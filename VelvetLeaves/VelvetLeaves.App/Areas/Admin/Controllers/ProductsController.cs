@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Product;
+using VelvetLeaves.ViewModels.ProductSeries;
 
 namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
 {
@@ -12,9 +13,28 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
-        public ProductsController(IProductService productService)
+        private readonly ICategoryService _categoryService;
+        private readonly ISubcategoryService _subcategoryService;
+        private readonly IProductSeriesService _productSeriesService;
+        private readonly IColorService _colorService;
+        private readonly IMaterialService _materialService;
+        private readonly ITagService _tagService;
+        public ProductsController(
+            IProductService productService,
+            ICategoryService categoryService,
+            ISubcategoryService subcategoryService,
+            IProductSeriesService productSeriesService,
+            IColorService colorService,
+            IMaterialService materialService,
+            ITagService tagService)
         {
             _productService = productService;
+            _categoryService = categoryService;
+            _subcategoryService = subcategoryService;
+            _productSeriesService = productSeriesService;
+            _colorService = colorService;
+            _materialService = materialService;
+            _tagService = tagService;
         }
         /// <summary>
         /// Returns all products, grouped by product series, then by subcategory, then by category, to be browsed in a tree-like structure.
@@ -28,11 +48,35 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(int categoryId, int subcategoryId, int productSeriesId)
         {
             var model = new ProductFormViewModel();
+            var categories = await _categoryService.AllCategoriesAsync();
+            model.CategoryId = categories.Select(c=> c.Id).Contains(categoryId) ? categoryId : await _categoryService.GetDefaultCategoryIdAsync() ;
+            model.CategoryOptions = categories;
+            var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
+            model.SubcategoryId = subCategories.Select(c=>c.Id).Contains(subcategoryId) ? subcategoryId : await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId);
+            model.SubcategoryOptions = subCategories;
+            var productSeries = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(model.SubcategoryId);
+            model.ProductSeriesId = productSeries.Select(ps => ps.Id).Contains(productSeriesId) ? productSeriesId : await _productSeriesService.GetDefaultProductSeriesIdAsync(model.SubcategoryId);
+
+
+            model.ColorOptions = await _colorService.GetAllColorsAsync();
+            model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+            model.TagOptions = await _tagService.GetAllTagsAsync();
+
+
+
+            ProductSeriesDefaultValues defaultValues = await _productSeriesService.GetDefaultValues(model.ProductSeriesId);
+            model.DefaultTagIds = defaultValues.TagIds;
+            model.DefaultColorIds = defaultValues.ColorIds;
+            model.DefaultMaterialIds = defaultValues.MaterialIds;
+            model.Name = defaultValues.Name??String.Empty;
+            model.Price = defaultValues.Price ?? 0.00M;
+            model.Description = defaultValues.Description ?? String.Empty;
 
             return View(model);
+
         }
 
         [HttpPost]

@@ -50,7 +50,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			await _subcategoryService.AddAsync(model.Name, model.CategoryId, imageId!);
 
 
-			return LocalRedirect($"~/Admin/Products/All?categoryId=1");
+			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
 		}
 
         [HttpGet]

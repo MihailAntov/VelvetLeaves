@@ -44,8 +44,14 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="Name" class="form-label">Product Series Name</label>
-			<input asp-for="Name" class="form-control" autocomplete="Enter name here" aria-required="true" />
+			<input asp-for="Name" class="form-control" autocomplete="Enter series name here" aria-required="true" />
 			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="DefaultName" class="form-label">Default Product Name</label>
+			<input asp-for="DefaultName" class="form-control" autocomplete="Enter default product name here" aria-required="true" />
+			<span asp-validation-for="DefaultName" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
@@ -67,8 +73,8 @@
 				@foreach (var color in Model.ColorOptions)
 				{
 					<div class="form-check">
-						<input name="defaultColors" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id">
-						<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;" asp-validation-for="DefaultColors"></span>
+						<input name="defaultColorIds" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id">
+						<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;"></span>
 					</div>
 				}
 			</div>
@@ -80,7 +86,7 @@
 				@foreach (var material in Model.MaterialOptions)
 				{
 					<div class="form-check">
-						<input  name="defaultMaterials" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id">
+						<input  name="defaultMaterialIds" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id">
 						<label for="Material @material.Id">@material.Name</label>
 					</div>
 				}
@@ -93,7 +99,7 @@
 				@foreach (var tag in Model.TagOptions)
 				{
 					<div class="form-check">
-						<input  name="defaultTags" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id">
+						<input  name="defaultTagIds" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id">
 						<label for="Tag @tag.Id">@tag.Name</label>
 					</div>
 				}
@@ -109,7 +115,7 @@
 
 		<div>
 
-			<button type="submit" asp-area="Admin" asp-controller="Subcategories" asp-action="Add" class="btn btn-primary">Add Subcategory</button>
+			<button type="submit" asp-area="Admin" asp-controller="ProductSeries" asp-action="Add" class="btn btn-primary">Add Product Series</button>
 		</div>
 	</form>
 </div>

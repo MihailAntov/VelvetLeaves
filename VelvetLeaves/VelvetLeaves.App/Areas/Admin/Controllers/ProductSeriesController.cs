@@ -59,7 +59,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(ProductSeriesFormViewModel model)
 		{
-			throw new NotImplementedException();
+			await _productSeriesService.AddAsync(model);
+
+			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
 		}
 
         [HttpGet]

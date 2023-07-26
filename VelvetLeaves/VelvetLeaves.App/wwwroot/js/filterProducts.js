@@ -13,3 +13,6 @@
             options.style.display = "none";
         }
     }
+
+
+//TODO replace this with collapse
