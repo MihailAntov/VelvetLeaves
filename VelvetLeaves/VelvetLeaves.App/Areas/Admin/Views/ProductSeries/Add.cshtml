@@ -49,15 +49,15 @@
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="DefaultPrice" class="form-label">Default Price:</label>
-			<input asp-for="DefaultPrice" class="form-control" autocomplete="Enter price here" aria-required="true" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label asp-for="DefaultDescription" class="form-label">Default Description:</label>
+			<textarea asp-for="DefaultDescription" class="form-control" rows="4"></textarea>
+			<span asp-validation-for="DefaultDescription" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
 			<label asp-for="DefaultPrice" class="form-label">Default Price:</label>
 			<input asp-for="DefaultPrice" class="form-control" autocomplete="Enter price here" aria-required="true" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<span asp-validation-for="DefaultPrice" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
@@ -81,7 +81,7 @@
 				{
 					<div class="form-check">
 						<input  name="defaultMaterials" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id">
-						<label for="Material @material.Id"></label>
+						<label for="Material @material.Id">@material.Name</label>
 					</div>
 				}
 			</div>
