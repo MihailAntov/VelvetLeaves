@@ -9,5 +9,6 @@ namespace VelvetLeaves.Services.Contracts
 		Task AddAsync(string name, int categoryId, string imageId);
 
 		Task<IEnumerable<SubcategorySelectViewModel>> AllSubcategoriesAsync();
+		Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId);
 	}
 }

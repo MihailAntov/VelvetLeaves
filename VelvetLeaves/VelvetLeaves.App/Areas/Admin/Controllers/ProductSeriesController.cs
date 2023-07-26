@@ -6,8 +6,8 @@ using VelvetLeaves.ViewModels.ProductSeries;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	[Authorize(Roles = "Admin,Moderator")]
-	public class ProductSeriesController : Controller
+    [Authorize(Roles = "Admin,Moderator")]
+    public class ProductSeriesController : Controller
 	{
 		private readonly ICategoryService _categoryService;
 		private readonly ISubcategoryService _subcategoryService;
@@ -29,12 +29,23 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			_tagService = tagService;
         }
 
-        [HttpGet]
+		
+
+		[HttpGet]
 		public async Task<IActionResult> Add(int categoryId, int subcategoryId)
 		{
 			var model = new ProductSeriesFormViewModel();
+
 			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
-			model.SubcategoryOptions = await _subcategoryService.AllSubcategoriesAsync();
+			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
+            {
+				model.SubcategoryOptions = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
+            }
+            else
+            {
+				model.SubcategoryOptions = await _subcategoryService.AllSubcategoriesAsync();
+
+            }
 			if (categoryId > 0 && categoryId <= model.CategoryOptions.Count())
 			{
 				model.CategoryId = categoryId;

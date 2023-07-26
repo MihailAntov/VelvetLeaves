@@ -9,7 +9,7 @@
 	<form id="categoryForm" enctype="multipart/form-data" method="post">
 		<div class="mb-3">
 			<label asp-for="CategoryId" class="form-label">Category</label>
-			<select asp-for="CategoryId" class="form-select" aria-label="Default select example">
+			<select asp-for="CategoryId" class="form-select category-select" aria-label="Default select example">
 				@foreach(var category in Model.CategoryOptions)
 				{
 					@if(category.Id == Model.CategoryId)
@@ -27,7 +27,7 @@
 
 		<div class="mb-3">
 			<label asp-for="SubcategoryId" class="form-label">Subcategory</label>
-			<select asp-for="SubcategoryId" class="form-select" aria-label="Default select example">
+			<select asp-for="SubcategoryId" class="form-select subcategory-select" aria-label="Default select example">
 				@foreach(var subcategory in Model.SubcategoryOptions)
 				{
 					@if(subcategory.Id == Model.CategoryId)
@@ -58,4 +58,5 @@
 <!-- Add the Bootstrap JS script -->
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/fetchSubcategories.js"></script>
 }

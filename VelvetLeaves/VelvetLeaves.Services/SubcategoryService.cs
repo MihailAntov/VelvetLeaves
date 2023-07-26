@@ -43,5 +43,18 @@ namespace VelvetLeaves.Services
 
 			return subcategories;
         }
+
+        public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
+        {
+			var subcategories = await _context.Subcategories
+				.Where(s=> s.CategoryId == categoryId)
+				.Select(sc => new SubcategorySelectViewModel()
+				{
+					Id = sc.Id,
+					Name = sc.Name
+				}).ToArrayAsync();
+
+			return subcategories;
+		}
     }
 }
