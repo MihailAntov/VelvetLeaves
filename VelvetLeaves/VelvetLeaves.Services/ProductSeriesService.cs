@@ -51,7 +51,7 @@ namespace VelvetLeaves.Services
                 Name = ps.DefaultName,
                 Description = ps.DefaultDescription,
                 Price = ps.DefaultPrice
-            }).FirstOrDefaultAsync();
+            }).FirstAsync();
 
             return productSeries;
         }

@@ -59,7 +59,7 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             model.SubcategoryOptions = subCategories;
             var productSeries = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(model.SubcategoryId);
             model.ProductSeriesId = productSeries.Select(ps => ps.Id).Contains(productSeriesId) ? productSeriesId : await _productSeriesService.GetDefaultProductSeriesIdAsync(model.SubcategoryId);
-
+            model.ProductSeriesOptions = productSeries;
 
             model.ColorOptions = await _colorService.GetAllColorsAsync();
             model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
