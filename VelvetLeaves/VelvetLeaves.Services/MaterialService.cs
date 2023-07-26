@@ -15,15 +15,27 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync()
+        {
+            var materials = await _context.Materials
+                .Select(m => new MaterialListViewModel()
+                {
+                    Name = m.Name,
+                    Id = m.Id
+                }).ToArrayAsync();
+
+            return materials;
+        }
+
         public async Task<IEnumerable<MaterialListViewModel>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
         {
             var products = _context.Products.AsQueryable();
-            if (categoryId.HasValue)
+            if (categoryId.HasValue && categoryId > 0)
             {
                 products = products.Where(p => p.Subcategory.CategoryId == categoryId);
             }
 
-            if (subcategoryId.HasValue)
+            if (subcategoryId.HasValue && subcategoryId > 0)
             {
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }

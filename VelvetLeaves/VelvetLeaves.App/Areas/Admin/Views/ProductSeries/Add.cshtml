@@ -1,6 +1,6 @@
 ﻿@model ProductSeriesFormViewModel
 @{
-	ViewData["Title"] = "Add product Series";
+	ViewData["Title"] = "Add Product Series";
 
 }
 
@@ -10,15 +10,15 @@
 		<div class="mb-3">
 			<label asp-for="CategoryId" class="form-label">Category</label>
 			<select asp-for="CategoryId" class="form-select category-select" aria-label="Default select example">
-				@foreach(var category in Model.CategoryOptions)
+				@foreach (var category in Model.CategoryOptions)
 				{
-					@if(category.Id == Model.CategoryId)
+					@if (category.Id == Model.CategoryId)
 					{
 						<option value="@category.Id" selected>@category.Name</option>
 					}
 					else
 					{
-					<option value="@category.Id">@category.Name</option>
+						<option value="@category.Id">@category.Name</option>
 					}
 				}
 			</select>
@@ -28,15 +28,15 @@
 		<div class="mb-3">
 			<label asp-for="SubcategoryId" class="form-label">Subcategory</label>
 			<select asp-for="SubcategoryId" class="form-select subcategory-select" aria-label="Default select example">
-				@foreach(var subcategory in Model.SubcategoryOptions)
+				@foreach (var subcategory in Model.SubcategoryOptions)
 				{
-					@if(subcategory.Id == Model.CategoryId)
+					@if (subcategory.Id == Model.CategoryId)
 					{
 						<option value="@subcategory.Id" selected>@subcategory.Name</option>
 					}
 					else
 					{
-					<option value="@subcategory.Id">@subcategory.Name</option>
+						<option value="@subcategory.Id">@subcategory.Name</option>
 					}
 				}
 			</select>
@@ -44,9 +44,68 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="Name" class="form-label">Product Series Name</label>
-			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<input asp-for="Name" class="form-control" autocomplete="Enter name here" aria-required="true" />
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
+
+		<div class="mb-3">
+			<label asp-for="DefaultPrice" class="form-label">Default Price:</label>
+			<input asp-for="DefaultPrice" class="form-control" autocomplete="Enter price here" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="DefaultPrice" class="form-label">Default Price:</label>
+			<input asp-for="DefaultPrice" class="form-control" autocomplete="Enter price here" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#colorsOptions" role="button" aria-expanded="true" aria-controls="colorsOptions">Default Colors</a>
+			<div class="collapse" id="colorsOptions">
+				<br />
+				@foreach (var color in Model.ColorOptions)
+				{
+					<div class="form-check">
+						<input name="defaultColors" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id">
+						<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;" asp-validation-for="DefaultColors"></span>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#materialsOptions" role="button" aria-expanded="true" aria-controls="materialsOptions">Default Materials</a>
+			<div class="collapse" id="materialsOptions">
+				<br />
+				@foreach (var material in Model.MaterialOptions)
+				{
+					<div class="form-check">
+						<input  name="defaultMaterials" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id">
+						<label for="Material @material.Id"></label>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#tagsOptions" role="button" aria-expanded="true" aria-controls="tagIds">Default Tags</a>
+			<div class="collapse" id="tagsOptions">
+				<br />
+				@foreach (var tag in Model.TagOptions)
+				{
+					<div class="form-check">
+						<input  name="defaultTags" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id">
+						<label for="Tag @tag.Id">@tag.Name</label>
+					</div>
+				}
+				
+			</div>
+		</div>
+			
+
+
+
+
+
 
 		<div>
 

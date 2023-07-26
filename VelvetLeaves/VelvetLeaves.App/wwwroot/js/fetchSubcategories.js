@@ -3,7 +3,7 @@
 categorySelect.addEventListener("change", handleSelect);
 
 function handleSelect(e) {
-    console.log(e.currentTarget.value)
+    
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -15,7 +15,7 @@ function handleSelect(e) {
             const subcategorySelect = document.querySelector(".form-select.subcategory-select");
             Array.from(subcategorySelect.children).forEach(e => e.remove());
             for (var subcategory of response) {
-                console.log(subcategory);
+                
                     let option = document.createElement('option');
                     option.value = subcategory.id;
                     option.textContent = subcategory.name;

@@ -8,5 +8,6 @@ namespace VelvetLeaves.Services.Contracts
         
 
         public Task AddCategoryAsync(string categoryName, string url);
+        public Task<int> GetDefaultCategoryIdAsync();
     }
 }

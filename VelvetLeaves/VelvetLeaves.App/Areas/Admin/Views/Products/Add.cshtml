@@ -1,0 +1,82 @@
+﻿@model ProductFormViewModel
+@{
+	ViewData["Title"] = "Add Product";
+
+}
+
+
+<div class="container mt-5">
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="CategoryId" class="form-label">Category</label>
+			<select asp-for="CategoryId" class="form-select category-select" aria-label="Default select example">
+				@foreach(var category in Model.CategoryOptions)
+				{
+					@if(category.Id == Model.CategoryId)
+					{
+						<option value="@category.Id" selected>@category.Name</option>
+					}
+					else
+					{
+					<option value="@category.Id">@category.Name</option>
+					}
+				}
+			</select>
+
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="SubcategoryId" class="form-label">Subcategory</label>
+			<select asp-for="SubcategoryId" class="form-select subcategory-select" aria-label="Default select example">
+				@foreach(var subcategory in Model.SubcategoryOptions)
+				{
+					@if(subcategory.Id == Model.CategoryId)
+					{
+						<option value="@subcategory.Id" selected>@subcategory.Name</option>
+					}
+					else
+					{
+					<option value="@subcategory.Id">@subcategory.Name</option>
+					}
+				}
+			</select>
+
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="ProductSeriesId" class="form-label">Subcategory</label>
+			<select asp-for="SubcategoryId" class="form-select subcategory-select" aria-label="Default select example">
+				@foreach(var subcategory in Model.SubcategoryOptions)
+				{
+					@if(subcategory.Id == Model.CategoryId)
+					{
+						<option value="@subcategory.Id" selected>@subcategory.Name</option>
+					}
+					else
+					{
+					<option value="@subcategory.Id">@subcategory.Name</option>
+					}
+				}
+			</select>
+
+		</div>
+
+
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Product Series Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+
+		<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Subcategories" asp-action="Add" class="btn btn-primary">Add Subcategory</button>
+		</div>
+	</form>
+</div>
+
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/fetchSubcategories.js"></script>
+}

@@ -27,11 +27,15 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             return View(model);
         }
 
-        public Task<IActionResult> Add()
+        [HttpGet]
+        public async Task<IActionResult> Add()
         {
-            throw new NotImplementedException();
+            var model = new ProductFormViewModel();
+
+            return View(model);
         }
 
+        [HttpPost]
         public  Task<IActionResult> Add(ProductFormViewModel model)
         {
             throw new NotImplementedException();

@@ -22,8 +22,6 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Add(int categoryId)
 		{
-			
-			
 			var model = new SubcategoryFormViewModel();
 			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
 			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
@@ -60,7 +58,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         {
 			var model = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
 
-			return Json(model.ToArray());
+			return Json(model);
         }
 	}
 }

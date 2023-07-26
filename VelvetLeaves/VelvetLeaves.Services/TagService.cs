@@ -15,15 +15,27 @@ namespace VelvetLeaves.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<TagListViewModel>> GetAllTagsAsync()
+        {
+            var tags = await _context.Tags
+                .Select(t => new TagListViewModel()
+                {
+                    Name = t.Name,
+                    Id = t.Id
+                })
+                .ToArrayAsync();
+            return tags;
+        }
+
         public async Task<IEnumerable<TagListViewModel>> GetTagOptionsAsync(int? categoryId, int? subcategoryId)
         {
             var products = _context.Products.AsQueryable();
-            if (categoryId.HasValue)
+            if (categoryId.HasValue && categoryId > 0)
             {
                 products = products.Where(p => p.Subcategory.CategoryId == categoryId);
             }
 
-            if (subcategoryId.HasValue)
+            if (subcategoryId.HasValue && subcategoryId > 0)
             {
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }

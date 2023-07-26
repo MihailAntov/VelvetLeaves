@@ -42,6 +42,13 @@ namespace VelvetLeaves.Services
             return categories;
         }
 
-        
+        public async Task<int> GetDefaultCategoryIdAsync()
+        {
+            var id = await _context.Categories
+                .Select(c => c.Id)
+                .FirstOrDefaultAsync();
+
+            return id;
+        }
     }
 }

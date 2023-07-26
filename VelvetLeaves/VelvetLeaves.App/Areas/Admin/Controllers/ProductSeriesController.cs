@@ -14,52 +14,43 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		private readonly IColorService _colorService;
 		private readonly IMaterialService _materialService;
 		private readonly ITagService _tagService;
+		private readonly IProductSeriesService _productSeriesService;
 
         public ProductSeriesController
 			(ICategoryService categoryService,
-			ISubcategoryService subcategoryService,
-			IColorService colorService,
-			IMaterialService materialService,
-			ITagService tagService)
+            ISubcategoryService subcategoryService,
+            IColorService colorService,
+            IMaterialService materialService,
+            ITagService tagService,
+            IProductSeriesService productSeriesService)
         {
             _categoryService = categoryService;
             _subcategoryService = subcategoryService;
-			_colorService = colorService;
-			_materialService = materialService;
-			_tagService = tagService;
+            _colorService = colorService;
+            _materialService = materialService;
+            _tagService = tagService;
+            _productSeriesService = productSeriesService;
         }
 
-		
 
-		[HttpGet]
+
+        [HttpGet]
 		public async Task<IActionResult> Add(int categoryId, int subcategoryId)
 		{
+			
 			var model = new ProductSeriesFormViewModel();
+			var categories = await _categoryService.AllCategoriesAsync();
+			model.CategoryId = (categoryId <= 0 || categoryId > categories.Count()) ? await _categoryService.GetDefaultCategoryIdAsync() : categoryId;
+			model.CategoryOptions = categories;
+			var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
+			model.SubcategoryId = (subcategoryId <= 0 || subcategoryId > subCategories.Count()) ? await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId) : subcategoryId;
+			model.SubcategoryOptions = subCategories;
 
-			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
-			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
-            {
-				model.SubcategoryOptions = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
-            }
-            else
-            {
-				model.SubcategoryOptions = await _subcategoryService.AllSubcategoriesAsync();
 
-            }
-			if (categoryId > 0 && categoryId <= model.CategoryOptions.Count())
-			{
-				model.CategoryId = categoryId;
-            }
-            
 
-			if(subcategoryId > 0 && subcategoryId <= model.SubcategoryOptions.Count())
-            {
-				model.SubcategoryId = subcategoryId;
-            }
-
-			model.ColorOptions = await _colorService.GetColorOptionsAsync(categoryId, subcategoryId);
-			model.MaterialOptions = await _materialService.GetMaterialOptionsAsync(categoryId, subcategoryId);
-			model.TagOptions = await _tagService.GetTagOptionsAsync(categoryId, subcategoryId);
+			model.ColorOptions = await _colorService.GetAllColorsAsync();
+			model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+			model.TagOptions = await _tagService.GetAllTagsAsync();
 
 
 			return View(model);
@@ -70,5 +61,12 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			throw new NotImplementedException();
 		}
+
+        [HttpGet]
+		public async Task<IActionResult> FetchProductSeries(int subcategoryId)
+        {
+			var model = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(subcategoryId);
+			return Json(model);
+        }
 	}
 }

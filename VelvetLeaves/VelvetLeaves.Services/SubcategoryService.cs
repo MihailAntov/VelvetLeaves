@@ -44,6 +44,16 @@ namespace VelvetLeaves.Services
 			return subcategories;
         }
 
+        public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
+        {
+			var id = await _context.Subcategories
+				.Where(sc => sc.CategoryId == categoryId)
+				.Select(sc => sc.Id)
+				.FirstOrDefaultAsync();
+
+			return id;
+        }
+
         public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
         {
 			var subcategories = await _context.Subcategories
