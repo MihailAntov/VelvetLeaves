@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.AspNetCore.Http;
 using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Material;
@@ -12,13 +13,16 @@ namespace VelvetLeaves.ViewModels.Product
     public class ProductFormViewModel
     {
         public string Name { get; set; }
-        public string DefaultName { get; set; }
+        //public string DefaultName { get; set; }
 
         public decimal Price { get; set; }
-        public decimal DefaultPrice { get; set; }
+        //public decimal DefaultPrice { get; set; }
 
         public string Description { get; set; }
-        public string DefaultDescription { get; set; } = null!;
+        //public string DefaultDescription { get; set; } = null!;
+
+        public IFormFile Image { get; set; } = null!;
+        public string ImageId { get; set; } = null!;
 
         public  int ProductSeriesId { get; set; }
         public int SubcategoryId { get; set; }

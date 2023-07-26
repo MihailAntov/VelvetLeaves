@@ -19,6 +19,7 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         private readonly IColorService _colorService;
         private readonly IMaterialService _materialService;
         private readonly ITagService _tagService;
+        private readonly IImageService _imageService;
         public ProductsController(
             IProductService productService,
             ICategoryService categoryService,
@@ -26,7 +27,8 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             IProductSeriesService productSeriesService,
             IColorService colorService,
             IMaterialService materialService,
-            ITagService tagService)
+            ITagService tagService,
+            IImageService imageService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -35,6 +37,7 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             _colorService = colorService;
             _materialService = materialService;
             _tagService = tagService;
+            _imageService = imageService;   
         }
         /// <summary>
         /// Returns all products, grouped by product series, then by subcategory, then by category, to be browsed in a tree-like structure.
@@ -80,9 +83,30 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public  Task<IActionResult> Add(ProductFormViewModel model)
+        public  async Task<IActionResult> Add(ProductFormViewModel model)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            
+            string? imageId = await _imageService.CreateAsync(model.Image);
+            if(imageId == null)
+            {
+                ModelState.AddModelError("image", "Image upload unsuccessful.");
+                return View(model);
+            }
+            model.ImageId = imageId!;
+            await _productService.AddAsync(model);
+
+            return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FetchDefaultValues(int productSeriesId)
+        {
+            var model = await _productSeriesService.GetDefaultValues(productSeriesId);
+            return Json(model);
         }
     }
 }

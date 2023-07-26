@@ -156,5 +156,20 @@ namespace VelvetLeaves.Services
             
             return model;
         }
+
+        public Task AddAsync(ProductFormViewModel model)
+        {
+            Product product = new Product()
+            {
+                Name = model.Name,
+                SubcategoryId = model.SubcategoryId,
+                ProductSeriesId = model.ProductSeriesId,
+                Description = model.Description,
+                Price = model.Price
+                
+            };
+
+            throw new NotImplementedException();
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace VelvetLeaves.Services.Contracts
 
         Task<bool> ExistsByIdAsync(int id);
 
+        Task AddAsync(ProductFormViewModel model);
+
         
         
     }

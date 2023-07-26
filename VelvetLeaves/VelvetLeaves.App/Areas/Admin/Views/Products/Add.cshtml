@@ -63,31 +63,37 @@
 
 		<div class="mb-3">
 			<label asp-for="Name" class="form-label">Product Series Name</label>
-			<input asp-for="Name" value="@Model.DefaultName" class="form-control" autocomplete="Enter series name here" aria-required="true" />
+			<input asp-for="Name" value="@Model.Name" class="form-control  name-input" autocomplete="Enter series name here" aria-required="true" />
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
 
 		
 
 		<div class="mb-3">
-			<label asp-for="DefaultDescription" class="form-label">Default Description:</label>
-			<textarea asp-for="DefaultDescription" class="form-control" rows="4">@Model.DefaultDescription</textarea>
-			<span asp-validation-for="DefaultDescription" class="text-danger"></span>
+			<label asp-for="Description" class="form-label">Description:</label>
+			<textarea asp-for="Description" class="form-control  description-input" rows="4">@Model.Description</textarea>
+			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="DefaultPrice" class="form-label">Default Price:</label>
-			<input asp-for="DefaultPrice" value="@Model.DefaultPrice" class="form-control" autocomplete="Enter price here" aria-required="true" />
-			<span asp-validation-for="DefaultPrice" class="text-danger"></span>
+			<label asp-for="Price" class="form-label">Default Price:</label>
+			<input asp-for="Price" value="@Model.Price" class="form-control price-input" autocomplete="Enter price here" aria-required="true" />
+			<span asp-validation-for="Price" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Product Image</label>
+			<input asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
 			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#colorsOptions" role="button" aria-expanded="true" aria-controls="colorsOptions">Default Colors</a>
-			<div class="collapse" id="colorsOptions">
-				<br />
+			<div class="collapse m-1" id="colorsOptions">
+				
 				@foreach (var color in Model.ColorOptions)
 				{
-					<div class="form-check">
+					<div class="form-check color-select">
 						<input name="defaultColorIds" class="form-check-input" type="checkbox" multiple value="@color.Id" id="Color @color.Id" @(Model.DefaultColorIds.Contains(color.Id) ? "selected" : "")>
 						<span style="background-color:#@color.ColorValue;width:18px;height:18px;display:flex;border-radius:40px;border:1px solid black;"></span>
 					</div>
@@ -96,11 +102,11 @@
 		</div>
 		<div class="mb-3">
 			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#materialsOptions" role="button" aria-expanded="true" aria-controls="materialsOptions">Default Materials</a>
-			<div class="collapse" id="materialsOptions">
-				<br />
+			<div class="collapse m-1" id="materialsOptions">
+				
 				@foreach (var material in Model.MaterialOptions)
 				{
-					<div class="form-check">
+					<div class="form-check material-select">
 						<input  name="defaultMaterialIds" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id" @(Model.DefaultMaterialIds.Contains(material.Id) ? "selected" : "")>
 						<label for="Material @material.Id">@material.Name</label>
 					</div>
@@ -109,11 +115,11 @@
 		</div>
 		<div class="mb-3">
 			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#tagsOptions" role="button" aria-expanded="true" aria-controls="tagIds">Default Tags</a>
-			<div class="collapse" id="tagsOptions">
-				<br />
+			<div class="collapse m-1" id="tagsOptions">
+				
 				@foreach (var tag in Model.TagOptions)
 				{
-					<div class="form-check">
+					<div class="form-check tag-select">
 						<input  name="defaultTagIds" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id" @(Model.DefaultTagIds.Contains(tag.Id) ? "selected" : "")>
 						<label for="Tag @tag.Id">@tag.Name</label>
 					</div>
@@ -136,4 +142,5 @@
 	<partial name="_ValidationScriptsPartial" />
 	<script src="~/js/fetchSubcategories.js"></script>
 	<script src="~/js/fetchProductSeries.js"></script>
+	<script src="~/js/fetchDefaultValues.js"></script>
 }

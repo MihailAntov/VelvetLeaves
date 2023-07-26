@@ -12,7 +12,7 @@ function handleSelect(e) {
         ,
         success: function (response) {
 
-            const productSeriesSelect = document.querySelector(".form-select.productSeries-select");
+            const productSeriesSelect = document.querySelector(".form-select.productseries-select");
             Array.from(productSeriesSelect.children).forEach(e => e.remove());
             for (var series of response) {
                 

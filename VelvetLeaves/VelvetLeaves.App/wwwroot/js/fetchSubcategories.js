@@ -21,7 +21,15 @@ function handleSelect(e) {
                     option.textContent = subcategory.name;
 
                     subcategorySelect.appendChild(option);
-                }
+            }
+
+            const event = new Event("change", {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+            });
+            
+             subcategorySelect.dispatchEvent(event);
 
                 
                 
