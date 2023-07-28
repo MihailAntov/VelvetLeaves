@@ -1,0 +1,55 @@
+﻿@model AddToGalleryViewModel
+@inject IImageService imageService
+<br />
+
+
+<div class="container-fluid">
+	<form enctype="multipart/form-data" method="post">
+	<ul class="list-group">
+		@foreach (var category in Model.Categories)
+		{
+			<li class="list-group-item">
+				<div class="row p-2">
+					<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#category@(category.Id)" role="button" aria-expanded="true" aria-controls="category@(category.Id)">@category.Name</a>
+				</div>
+				<div class="collapse" id="category@(category.Id)">
+					<ul class="list-group">
+						@foreach (var subcategory in category.Subcategories)
+						{
+							<li class="list-group-item">
+								<div class="row p-2">
+									<a class="btn btn-info col-2" data-bs-toggle="collapse" href="#subcategory@(subcategory.Id)" role="button" aria-expanded="false" aria-controls="subcategory@(subcategory.Id)">@subcategory.Name</a>
+								</div>
+								<div class="collapse" id="subcategory@(subcategory.Id)">
+									<ul class="list-group">
+										@foreach (var product in subcategory.Products)
+										{
+											<li class="list-group-item card">
+												<div class="row">
+													<p class="col-2 p-3 d-inline-flex p-2 me-auto mb-auto mt-auto"> @product.Name </p>
+													<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+													<div class="form-check col-2 mb-auto mt-auto ms-auto">
+														<input name="productIds" class="form-check-input" type="checkbox" value="@product.Id">
+														<input hidden asp-for="GalleryName" value="@Model.GalleryName">
+													</div>
+												</div>
+											</li>
+										}
+										
+									</ul>
+								</div>
+							</li>
+						}
+						
+					</ul>
+				</div>
+			</li>
+		}
+	</ul>
+
+	<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Galleries" asp-action="AddItem" class="btn btn-primary">Add Selected Items to "@Model.GalleryName"</button>
+		</div>
+	</form>
+</div>
