@@ -1,5 +1,6 @@
 ﻿@model ProductFormViewModel
-@{
+
+	@{
 	ViewData["Title"] = "Add Product";
 
 }
@@ -10,15 +11,15 @@
 		<div class="mb-3">
 			<label asp-for="CategoryId" class="form-label">Category</label>
 			<select asp-for="CategoryId" class="form-select category-select" aria-label="Select Category">
-				@foreach(var category in Model.CategoryOptions)
+				@foreach (var category in Model.CategoryOptions)
 				{
-					@if(category.Id == Model.CategoryId)
+					@if (category.Id == Model.CategoryId)
 					{
 						<option value="@category.Id" selected>@category.Name</option>
 					}
 					else
 					{
-					<option value="@category.Id">@category.Name</option>
+						<option value="@category.Id">@category.Name</option>
 					}
 				}
 			</select>
@@ -28,15 +29,15 @@
 		<div class="mb-3">
 			<label asp-for="SubcategoryId" class="form-label">Subcategory</label>
 			<select asp-for="SubcategoryId" class="form-select subcategory-select" aria-label="Select Subcategory">
-				@foreach(var subcategory in Model.SubcategoryOptions)
+				@foreach (var subcategory in Model.SubcategoryOptions)
 				{
-					@if(subcategory.Id == Model.CategoryId)
+					@if (subcategory.Id == Model.CategoryId)
 					{
 						<option value="@subcategory.Id" selected>@subcategory.Name</option>
 					}
 					else
 					{
-					<option value="@subcategory.Id">@subcategory.Name</option>
+						<option value="@subcategory.Id">@subcategory.Name</option>
 					}
 				}
 			</select>
@@ -46,15 +47,15 @@
 		<div class="mb-3">
 			<label asp-for="ProductSeriesId" class="form-label">Product Series</label>
 			<select asp-for="ProductSeriesId" class="form-select productseries-select" aria-label="Select Product Series">
-				@foreach(var series in Model.ProductSeriesOptions)
+				@foreach (var series in Model.ProductSeriesOptions)
 				{
-					@if(series.Id == Model.ProductSeriesId)
+					@if (series.Id == Model.ProductSeriesId)
 					{
 						<option value="@series.Id" selected>@series.Name</option>
 					}
 					else
 					{
-					<option value="@series.Id">@series.Name</option>
+						<option value="@series.Id">@series.Name</option>
 					}
 				}
 			</select>
@@ -67,7 +68,7 @@
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
 
-		
+
 
 		<div class="mb-3">
 			<label asp-for="Description" class="form-label">Description:</label>
@@ -82,15 +83,21 @@
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="Image" class="form-label">Product Image</label>
-			<input asp-for="Image" class="form-control" type="file" id="formFile">
-			<span asp-validation-for="Image" class="text-danger"></span>
+			<label asp-for="Price" class="form-label">Upload Images:</label>
+			<input asp-for="Images" value="" type="file" multiple id="allImages" class="form-control file-input" hidden/>
+			<input value="" type="file" multiple id="imageBatch" class="form-control"/>
+			<span asp-validation-for="Price" class="text-danger"></span>
+			<div class="m-1 image-preview-gallery row">
+
+			</div>
 		</div>
 
+		
+
 		<div class="mb-3">
-			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#colorsOptions" role="button" aria-expanded="true" aria-controls="colorsOptions">Default Colors</a>
+			<a class="btn btn-outline-dark col-2 mb-1" data-bs-toggle="collapse" href="#colorsOptions" role="button" aria-expanded="true" aria-controls="colorsOptions">Colors</a>
 			<div class="collapse m-1" id="colorsOptions">
-				
+
 				@foreach (var color in Model.ColorOptions)
 				{
 					<div class="form-check color-select">
@@ -101,38 +108,38 @@
 			</div>
 		</div>
 		<div class="mb-3">
-			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#materialsOptions" role="button" aria-expanded="true" aria-controls="materialsOptions">Default Materials</a>
+			<a class="btn btn-outline-dark col-2" data-bs-toggle="collapse" href="#materialsOptions" role="button" aria-expanded="true" aria-controls="materialsOptions">Materials</a>
 			<div class="collapse m-1" id="materialsOptions">
-				
+
 				@foreach (var material in Model.MaterialOptions)
 				{
 					<div class="form-check material-select">
-						<input  name="defaultMaterialIds" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id" @(Model.DefaultMaterialIds.Contains(material.Id) ? "selected" : "")>
+						<input name="defaultMaterialIds" class="form-check-input" type="checkbox" multiple value="@material.Id" id="Material @material.Id" @(Model.DefaultMaterialIds.Contains(material.Id) ? "selected" : "")>
 						<label for="Material @material.Id">@material.Name</label>
 					</div>
 				}
 			</div>
 		</div>
 		<div class="mb-3">
-			<a class="btn btn-outline-info col-2" data-bs-toggle="collapse" href="#tagsOptions" role="button" aria-expanded="true" aria-controls="tagIds">Default Tags</a>
+			<a class="btn btn-outline-dark col-2" data-bs-toggle="collapse" href="#tagsOptions" role="button" aria-expanded="true" aria-controls="tagIds">Tags</a>
 			<div class="collapse m-1" id="tagsOptions">
-				
+
 				@foreach (var tag in Model.TagOptions)
 				{
 					<div class="form-check tag-select">
-						<input  name="defaultTagIds" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id" @(Model.DefaultTagIds.Contains(tag.Id) ? "selected" : "")>
+						<input name="defaultTagIds" class="form-check-input" type="checkbox" multiple value="@tag.Id" id="Tag @tag.Id" @(Model.DefaultTagIds.Contains(tag.Id) ? "selected" : "")>
 						<label for="Tag @tag.Id">@tag.Name</label>
 					</div>
 				}
-				
+
 			</div>
 		</div>
 
-		
+
 
 		<div>
 
-			<button type="submit" asp-area="Admin" asp-controller="Subcategories" asp-action="Add" class="btn btn-primary">Add Subcategory</button>
+			<button type="submit" asp-area="Admin" asp-controller="Products" asp-action="Add" class="btn btn-primary">Add Product</button>
 		</div>
 	</form>
 </div>
@@ -143,4 +150,5 @@
 	<script src="~/js/fetchSubcategories.js"></script>
 	<script src="~/js/fetchProductSeries.js"></script>
 	<script src="~/js/fetchDefaultValues.js"></script>
+	<script src="~/js/uploadMultipleImages.js"></script>
 }

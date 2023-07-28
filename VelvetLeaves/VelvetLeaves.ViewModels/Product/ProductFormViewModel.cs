@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Material;
@@ -21,8 +22,9 @@ namespace VelvetLeaves.ViewModels.Product
         public string Description { get; set; }
         //public string DefaultDescription { get; set; } = null!;
 
-        public IFormFile Image { get; set; } = null!;
-        public string ImageId { get; set; } = null!;
+        [Required]
+        public IEnumerable<IFormFile> Images { get; set; } = null!;
+        public IEnumerable<string>? ImageIds { get; set; } 
 
         public  int ProductSeriesId { get; set; }
         public int SubcategoryId { get; set; }

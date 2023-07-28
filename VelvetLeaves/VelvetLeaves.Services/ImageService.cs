@@ -31,8 +31,7 @@ namespace VelvetLeaves.Services
 
 		public async Task<string?> CreateAsync(IFormFile content)
 		{
-            //string imgContent = content.
-            //await _imagesCollection.InsertOneAsync(newBook);
+            
             string? id = null;
             using (var memoryStream = new MemoryStream())
             {
@@ -72,7 +71,44 @@ namespace VelvetLeaves.Services
             
 		}
 
-		public Task<List<string>> GetAllAsync()
+        public async Task<IEnumerable<string?>> CreateRangeAsync(IEnumerable<IFormFile> files)
+        {
+            var results = new List<string?>();
+            
+            foreach(var file in files)
+            {
+                string? id = null;
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+
+                    // Upload the file if less than 2 MB
+                    if (memoryStream.Length < 2097152)
+                    {
+                        var image = new Image()
+                        {
+
+                            Content = Convert.ToBase64String(memoryStream.ToArray())
+                        };
+
+
+
+
+                        var result = _imagesCollection.InsertOneAsync(image);
+
+                        id = image.Id;
+
+                    }
+
+                }
+
+                results.Add(id);
+            }
+
+            return results;
+        }
+
+        public Task<List<string>> GetAllAsync()
 		{
 			throw new NotImplementedException();
 		}

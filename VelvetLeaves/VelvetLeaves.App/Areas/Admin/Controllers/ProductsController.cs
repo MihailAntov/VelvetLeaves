@@ -89,14 +89,15 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             {
                 return View(model);
             }
-            
-            string? imageId = await _imageService.CreateAsync(model.Image);
-            if(imageId == null)
+
+            var imageIds = await _imageService.CreateRangeAsync(model.Images);
+            if(imageIds.Any(id=> id == null))
             {
-                ModelState.AddModelError("image", "Image upload unsuccessful.");
+                ModelState.AddModelError("Image", "Image upload unsuccessful.");
                 return View(model);
             }
-            model.ImageId = imageId!;
+
+            model.ImageIds = imageIds!;
             await _productService.AddAsync(model);
 
             return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
