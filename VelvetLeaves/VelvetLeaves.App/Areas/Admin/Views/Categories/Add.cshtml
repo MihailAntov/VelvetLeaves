@@ -17,7 +17,12 @@
 			<label asp-for="Image" class="form-label">Category Image</label>
 			<input asp-for="Image" class="form-control" type="file" id="formFile">
 			<span asp-validation-for="Image" class="text-danger"></span>
+			<div class="m-1 image-preview-gallery row">
+
+			</div>
 		</div>
+
+
 		<div>
 
 			<button type="submit" asp-area="Admin" asp-controller="Categories" asp-action="Add" class="btn btn-primary">Add Category</button>
@@ -28,4 +33,5 @@
 <!-- Add the Bootstrap JS script -->
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/uploadImage.js"></script>
 }
