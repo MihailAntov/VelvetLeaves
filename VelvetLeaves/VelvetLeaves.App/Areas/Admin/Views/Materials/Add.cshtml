@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model MaterialFormViewModel
 @{
+	ViewData["Title"] = "Add Material";
+
+}
+
+
+<div class="container mt-5">
+	
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Material Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Materials" asp-action="Add" class="btn btn-primary">Add Material</button>
+		</div>
+	</form>
+</div>
+
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
 }

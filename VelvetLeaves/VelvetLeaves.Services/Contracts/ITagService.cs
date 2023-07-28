@@ -8,5 +8,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<IEnumerable<TagListViewModel>> GetTagOptionsAsync(int? categoryId, int? subcategoryId);
         Task<IEnumerable<TagListViewModel>> GetAllTagsAsync();
 
+        Task AddAsync(TagFormViewModel model);
+
     }
 }

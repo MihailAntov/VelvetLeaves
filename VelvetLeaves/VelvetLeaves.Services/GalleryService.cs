@@ -5,6 +5,7 @@ using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.Gallery;
+using VelvetLeaves.Data.Models;
 
 namespace VelvetLeaves.Services
 {
@@ -16,7 +17,19 @@ namespace VelvetLeaves.Services
 			_context = context;
 		}
 
-		public async Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync()
+        public async Task AddAsync(GalleryFormViewModel model)
+        {
+			Gallery gallery = new Gallery()
+			{
+				Name = model.Name,
+				Description = model.Description,
+				ImageId = model.ImageId!
+			};
+			await _context.Galleries.AddAsync(gallery);
+			await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync()
 		{
 			var galleries = await _context.Galleries
 				.Select(g => new GalleryViewModel()

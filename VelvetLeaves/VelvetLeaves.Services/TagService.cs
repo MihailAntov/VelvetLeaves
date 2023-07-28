@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Tag;
 
@@ -13,6 +14,16 @@ namespace VelvetLeaves.Services
         public TagService(VelvetLeavesDbContext context)
         {
             _context = context;
+        }
+
+        public async Task AddAsync(TagFormViewModel model)
+        {
+            Tag tag = new Tag()
+            {
+                Name = model.Name
+            };
+            await _context.Tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TagListViewModel>> GetAllTagsAsync()

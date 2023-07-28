@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Material;
 
@@ -13,6 +14,16 @@ namespace VelvetLeaves.Services
         public MaterialService(VelvetLeavesDbContext context)
         {
             _context = context;
+        }
+
+        public async Task AddAsync(MaterialFormViewModel model)
+        {
+            Material material = new Material()
+            {
+                Name = model.Name
+            };
+            await _context.Materials.AddAsync(material);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync()

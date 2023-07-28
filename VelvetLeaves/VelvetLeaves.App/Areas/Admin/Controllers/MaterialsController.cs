@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Material;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
@@ -8,8 +9,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	[Authorize(Roles = "Admin,Moderator")]
 	public class MaterialsController : Controller
 	{
+		private readonly IMaterialService _materialService;
+
+        public MaterialsController(IMaterialService materialService)
+        {
+			_materialService = materialService;
+        }
+
 		[HttpGet]
-		public async Task<IActionResult> Add()
+		public IActionResult Add()
 		{
 			return View();
 		}
@@ -17,7 +25,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(MaterialFormViewModel model)
 		{
-			throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+				return View(model);
+            }
+
+			await _materialService.AddAsync(model);
+
+			return RedirectToAction("All", "Products");
 		}
 	}
 }

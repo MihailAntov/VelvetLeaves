@@ -8,5 +8,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<IEnumerable<MaterialListViewModel>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId);
         Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync();
 
+        Task AddAsync(MaterialFormViewModel model);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Tag;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
@@ -8,8 +9,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	[Authorize(Roles = "Admin,Moderator")]
 	public class TagsController : Controller
 	{
-		[HttpGet]
-		public async Task<IActionResult> Add()
+
+		private readonly ITagService _tagService;
+        public TagsController(ITagService tagService)
+        {
+            _tagService = tagService;
+        }
+
+        [HttpGet]
+		public  IActionResult Add()
 		{
 			return View();
 		}
@@ -17,7 +25,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(TagFormViewModel model)
 		{
-			throw new NotImplementedException();
+			await _tagService.AddAsync(model);
+
+			return RedirectToAction("All", "Products");
 		}
 	}
 }
