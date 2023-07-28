@@ -84,9 +84,11 @@ namespace VelvetLeaves.Services
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
+						Position = gp.Position,
 						ImageId = gp.Product.Images.Select(i=> i.Id).First(),
 						Price = gp.Product.Price
-					}).ToArray()
+					}).OrderBy(p=> p.Position)
+					.ToArray()
 				}).FirstOrDefaultAsync();
 
 			return gallery;

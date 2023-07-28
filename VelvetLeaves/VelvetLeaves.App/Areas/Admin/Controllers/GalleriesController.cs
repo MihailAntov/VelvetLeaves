@@ -26,6 +26,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(int galleryId)
+        {
+            var model = await _galleryService.GetGalleryByIdAsync(galleryId);
+            return View(model);
+        }
+
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
