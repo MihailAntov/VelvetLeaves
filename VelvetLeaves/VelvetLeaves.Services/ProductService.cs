@@ -16,9 +16,29 @@ namespace VelvetLeaves.Services
     public class ProductService : IProductService
     {
         private readonly VelvetLeavesDbContext _context;
-        public ProductService(VelvetLeavesDbContext context)
+        private readonly ICategoryService _categoryService;
+        private readonly ISubcategoryService _subcategoryService;
+        private readonly IProductSeriesService _productSeriesService;
+        private readonly ITagService _tagService;
+        private readonly IMaterialService _materialService;
+        private readonly IColorService _colorService;
+        public ProductService(
+            VelvetLeavesDbContext context,
+            ICategoryService categoryService,
+            ISubcategoryService subcategoryService,
+            IProductSeriesService productSeriesService,
+            ITagService tagService,
+            IMaterialService materialService,
+            IColorService colorService
+            )
         {
             _context = context;
+            _categoryService = categoryService;
+            _subcategoryService = subcategoryService;
+            _materialService = materialService;
+            _tagService = tagService;
+            _productSeriesService = productSeriesService;
+            _colorService = colorService;
         }
 
         public async Task<bool> ExistsByIdAsync(int id)
@@ -180,6 +200,62 @@ namespace VelvetLeaves.Services
             await _context.SaveChangesAsync();
 
             
+        }
+
+        public async Task<ProductFormViewModel> GetFormForAddAsync(int categoryId, int subcategoryId, int productSeriesId)
+        {
+            var model = new ProductFormViewModel();
+            var categories = await _categoryService.AllCategoriesAsync();
+            model.CategoryId = categories.Select(c => c.Id).Contains(categoryId) ? categoryId : await _categoryService.GetDefaultCategoryIdAsync();
+            model.CategoryOptions = categories;
+            var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
+            model.SubcategoryId = subCategories.Select(c => c.Id).Contains(subcategoryId) ? subcategoryId : await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId);
+            model.SubcategoryOptions = subCategories;
+            var productSeries = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(model.SubcategoryId);
+            model.ProductSeriesId = productSeries.Select(ps => ps.Id).Contains(productSeriesId) ? productSeriesId : await _productSeriesService.GetDefaultProductSeriesIdAsync(model.SubcategoryId);
+            model.ProductSeriesOptions = productSeries;
+
+            model.ColorOptions = await _colorService.GetAllColorsAsync();
+            model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+            model.TagOptions = await _tagService.GetAllTagsAsync();
+
+
+
+            ProductSeriesDefaultValues defaultValues = await _productSeriesService.GetDefaultValues(model.ProductSeriesId);
+            model.DefaultTagIds = defaultValues.TagIds;
+            model.DefaultColorIds = defaultValues.ColorIds;
+            model.DefaultMaterialIds = defaultValues.MaterialIds;
+            model.Name = defaultValues.Name ?? String.Empty;
+            model.Price = defaultValues.Price ?? 0.00M;
+            model.Description = defaultValues.Description ?? String.Empty;
+
+            return model;
+        }
+
+        public async Task<ProductEditFormViewModel> GetFormForEditAsync(int productId)
+        {
+            var model = await _context.Products
+                .Where(p => p.Id == productId)
+                .Select(p => new ProductEditFormViewModel()
+                {
+                    Id = p.Id,
+                    CategoryId = p.Subcategory.CategoryId,
+                    SubcategoryId = p.SubcategoryId,
+                    ProductSeriesId = p.ProductSeriesId,
+                    Name = p.Name,
+                    ColorIds = p.Colors.Select(c => c.Id),
+                    TagIds = p.Tags.Select(t => t.Id),
+                    MaterialIds = p.Materials.Select(m => m.Id),
+                    Description = p.Description,
+                    ImageIds = p.Images.Select(i => i.Id),
+                    Price = p.Price
+                }).FirstAsync();
+
+            model.ColorOptions = await _colorService.GetAllColorsAsync();
+            model.TagOptions = await _tagService.GetAllTagsAsync();
+            model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+
+            return model;
         }
     }
 }

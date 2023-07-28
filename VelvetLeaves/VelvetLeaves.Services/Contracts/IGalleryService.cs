@@ -17,5 +17,7 @@ namespace VelvetLeaves.Services.Contracts
 		Task Delete(int productId, int galleryId);
 
 		Task<AddToGalleryViewModel> GetItemsToAddAsync(int galleryId);
+
+		Task AddItemsToGalleryAsync(int galleryId, IEnumerable<int> items);
 	}
 }

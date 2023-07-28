@@ -18,6 +18,10 @@ namespace VelvetLeaves.Services.Contracts
 
         Task AddAsync(ProductFormViewModel model);
 
+        Task<ProductFormViewModel> GetFormForAddAsync(int categoryId, int subcategoryId, int productSeriesId);
+
+        Task<ProductEditFormViewModel> GetFormForEditAsync(int productId);
+
         
         
     }

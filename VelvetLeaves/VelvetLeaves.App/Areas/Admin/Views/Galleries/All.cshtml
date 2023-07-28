@@ -5,13 +5,15 @@
 
 }
 
-<div class="container mb-3">
-	<a asp-area="Admin" asp-controller="Galleries" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Gallery</a>
-</div>
+
 
 <div class="container-fluid">
+	<div class="row">
 	<h2>@ViewData["Title"]</h2>
-
+	<div class="container mb-3">
+	<a asp-area="Admin" asp-controller="Galleries" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Gallery</a>
+	</div>
+</div>
 	<div class="row">
 		@if (Model.Any())
 		{

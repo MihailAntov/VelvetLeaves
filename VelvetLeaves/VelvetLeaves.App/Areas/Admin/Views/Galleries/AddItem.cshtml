@@ -5,6 +5,7 @@
 
 <div class="container-fluid">
 	<form enctype="multipart/form-data" method="post">
+		<input asp-for="GalleryId" value="@Model.GalleryId" hidden/>
 	<ul class="list-group">
 		@foreach (var category in Model.Categories)
 		{
@@ -30,6 +31,7 @@
 													<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
 													<div class="form-check col-2 mb-auto mt-auto ms-auto">
 														<input name="productIds" class="form-check-input" type="checkbox" value="@product.Id">
+														
 														<input hidden asp-for="GalleryName" value="@Model.GalleryName">
 													</div>
 												</div>

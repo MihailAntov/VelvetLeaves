@@ -166,5 +166,17 @@ namespace VelvetLeaves.Services
 
 			return model;
         }
+
+        public async Task AddItemsToGalleryAsync(int galleryId, IEnumerable<int> items)
+        {
+			var entries = items.Select(i => new GalleryProduct()
+			{
+				GalleryId = galleryId,
+				ProductId = i
+			});
+
+			await _context.GalleriesProducts.AddRangeAsync(entries);
+			await _context.SaveChangesAsync();
+        }
     }
 }

@@ -110,6 +110,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 return View(model);
             }
+            await _galleryService.AddItemsToGalleryAsync(model.GalleryId, model.ProductIds);
 
             return LocalRedirect($"~/Admin/Galleries/Edit?galleryId={model.GalleryId}");
             
