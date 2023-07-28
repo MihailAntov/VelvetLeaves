@@ -60,9 +60,38 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             await _galleryService.Delete(productId, galleryId);
         }
 
+		[HttpGet]
+        public async Task<IActionResult> Edit(int galleryId)
+		{
+            var model = await _galleryService.GetGalleryEditFormAsync(galleryId);
+
+            return View(model);
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(GalleryEditFormViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+                return View(model);
+			}
+            if(model.Image != null)
+            {
+            await _imageService.UpdateAsync(model.ImageId, model.Image);
+
+            }
+
+            await _galleryService.EditAsync(model);
+
+            return RedirectToAction("All", "Galleries");
+
+
+		}
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int galleryId)
+        public async Task<IActionResult> Show(int galleryId)
         {
             var model = await _galleryService.GetGalleryByIdAsync(galleryId);
             return View(model);
@@ -112,7 +141,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             }
             await _galleryService.AddItemsToGalleryAsync(model.GalleryId, model.ProductIds);
 
-            return LocalRedirect($"~/Admin/Galleries/Edit?galleryId={model.GalleryId}");
+            return LocalRedirect($"~/Admin/Galleries/Show?galleryId={model.GalleryId}");
             
         }
     }

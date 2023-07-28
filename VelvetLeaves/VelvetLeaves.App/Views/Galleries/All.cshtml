@@ -14,7 +14,7 @@
 			@foreach (var gallery in Model)
 			{
 				<div class="col-md-4">
-					<div class="card mb-3" data-toggle="tooltip-lg" data-placement="bottom" title="@gallery.Description">
+					<div class="card mb-3" data-toggle="tooltip" data-placement="bottom" title="@gallery.Description">
 						<a class="text-decoration-none text-black fw-normal" asp-controller="Galleries" asp-action="Show" asp-route-id="@gallery.Id">
 							<div class="card-body">
 								<h5 class="card-title ">@gallery.Name</h5>

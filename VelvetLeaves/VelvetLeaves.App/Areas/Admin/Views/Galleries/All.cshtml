@@ -20,8 +20,8 @@
 			@foreach (var gallery in Model)
 			{
 				<div class="col-md-4">
-					<div class="card mb-3" data-toggle="tooltip-lg" data-placement="bottom" title="@gallery.Name">
-						<a class="text-decoration-none text-black fw-normal" asp-area="Admin" asp-controller="Galleries" asp-action="Edit" asp-route-galleryId="@gallery.Id">
+					<div class="card mb-3" data-toggle="tooltip" data-placement="bottom" title="@gallery.Description">
+						<a class="text-decoration-none text-black fw-normal" asp-area="Admin" asp-controller="Galleries" asp-action="Show" asp-route-galleryId="@gallery.Id">
 							<div class="card-body">
 								<h5 class="card-title ">@gallery.Name</h5>
 								<img src="data:img/jpg;base64,@await imageService.GetAsync(gallery.ImageId)" class="card-img-bottom" alt="@gallery.Name">

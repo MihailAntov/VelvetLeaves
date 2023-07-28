@@ -1,0 +1,45 @@
+﻿@model GalleryViewModel
+@inject IImageService imageService
+@{
+	ViewData["Title"] = @Model.Name;
+
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<h2>@ViewData["Title"]</h2>
+
+		<div class="container mb-3 d-inlineflex ms-auto">
+			<a asp-area="Admin" asp-controller="Galleries" asp-action="AddItem" asp-route-galleryId="@Model.Id" class="btn btn-success col-sm w-auto m-1">Add item</a>
+		</div>
+	</div>
+
+	<div class="row">
+		@foreach (var product in Model.Products)
+		{
+
+			<div product="@product.Id" class="col-md-4 product-entry">
+				<a class="text-decoration-none text-black fw-normal" asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id">
+					<div class="card mb-3">
+						<img src="data:img/jpeg;base64,@await imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Price BGN</p>
+						</div>
+					</div>
+				</a>
+				<div class="row">
+					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none left-arrow"><i class="fa-solid fa-chevron-left"></i></a>
+					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none right-arrow"><i class="fa-solid fa-chevron-right"></i></a>
+				</div>
+			</div>
+		}
+
+	</div>
+</div>
+
+@section Scripts {
+	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+	<script src="~/js/galleryMoveItems.js"></script>
+}

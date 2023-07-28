@@ -59,7 +59,7 @@ var app = builder.Build();
 app.SeedAdmin();
 
 //Uncomment this to seed initial images
-//app.SeedImages();
+app.SeedImages();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

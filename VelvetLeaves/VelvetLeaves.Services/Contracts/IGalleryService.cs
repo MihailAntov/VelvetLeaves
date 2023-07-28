@@ -19,5 +19,9 @@ namespace VelvetLeaves.Services.Contracts
 		Task<AddToGalleryViewModel> GetItemsToAddAsync(int galleryId);
 
 		Task AddItemsToGalleryAsync(int galleryId, IEnumerable<int> items);
+
+		Task<GalleryEditFormViewModel> GetGalleryEditFormAsync(int galleryId);
+
+		Task EditAsync(GalleryEditFormViewModel model);
 	}
 }

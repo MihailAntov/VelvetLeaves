@@ -129,9 +129,29 @@ namespace VelvetLeaves.Services
 			throw new NotImplementedException();
 		}
 
-		public Task UpdateAsync(string id, IFormFile content)
+		public async Task UpdateAsync(string id, IFormFile content)
 		{
-			throw new NotImplementedException();
-		}
+            using (var memoryStream = new MemoryStream())
+            {
+                await content.CopyToAsync(memoryStream);
+
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    Image image = new Image()
+                    {
+                        Id = id,
+                        Content = Convert.ToBase64String(memoryStream.ToArray())
+                    };
+
+                     await _imagesCollection.ReplaceOneAsync(i=> i.Id == id, image);
+
+
+                    
+
+                }
+
+            }
+        }
 	}
 }

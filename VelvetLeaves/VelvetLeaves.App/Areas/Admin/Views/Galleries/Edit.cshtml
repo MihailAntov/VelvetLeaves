@@ -1,45 +1,38 @@
-﻿@model GalleryViewModel
-@inject IImageService imageService
+﻿@model GalleryEditFormViewModel
 @{
-	ViewData["Title"] = @Model.Name;
+	ViewData["Title"] = "Add Gallery";
 
 }
 
-<div class="container-fluid">
-	<div class="row">
-		<h2>@ViewData["Title"]</h2>
 
-		<div class="container mb-3 d-inlineflex ms-auto">
-			<a asp-area="Admin" asp-controller="Galleries" asp-action="AddItem" asp-route-galleryId="@Model.Id" class="btn btn-success col-sm w-auto m-1">Add item</a>
+<div class="container mt-5">
+	
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Gallery Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" value="@Model.Name" />
+			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
-	</div>
 
-	<div class="row">
-		@foreach (var product in Model.Products)
-		{
+		<div class="mb-3">
+			<label asp-for="Description" class="form-label">Description</label>
+			<input asp-for="Description" class="form-control" autocomplete="Name" aria-required="true" value="@Model.Description" />
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
 
-			<div product="@product.Id" class="col-md-4 product-entry">
-				<a class="text-decoration-none text-black fw-normal" asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id">
-					<div class="card mb-3">
-						<img src="data:img/jpeg;base64,@await imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
-						<div class="card-body">
-							<h5 class="card-title">@product.Name</h5>
-							<p class="card-text">@product.Price BGN</p>
-						</div>
-					</div>
-				</a>
-				<div class="row">
-					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none left-arrow"><i class="fa-solid fa-chevron-left"></i></a>
-					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
-					<a href="#" product="@product.Id" gallery="@Model.Id" class="col-1 d-flex m-auto link-dark text-decoration-none right-arrow"><i class="fa-solid fa-chevron-right"></i></a>
-				</div>
-			</div>
-		}
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Gallery Image</label>
+			<input asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
+		</div>
+		<div>
 
-	</div>
+			<button type="submit" asp-area="Admin" asp-controller="Galleries" asp-action="Edit" asp-route-imageId="@Model.ImageId" asp-route-id=@Model.Id class="btn btn-primary">Apply Changes</button>
+		</div>
+	</form>
 </div>
 
+<!-- Add the Bootstrap JS script -->
 @section Scripts {
-	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
-	<script src="~/js/galleryMoveItems.js"></script>
+	<partial name="_ValidationScriptsPartial" />
 }

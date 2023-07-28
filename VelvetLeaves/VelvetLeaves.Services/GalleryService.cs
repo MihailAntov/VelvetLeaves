@@ -178,5 +178,31 @@ namespace VelvetLeaves.Services
 			await _context.GalleriesProducts.AddRangeAsync(entries);
 			await _context.SaveChangesAsync();
         }
-    }
+
+		public async Task<GalleryEditFormViewModel> GetGalleryEditFormAsync(int galleryId)
+		{
+			GalleryEditFormViewModel model = await _context.Galleries
+				.Where(g => g.Id == galleryId)
+				.Select(g => new GalleryEditFormViewModel()
+				{
+					Id = galleryId,
+					Name = g.Name,
+					Description = g.Description,
+					ImageId = g.ImageId
+				}).FirstAsync();
+
+			return model;
+		}
+
+		public async Task EditAsync(GalleryEditFormViewModel model)
+		{
+			var gallery = await _context.Galleries
+				.FirstAsync(g => g.Id == model.Id);
+			gallery.Name = model.Name;
+			gallery.Description = model.Description;
+			gallery.ImageId = model.ImageId!;
+
+			await _context.SaveChangesAsync();
+		}
+	}
 }
