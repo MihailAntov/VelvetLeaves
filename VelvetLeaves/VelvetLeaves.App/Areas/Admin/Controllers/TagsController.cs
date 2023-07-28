@@ -25,6 +25,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(TagFormViewModel model)
 		{
+            if (!ModelState.IsValid)
+            {
+				return View(model);
+            }
+			
 			await _tagService.AddAsync(model);
 
 			return RedirectToAction("All", "Products");

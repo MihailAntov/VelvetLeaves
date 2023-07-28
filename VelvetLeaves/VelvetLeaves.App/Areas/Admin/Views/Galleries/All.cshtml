@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<GalleryViewModel>
+@inject IImageService imageService
 @{
+	ViewData["Title"] = "Galleries";
+
 }
+
+<div class="container-fluid">
+	<h2>@ViewData["Title"]</h2>
+
+	<div class="container-fluid">
+		<ul class="list-group">
+			@foreach (var gallery in Model)
+			{
+				<li class="list-group-item">
+					<div class="row p-2">
+						<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#@gallery.Id" role="button" aria-expanded="true" aria-controls="@gallery.Id">@gallery.Name</a>
+
+						<a asp-controller="Galleries" asp-action="Edit" asp-route-categoryId="@gallery.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-success"><i class="fa-solid fa-pencil"></i></a>
+						<a asp-controller="Galleries" asp-action="Delete" asp-route-categoryId="@gallery.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success"><i class="fa-solid fa-trash"></i></a>
+					</div>
+					<div class="collapse" id="@gallery.Id">
+
+						<ul class="list-group">
+							@foreach (var product in gallery.Products)
+							{
+								<li class="list-group-item">
+									<div class="card p-2">
+										<p class="card-header">@product.Name</p>
+									</div>
+								</li>
+							}
+						</ul>
+					</div>
+				</li>
+			}
+		</ul>
+	</div>
+
+
+	<div class="row">
+		@if (Model.Any())
+		{
+			@foreach (var gallery in Model)
+			{
+				<div class="col-md-4">
+					<div class="card mb-3" data-toggle="tooltip-lg" data-placement="bottom" title="@gallery.Description">
+						<a class="text-decoration-none text-black fw-normal" asp-controller="Galleries" asp-action="Show" asp-route-id="@gallery.Id">
+							<div class="card-body">
+								<h5 class="card-title ">@gallery.Name</h5>
+								<img src="data:img/jpg;base64,@await imageService.GetAsync(gallery.ImageId)" class="card-img-bottom" alt="@gallery.Name">
+							</div>
+						</a>
+					</div>
+				</div>
+			}
+		}
+
+
+	</div>
+</div>

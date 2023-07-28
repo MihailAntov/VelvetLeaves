@@ -14,6 +14,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             _imageService = imageService;
             _galleryService = galleryService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var model = await _galleryService.AllGalleriesForEditAsync();
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult Add()
         {

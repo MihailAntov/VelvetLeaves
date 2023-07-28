@@ -50,7 +50,27 @@ namespace VelvetLeaves.Services
 			return galleries;
 		}
 
-		public async Task<GalleryViewModel?> GetGalleryByIdAsync(int id)
+        public async Task<IEnumerable<GalleryListViewModel>> AllGalleriesForEditAsync()
+        {
+			var galleries = await _context.Galleries
+				.Select(g => new GalleryListViewModel()
+				{
+					Id = g.Id,
+					Name = g.Name,
+					ImageId = g.ImageId,
+					Products = g.GalleriesProducts
+						.Select(gp => new ProductListViewModel()
+						{
+							Id = gp.ProductId,
+							Name = gp.Product.Name,
+							ImageId = gp.Product.Images.First().Id
+						})
+				}).ToArrayAsync();
+
+			return galleries;
+        }
+
+        public async Task<GalleryViewModel?> GetGalleryByIdAsync(int id)
 		{
 			var gallery = await _context.Galleries.Where(g => g.Id == id)
 				.Select(g => new GalleryViewModel()
