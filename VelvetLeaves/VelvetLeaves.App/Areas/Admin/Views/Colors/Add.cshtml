@@ -1,0 +1,31 @@
+﻿@model ColorFormViewModel
+@{
+	ViewData["Title"] = "Add Color";
+
+}
+
+
+<div class="container mt-5">
+	
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Color Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Color" class="form-label">Choose Color:</label>
+			<input asp-for="Color" class="form-control" type="color">
+			@*<span asp-validation-for="Image" class="text-danger"></span>*@
+		</div>
+		<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Colors" asp-action="Add" class="btn btn-primary">Add Color</button>
+		</div>
+	</form>
+</div>
+
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

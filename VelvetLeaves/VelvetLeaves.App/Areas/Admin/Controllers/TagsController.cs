@@ -6,7 +6,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	[Authorize(Roles = "Admin,Moderator")]
-	public class TagController : Controller
+	public class TagsController : Controller
 	{
 		[HttpGet]
 		public async Task<IActionResult> Add()

@@ -13,15 +13,15 @@ function handleBatch(e) {
         thisBatchFiles.items.add(image);
     }
 
-    for (var image of batchUpload.files) {
-        thisBatchFiles.items.add(image);
+    for (let i = 0; i < batchUpload.files.length; i++) {
+        thisBatchFiles.items.add(batchUpload.files[i]);
         let newImage = document.createElement('img');
         newImage.classList.add('img-fluid');
         newImage.classList.add('img-preview');
         newImage.classList.add('col-2');
         
         
-        newImage.src = URL.createObjectURL(batchUpload.files[0]);
+        newImage.src = URL.createObjectURL(batchUpload.files[i]);
         gallery.appendChild(newImage);
     }
 

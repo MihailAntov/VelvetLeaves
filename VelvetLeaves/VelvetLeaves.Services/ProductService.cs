@@ -157,7 +157,7 @@ namespace VelvetLeaves.Services
             return model;
         }
 
-        public Task AddAsync(ProductFormViewModel model)
+        public async Task AddAsync(ProductFormViewModel model)
         {
             Product product = new Product()
             {
@@ -165,11 +165,21 @@ namespace VelvetLeaves.Services
                 SubcategoryId = model.SubcategoryId,
                 ProductSeriesId = model.ProductSeriesId,
                 Description = model.Description,
-                Price = model.Price
+                Price = model.Price,
+                Images = model.ImageIds!.Select(i => new Image()
+                {
+                    Id = i
+                }).ToArray(),
+                Colors = model.ColorIds.Select(cId =>  _context.Colors.First(c=> c.Id == cId)).ToArray(),
+                Materials = model.MaterialIds.Select(mId =>  _context.Materials.First(m=> m.Id == mId)).ToArray(),
+                Tags = model.ColorIds.Select(tId =>  _context.Tags.First(t=> t.Id == tId)).ToArray(),
                 
             };
 
-            throw new NotImplementedException();
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+
+            
         }
     }
 }

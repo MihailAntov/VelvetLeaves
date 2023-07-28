@@ -45,7 +45,7 @@ namespace VelvetLeaves.Common
 
         public static class Color
         {
-            public const int ColorLength = 6;
+            public const int ColorLength = 7;
             public const int ColorNameMaxLenth = 40;
             public const int ColorNameMinLength = 3;
         }

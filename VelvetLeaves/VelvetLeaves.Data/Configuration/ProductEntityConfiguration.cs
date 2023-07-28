@@ -6,58 +6,58 @@ namespace VelvetLeaves.Data.Configuration
 {
     public static class ProductEntityConfiguration 
     {
-        public static void SeedColorsAndProducts(this ModelBuilder builder)
+        public static void SeedProductsAndRelations(this ModelBuilder builder)
         {
-            var colorList = new List<Color>
-            {
-                new Color {Id = 1, ColorValue = "ff0000", Name = "Red"},
-                new Color {Id = 2, ColorValue = "0000ff", Name = "Blue"},
-                new Color {Id = 3, ColorValue = "00ff00", Name = "Green"}
-            };
+            //var colorList = new List<Color>
+            //{
+            //    new Color {Id = 1, ColorValue = "ff0000", Name = "Red"},
+            //    new Color {Id = 2, ColorValue = "0000ff", Name = "Blue"},
+            //    new Color {Id = 3, ColorValue = "00ff00", Name = "Green"}
+            //};
 
-            var materialList = new List<Material>
-            {
-                new Material {Id = 1, Name = "Silver"},
-                new Material {Id = 2, Name = "Steel"},
-                new Material {Id = 3, Name = "Glass"},
-                new Material {Id = 4, Name = "Textile"}
-            };
+            //var materialList = new List<Material>
+            //{
+            //    new Material {Id = 1, Name = "Silver"},
+            //    new Material {Id = 2, Name = "Steel"},
+            //    new Material {Id = 3, Name = "Glass"},
+            //    new Material {Id = 4, Name = "Textile"}
+            //};
 
-            var tagList = new List<Tag>
-            {
-                new Tag {Id = 1, Name = "Traditional Sewing Pattern"},
-                new Tag {Id = 2, Name = "Silk Cocoons"}
-            };
+            //var tagList = new List<Tag>
+            //{
+            //    new Tag {Id = 1, Name = "Traditional Sewing Pattern"},
+            //    new Tag {Id = 2, Name = "Silk Cocoons"}
+            //};
 
-            var productSeriesList = new List<ProductSeries>
-            {
-                new ProductSeries{Id = 1, Name = "Silver Earrings", SubcategoryId = 1, DefaultName="Silver Earrings", DefaultDescription = "Earrings with silver frames.", DefaultPrice = 50.00M},
-                new ProductSeries{Id = 2, Name = "Steel Earrings", SubcategoryId = 1, DefaultName="Steel Earrings", DefaultDescription = "Earrings with steel frames.", DefaultPrice = 50.00M},
-                new ProductSeries{Id = 3, Name = "Silver Necklace", SubcategoryId = 2, DefaultName="Silver Necklace", DefaultDescription = "Necklace with a silver frame.", DefaultPrice = 50.00M},
-                new ProductSeries{Id = 4, Name = "Glass Ring", SubcategoryId = 3, DefaultName="Glass Ring", DefaultDescription = "Ring made out of glass and silver.", DefaultPrice = 50.00M},
-                new ProductSeries{Id = 5, Name = "Traditional Bag", SubcategoryId = 4, DefaultName="Traditional Bag", DefaultDescription = "Hand bag with traditional sewing pattern.", DefaultPrice = 50.00M},
-                new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
-            };
+            //var productSeriesList = new List<ProductSeries>
+            //{
+            //    new ProductSeries{Id = 1, Name = "Silver Earrings", SubcategoryId = 1, DefaultName="Silver Earrings", DefaultDescription = "Earrings with silver frames.", DefaultPrice = 50.00M},
+            //    new ProductSeries{Id = 2, Name = "Steel Earrings", SubcategoryId = 1, DefaultName="Steel Earrings", DefaultDescription = "Earrings with steel frames.", DefaultPrice = 50.00M},
+            //    new ProductSeries{Id = 3, Name = "Silver Necklace", SubcategoryId = 2, DefaultName="Silver Necklace", DefaultDescription = "Necklace with a silver frame.", DefaultPrice = 50.00M},
+            //    new ProductSeries{Id = 4, Name = "Glass Ring", SubcategoryId = 3, DefaultName="Glass Ring", DefaultDescription = "Ring made out of glass and silver.", DefaultPrice = 50.00M},
+            //    new ProductSeries{Id = 5, Name = "Traditional Bag", SubcategoryId = 4, DefaultName="Traditional Bag", DefaultDescription = "Hand bag with traditional sewing pattern.", DefaultPrice = 50.00M},
+            //    new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
+            //};
 
-            var imageList = new List<Image>
-            {
-                new Image {Id = "64be89ae1409e5a61554e6ed", ProductId = 1},
-                new Image {Id = "64be8c68cac3fdf11a06fbbb", ProductId = 1},
-                new Image {Id = "64be8c6df878c3764a814981", ProductId = 1},
-                new Image {Id = "64be8c733df251037e15d70a", ProductId = 2},
-                new Image {Id = "64be8c7a0ef21ca57c247498", ProductId = 2},
-                new Image {Id = "64be8c813d909293463359d6", ProductId = 2},
-                new Image {Id = "64be8c870b7f086367ebb6a5", ProductId = 3},
-                new Image {Id = "64be8c8d7d5c466b820b73af", ProductId = 3},
-                new Image {Id = "64be8c9332b088f8d6063040", ProductId = 4},
-                new Image {Id = "64be8c99f991d074063b5098", ProductId = 4},
-                new Image {Id = "64be8c9f41c19cda7ab19853", ProductId = 5},
-                new Image {Id = "64be8ca5b7f1ea12383c364a", ProductId = 5},
-                new Image {Id = "64be8caa293917f47210277e", ProductId = 6},
-                new Image {Id = "64be8cae1813d7aff61e173b", ProductId = 6},
-                new Image {Id = "64be8cb3b390e17c62039322", ProductId = 7},
-                new Image {Id = "64be8cb81a39dd6ed0351ebb", ProductId = 7} 
-            };
+            //var imageList = new List<Image>
+            //{
+            //    new Image {Id = "64be89ae1409e5a61554e6ed", ProductId = 1},
+            //    new Image {Id = "64be8c68cac3fdf11a06fbbb", ProductId = 1},
+            //    new Image {Id = "64be8c6df878c3764a814981", ProductId = 1},
+            //    new Image {Id = "64be8c733df251037e15d70a", ProductId = 2},
+            //    new Image {Id = "64be8c7a0ef21ca57c247498", ProductId = 2},
+            //    new Image {Id = "64be8c813d909293463359d6", ProductId = 2},
+            //    new Image {Id = "64be8c870b7f086367ebb6a5", ProductId = 3},
+            //    new Image {Id = "64be8c8d7d5c466b820b73af", ProductId = 3},
+            //    new Image {Id = "64be8c9332b088f8d6063040", ProductId = 4},
+            //    new Image {Id = "64be8c99f991d074063b5098", ProductId = 4},
+            //    new Image {Id = "64be8c9f41c19cda7ab19853", ProductId = 5},
+            //    new Image {Id = "64be8ca5b7f1ea12383c364a", ProductId = 5},
+            //    new Image {Id = "64be8caa293917f47210277e", ProductId = 6},
+            //    new Image {Id = "64be8cae1813d7aff61e173b", ProductId = 6},
+            //    new Image {Id = "64be8cb3b390e17c62039322", ProductId = 7},
+            //    new Image {Id = "64be8cb81a39dd6ed0351ebb", ProductId = 7} 
+            //};
 
            
             
@@ -76,12 +76,12 @@ namespace VelvetLeaves.Data.Configuration
                 new Product {Id = 7, Name = "Blue Book Binding", Description = "Blue book binding.", SubcategoryId = 5, Price = 70.00M, ProductSeriesId = 6 }, 
             };
 
-            builder.Entity<Color>().HasData(colorList);
-            builder.Entity<Material>().HasData(materialList);
+            //builder.Entity<Color>().HasData(colorList);
+            //builder.Entity<Material>().HasData(materialList);
             builder.Entity<Product>().HasData(productList);
-            builder.Entity<Tag>().HasData(tagList);
-            builder.Entity<ProductSeries>().HasData(productSeriesList);
-            builder.Entity<Image>().HasData(imageList);
+            //builder.Entity<Tag>().HasData(tagList);
+            //builder.Entity<ProductSeries>().HasData(productSeriesList);
+            //builder.Entity<Image>().HasData(imageList);
 
             builder.Entity<ProductSeries>()
                 .HasMany(ps => ps.Products)

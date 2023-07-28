@@ -7,5 +7,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<IEnumerable<ColorSelectViewModel>> GetColorOptionsAsync(int? categoryId, int? subcategoryId);
         Task<IEnumerable<ColorSelectViewModel>> GetAllColorsAsync();
 
+        Task AddAsync(ColorFormViewModel model);
+
     }
 }

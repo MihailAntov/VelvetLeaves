@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Colors;
 
@@ -12,6 +13,18 @@ namespace VelvetLeaves.Services
         public ColorService(VelvetLeavesDbContext context)
         {
             _context = context;
+        }
+
+        public async Task AddAsync(ColorFormViewModel model)
+        {
+            Color color = new Color()
+            {
+                Name = model.Name,
+                ColorValue = model.Color
+            };
+
+            await _context.Colors.AddAsync(color);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ColorSelectViewModel>> GetAllColorsAsync()
