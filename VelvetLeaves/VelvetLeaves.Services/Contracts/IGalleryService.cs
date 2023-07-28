@@ -6,7 +6,7 @@ namespace VelvetLeaves.Services.Contracts
 	{
 		Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync();
 
-		Task<IEnumerable<GalleryListViewModel>> AllGalleriesForEditAsync();
+		//Task<IEnumerable<GalleryListViewModel>> AllGalleriesForEditAsync();
 
 		Task<GalleryViewModel?> GetGalleryByIdAsync(int id);
 

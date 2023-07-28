@@ -1,5 +1,4 @@
 ﻿@model ProductTreeViewModel
-@*@model IEnumerable<CategoryListViewModel>*@
 @inject IImageService imageService
 @{
 	int expandedCategory = Model.CategoryId.HasValue ? Model.CategoryId.Value : 0;

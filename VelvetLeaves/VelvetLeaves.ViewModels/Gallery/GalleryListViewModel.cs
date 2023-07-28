@@ -8,6 +8,7 @@ namespace VelvetLeaves.ViewModels.Gallery
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
         public string ImageId { get; set; } = null!;
         public IEnumerable<ProductListViewModel> Products { get; set; } = new HashSet<ProductListViewModel>();
     }

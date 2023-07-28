@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Gallery;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Moderator, Admin")]
     public class GalleriesController : Controller
     {
         private readonly IImageService _imageService;
@@ -18,7 +21,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var model = await _galleryService.AllGalleriesForEditAsync();
+            var model = await _galleryService.AllGalleriesAsync();
             return View(model);
         }
 
