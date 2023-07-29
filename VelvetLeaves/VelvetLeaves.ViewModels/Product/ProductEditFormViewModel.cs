@@ -17,22 +17,23 @@ namespace VelvetLeaves.ViewModels.Product
     public class ProductEditFormViewModel
     {
         public int Id { get; set; }
-        
-        public string Name { get; set; }
+
+        public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
 
         public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
         public int ProductSeriesId { get; set; }
 
-        [Required]
-        public IEnumerable<IFormFile> Images { get; set; } = null!;
-        public IEnumerable<string>? ImageIds { get; set; }
+        
+        public IEnumerable<IFormFile>? Images { get; set; } 
+        public IList<string>? ImageIds { get; set; }
 
-
+        public IEnumerable<string>? StartingImageIds { get; set; } = new HashSet<string>();
+        public IEnumerable<string>? KeptImageIds { get; set; } = new HashSet<string>();
         public IEnumerable<int> ColorIds { get; set; } = new HashSet<int>();
         public IEnumerable<int> MaterialIds { get; set; } = new HashSet<int>();
         public IEnumerable<int> TagIds { get; set; } = new HashSet<int>();

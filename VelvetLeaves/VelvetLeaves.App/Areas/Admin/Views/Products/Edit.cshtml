@@ -1,10 +1,10 @@
 ﻿@model ProductEditFormViewModel
-
+@inject IImageService imageService
 	@{
-	ViewData["Title"] = "Add Product";
+	ViewData["Title"] = $"Edit Product - {Model.Name}";
 
 }
-
+<h2>@ViewData["Title"]</h2>
 
 <div class="container mt-5">
 	<form id="categoryForm" enctype="multipart/form-data" method="post">
@@ -32,9 +32,34 @@
 			<span asp-validation-for="Price" class="text-danger"></span>
 		</div>
 
+		@*<div class="mb-3">
+			<label asp-for="Images" class="form-label">Images:</label>
+			<input asp-for="Images" value="@Model.Images" type="file" multiple id="allImages" class="form-control file-input" hidden/>
+			<input value="" type="file" multiple id="imageBatch" class="form-control"/>
+			<span asp-validation-for="Price" class="text-danger"></span>
+			<div class="m-1 image-preview-gallery row">
+
+			</div>
+		</div>*@
+
 		<div class="mb-3">
-			<label asp-for="Price" class="form-label">Upload Images:</label>
-			<input asp-for="Images" value="" type="file" multiple id="allImages" class="form-control file-input" hidden/>
+			<label>Images</label>
+			
+			<div class="row">
+			@foreach(var imageId in Model.ImageIds){
+				<input hidden name=startingImageIds value="@imageId"/>
+				<div class="col-md-2">
+						<img src="data:img/jpg;base64,@await imageService.GetAsync(imageId)"  class="card-img mb-2" alt="@Model.Name">
+						<a href="#" id="@imageId" class="text-decoration-none col-1 d-flex m-auto link-dark text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+						<input hidden name="keptImageIds" value="@imageId">
+					</div>
+			}
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Images" class="form-label">Add more images:</label>
+			<input asp-for="Images" value="@Model.Images" type="file" multiple id="allImages" class="form-control file-input" hidden/>
 			<input value="" type="file" multiple id="imageBatch" class="form-control"/>
 			<span asp-validation-for="Price" class="text-danger"></span>
 			<div class="m-1 image-preview-gallery row">
@@ -89,7 +114,7 @@
 
 		<div>
 
-			<button type="submit" asp-area="Admin" asp-controller="Products" asp-action="Add" class="btn btn-primary">Add Product</button>
+			<button type="submit" asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Apply Changes</button>
 		</div>
 	</form>
 </div>
@@ -97,8 +122,10 @@
 <!-- Add the Bootstrap JS script -->
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
-	<script src="~/js/fetchSubcategories.js"></script>
-	<script src="~/js/fetchProductSeries.js"></script>
-	<script src="~/js/fetchDefaultValues.js"></script>
+	@*<script src="~/js/fetchSubcategories.js"></script>*@
+	@*<script src="~/js/fetchProductSeries.js"></script>*@
+	@*<script src="~/js/fetchDefaultValues.js"></script>*@
 	<script src="~/js/uploadMultipleImages.js"></script>
+	<script src="~/js/deleteOldImages.js"></script>
+	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
 }

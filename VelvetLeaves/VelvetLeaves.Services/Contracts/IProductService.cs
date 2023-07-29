@@ -22,6 +22,8 @@ namespace VelvetLeaves.Services.Contracts
 
         Task<ProductEditFormViewModel> GetFormForEditAsync(int productId);
 
+        Task UpdateAsync(ProductEditFormViewModel model);
+
         
         
     }

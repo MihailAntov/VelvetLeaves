@@ -1,13 +1,13 @@
 ﻿@model GalleryViewModel
 @inject IImageService imageService
 @{
-	ViewData["Title"] = @Model.Name;
+	ViewData["Title"] = $"Edit Contents of Gallery - {Model.Name}";
 
 }
 
 <div class="container-fluid">
+		<h2 class="mb-3">@ViewData["Title"]</h2>
 	<div class="row">
-		<h2>@ViewData["Title"]</h2>
 
 		<div class="container mb-3 d-inlineflex ms-auto">
 			<a asp-area="Admin" asp-controller="Galleries" asp-action="AddItem" asp-route-galleryId="@Model.Id" class="btn btn-success col-sm w-auto m-1">Add item</a>

@@ -1,13 +1,15 @@
 ﻿@model GalleryEditFormViewModel
 @inject IImageService imageService
 @{
-	ViewData["Title"] = "Add Gallery";
+	ViewData["Title"] = $"Edit Gallery - {Model.Name}";;
 
 }
 
 
 <div class="container mt-5">
-	
+	<h2>@ViewData["Title"]</h2>
+
+
 	<form id="categoryForm" enctype="multipart/form-data" method="post">
 		<div class="mb-3">
 			<label asp-for="Name" class="form-label">Gallery Name</label>

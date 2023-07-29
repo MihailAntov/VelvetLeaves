@@ -79,7 +79,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			}
             if(model.Image != null)
             {
-            await _imageService.UpdateAsync(model.ImageId, model.Image);
+                await _imageService.UpdateAsync(model.ImageId, model.Image);
 
             }
 

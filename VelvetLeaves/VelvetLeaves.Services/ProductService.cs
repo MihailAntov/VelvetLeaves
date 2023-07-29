@@ -22,6 +22,7 @@ namespace VelvetLeaves.Services
         private readonly ITagService _tagService;
         private readonly IMaterialService _materialService;
         private readonly IColorService _colorService;
+        private readonly IImageService _imageService;
         public ProductService(
             VelvetLeavesDbContext context,
             ICategoryService categoryService,
@@ -29,7 +30,8 @@ namespace VelvetLeaves.Services
             IProductSeriesService productSeriesService,
             ITagService tagService,
             IMaterialService materialService,
-            IColorService colorService
+            IColorService colorService,
+            IImageService imageService
             )
         {
             _context = context;
@@ -39,6 +41,7 @@ namespace VelvetLeaves.Services
             _tagService = tagService;
             _productSeriesService = productSeriesService;
             _colorService = colorService;
+            _imageService = imageService;
         }
 
         public async Task<bool> ExistsByIdAsync(int id)
@@ -192,7 +195,7 @@ namespace VelvetLeaves.Services
                 }).ToArray(),
                 Colors = model.ColorIds.Select(cId =>  _context.Colors.First(c=> c.Id == cId)).ToArray(),
                 Materials = model.MaterialIds.Select(mId =>  _context.Materials.First(m=> m.Id == mId)).ToArray(),
-                Tags = model.ColorIds.Select(tId =>  _context.Tags.First(t=> t.Id == tId)).ToArray(),
+                Tags = model.TagIds.Select(tId =>  _context.Tags.First(t=> t.Id == tId)).ToArray(),
                 
             };
 
@@ -247,7 +250,7 @@ namespace VelvetLeaves.Services
                     TagIds = p.Tags.Select(t => t.Id),
                     MaterialIds = p.Materials.Select(m => m.Id),
                     Description = p.Description,
-                    ImageIds = p.Images.Select(i => i.Id),
+                    ImageIds = p.Images.Select(i => i.Id).ToList(),
                     Price = p.Price
                 }).FirstAsync();
 
@@ -257,5 +260,68 @@ namespace VelvetLeaves.Services
 
             return model;
         }
-    }
+
+		public async Task UpdateAsync(ProductEditFormViewModel model)
+		{
+            model.ImageIds = model.StartingImageIds!.ToList();
+			if (model.Images!= null)
+			{
+
+                var ids = await _imageService.CreateRangeAsync(model.Images);
+                foreach(var id in ids)
+				{
+                    if(id != null)
+					{
+                        model.ImageIds.Add(id);
+					}
+				}
+			}
+            if(model.StartingImageIds != null && model.KeptImageIds != null)
+			{
+                var imgsToDelete = model.StartingImageIds.Where(i => !model.KeptImageIds.Contains(i));
+                foreach(var img in imgsToDelete)
+				{
+                    await _imageService.RemoveAsync(img);
+                    model.ImageIds.Remove(img);
+				}
+			}
+
+            var product = await _context.Products
+                .Include(p=>p.Images)
+                .Include(p=>p.Colors)
+                .Include(p=>p.Materials)
+                .Include(p=>p.Tags)
+                .FirstAsync(p => p.Id == model.Id);
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.Description = model.Description;
+            product.Colors = model.ColorIds.Select(cId => _context.Colors.First(c => c.Id == cId)).ToArray();
+            product.Materials = model.MaterialIds.Select(mId => _context.Materials.First(m => m.Id == mId)).ToArray();
+            product.Tags = model.TagIds.Select(tId => _context.Tags.First(t => t.Id == tId)).ToArray();
+
+            var currentImages = product.Images;
+
+            foreach(var image in currentImages)
+			{
+				if (!model.ImageIds!.Contains(image.Id))
+				{
+                    product.Images.Remove(image);
+				}
+			}
+
+            foreach(var imageId in model.ImageIds!)
+			{
+                if(!currentImages.Any(i=> i.Id == imageId))
+				{
+                    product.Images.Add(new Image
+                    {
+                        Id = imageId
+                    });
+				}
+			}
+
+            await _context.SaveChangesAsync();
+
+		}
+	}
 }

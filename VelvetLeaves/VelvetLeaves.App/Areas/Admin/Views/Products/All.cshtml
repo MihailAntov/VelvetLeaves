@@ -1,4 +1,7 @@
 ﻿@model ProductTreeViewModel
+@{
+	ViewData["Title"] = "Browse All Products";
+}
 @inject IImageService imageService
 @{
 	int expandedCategory = Model.CategoryId.HasValue ? Model.CategoryId.Value : 0;
@@ -7,7 +10,8 @@
 
 
 }
-
+<div class="container-fluid">
+	<h2 class="mb-3">@ViewData["Title"]</h2>
 <div class="container">
 	<a asp-controller="Categories" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Category</a>
 	<a asp-controller="Subcategories" asp-action="Add" class="btn btn-info col-sm w-auto m-1">Add Subcategory</a>
@@ -103,6 +107,7 @@
 
 	</ul>
 
+</div>
 </div>
 
 @section Scripts {

@@ -62,12 +62,15 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                
                 return View(model);
             }
 
-            //await _productSeriesService.EditAsync();
+            await _productService.UpdateAsync(model);
 
-            return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
+
+            return RedirectToAction("All", "Products");
+            //return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
 
 
         }

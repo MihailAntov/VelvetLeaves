@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<GalleryViewModel>
 @inject IImageService imageService
 @{
-	ViewData["Title"] = "Galleries";
+	ViewData["Title"] = "Browse Galleries";
 
 }
 
 
 
 <div class="container-fluid">
-	<div class="row">
 	<h2>@ViewData["Title"]</h2>
+	<div class="row">
 	<div class="container mb-3">
 	<a asp-area="Admin" asp-controller="Galleries" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Gallery</a>
 	</div>
@@ -19,7 +19,7 @@
 		{
 			@foreach (var gallery in Model)
 			{
-				<div class="col-md-4">
+				<div class="col-md-4 mb-5">
 					<div class="card mb-3" data-toggle="tooltip" data-placement="bottom" title="@gallery.Description">
 						<a class="text-decoration-none text-black fw-normal" asp-area="Admin" asp-controller="Galleries" asp-action="Show" asp-route-galleryId="@gallery.Id">
 							<div class="card-body">

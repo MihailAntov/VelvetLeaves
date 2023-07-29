@@ -124,9 +124,9 @@ namespace VelvetLeaves.Services
             return null;
 		}
 
-		public Task RemoveAsync(string id)
+		public async Task RemoveAsync(string id)
 		{
-			throw new NotImplementedException();
+            await _imagesCollection.FindOneAndDeleteAsync(i=> i.Id == id);
 		}
 
 		public async Task UpdateAsync(string id, IFormFile content)
@@ -143,8 +143,13 @@ namespace VelvetLeaves.Services
                         Id = id,
                         Content = Convert.ToBase64String(memoryStream.ToArray())
                     };
+                    
 
-                     await _imagesCollection.ReplaceOneAsync(i=> i.Id == id, image);
+                    var result =  await _imagesCollection.ReplaceOneAsync(i=> i.Id == id, image);
+                    if(result.ModifiedCount == 0)
+					{
+                        await _imagesCollection.InsertOneAsync(image);
+					}
 
 
                     
