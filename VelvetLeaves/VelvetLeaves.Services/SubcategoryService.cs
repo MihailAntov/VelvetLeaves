@@ -12,12 +12,19 @@ namespace VelvetLeaves.Services
 	{
 
 		private readonly VelvetLeavesDbContext _context;
-        public SubcategoryService(VelvetLeavesDbContext context)
-        {
-            _context = context;
-        }
+		private readonly ICategoryService _categoryService;
+		private readonly IImageService _imageService;
+        public SubcategoryService(
+			VelvetLeavesDbContext context,
+			ICategoryService categoryService,
+			IImageService imageService)
+		{
+			_context = context;
+			_categoryService = categoryService;
+			_imageService = imageService;
+		}
 
-        public async Task AddAsync(string name, int categoryId, string imageId)
+		public async Task AddAsync(string name, int categoryId, string imageId)
 		{
 			var subcategory = new Subcategory()
 			{
@@ -44,7 +51,23 @@ namespace VelvetLeaves.Services
 			return subcategories;
         }
 
-        public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
+		public async Task EditAsync(SubcategoryEditFormViewModel model)
+		{
+			if(model.Image != null)
+			{
+				await _imageService.UpdateAsync(model.ImageId, model.Image);
+			}
+
+			var subcategory = await _context.Subcategories
+				.Where(sc => sc.Id == model.Id)
+				.FirstAsync();
+
+			subcategory.Name = model.Name;
+			subcategory.CategoryId = model.CategoryId;
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
         {
 			var id = await _context.Subcategories
 				.Where(sc => sc.CategoryId == categoryId)
@@ -54,7 +77,25 @@ namespace VelvetLeaves.Services
 			return id;
         }
 
-        public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
+		public async Task<SubcategoryEditFormViewModel> GetForEditAsync(int subcategoryId)
+		{
+			SubcategoryEditFormViewModel model = await _context
+				.Subcategories
+				.Where(sc => sc.Id == subcategoryId)
+				.Select(sc => new SubcategoryEditFormViewModel()
+				{
+					Id = sc.Id,
+					Name = sc.Name,
+					CategoryId = sc.CategoryId,
+					ImageId = sc.ImageId
+				}).FirstAsync();
+
+			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
+
+			return model;
+		}
+
+		public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
         {
 			var subcategories = await _context.Subcategories
 				.Where(s=> s.CategoryId == categoryId)

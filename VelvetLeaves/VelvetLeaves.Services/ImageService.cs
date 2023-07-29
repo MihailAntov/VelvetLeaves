@@ -150,10 +150,6 @@ namespace VelvetLeaves.Services
 					{
                         await _imagesCollection.InsertOneAsync(image);
 					}
-
-
-                    
-
                 }
 
             }

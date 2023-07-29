@@ -64,13 +64,19 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int subcategoryId)
 		{
-			return View();
+			var model = await _subcategoryService.GetForEditAsync(subcategoryId);
+			return View(model);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(int subcategoryId, SubcategoryFormViewModel model)
+		public async Task<IActionResult> Edit(SubcategoryEditFormViewModel model)
 		{
-			return View();
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+			
+			await _subcategoryService.EditAsync(su)
 		}
 	}
 }

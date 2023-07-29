@@ -11,5 +11,9 @@ namespace VelvetLeaves.Services.Contracts
 		Task<IEnumerable<SubcategorySelectViewModel>> AllSubcategoriesAsync();
 		Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId);
 		Task<int> GetDefaultSubcategoryIdAsync(int categoryId);
+
+		Task<SubcategoryEditFormViewModel> GetForEditAsync(int subcategoryId);
+
+		Task EditAsync(SubcategoryEditFormViewModel model);
 	}
 }
