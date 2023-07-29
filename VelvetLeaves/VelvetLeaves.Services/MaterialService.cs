@@ -29,6 +29,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync()
         {
             var materials = await _context.Materials
+                .Where(m => m.IsActive)
                 .Select(m => new MaterialListViewModel()
                 {
                     Name = m.Name,
@@ -40,7 +41,7 @@ namespace VelvetLeaves.Services
 
         public async Task<IEnumerable<MaterialListViewModel>> GetMaterialOptionsAsync(int? categoryId, int? subcategoryId)
         {
-            var products = _context.Products.AsQueryable();
+            var products = _context.Products.Where(p => p.IsActive).AsQueryable();
             if (categoryId.HasValue && categoryId > 0)
             {
                 products = products.Where(p => p.Subcategory.CategoryId == categoryId);
@@ -51,7 +52,7 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }
 
-            var materials = await products.SelectMany(p => p.Materials.Select(m => new MaterialListViewModel()
+            var materials = await products.SelectMany(p => p.Materials.Where(m => m.IsActive).Select(m => new MaterialListViewModel()
             {
                 Id = m.Id,
                 Name = m.Name,

@@ -54,7 +54,7 @@ namespace VelvetLeaves.Services
         {
             ProductDetailsViewModel model = await _context
                 .Products
-                .Where(p => p.Id == id)
+                .Where(p => p.Id == id && p.IsActive)
                 .Select(p => new ProductDetailsViewModel()
                 {
                     Id = p.Id,
@@ -66,7 +66,7 @@ namespace VelvetLeaves.Services
                     Tags = p.Tags.Select(t=> t.Name).ToArray(),
                     ProductSeries = p.ProductSeries
                                     .Products
-                                    .Where(lp => lp.Id != id)
+                                    .Where(lp => lp.Id != id && lp.IsActive)
                                     .Select(lp=> new ProductListViewModel()
                                     {
                                         Id = lp.Id, 
@@ -82,7 +82,7 @@ namespace VelvetLeaves.Services
 
         public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
 		{
-            IQueryable<Product> products = _context.Products.AsQueryable();
+            IQueryable<Product> products = _context.Products.Where(p => p.IsActive).AsQueryable();
 
 			if (model.CategoryId.HasValue)
 			{
@@ -145,6 +145,7 @@ namespace VelvetLeaves.Services
 
             model.Products = await _context
                 .Categories
+                .Where(c => c.IsActive)
                 .Select(c => new CategoryListViewModel()
                 {
                     Id = c.Id,
@@ -152,6 +153,7 @@ namespace VelvetLeaves.Services
                     Anchor = c.Name.Replace(" ", ""),
                     ImageId = c.ImageId,
                     Subcategories = c.Subcategories
+                    .Where(sc => sc.IsActive)
                     .Select(sc => new SubcategoryListViewModel()
                     {
                         Id = sc.Id,
@@ -159,12 +161,14 @@ namespace VelvetLeaves.Services
                         Anchor = sc.Name.Replace(" ", ""),
                         ImageId = sc.ImageId,
                         ProductSeries = sc.ProductSeries
+                        .Where(ps => ps.IsActive)
                         .Select(ps => new ProductSeriesListViewModel()
                         {
                             Id = ps.Id,
                             Name = ps.Name,
                             Anchor = ps.Name.Replace(" ", ""),
                             Products = ps.Products
+                            .Where(p => p.IsActive)
                             .Select(p => new ProductListViewModel()
                             {
                                 Id = p.Id,
@@ -238,7 +242,7 @@ namespace VelvetLeaves.Services
         public async Task<ProductEditFormViewModel> GetFormForEditAsync(int productId)
         {
             var model = await _context.Products
-                .Where(p => p.Id == productId)
+                .Where(p => p.Id == productId && p.IsActive)
                 .Select(p => new ProductEditFormViewModel()
                 {
                     Id = p.Id,
@@ -287,6 +291,7 @@ namespace VelvetLeaves.Services
 			}
 
             var product = await _context.Products
+                .Where(p => p.IsActive)
                 .Include(p=>p.Images)
                 .Include(p=>p.Colors)
                 .Include(p=>p.Materials)

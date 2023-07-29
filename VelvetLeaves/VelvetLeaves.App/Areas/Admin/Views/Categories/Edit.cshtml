@@ -1,1 +1,39 @@
-﻿
+﻿@model CategoryEditFormViewModel
+@inject IImageService imageService
+@{
+	ViewData["Title"] = "Edit Category";
+
+}
+
+
+<div class="container mt-5">
+		<h2 class="mb-3">@ViewData["Title"]</h2>
+
+	<form id="categoryForm" enctype="multipart/form-data" method="post">
+		
+		<div class="mb-3">
+			<label asp-for="Name" class="form-label">Subcategory Name</label>
+			<input asp-for="Name" class="form-control" autocomplete="Name" aria-required="true" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Gallery Image</label>
+			<input asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
+			<div class="m-1 image-preview-gallery row">
+				<img src="data:img/jpg;base64,@await imageService.GetAsync(Model.ImageId)" class="img-fluid col-2 "/>
+			</div>
+		</div>
+		
+		<div>
+
+			<button type="submit" asp-area="Admin" asp-controller="Categories" asp-route-imageId=@Model.ImageId asp-route-id=@Model.Id asp-action="Edit" class="btn btn-primary">Apply Changes</button>
+		</div>
+	</form>
+</div>
+
+<!-- Add the Bootstrap JS script -->
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/uploadImage.js"></script>
+}

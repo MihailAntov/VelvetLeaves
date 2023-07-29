@@ -42,6 +42,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<SubcategorySelectViewModel>> AllSubcategoriesAsync()
         {
 			var subcategories = await _context.Subcategories
+				.Where(sc => sc.IsActive)
 				.Select(sc => new SubcategorySelectViewModel()
 				{
 					Id = sc.Id,
@@ -59,7 +60,7 @@ namespace VelvetLeaves.Services
 			}
 
 			var subcategory = await _context.Subcategories
-				.Where(sc => sc.Id == model.Id)
+				.Where(sc => sc.Id == model.Id && sc.IsActive)
 				.FirstAsync();
 
 			subcategory.Name = model.Name;
@@ -70,7 +71,7 @@ namespace VelvetLeaves.Services
 		public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
         {
 			var id = await _context.Subcategories
-				.Where(sc => sc.CategoryId == categoryId)
+				.Where(sc => sc.CategoryId == categoryId && sc.IsActive)
 				.Select(sc => sc.Id)
 				.FirstOrDefaultAsync();
 
@@ -81,7 +82,7 @@ namespace VelvetLeaves.Services
 		{
 			SubcategoryEditFormViewModel model = await _context
 				.Subcategories
-				.Where(sc => sc.Id == subcategoryId)
+				.Where(sc => sc.Id == subcategoryId && sc.IsActive)
 				.Select(sc => new SubcategoryEditFormViewModel()
 				{
 					Id = sc.Id,
@@ -98,7 +99,7 @@ namespace VelvetLeaves.Services
 		public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
         {
 			var subcategories = await _context.Subcategories
-				.Where(s=> s.CategoryId == categoryId)
+				.Where(s=> s.CategoryId == categoryId && s.IsActive)
 				.Select(sc => new SubcategorySelectViewModel()
 				{
 					Id = sc.Id,

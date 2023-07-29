@@ -50,13 +50,28 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
         public async Task<IActionResult> Edit(int categoryId)
 		{
-            return View();
+            var model = await _categoryService.GetForEditAsync(categoryId);
+            return View(model);
 		}
 
 		[HttpPost]
-        public async Task<IActionResult> Edit(int categoryId, CategoryFormViewModel model)
+        public async Task<IActionResult> Edit(CategoryEditFormViewModel model)
 		{
-            return View();
-		}
+			if (!ModelState.IsValid)
+			{
+                return View(model);
+			}
+            
+            await _categoryService.EditAsync(model);
+
+            return RedirectToAction("All", "Products");
+        }
+
+		[HttpPost]
+        public async Task<IActionResult> Delete(int categoryId)
+		{
+            await _categoryService.DeleteAsync(categoryId);
+            return RedirectToAction("All", "Products");
+        }
     }
 }

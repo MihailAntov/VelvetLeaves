@@ -7,6 +7,7 @@ using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.Gallery;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.ViewModels.Category;
+using VelvetLeaves.ViewModels.Subcategory;
 
 namespace VelvetLeaves.Services
 {
@@ -33,6 +34,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync()
 		{
 			var galleries = await _context.Galleries
+				.Where(g => g.IsActive)
 				.Select(g => new GalleryViewModel()
 				{
 					Id = g.Id,
@@ -54,14 +56,16 @@ namespace VelvetLeaves.Services
 
         public async Task<GalleryViewModel?> GetGalleryByIdAsync(int id)
 		{
-			var gallery = await _context.Galleries.Where(g => g.Id == id)
+			var gallery = await _context.Galleries.Where(g => g.Id == id && g.IsActive)
 				.Select(g => new GalleryViewModel()
 				{
 					Id = g.Id,
 					Name = g.Name,
 					Description = g.Description,
 					ImageId = g.ImageId,
-					Products = g.GalleriesProducts.Select(gp => new ProductListViewModel()
+					Products = g.GalleriesProducts
+					.Where(gp => gp.Product.IsActive)
+					.Select(gp => new ProductListViewModel()
 					{
 						Id = gp.Product.Id,
 						Name = gp.Product.Name,
@@ -156,7 +160,7 @@ namespace VelvetLeaves.Services
 					Id = c.Id,
 					Name = c.Name,
 					Subcategories = c.Subcategories
-					.Select(sc => new SubCategoryListViewModel()
+					.Select(sc => new SubcategoryListViewModel()
 					{
 						Id = sc.Id,
 						Name = sc.Name,
@@ -201,7 +205,7 @@ namespace VelvetLeaves.Services
 		public async Task<GalleryEditFormViewModel> GetGalleryEditFormAsync(int galleryId)
 		{
 			GalleryEditFormViewModel model = await _context.Galleries
-				.Where(g => g.Id == galleryId)
+				.Where(g => g.Id == galleryId && g.IsActive)
 				.Select(g => new GalleryEditFormViewModel()
 				{
 					Id = galleryId,
@@ -216,6 +220,7 @@ namespace VelvetLeaves.Services
 		public async Task EditAsync(GalleryEditFormViewModel model)
 		{
 			var gallery = await _context.Galleries
+				.Where(g => g.IsActive)
 				.FirstAsync(g => g.Id == model.Id);
 			gallery.Name = model.Name;
 			gallery.Description = model.Description;

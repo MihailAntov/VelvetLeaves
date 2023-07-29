@@ -18,12 +18,15 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<CategoryMenuViewModel>> GetMenuCategoriesAsync()
         {
             var result = await context.Categories
+                .Where(c => c.IsActive)
                 .Select(c => new CategoryMenuViewModel()
                 {
                     Id = c.Id,
                     Name = c.Name,
                     ImageId = c.ImageId,
-                    Subcategories = c.Subcategories.Select(sc => new SubcategoryMenuViewModel()
+                    Subcategories = c.Subcategories
+                    .Where(sc => sc.IsActive)
+                    .Select(sc => new SubcategoryMenuViewModel()
                     {
                         Id = sc.Id,
                         Name = sc.Name

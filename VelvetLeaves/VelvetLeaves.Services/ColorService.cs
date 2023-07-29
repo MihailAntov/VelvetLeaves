@@ -30,6 +30,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<ColorSelectViewModel>> GetAllColorsAsync()
         {
             var colors = await _context.Colors
+                .Where(c => c.IsActive)
                 .Select(c => new ColorSelectViewModel()
                 {
                     ColorValue = c.ColorValue,

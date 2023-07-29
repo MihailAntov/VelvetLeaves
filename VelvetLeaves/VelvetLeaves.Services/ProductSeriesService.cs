@@ -63,7 +63,7 @@ namespace VelvetLeaves.Services
         public async Task<ProductSeriesDefaultValues> GetDefaultValues(int productSeriesId)
         {
             var productSeries = await _context.ProductSeries
-                .Where(ps=> ps.Id == productSeriesId)
+                .Where(ps=> ps.Id == productSeriesId && ps.IsActive)
                 .Select(ps => new ProductSeriesDefaultValues()
             {
                 ColorIds = ps.DefaultColors.Select(c=> c.Id),
@@ -80,7 +80,7 @@ namespace VelvetLeaves.Services
         public async Task<int> GetDefaultProductSeriesIdAsync(int subcategoryId)
         {
             var id = await _context.ProductSeries
-                .Where(s => s.SubcategoryId == subcategoryId)
+                .Where(s => s.SubcategoryId == subcategoryId && s.IsActive)
                 .Select(s=> s.Id)
                 .FirstOrDefaultAsync();
             return id;
@@ -90,7 +90,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<ProductSeriesSelectViewModel>> ProductSeriesBySubcategoryIdAsync(int subcategoryId)
         {
             var productSeries = await _context.ProductSeries
-                .Where(ps => ps.SubcategoryId == subcategoryId)
+                .Where(ps => ps.SubcategoryId == subcategoryId && ps.IsActive)
                 .Select(ps=> new ProductSeriesSelectViewModel()
                 {
                     Id = ps.Id,
@@ -107,7 +107,7 @@ namespace VelvetLeaves.Services
             
             ProductSeriesFormViewModel model = await _context
                 .ProductSeries
-                .Where(ps => ps.Id == productSeriesId)
+                .Where(ps => ps.Id == productSeriesId && ps.IsActive)
                 .Select(ps => new ProductSeriesFormViewModel()
                 {
                     SubcategoryId = ps.SubcategoryId,
@@ -135,9 +135,9 @@ namespace VelvetLeaves.Services
                 .ProductSeries
                 .FirstAsync(ps => ps.Id == productSeriesId);
 
-            var colors = await _context.Colors.Where(c => model.DefaultColorIds.Contains(c.Id)).ToArrayAsync();
-            var materials = await _context.Materials.Where(m => model.DefaultMaterialIds.Contains(m.Id)).ToArrayAsync();
-            var tags = await _context.Tags.Where(t => model.DefaultTagIds.Contains(t.Id)).ToArrayAsync();
+            var colors = await _context.Colors.Where(c => c.IsActive &&  model.DefaultColorIds.Contains(c.Id)).ToArrayAsync();
+            var materials = await _context.Materials.Where(m => m.IsActive && model.DefaultMaterialIds.Contains(m.Id)).ToArrayAsync();
+            var tags = await _context.Tags.Where(t => t.IsActive && model.DefaultTagIds.Contains(t.Id)).ToArrayAsync();
 
             productSeries.Name = model.Name;
             productSeries.DefaultPrice = model.DefaultPrice;
