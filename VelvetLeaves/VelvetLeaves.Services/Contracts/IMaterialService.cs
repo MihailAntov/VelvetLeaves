@@ -10,5 +10,7 @@ namespace VelvetLeaves.Services.Contracts
 
         Task AddAsync(MaterialFormViewModel model);
 
+        Task DeleteAsync(int materialId);
+
     }
 }

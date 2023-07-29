@@ -24,7 +24,9 @@ namespace VelvetLeaves.Services.Contracts
 
         Task UpdateAsync(ProductEditFormViewModel model);
 
-        
-        
+        Task DeleteAsync(int productId);
+
+
+
     }
 }

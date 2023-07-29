@@ -34,8 +34,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			return RedirectToAction("All", "Products");
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Remove(int colorId)
+		[HttpGet]
+		public async Task<IActionResult> Delete(int colorId)
 		{
 			throw new NotImplementedException();
 		}

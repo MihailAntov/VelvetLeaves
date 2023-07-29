@@ -26,7 +26,16 @@ namespace VelvetLeaves.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TagListViewModel>> GetAllTagsAsync()
+		public async Task DeleteAsync(int tagId)
+		{
+            var tag = await _context.Tags
+                .FirstAsync(t => t.Id == tagId);
+
+            tag.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
+
+		public async Task<IEnumerable<TagListViewModel>> GetAllTagsAsync()
         {
             var tags = await _context.Tags
                 .Where(t => t.IsActive)

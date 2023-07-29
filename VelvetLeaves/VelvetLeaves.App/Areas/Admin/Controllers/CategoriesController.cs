@@ -67,7 +67,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             return RedirectToAction("All", "Products");
         }
 
-		[HttpPost]
+		[HttpGet]
         public async Task<IActionResult> Delete(int categoryId)
 		{
             await _categoryService.DeleteAsync(categoryId);

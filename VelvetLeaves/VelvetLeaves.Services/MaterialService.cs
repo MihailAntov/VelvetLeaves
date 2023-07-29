@@ -26,7 +26,18 @@ namespace VelvetLeaves.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync()
+		public async Task DeleteAsync(int materialId)
+		{
+            var material = await _context
+                .Materials
+                .Where(m => m.Id == materialId)
+                .FirstAsync();
+
+            material.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
+
+		public async Task<IEnumerable<MaterialListViewModel>> GetAllMaterialsAsync()
         {
             var materials = await _context.Materials
                 .Where(m => m.IsActive)

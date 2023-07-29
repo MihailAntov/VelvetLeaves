@@ -14,7 +14,7 @@ namespace VelvetLeaves.Services.Contracts
 
 		Task MoveRight(int productId, int galleryId);
 		Task MoveLeft(int productId, int galleryId);
-		Task Delete(int productId, int galleryId);
+		Task DeleteItem(int productId, int galleryId);
 
 		Task<AddToGalleryViewModel> GetItemsToAddAsync(int galleryId);
 
@@ -23,5 +23,7 @@ namespace VelvetLeaves.Services.Contracts
 		Task<GalleryEditFormViewModel> GetGalleryEditFormAsync(int galleryId);
 
 		Task EditAsync(GalleryEditFormViewModel model);
+
+		Task DeleteAsync(int galleryId);
 	}
 }

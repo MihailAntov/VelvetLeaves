@@ -79,7 +79,7 @@ namespace VelvetLeaves.Services
 			return gallery;
 		}
 
-        public async Task Delete(int productId, int galleryId)
+        public async Task DeleteItem(int productId, int galleryId)
         {
             var gp = await _context.GalleriesProducts.FirstAsync(gp=> gp.ProductId == productId && gp.GalleryId == galleryId);
 			var remainingItems = _context.GalleriesProducts.Where(ri => ri.Position > gp.Position);
@@ -226,6 +226,18 @@ namespace VelvetLeaves.Services
 			gallery.Description = model.Description;
 			gallery.ImageId = model.ImageId!;
 
+			await _context.SaveChangesAsync();
+		}
+
+		
+		public async Task DeleteAsync(int galleryId)
+		{
+			var gallery = await _context
+				.Galleries
+				.Where(g => g.Id == galleryId)
+				.FirstAsync();
+
+			gallery.IsActive = false;
 			await _context.SaveChangesAsync();
 		}
 	}

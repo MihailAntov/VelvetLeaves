@@ -52,6 +52,15 @@ namespace VelvetLeaves.Services
 			return subcategories;
         }
 
+		public  async Task DeleteAsync(int subcategoryId)
+		{
+			var subcategory = await _context.Subcategories
+				.FirstAsync(sc => sc.Id == subcategoryId);
+
+			subcategory.IsActive = false;
+			await _context.SaveChangesAsync();
+		}
+
 		public async Task EditAsync(SubcategoryEditFormViewModel model)
 		{
 			if(model.Image != null)

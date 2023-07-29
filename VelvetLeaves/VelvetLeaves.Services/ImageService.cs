@@ -11,11 +11,11 @@ namespace VelvetLeaves.Services
 {
     public class ImageService : IImageService
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        
         private readonly IMongoCollection<Image> _imagesCollection;
         public ImageService(IHostingEnvironment hostingEnvironment, IOptions<ImageDatabaseSettings> imageDatabaseSettings)
         {
-            _hostingEnvironment = hostingEnvironment;
+            
 
             var mongoClient = new MongoClient(
             imageDatabaseSettings.Value.ConnectionString);

@@ -148,5 +148,14 @@ namespace VelvetLeaves.Services
 
             await _context.SaveChangesAsync();
 		}
+
+		public async Task DeleteAsync(int productSeriesId)
+		{
+            var productSeries = await _context.ProductSeries
+                .FirstAsync(ps => ps.Id == productSeriesId);
+
+            productSeries.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
 	}
 }

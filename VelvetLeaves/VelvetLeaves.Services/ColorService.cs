@@ -27,7 +27,16 @@ namespace VelvetLeaves.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ColorSelectViewModel>> GetAllColorsAsync()
+		public async Task DeleteAsync(int colorId)
+		{
+            var color = await _context.Colors
+                .FirstAsync(c => c.Id == colorId);
+
+            color.IsActive = false;
+            await _context.SaveChangesAsync();
+		}
+
+		public async Task<IEnumerable<ColorSelectViewModel>> GetAllColorsAsync()
         {
             var colors = await _context.Colors
                 .Where(c => c.IsActive)

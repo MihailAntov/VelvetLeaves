@@ -49,6 +49,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             await _galleryService.MoveRight(productId, galleryId);
         }
 
+
+        /// <summary>
+        /// Deletes a GalleryProduct item from the gallery
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="galleryId"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task Delete(int productId, int galleryId)
         {
@@ -57,7 +64,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return;
             }
 
-            await _galleryService.Delete(productId, galleryId);
+            await _galleryService.DeleteItem(productId, galleryId);
         }
 
 		[HttpGet]
@@ -104,7 +111,6 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Add(GalleryFormViewModel model)
         {
             if (!ModelState.IsValid)
@@ -143,6 +149,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
             return LocalRedirect($"~/Admin/Galleries/Show?galleryId={model.GalleryId}");
             
+        }
+
+		[HttpGet]
+        public async Task<IActionResult> Delete(int galleryId)
+		{
+            await _galleryService.DeleteAsync(galleryId);
+            
+            return RedirectToAction("All", "Galleries");
         }
     }
 }
