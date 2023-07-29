@@ -75,8 +75,10 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			{
 				return View(model);
 			}
-			
-			await _subcategoryService.EditAsync(su)
+
+			await _subcategoryService.EditAsync(model);
+
+			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
 		}
 	}
 }

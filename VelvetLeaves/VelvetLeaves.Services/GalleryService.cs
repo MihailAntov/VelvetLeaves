@@ -78,6 +78,14 @@ namespace VelvetLeaves.Services
         public async Task Delete(int productId, int galleryId)
         {
             var gp = await _context.GalleriesProducts.FirstAsync(gp=> gp.ProductId == productId && gp.GalleryId == galleryId);
+			var remainingItems = _context.GalleriesProducts.Where(ri => ri.Position > gp.Position);
+			if (remainingItems.Any())
+			{
+				foreach(var item in remainingItems)
+				{
+					item.Position--;
+				}
+			}
 			_context.GalleriesProducts.Remove(gp);
 			await _context.SaveChangesAsync();
         }
@@ -174,6 +182,14 @@ namespace VelvetLeaves.Services
 				GalleryId = galleryId,
 				ProductId = i
 			});
+			int currentLength = await _context.GalleriesProducts
+				.Where(gp => gp.GalleryId == galleryId)
+				.CountAsync();
+
+			foreach(var entry in entries)
+			{
+				entry.Position = ++currentLength;
+			}
 
 			await _context.GalleriesProducts.AddRangeAsync(entries);
 			await _context.SaveChangesAsync();
