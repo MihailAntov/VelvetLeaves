@@ -11,9 +11,28 @@ namespace VelvetLeaves.Services
     public class ProductSeriesService : IProductSeriesService
     {
         private readonly VelvetLeavesDbContext _context;
-        public ProductSeriesService(VelvetLeavesDbContext context)
+        private readonly ICategoryService _categoryService;
+        
+        private readonly ISubcategoryService _subcategoryService;
+        private readonly ITagService _tagService;
+        private readonly IMaterialService _materialService;
+        private readonly IColorService _colorService;
+        public ProductSeriesService(
+            VelvetLeavesDbContext context,
+            ICategoryService categoryService,
+            ISubcategoryService subcategoryService,
+            ITagService tagService,
+            IMaterialService materialService,
+            IColorService colorService
+            )
         {
             _context = context;
+            _categoryService = categoryService;
+            _subcategoryService = subcategoryService;
+            _tagService = tagService;
+            _materialService = materialService;
+            _colorService = colorService;
+
         }
 
         public async Task AddAsync(ProductSeriesFormViewModel model)
@@ -81,5 +100,53 @@ namespace VelvetLeaves.Services
 
             return productSeries;
         }
-    }
+
+		public async Task<ProductSeriesFormViewModel> GetProductSeriesByIdAsync(int productSeriesId)
+		{
+            
+            
+            ProductSeriesFormViewModel model = await _context
+                .ProductSeries
+                .Where(ps => ps.Id == productSeriesId)
+                .Select(ps => new ProductSeriesFormViewModel()
+                {
+                    SubcategoryId = ps.SubcategoryId,
+                    Name = ps.Name,
+                    DefaultName = ps.DefaultName,
+                    DefaultDescription = ps.DefaultDescription,
+                    DefaultPrice = ps.DefaultPrice,
+                    DefaultColorIds = ps.DefaultColors.Select(c => c.Id),
+                    DefaultMaterialIds = ps.DefaultMaterials.Select(m => m.Id),
+                    DefaultTagIds = ps.DefaultTags.Select(t => t.Id),
+                }).FirstAsync();
+
+            model.CategoryOptions = await _categoryService.AllCategoriesAsync();
+            model.SubcategoryOptions = await _subcategoryService.AllSubcategoriesAsync();
+            model.ColorOptions = await _colorService.GetAllColorsAsync();
+            model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+            model.TagOptions = await _tagService.GetAllTagsAsync();
+
+            return model;
+		}
+
+        public async Task EditAsync(int productSeriesId, ProductSeriesFormViewModel model)
+		{
+            var productSeries = await _context
+                .ProductSeries
+                .FirstAsync(ps => ps.Id == productSeriesId);
+
+            var colors = await _context.Colors.Where(c => model.DefaultColorIds.Contains(c.Id)).ToArrayAsync();
+            var materials = await _context.Materials.Where(m => model.DefaultMaterialIds.Contains(m.Id)).ToArrayAsync();
+            var tags = await _context.Tags.Where(t => model.DefaultTagIds.Contains(t.Id)).ToArrayAsync();
+
+            productSeries.Name = model.Name;
+            productSeries.DefaultPrice = model.DefaultPrice;
+            productSeries.DefaultDescription = model.DefaultDescription;
+            productSeries.DefaultMaterials = materials;
+            productSeries.DefaultColors = colors;
+            productSeries.DefaultTags = tags;
+
+            await _context.SaveChangesAsync();
+		}
+	}
 }

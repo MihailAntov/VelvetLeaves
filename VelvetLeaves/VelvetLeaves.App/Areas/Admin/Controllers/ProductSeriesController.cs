@@ -70,5 +70,21 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			var model = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(subcategoryId);
 			return Json(model);
         }
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int productSeriesId)
+		{
+			var model = await _productSeriesService.GetProductSeriesByIdAsync(productSeriesId);
+			ViewData["id"] = productSeriesId;
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(int productSeriesId, ProductSeriesFormViewModel model)
+		{
+			await _productSeriesService.EditAsync(productSeriesId, model);
+
+			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
+		}
 	}
 }

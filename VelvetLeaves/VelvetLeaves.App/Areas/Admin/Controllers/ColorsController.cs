@@ -33,5 +33,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 			return RedirectToAction("All", "Products");
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Remove(int colorId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -46,5 +46,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
             
         }
+
+		[HttpGet]
+        public async Task<IActionResult> Edit(int categoryId)
+		{
+            return View();
+		}
+
+		[HttpPost]
+        public async Task<IActionResult> Edit(int categoryId, CategoryFormViewModel model)
+		{
+            return View();
+		}
     }
 }

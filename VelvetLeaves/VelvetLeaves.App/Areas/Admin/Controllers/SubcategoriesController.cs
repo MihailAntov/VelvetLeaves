@@ -60,5 +60,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 			return Json(model);
         }
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int subcategoryId)
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(int subcategoryId, SubcategoryFormViewModel model)
+		{
+			return View();
+		}
 	}
 }

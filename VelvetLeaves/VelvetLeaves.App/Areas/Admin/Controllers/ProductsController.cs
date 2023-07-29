@@ -69,11 +69,11 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             await _productService.UpdateAsync(model);
 
 
-            return RedirectToAction("All", "Products");
-            //return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
+            //return RedirectToAction("All", "Products");
+			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
 
 
-        }
+		}
 
         [HttpGet]
         public async Task<IActionResult> Add(int categoryId, int subcategoryId, int productSeriesId)
