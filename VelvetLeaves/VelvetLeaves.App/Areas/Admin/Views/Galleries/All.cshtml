@@ -30,7 +30,7 @@
 					</div>
 					<div class="row">
 						<a asp-area="Admin" asp-controller="Galleries" asp-action="Edit" asp-route-galleryId="@gallery.Id" class="col-1 ms-auto me-1 d-flex mt-auto mb-auto link-dark text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-						<a asp-area="Admin" asp-controller="Galleries" asp-action="Delete" asp-route-galleryId="@gallery.Id" class="col-1 d-flex ms-1 mt-auto mb-auto me-auto link-dark text-decoration-none"><i class="fa-solid fa-trash"></i></a>
+						<a data-toggle="confirmation" data-title="Are you sure?" asp-area="Admin" asp-controller="Galleries" asp-action="Delete" asp-route-galleryId="@gallery.Id" class="col-1 d-flex ms-1 mt-auto mb-auto me-auto link-dark text-decoration-none"><i class="fa-solid fa-trash"></i></a>
 					</div>
 				</div>
 			}

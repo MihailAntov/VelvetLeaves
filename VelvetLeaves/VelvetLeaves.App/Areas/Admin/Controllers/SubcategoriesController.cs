@@ -80,5 +80,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int subcategoryId, int categoryId)
+		{
+			await _subcategoryService.DeleteAsync(subcategoryId);
+
+			return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}");
+		}
 	}
 }

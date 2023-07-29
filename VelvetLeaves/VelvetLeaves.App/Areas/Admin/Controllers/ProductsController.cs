@@ -78,31 +78,6 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Add(int categoryId, int subcategoryId, int productSeriesId)
         {
-            //var model = new ProductFormViewModel();
-            //var categories = await _categoryService.AllCategoriesAsync();
-            //model.CategoryId = categories.Select(c=> c.Id).Contains(categoryId) ? categoryId : await _categoryService.GetDefaultCategoryIdAsync() ;
-            //model.CategoryOptions = categories;
-            //var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
-            //model.SubcategoryId = subCategories.Select(c=>c.Id).Contains(subcategoryId) ? subcategoryId : await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId);
-            //model.SubcategoryOptions = subCategories;
-            //var productSeries = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(model.SubcategoryId);
-            //model.ProductSeriesId = productSeries.Select(ps => ps.Id).Contains(productSeriesId) ? productSeriesId : await _productSeriesService.GetDefaultProductSeriesIdAsync(model.SubcategoryId);
-            //model.ProductSeriesOptions = productSeries;
-
-            //model.ColorOptions = await _colorService.GetAllColorsAsync();
-            //model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
-            //model.TagOptions = await _tagService.GetAllTagsAsync();
-
-
-
-            //ProductSeriesDefaultValues defaultValues = await _productSeriesService.GetDefaultValues(model.ProductSeriesId);
-            //model.DefaultTagIds = defaultValues.TagIds;
-            //model.DefaultColorIds = defaultValues.ColorIds;
-            //model.DefaultMaterialIds = defaultValues.MaterialIds;
-            //model.Name = defaultValues.Name??String.Empty;
-            //model.Price = defaultValues.Price ?? 0.00M;
-            //model.Description = defaultValues.Description ?? String.Empty;
-
             var model = await _productService.GetFormForAddAsync(categoryId, subcategoryId, productSeriesId);
 
             return View(model);
@@ -135,6 +110,15 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         {
             var model = await _productSeriesService.GetDefaultValues(productSeriesId);
             return Json(model);
+        }
+
+		[HttpGet]
+        public async Task<IActionResult> Delete(int productId, int categoryId, int subcategoryId, int productSeriesId)
+		{
+            await _productService.DeleteAsync(productId);
+
+            return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}&subcategoryId={subcategoryId}&productSeriesId={productSeriesId}");
+
         }
     }
 }
