@@ -111,7 +111,7 @@
 						<!-- Page selector -->
 						<label for="itemsPerPage">Items per page:</label>
 						<div class="form-group col-md-4 d-flex m-auto">
-							<select asp-for="ProductsPerPage" class="form-control align-content-center" id="itemsPerPage">
+							<select type="submit" asp-for="ProductsPerPage" class="form-control align-content-center" id="itemsPerPage">
 								<option value="3">3</option>
 								<option value="6">6</option>
 								<option value="9">9</option>
@@ -132,6 +132,7 @@
 	@section Scripts {
 
 	<script type="text/javascript" src="@Url.Content("~/js/filterProducts.js")"></script>
+	<script src="~/js/submitForm.js"></script>
 
 	}
 	

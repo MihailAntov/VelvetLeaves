@@ -36,7 +36,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.ConfigureExternalCookie(options =>
 {
     options.LoginPath = "/User/Login";
-    options.LogoutPath = "/Galleries/Featured";
+    options.LogoutPath = "/Home/Index";
 });
 
 builder.Services.AddControllersWithViews();
@@ -85,7 +85,7 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Galleries}/{action=Featured}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

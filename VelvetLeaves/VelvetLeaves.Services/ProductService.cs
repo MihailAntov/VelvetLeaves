@@ -295,9 +295,9 @@ namespace VelvetLeaves.Services
             product.Name = model.Name;
             product.Price = model.Price;
             product.Description = model.Description;
-            product.Colors = model.ColorIds.Select(cId => _context.Colors.First(c => c.Id == cId)).ToArray();
-            product.Materials = model.MaterialIds.Select(mId => _context.Materials.First(m => m.Id == mId)).ToArray();
-            product.Tags = model.TagIds.Select(tId => _context.Tags.First(t => t.Id == tId)).ToArray();
+            product.Colors = model.ColorIds.Select(cId => _context.Colors.First(c => c.Id == cId)).ToList();
+            product.Materials = model.MaterialIds.Select(mId => _context.Materials.First(m => m.Id == mId)).ToList();
+            product.Tags = model.TagIds.Select(tId => _context.Tags.First(t => t.Id == tId)).ToList();
 
             var currentImages = product.Images;
 

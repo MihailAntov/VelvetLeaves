@@ -40,10 +40,10 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			
 			var model = new ProductSeriesFormViewModel();
 			var categories = await _categoryService.AllCategoriesAsync();
-			model.CategoryId = (categoryId <= 0 || categoryId > categories.Count()) ? await _categoryService.GetDefaultCategoryIdAsync() : categoryId;
+			model.CategoryId = !categories.Select(c=>c.Id).Contains(categoryId) ? await _categoryService.GetDefaultCategoryIdAsync() : categoryId;
 			model.CategoryOptions = categories;
 			var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
-			model.SubcategoryId = (subcategoryId <= 0 || subcategoryId > subCategories.Count()) ? await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId) : subcategoryId;
+			model.SubcategoryId = !subCategories.Select(sc=>sc.Id).Contains(subcategoryId) ? await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId) : subcategoryId;
 			model.SubcategoryOptions = subCategories;
 
 
@@ -82,6 +82,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(int productSeriesId, ProductSeriesFormViewModel model)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+			
 			await _productSeriesService.EditAsync(productSeriesId, model);
 
 			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
