@@ -36,6 +36,7 @@ namespace VelvetLeaves.Data.Models
         public ProductSeries ProductSeries { get; set; } = null!;
 
         [Required]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal Price { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
@@ -46,7 +47,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
-        
-        
+
+        public bool IsActive { get; set; } = true;
     }
 }

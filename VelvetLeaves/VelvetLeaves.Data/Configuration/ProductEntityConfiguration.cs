@@ -78,6 +78,9 @@ namespace VelvetLeaves.Data.Configuration
 
             //builder.Entity<Color>().HasData(colorList);
             //builder.Entity<Material>().HasData(materialList);
+            builder.Entity<Product>().Property(p => p.Price)
+                .HasPrecision(18, 2);
+                
             builder.Entity<Product>().HasData(productList);
             //builder.Entity<Tag>().HasData(tagList);
             //builder.Entity<ProductSeries>().HasData(productSeriesList);

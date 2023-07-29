@@ -17,6 +17,8 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(ValidationConstants.Product.DescriptionMaxLength)]
         [Required]
         public string DefaultDescription { get; set; } = null!;
+
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal DefaultPrice { get; set; }
 
         [MaxLength(ValidationConstants.Product.NameMaxLength)]
@@ -34,6 +36,9 @@ namespace VelvetLeaves.Data.Models
 
         [Required]
         public Subcategory Subcategory { get; set; } = null!;
+
+        public bool IsActive { get; set; } = true;
+
 
     }
 }

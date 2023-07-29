@@ -177,21 +177,24 @@ namespace VelvetLeaves.Services
 
         public async Task AddItemsToGalleryAsync(int galleryId, IEnumerable<int> items)
         {
-			var entries = items.Select(i => new GalleryProduct()
-			{
-				GalleryId = galleryId,
-				ProductId = i
-			});
+			
 			int currentLength = await _context.GalleriesProducts
 				.Where(gp => gp.GalleryId == galleryId)
 				.CountAsync();
 
-			foreach(var entry in entries)
+			ICollection<GalleryProduct> galleriesProducts = new List<GalleryProduct>();
+
+			foreach(var item in items)
 			{
-				entry.Position = ++currentLength;
+				galleriesProducts.Add(new GalleryProduct
+				{
+					GalleryId = galleryId,
+					ProductId = item,
+					Position = ++currentLength
+				});
 			}
 
-			await _context.GalleriesProducts.AddRangeAsync(entries);
+			await _context.GalleriesProducts.AddRangeAsync(galleriesProducts);
 			await _context.SaveChangesAsync();
         }
 

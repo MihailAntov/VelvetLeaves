@@ -20,6 +20,10 @@ namespace VelvetLeaves.Data.Configuration
                 new ProductSeries{Id = 6, Name = "Book Binding", SubcategoryId = 5, DefaultName="Book Binding", DefaultDescription = "Book binding.", DefaultPrice = 50.00M},
             };
 
+
+            builder.Property(p => p.DefaultPrice)
+                .HasPrecision(18, 2);
+
             builder.HasData(productSeriesList);
 
 

@@ -25,5 +25,7 @@ namespace VelvetLeaves.Data.Models
         [Required]
         [MaxLength(IdMaxLength)]
         public string ImageId { get; set; } = null!;
+
+        public bool IsActive { get; set; } = true;
     }
 }

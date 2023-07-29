@@ -17,5 +17,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();    
 
         public virtual ICollection<ProductSeries> ProductSeries { get; set; } = new HashSet<ProductSeries>();
+
+        public bool IsActive { get; set; } = true;
     }
 }
