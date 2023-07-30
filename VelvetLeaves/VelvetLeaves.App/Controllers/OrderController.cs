@@ -9,13 +9,14 @@ namespace VelvetLeaves.Web.App.Controllers
         public Task<IActionResult> ShoppingCart()
         {
             throw new NotImplementedException();
+
         }
 
         [HttpGet]
         public  IActionResult AddToCart(int productId)
         {
-            TempData["Message"] = "Successfully added to shopping cart.";
-            return RedirectToAction("All", "Products", productId);
+            TempData["SuccessMessage"] = "Successfully added to shopping cart.";
+            return LocalRedirect($"~/Products/Details/{productId}");
         }
     }
 }
