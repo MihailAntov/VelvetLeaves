@@ -16,7 +16,7 @@
 	<a asp-controller="Categories" asp-action="Add" class="btn btn-success col-sm w-auto m-1">Add Category</a>
 	<a asp-controller="Subcategories" asp-action="Add" class="btn btn-info col-sm w-auto m-1">Add Subcategory</a>
 	<a asp-controller="ProductSeries" asp-action="Add" class="btn btn-primary col-sm w-auto m-1">Add Product Series</a>
-	<a asp-controller="Products" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Product</a>
+	<a asp-controller="Products" asp-action="Add" class="btn btn-secondary col-sm w-auto m-1">Add Product</a>
 
 	<a asp-controller="Colors" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Color</a>
 	<a asp-controller="Materials" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1">Add Material</a>
@@ -25,51 +25,53 @@
 
 <br />
 <div class="container-fluid">
+		<h2>Categories:</h2>
 	<ul class="list-group">
 		@foreach (var category in Model.Products)
 		{
 			<li class="list-group-item">
 				<div class="row p-2">
-					<a class="btn btn-success col-2" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="true" aria-controls="@category.Anchor">@category.Name</a>
+					<a class="btn btn-outline-success w-auto" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="true" aria-controls="@category.Anchor">@category.Name</a>
 
 					<a asp-controller="Categories" asp-action="Edit" asp-route-categoryId="@category.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-success text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
 					<a onclick="return confirm('Are you sure?')" asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@category.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 				</div>
 				<div class="@(expandedCategory == category.Id ? "collapse.show" : "collapse")" id="@category.Anchor">
 
+						<h3>Subcategories:</h3>
 					<ul class="list-group">
 						@foreach (var subcategory in category.Subcategories)
 						{
 							<li class="list-group-item">
 								<div class="row p-2">
-									<a class="btn btn-info col-2" data-bs-toggle="collapse" href="#@subcategory.Anchor" role="button" aria-expanded="false" aria-controls="@subcategory.Anchor">@subcategory.Name</a>
+									<a class="btn btn-outline-info w-auto" data-bs-toggle="collapse" href="#@subcategory.Anchor" role="button" aria-expanded="false" aria-controls="@subcategory.Anchor">@subcategory.Name</a>
 									<a asp-controller="Subcategories" asp-action="Edit" asp-route-subcategoryId="@subcategory.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-info text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
 									<a onclick="return confirm('Are you sure?')" asp-controller="Subcategories" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-info text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 								</div>
 								<div class="@(expandedSubcategory == subcategory.Id ? "collapse.show" : "collapse")" id="@subcategory.Anchor">
-
+									<h4>Product Series:</h4>
 									<ul class="list-group">
 										@foreach (var series in subcategory.ProductSeries)
 										{
 											<li class="list-group-item card">
 												<div class="row p-2">
-													<a class="btn btn-primary col-2" data-bs-toggle="collapse" href="#@series.Anchor" role="button" aria-expanded="false" aria-controls="@series.Anchor">@series.Name</a>
+													<a class="btn btn-outline-primary w-auto" data-bs-toggle="collapse" href="#@series.Anchor" role="button" aria-expanded="false" aria-controls="@series.Anchor">@series.Name</a>
 													<a asp-controller="ProductSeries" asp-action="Edit" asp-route-productSeriesId="@series.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-primary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
 													<a onclick="return confirm('Are you sure?')" asp-controller="ProductSeries" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-primary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 												</div>
 												<div class="@(expandedProductSeries == series.Id ? "collapse.show" : "collapse")" id="@series.Anchor">
-
+													<h5>Products:</h5>
 													<ul class="list-group">
 														@foreach (var product in series.Products)
 														{
 
-															<li class="list-group-item card">
+															<li class="list-group-item container-fluid">
 
 																<div class="row">
-																	<p class="col-2 p-3 d-inline-flex p-2 me-auto mb-auto mt-auto"> @product.Name </p>
-																	<img class="col-1 d-infline-flex ms-md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
-																	<a asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-dark text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-																	<a onclick="return confirm('Are you sure?')" asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-dark text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+																	<p class="w-auto p-3 d-inline-flex p-2 mb-auto mt-auto"> @product.Name </p>
+																	<img class="col-sm-1 d-infline-flex  ms-auto md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+																	<a asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-secondary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
+																	<a onclick="return confirm('Are you sure?')" asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 
 
 																</div>
@@ -79,7 +81,7 @@
 
 														}
 														<li class="list-group-item">
-															<a asp-controller="Products" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" asp-route-ProductSeriesId="@series.Id" class="btn btn-outline-dark">Add new</a>
+															<a asp-controller="Products" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" asp-route-ProductSeriesId="@series.Id" class="btn btn-secondary">Add new</a>
 														</li>
 													</ul>
 
@@ -88,7 +90,7 @@
 										}
 										<li class="list-group-item">
 
-											<a asp-controller="ProductSeries" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" class="btn btn-outline-primary">Add new</a>
+											<a asp-controller="ProductSeries" asp-action="Add" asp-route-CategoryId="@category.Id" asp-route-Subcategoryid="@subcategory.Id" class="btn btn-primary">Add new</a>
 										</li>
 									</ul>
 								</div>
@@ -97,7 +99,7 @@
 						}
 						<li class="list-group-item">
 
-							<a asp-controller="Subcategories" asp-action="Add" asp-route-CategoryId="@category.Id" class="btn btn-outline-info">Add new</a>
+							<a asp-controller="Subcategories" asp-action="Add" asp-route-CategoryId="@category.Id" class="btn btn-info">Add new</a>
 
 						</li>
 					</ul>

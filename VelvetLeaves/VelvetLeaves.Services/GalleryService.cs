@@ -155,17 +155,20 @@ namespace VelvetLeaves.Services
 			model.GalleryName = await  _context.Galleries.Select(g => g.Name).FirstAsync();
 			model.Categories = await _context
 				.Categories
+				.Where(c=> c.IsActive)
 				.Select(c => new CategoryListViewModel()
 				{
 					Id = c.Id,
 					Name = c.Name,
 					Subcategories = c.Subcategories
+					.Where(sc => sc.IsActive)
 					.Select(sc => new SubcategoryListViewModel()
 					{
 						Id = sc.Id,
 						Name = sc.Name,
 						Products = sc.Products
 						.Where(p => !existingIdsInGallery.Contains(p.Id))
+						.Where(p => p.IsActive)
 						.Select(p => new ProductListViewModel()
 						{
 							Name = p.Name,

@@ -7,7 +7,7 @@
 	<form enctype="multipart/form-data" method="post">
 		<input asp-for="GalleryId" value="@Model.GalleryId" hidden/>
 	<ul class="list-group">
-		@foreach (var category in Model.Categories)
+		@foreach (var category in Model.Categories.Where(c=>c.Subcategories.Any(sc=> sc.Products.Any())))
 		{
 			<li class="list-group-item">
 				<div class="row p-2">
@@ -15,7 +15,7 @@
 				</div>
 				<div class="collapse" id="category@(category.Id)">
 					<ul class="list-group">
-						@foreach (var subcategory in category.Subcategories)
+						@foreach (var subcategory in category.Subcategories.Where(sc=> sc.Products.Any()))
 						{
 							<li class="list-group-item">
 								<div class="row p-2">

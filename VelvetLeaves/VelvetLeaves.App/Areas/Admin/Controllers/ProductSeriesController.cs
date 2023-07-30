@@ -37,21 +37,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
 		public async Task<IActionResult> Add(int categoryId, int subcategoryId)
 		{
-			
-			var model = new ProductSeriesFormViewModel();
-			var categories = await _categoryService.AllCategoriesAsync();
-			model.CategoryId = !categories.Select(c=>c.Id).Contains(categoryId) ? await _categoryService.GetDefaultCategoryIdAsync() : categoryId;
-			model.CategoryOptions = categories;
-			var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
-			model.SubcategoryId = !subCategories.Select(sc=>sc.Id).Contains(subcategoryId) ? await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId) : subcategoryId;
-			model.SubcategoryOptions = subCategories;
 
 
 
-			model.ColorOptions = await _colorService.GetAllColorsAsync();
-			model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
-			model.TagOptions = await _tagService.GetAllTagsAsync();
+			var model = new ProductSeriesFormViewModel()
+			{
+				CategoryId = categoryId,
+				SubcategoryId = subcategoryId
+			};
 
+			model = await _productSeriesService.PopulateModel(model);
 
 			return View(model);
 		}
@@ -59,6 +54,12 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(ProductSeriesFormViewModel model)
 		{
+            if (!ModelState.IsValid)
+            {
+				model = await _productSeriesService.PopulateModel(model);
+				return View(model);
+			}
+			
 			await _productSeriesService.AddAsync(model);
 
 			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
@@ -84,6 +85,10 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
+
+				model = await _productSeriesService.PopulateModel(model);
+
+
 				return View(model);
 			}
 			

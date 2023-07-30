@@ -133,11 +133,14 @@ namespace VelvetLeaves.Services
 		{
             var productSeries = await _context
                 .ProductSeries
+                .Include(p=> p.DefaultColors)
+                .Include(p=> p.DefaultMaterials)
+                .Include(p=> p.DefaultTags)
                 .FirstAsync(ps => ps.Id == productSeriesId);
 
-            var colors = await _context.Colors.Where(c => c.IsActive &&  model.DefaultColorIds.Contains(c.Id)).ToArrayAsync();
-            var materials = await _context.Materials.Where(m => m.IsActive && model.DefaultMaterialIds.Contains(m.Id)).ToArrayAsync();
-            var tags = await _context.Tags.Where(t => t.IsActive && model.DefaultTagIds.Contains(t.Id)).ToArrayAsync();
+            var colors = await _context.Colors.Where(c => c.IsActive &&  model.DefaultColorIds.Contains(c.Id)).ToListAsync();
+            var materials = await _context.Materials.Where(m => m.IsActive && model.DefaultMaterialIds.Contains(m.Id)).ToListAsync();
+            var tags = await _context.Tags.Where(t => t.IsActive && model.DefaultTagIds.Contains(t.Id)).ToListAsync();
 
             productSeries.Name = model.Name;
             productSeries.DefaultPrice = model.DefaultPrice;
@@ -157,5 +160,24 @@ namespace VelvetLeaves.Services
             productSeries.IsActive = false;
             await _context.SaveChangesAsync();
         }
-	}
+
+        public async Task<ProductSeriesFormViewModel> PopulateModel(ProductSeriesFormViewModel model)
+        {
+            
+            var categories = await _categoryService.AllCategoriesAsync();
+            model.CategoryId = !categories.Select(c => c.Id).Contains(model.CategoryId) ? await _categoryService.GetDefaultCategoryIdAsync() : model.CategoryId;
+            model.CategoryOptions = categories;
+            var subCategories = await _subcategoryService.SubcategoriesByCategoryIdAsync(model.CategoryId);
+            model.SubcategoryId = !subCategories.Select(sc => sc.Id).Contains(model.SubcategoryId) ? await _subcategoryService.GetDefaultSubcategoryIdAsync(model.CategoryId) : model.SubcategoryId;
+            model.SubcategoryOptions = subCategories;
+
+
+
+            model.ColorOptions = await _colorService.GetAllColorsAsync();
+            model.MaterialOptions = await _materialService.GetAllMaterialsAsync();
+            model.TagOptions = await _tagService.GetAllTagsAsync();
+
+            return model;
+        }
+    }
 }

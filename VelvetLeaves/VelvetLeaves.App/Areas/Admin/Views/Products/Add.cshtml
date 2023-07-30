@@ -11,6 +11,7 @@
 
 	<form id="categoryForm" enctype="multipart/form-data" method="post">
 		<div class="mb-3">
+			
 			<label asp-for="CategoryId" class="form-label">Category</label>
 			<select asp-for="CategoryId" class="form-select category-select" aria-label="Select Category">
 				@foreach (var category in Model.CategoryOptions)

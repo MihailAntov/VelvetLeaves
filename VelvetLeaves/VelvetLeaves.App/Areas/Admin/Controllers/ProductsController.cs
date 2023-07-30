@@ -89,6 +89,14 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var newOptions = await _productService.GetFormForAddAsync(model.CategoryId, model.SubcategoryId, model.ProductSeriesId);
+                model.CategoryOptions = newOptions.CategoryOptions;
+                model.SubcategoryOptions = newOptions.SubcategoryOptions;
+                model.ProductSeriesOptions = newOptions.ProductSeriesOptions;
+                model.MaterialOptions = newOptions.MaterialOptions;
+                model.TagOptions = newOptions.TagOptions;
+                model.ColorOptions = newOptions.ColorOptions;
+                
                 return View(model);
             }
 

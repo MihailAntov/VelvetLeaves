@@ -16,6 +16,8 @@ namespace VelvetLeaves.Services.Contracts
 		public Task<ProductSeriesFormViewModel> GetProductSeriesByIdAsync(int productSeriesId);
 		public Task EditAsync(int productSeriesId, ProductSeriesFormViewModel model);
 
-		Task DeleteAsync(int productSeriesId);
+		public Task DeleteAsync(int productSeriesId);
+
+		public Task<ProductSeriesFormViewModel> PopulateModel(ProductSeriesFormViewModel model);
 	}
 }
