@@ -14,14 +14,17 @@ namespace VelvetLeaves.Services
 		private readonly VelvetLeavesDbContext _context;
 		private readonly ICategoryService _categoryService;
 		private readonly IImageService _imageService;
+		private readonly IGalleryService _galleryService;
         public SubcategoryService(
 			VelvetLeavesDbContext context,
 			ICategoryService categoryService,
-			IImageService imageService)
+			IImageService imageService,
+			IGalleryService galleryService)
 		{
 			_context = context;
 			_categoryService = categoryService;
 			_imageService = imageService;
+			_galleryService = galleryService;
 		}
 
 		public async Task AddAsync(string name, int categoryId, string imageId)
@@ -55,9 +58,22 @@ namespace VelvetLeaves.Services
 		public  async Task DeleteAsync(int subcategoryId)
 		{
 			var subcategory = await _context.Subcategories
+				.Include(sc=> sc.ProductSeries)
+				.ThenInclude(ps=> ps.Products)
 				.FirstAsync(sc => sc.Id == subcategoryId);
 
 			subcategory.IsActive = false;
+
+
+			foreach(var series in subcategory.ProductSeries)
+            {
+				series.IsActive = false;
+				foreach(var product in series.Products)
+                {
+					product.IsActive = false;
+					await _galleryService.RemoveItemFromAllGalleries(product.Id);
+                }
+            }
 			await _context.SaveChangesAsync();
 		}
 

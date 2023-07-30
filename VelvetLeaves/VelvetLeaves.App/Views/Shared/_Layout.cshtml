@@ -21,7 +21,7 @@
 	<header>
 		<nav id="mainNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			
-				<a class="navbar-brand text-lg-center" asp-area="" asp-controller="Galleries" asp-action="Featured">Velvet Leaves</a>
+				<a class="navbar-brand text-lg-center" asp-area="" asp-controller="Home" asp-action="Index">Velvet Leaves</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
 							{
 								<li class="nav-item ">
 									<div class="btn-group">
-										<button class="btn btn-secondary btn-lg dropdown-toggle m-2" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<button class="btn-lg btn btn-outline-secondary dropdown-toggle m-2" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											@category.Name
 										</button>
 										<div class="dropdown-menu">
@@ -55,7 +55,7 @@
 						}
 
 						<li class="nav-item ">
-										<a class="btn btn-secondary btn-lg m-2" type="button" asp-controller="Galleries" asp-action="All">Galleries</a>
+										<a class="btn-lg btn-outline-secondary btn m-2" type="button" asp-controller="Galleries" asp-action="All">Galleries</a>
 									
 
 								</li>

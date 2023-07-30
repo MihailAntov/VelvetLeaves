@@ -8,5 +8,7 @@
         public decimal Price { get; set; }
         public int Position { get; set; }
 
+        public IEnumerable<string> Colors { get; set; } = new HashSet<string>();
+
     }
 }

@@ -25,5 +25,7 @@ namespace VelvetLeaves.Services.Contracts
 		Task EditAsync(GalleryEditFormViewModel model);
 
 		Task DeleteAsync(int galleryId);
+
+		Task RemoveItemFromAllGalleries(int productId);
 	}
 }

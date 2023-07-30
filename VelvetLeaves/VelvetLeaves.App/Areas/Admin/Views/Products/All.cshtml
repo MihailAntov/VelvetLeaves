@@ -34,7 +34,7 @@
 					<a class="btn btn-outline-success w-auto" data-bs-toggle="collapse" href="#@category.Anchor" role="button" aria-expanded="true" aria-controls="@category.Anchor">@category.Name</a>
 
 					<a asp-controller="Categories" asp-action="Edit" asp-route-categoryId="@category.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-success text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-					<a onclick="return confirm('Are you sure?')" asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@category.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+					<a onclick="return confirm('Are you sure? This will delete all of this category's subcategories, product series and products.')" asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@category.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 				</div>
 				<div class="@(expandedCategory == category.Id ? "collapse.show" : "collapse")" id="@category.Anchor">
 
@@ -46,7 +46,7 @@
 								<div class="row p-2">
 									<a class="btn btn-outline-info w-auto" data-bs-toggle="collapse" href="#@subcategory.Anchor" role="button" aria-expanded="false" aria-controls="@subcategory.Anchor">@subcategory.Name</a>
 									<a asp-controller="Subcategories" asp-action="Edit" asp-route-subcategoryId="@subcategory.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-info text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-									<a onclick="return confirm('Are you sure?')" asp-controller="Subcategories" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-info text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+									<a onclick="return confirm('Are you sure? This will delete all of this subcategory's product series and products.')" asp-controller="Subcategories" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-info text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 								</div>
 								<div class="@(expandedSubcategory == subcategory.Id ? "collapse.show" : "collapse")" id="@subcategory.Anchor">
 									<h4>Product Series:</h4>
@@ -57,7 +57,7 @@
 												<div class="row p-2">
 													<a class="btn btn-outline-primary w-auto" data-bs-toggle="collapse" href="#@series.Anchor" role="button" aria-expanded="false" aria-controls="@series.Anchor">@series.Name</a>
 													<a asp-controller="ProductSeries" asp-action="Edit" asp-route-productSeriesId="@series.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-primary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-													<a onclick="return confirm('Are you sure?')" asp-controller="ProductSeries" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-primary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+													<a onclick="return confirm('Are you sure? This will delete all of this series's products.')" asp-controller="ProductSeries" asp-action="Delete" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-primary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 												</div>
 												<div class="@(expandedProductSeries == series.Id ? "collapse.show" : "collapse")" id="@series.Anchor">
 													<h5>Products:</h5>
@@ -71,7 +71,7 @@
 																	<p class="w-auto p-3 d-inline-flex p-2 mb-auto mt-auto"> @product.Name </p>
 																	<img class="col-sm-1 d-infline-flex  ms-auto md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
 																	<a asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-secondary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-																	<a onclick="return confirm('Are you sure?')" asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+																	<a onclick="return confirm('Are you sure? This will delete this product.')" asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 
 
 																</div>

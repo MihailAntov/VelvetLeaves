@@ -17,13 +17,16 @@ namespace VelvetLeaves.Services
         private readonly ITagService _tagService;
         private readonly IMaterialService _materialService;
         private readonly IColorService _colorService;
+        private readonly IGalleryService _galleryService;
         public ProductSeriesService(
             VelvetLeavesDbContext context,
             ICategoryService categoryService,
             ISubcategoryService subcategoryService,
             ITagService tagService,
             IMaterialService materialService,
-            IColorService colorService
+            IColorService colorService,
+            IGalleryService galleryService
+            
             )
         {
             _context = context;
@@ -32,6 +35,8 @@ namespace VelvetLeaves.Services
             _tagService = tagService;
             _materialService = materialService;
             _colorService = colorService;
+            _galleryService = galleryService;
+           
 
         }
 
@@ -155,9 +160,18 @@ namespace VelvetLeaves.Services
 		public async Task DeleteAsync(int productSeriesId)
 		{
             var productSeries = await _context.ProductSeries
+                .Include(ps=> ps.Products)
                 .FirstAsync(ps => ps.Id == productSeriesId);
 
             productSeries.IsActive = false;
+
+            
+
+            foreach(var product in productSeries.Products)
+            {
+                product.IsActive = false;
+                await _galleryService.RemoveItemFromAllGalleries(product.Id);
+            }
             await _context.SaveChangesAsync();
         }
 

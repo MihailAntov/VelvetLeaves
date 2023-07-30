@@ -1,9 +1,7 @@
 ﻿@model ProductDetailsViewModel
 @inject IImageService imageService
-
 @{
 	ViewData["Title"] = Model.Name;
-
 }
 
 <div class="container-fluid">
@@ -11,53 +9,96 @@
 
 	<div class="row">
 		<div class="col-md-5">
-			<div class="card mb-1">
-				<img src="data:img/jpg;base64,@await imageService.GetAsync(Model.Images.First())" />
+			<div class="row">
+
+				<div class="card mb-1">
+					<img class="main-image" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Images.First())" />
+				</div>
+			</div>
+			<div class="row">
+				@foreach (var picture in Model.Images)
+				{
+					<div class="col-4">
+						<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@Model.Name">
+							<a class="all-images">
+								<div class="card-body">
+									<img src="data:img/jpg;base64,@await imageService.GetAsync(picture)" class="card-img-bottom alt-img-src" alt="@Model.Name">
+								</div>
+							</a>
+						</div>
+					</div>
+				}
+
 			</div>
 		</div>
 		<div class="col-md-7">
-			<div class="card mb-1 p-3">
-				<h4 class="mb-2 m-auto">@Model.Name</h4>
+			<div class="row">
+				<div class="card mb-5 p-3">
+					<h4 class="mb-2 m-auto">@Model.Name</h4>
 
-				<p class="d-inline-flex m-auto mb-2">Price: @Model.Price</p>
-				<button class="d-inline-flex m-auto mb-3 btn btn-primary">BUY</button>
-				<textarea class="p-3 mb-3" disabled>@Model.Description</textarea>
-				<p class="p-3 mb-3 m-auto">Materials:</p>
-				@foreach(var material in Model.Materials)
-				{
-					<div class="card d-inline-flex">@material</div>
-				
-				}
+					<p class="d-inline-flex m-auto mb-2">Price: @Model.Price</p>
+					<a asp-area="" asp-controller="Order" asp-action="AddToCart" asp-route-productId="@Model.Id" class="d-inline-flex m-auto mb-3 btn btn-primary">BUY</a>
+					<textarea class="p-3 mb-3" style="resize:none" disabled>@Model.Description</textarea>
 
-				<p class="p-3 mb-3 m-auto">Tags:</p>
-				@foreach(var tag in Model.Tags)
-				{
-				<p class="p-3 mb-1">@tag</p>
-				}
-			</div>
-			
-		</div>
-		
+					@if (Model.Materials.Any())
+					{
+						<p class="mb-1 ms-auto me-auto">Materials:</p>
+						<div class="row justify-content-center mb-3">
+							@foreach (var material in Model.Materials)
+							{
+								<div class="w-auto d-inline-flex justify-content-center me-2 rounded-start rounded-end bg-secondary text-white text-center">@material</div>
+
+							}
+						</div>
+					}
+
+					@if (Model.Tags.Any())
+					{
+						<p class=" mb-1 ms-auto me-auto">Tags:</p>
+
+						<div class="row justify-content-center mb-3">
+							@foreach (var tag in Model.Tags)
+							{
+								<div class="w-auto d-inline-flex justify-content-center me-2 rounded-start rounded-end bg-info text-white text-center">@tag</div>
+
+							}
+						</div>
+					}
 
 
-	</div>
+					@if (Model.ProductSeries.Any())
+					{
+						<p class="mb-1 ms-auto me-auto">Other Colors:</p>
 
-	<div class="row">
-			@foreach (var picture in Model.Images)
-			{
-				<div class="col-md-1">
-					<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@Model.Name">
-						
-							<div class="card-body">
-								<img src="data:img/jpg;base64,@await imageService.GetAsync(picture)" class="card-img-bottom" alt="@Model.Name">
-							</div>
-						
-					</div>
+						<div class="row ms-auto me-auto justify-content-center">
+							@foreach (var product in Model.ProductSeries)
+							{
+								<a class="text-decoration-none col-3 pt-2  text-black product-link" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+									<img class="img-thumbnail" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+
+								</a>
+
+
+							}
+						</div>
+					}
+
+
+
 				</div>
-			}
 
-		
+			</div>
+			<div class="row">
+			</div>
 
-
+		</div>
 	</div>
+
+
 </div>
+
+@section Scripts {
+	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+	<script src="~/js/swapImages.js"></script>
+	<script src="~/js/showImageThumbNails.js"></script>
+}

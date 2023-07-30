@@ -23,6 +23,7 @@ namespace VelvetLeaves.Services
         private readonly IMaterialService _materialService;
         private readonly IColorService _colorService;
         private readonly IImageService _imageService;
+        private readonly IGalleryService _galleryService;
         public ProductService(
             VelvetLeavesDbContext context,
             ICategoryService categoryService,
@@ -31,7 +32,8 @@ namespace VelvetLeaves.Services
             ITagService tagService,
             IMaterialService materialService,
             IColorService colorService,
-            IImageService imageService
+            IImageService imageService,
+            IGalleryService galleryService
             )
         {
             _context = context;
@@ -42,6 +44,7 @@ namespace VelvetLeaves.Services
             _productSeriesService = productSeriesService;
             _colorService = colorService;
             _imageService = imageService;
+            _galleryService = galleryService;
         }
 
         public async Task<bool> ExistsByIdAsync(int id)
@@ -72,7 +75,8 @@ namespace VelvetLeaves.Services
                                         Id = lp.Id, 
                                         Name = lp.Name,
                                         ImageId = lp.Images.Select(i=> i.Id).First(),
-                                        Price =lp.Price
+                                        Price =lp.Price,
+                                        Colors = lp.Colors.Select(c=>c.ColorValue).ToHashSet()
                                     }).ToArray()
                                     
                 }).FirstAsync();
@@ -336,6 +340,7 @@ namespace VelvetLeaves.Services
 
             product.IsActive = false;
             await _context.SaveChangesAsync();
+            await _galleryService.RemoveItemFromAllGalleries(productId);
         }
 	}
 }
