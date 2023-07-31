@@ -6,7 +6,7 @@
 
 	<div class="row">
 		<div class="col-md-7">
-			<table class="table">
+			<table class="table shadow-lg bg-transparent ">
 				<thead>
 					<tr>
 						<th></th>
@@ -14,6 +14,7 @@
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>Total</th>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -23,7 +24,7 @@
 							<td>
 							<img width="90rem" height="90rem" src="data:img/jpg;base64,@await imageService.GetAsync(item.ImageId)"/>
 							</td>
-							<td>@item.Name</td>
+							<td class="fw-bold">@item.Name</td>
 							<td>@item.Price BGN</td>
 							<td>
 								<div class="row">
@@ -31,9 +32,9 @@
 									<span class="col-1 product-quantity" productId="@item.Id">@item.Quantity</span>
 									<a class="btn pt-0 col-1 ms-1 plus-button" productId="@item.Id"><i class="fa-solid fa-plus"></i></a>
 								</div>
-								<div class="row">
+								<div class="row align-self-center">
 
-									<a class="btn pt-0 col-1 delete-button" productId="@item.Id"><i class="fa-solid fa-trash"></i></a>
+									<a class="btn pt-0 col-1 ms-auto me-auto delete-button" productId="@item.Id"><i class="fa-solid fa-trash"></i></a>
 									</div>
 							</td>
 							<td>@(item.Price * item.Quantity)</td>
@@ -46,7 +47,7 @@
 		</div>
 
 		<div class="col-md-5">
-			<div class="card">
+			<div class="card shadow-lg bg-transparent">
 				<div class="card-body">
 					<h5 class="card-title">Order Summary</h5>
 					<p class="card-text" id="total-items">Total items: @Model.TotalItems</p>

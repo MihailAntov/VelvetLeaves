@@ -6,16 +6,20 @@ plusButton.forEach(b => b.addEventListener('click', increaseNumberInCart));
 const minusButton = document.querySelectorAll('.minus-button');
 minusButton.forEach(b => b.addEventListener('click', decreaseNumberInCart));
 
+const deleteButton = document.querySelectorAll('.delete-button');
+deleteButton.forEach(b => b.addEventListener('click', deleteItemFromCart));
+
 
 
 function increaseNumberInCart(e) {
+    e.stopPropagation();
     const productId = e.currentTarget.getAttribute('productId');
     const minusButton = e.currentTarget.previousElementSibling.previousElementSibling;
     const quantity = e.currentTarget.previousElementSibling;
     const totalForThisItem = e.currentTarget.parentElement.parentElement.nextElementSibling;
 
     $.ajax({
-        type: 'PATCH',
+        type: 'GET',
         dataType: 'JSON',
         url: '/Order/AddToCart/',
         data: { "productId": productId }
@@ -44,6 +48,7 @@ function increaseNumberInCart(e) {
 }
 
 function decreaseNumberInCart(e) {
+    e.stopPropagation();
     const productId = e.currentTarget.getAttribute('productId');
     const minusButton = e.currentTarget;
     const quantity = e.currentTarget.nextElementSibling;
@@ -54,7 +59,7 @@ function decreaseNumberInCart(e) {
     }
 
     $.ajax({
-        type: 'PATCH',
+        type: 'GET',
         dataType: 'JSON',
         url: '/Order/RemoveFromCart/',
         data: { "productId": e.currentTarget.getAttribute('productId') }
@@ -75,6 +80,29 @@ function decreaseNumberInCart(e) {
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
 
 
+        },
+        error: function (response) {
+            console.log(response);
+        }
+
+    });
+}
+
+function deleteItemFromCart(e) {
+    e.stopPropagation();
+    
+    const productId = e.currentTarget.getAttribute('productId');
+    const productRow = e.currentTarget.parentElement.parentElement.parentElement;
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: '/Order/DeleteFromCart/',
+        data: { "productId": productId }
+        ,
+        success: function (response) {
+            document.getElementById('total').textContent = `Total: ${response.total.toFixed(2)} BGN`;
+            document.getElementById('total-items').textContent = `Total items: ${response.totalItems}`;
+            productRow.remove();
         },
         error: function (response) {
             console.log(response);

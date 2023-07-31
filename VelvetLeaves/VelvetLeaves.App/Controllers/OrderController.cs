@@ -25,7 +25,7 @@ namespace VelvetLeaves.Web.App.Controllers
 
         }
 
-        [HttpPatch]
+        [HttpGet]
         public async Task<IActionResult> AddToCart(int productId)
         {
             var newCart = _shoppingCartService.AddOneItemToShoppingCart(productId);
@@ -33,7 +33,7 @@ namespace VelvetLeaves.Web.App.Controllers
             return Json(model);
         }
 
-        [HttpPatch]
+        [HttpGet]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
             var newCart = _shoppingCartService.RemoveOneItemFromShoppingCart(productId);
@@ -41,7 +41,7 @@ namespace VelvetLeaves.Web.App.Controllers
             return Json(model);
         }
 
-        [HttpPatch]
+        [HttpGet]
         public async  Task<IActionResult> DeleteFromCart(int productId)
         {
             var newCart = _shoppingCartService.DeleteItemFromShoppingCart(productId);
