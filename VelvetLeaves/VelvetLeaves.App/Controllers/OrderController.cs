@@ -25,11 +25,18 @@ namespace VelvetLeaves.Web.App.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int productId)
         {
-            _shoppingCartService.AddItemToShoppingCart(productId);
+            var newCart = _shoppingCartService.AddItemToShoppingCart(productId);
+            var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
+            return Json(model);
+        }
 
-           return Json(new { text = "Successfully added to shopping cart." });
+        public async Task<IActionResult> RemoveFromCart(int productId)
+        {
+            var newCart = _shoppingCartService.RemoveItemFromShoppingCart(productId);
+            var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
+            return Json(model);
         }
     }
 }

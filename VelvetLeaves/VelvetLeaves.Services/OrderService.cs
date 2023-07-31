@@ -28,12 +28,14 @@ namespace VelvetLeaves.Services
                     Id = item.Id,
                     Name = item.Name,
                     Price = item.Price,
+                    ImageId = item.ImageId,
                     Quantity = cart.Items.First(i => i.Id == item.Id).Quantity
                 };
 
                 model.Items.Add(itemModel);
 
                 model.Total = model.Items.Select(i => i.Quantity * i.Price).Sum();
+                model.TotalItems = model.Items.Count;
                 
             }
 

@@ -2,6 +2,8 @@
 buyButton.addEventListener('click', addTocart);
 
 
+
+
 function addTocart(e) {
     $.ajax({
         type: 'GET',
@@ -11,7 +13,7 @@ function addTocart(e) {
         ,
         success: function (response) {
 
-            toastr.success(response.text);
+            toastr.success('Successfully added item to cart!');
 
 
 
@@ -22,3 +24,6 @@ function addTocart(e) {
 
     });
 }
+
+
+

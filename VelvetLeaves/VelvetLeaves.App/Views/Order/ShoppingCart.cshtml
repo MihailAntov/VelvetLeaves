@@ -1,13 +1,15 @@
 ﻿@model ShoppingCartViewModel
+@inject IImageService imageService;
 
 <div class="container-fluid">
 	<h1 class="mb-4">Shopping Cart</h1>
 
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-7">
 			<table class="table">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Product</th>
 						<th>Price</th>
 						<th>Quantity</th>
@@ -17,14 +19,22 @@
 				<tbody>
 					@foreach (var item in Model.Items)
 					{
-						<tr>
+						<tr id="product@(item.Id)">
+							<td>
+							<img width="90rem" height="90rem" src="data:img/jpg;base64,@await imageService.GetAsync(item.ImageId)"/>
+							</td>
 							<td>@item.Name</td>
 							<td>@item.Price BGN</td>
 							<td>
-								<div>
-									
-									@item.Quantity
+								<div class="row">
+									<a class="btn pt-0 col-1 me-1 minus-button @(item.Quantity == 1 ? "invisible" : "")" productId="@item.Id"><i class="fa-solid fa-minus"></i></a>
+									<span class="col-1 product-quantity" productId="@item.Id">@item.Quantity</span>
+									<a class="btn pt-0 col-1 ms-1 plus-button" productId="@item.Id"><i class="fa-solid fa-plus"></i></a>
 								</div>
+								<div class="row">
+
+									<a class="btn pt-0 col-1 delete-button" productId="@item.Id"><i class="fa-solid fa-trash"></i></a>
+									</div>
 							</td>
 							<td>@(item.Price * item.Quantity)</td>
 						</tr>
@@ -35,12 +45,12 @@
 			</table>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Order Summary</h5>
-					<p class="card-text">Total items: @Model.TotalItems</p>
-					<h4 class="card-text">Total: @Model.Total BGN</h4>
+					<p class="card-text" id="total-items">Total items: @Model.TotalItems</p>
+					<h4 class="card-text" id="total">Total: @Model.Total BGN</h4>
 					<a href="#" class="btn btn-primary">Checkout</a>
 				</div>
 			</div>
@@ -49,3 +59,6 @@
 </div>
 
 
+@section Scripts{
+	<script src="~/js/shoppingCartEvents.js"></script>
+}

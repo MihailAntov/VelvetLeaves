@@ -16,7 +16,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void AddItemToShoppingCart(int productId)
+        public ShoppingCart AddItemToShoppingCart(int productId)
         {
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
             if(cart == null)
@@ -38,6 +38,8 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             product.Quantity++;
 
             _httpContextAccessor.HttpContext.Session.Set("cart", cart);
+
+            return cart;
             
         }
 
@@ -51,7 +53,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             return cart;
         }
 
-        public void RemoveItemFromShoppingCart(int productId)
+        public ShoppingCart RemoveItemFromShoppingCart(int productId)
         {
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
             if (cart == null)
@@ -73,6 +75,8 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             }
 
             _httpContextAccessor.HttpContext.Session.Set("cart", cart);
+
+            return cart;
         }
     }
 }
