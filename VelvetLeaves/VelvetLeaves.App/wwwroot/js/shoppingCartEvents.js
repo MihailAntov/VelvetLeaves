@@ -15,7 +15,7 @@ function increaseNumberInCart(e) {
     const totalForThisItem = e.currentTarget.parentElement.parentElement.nextElementSibling;
 
     $.ajax({
-        type: 'GET',
+        type: 'PATCH',
         dataType: 'JSON',
         url: '/Order/AddToCart/',
         data: { "productId": productId }
@@ -54,7 +54,7 @@ function decreaseNumberInCart(e) {
     }
 
     $.ajax({
-        type: 'GET',
+        type: 'PATCH',
         dataType: 'JSON',
         url: '/Order/RemoveFromCart/',
         data: { "productId": e.currentTarget.getAttribute('productId') }

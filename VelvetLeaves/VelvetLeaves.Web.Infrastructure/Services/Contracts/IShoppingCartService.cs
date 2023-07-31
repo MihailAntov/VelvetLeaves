@@ -8,10 +8,12 @@ namespace VelvetLeaves.Web.Infrastructure.Services.Contracts
 {
     public interface IShoppingCartService
     {
-        ShoppingCart AddItemToShoppingCart(int productId);
+        ShoppingCart AddOneItemToShoppingCart(int productId);
 
-        ShoppingCart RemoveItemFromShoppingCart(int productId);
+        ShoppingCart RemoveOneItemFromShoppingCart(int productId);
 
         ShoppingCart GetShoppingCart();
+
+        ShoppingCart DeleteItemFromShoppingCart(int productId);
     }
 }

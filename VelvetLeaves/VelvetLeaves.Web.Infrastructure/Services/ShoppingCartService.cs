@@ -16,7 +16,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public ShoppingCart AddItemToShoppingCart(int productId)
+        public ShoppingCart AddOneItemToShoppingCart(int productId)
         {
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
             if(cart == null)
@@ -53,7 +53,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             return cart;
         }
 
-        public ShoppingCart RemoveItemFromShoppingCart(int productId)
+        public ShoppingCart RemoveOneItemFromShoppingCart(int productId)
         {
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
             if (cart == null)
@@ -67,12 +67,34 @@ namespace VelvetLeaves.Web.Infrastructure.Services
                 throw new InvalidOperationException();
                 
             }
-
-            product.Quantity--;
-            if(product.Quantity <= 0)
+            if(product.Quantity > 1)
             {
-                cart.Items.Remove(product);
+                product.Quantity--;
+
             }
+
+
+            _httpContextAccessor.HttpContext.Session.Set("cart", cart);
+
+            return cart;
+        }
+
+        public ShoppingCart DeleteItemFromShoppingCart(int productId)
+        {
+            ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
+            if (cart == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var product = cart.Items.FirstOrDefault(i => i.Id == productId);
+            if (product == null)
+            {
+                throw new InvalidOperationException();
+
+            }
+
+            cart.Items.Remove(product);
 
             _httpContextAccessor.HttpContext.Session.Set("cart", cart);
 
