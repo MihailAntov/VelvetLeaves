@@ -17,7 +17,7 @@ namespace VelvetLeaves.Services
             _productService = productService;
         }
 
-        public async Task<ShoppingCartViewModel> GetShoppingCartForCheckout(ShoppingCart cart)
+        public async Task<ShoppingCartViewModel> GetShoppingCartForCheckoutAsync(ShoppingCart cart)
         {
             ShoppingCartViewModel model = new ShoppingCartViewModel();
             var products = await _productService.GetProductsForCart(cart.Items.Select(i=> i.Id));
@@ -32,6 +32,8 @@ namespace VelvetLeaves.Services
                 };
 
                 model.Items.Add(itemModel);
+
+                model.Total = model.Items.Select(i => i.Quantity * i.Price).Sum();
                 
             }
 

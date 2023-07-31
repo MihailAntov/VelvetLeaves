@@ -53,7 +53,26 @@ namespace VelvetLeaves.Web.Infrastructure.Services
 
         public void RemoveItemFromShoppingCart(int productId)
         {
-            throw new NotImplementedException();
+            ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
+            if (cart == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var product = cart.Items.FirstOrDefault(i => i.Id == productId);
+            if (product == null)
+            {
+                throw new InvalidOperationException();
+                
+            }
+
+            product.Quantity--;
+            if(product.Quantity <= 0)
+            {
+                cart.Items.Remove(product);
+            }
+
+            _httpContextAccessor.HttpContext.Session.Set("cart", cart);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace VelvetLeaves.Services.Contracts
 {
     public interface  IOrderService
     {
-        Task<ShoppingCartViewModel> GetShoppingCartForCheckout(ShoppingCart cart);
+        Task<ShoppingCartViewModel> GetShoppingCartForCheckoutAsync(ShoppingCart cart);
     }
 }

@@ -16,10 +16,10 @@ namespace VelvetLeaves.Web.App.Controllers
             _shoppingCartService = shoppingCartService;
             _orderService = orderService;
         }
-        public  IActionResult ShoppingCart()
+        public async Task<IActionResult> ShoppingCart()
         {
             var cart = _shoppingCartService.GetShoppingCart();
-            var model = _orderService.GetShoppingCartForCheckout(cart);
+            var model = await _orderService.GetShoppingCartForCheckoutAsync(cart);
             return View(model);
 
         }
