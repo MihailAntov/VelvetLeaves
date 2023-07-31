@@ -5,7 +5,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	[Authorize(Roles = "Admin,Moderator")]
-	public class OrdersController : Controller
+	public class OrderController : Controller
 	{
 		public IActionResult All()
 		{

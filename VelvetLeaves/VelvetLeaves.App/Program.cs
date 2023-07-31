@@ -7,6 +7,8 @@ using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services;
 using VelvetLeaves.Web.Infrastructure.Extensions;
 using VelvetLeaves.Data.Images;
+using VelvetLeaves.Web.Infrastructure.Services;
+using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +61,7 @@ builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 builder.Services.AddScoped<ISubcategoryService, SubcategoryService>();
 builder.Services.AddScoped<IProductSeriesService, ProductSeriesService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 
 
 
