@@ -42,7 +42,7 @@ builder.Services.ConfigureExternalCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

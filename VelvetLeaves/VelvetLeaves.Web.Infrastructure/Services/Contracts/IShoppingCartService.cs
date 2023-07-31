@@ -1,6 +1,8 @@
 ﻿
 
-using VelvetLeaves.Web.Infrastructure.Models;
+using VelvetLeaves.Service.Models.ShoppingCart;
+using VelvetLeaves.ViewModels.Order;
+
 
 namespace VelvetLeaves.Web.Infrastructure.Services.Contracts
 {
@@ -8,8 +10,8 @@ namespace VelvetLeaves.Web.Infrastructure.Services.Contracts
     {
         void AddItemToShoppingCart(int productId);
 
-        Task RemoveItemFromShoppingCart(int productId);
+        void RemoveItemFromShoppingCart(int productId);
 
-        Task<ShoppingCart> GetShoppingCart();
+        ShoppingCart GetShoppingCart();
     }
 }

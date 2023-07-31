@@ -1,16 +1,17 @@
 ﻿
 
 using Microsoft.AspNetCore.Http;
+using VelvetLeaves.Service.Models.ShoppingCart;
+using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Web.Infrastructure.Extensions;
-using VelvetLeaves.Web.Infrastructure.Models;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
 namespace VelvetLeaves.Web.Infrastructure.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public ShoppingCartService(HttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ShoppingCartService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -23,29 +24,34 @@ namespace VelvetLeaves.Web.Infrastructure.Services
                 cart = new ShoppingCart();
             }
 
-            var product = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+            var product = cart.Items.FirstOrDefault(i => i.Id == productId);
             if(product == null)
             {
                 product = new ShoppingCartItem()
                 {
-                    ProductId = productId,
+                    Id  = productId,
                     Quantity = 0
                 };
-                cart.Items.Append(product);
+                cart.Items.Add(product);
             }
 
             product.Quantity++;
 
-            _httpContextAccessor.HttpContext.Session.Set<ShoppingCart>("cart", cart);
+            _httpContextAccessor.HttpContext.Session.Set("cart", cart);
             
         }
 
-        public Task<ShoppingCart> GetShoppingCart()
+        public ShoppingCart GetShoppingCart()
         {
-            throw new NotImplementedException();
+            ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
+            if(cart == null)
+            {
+                cart = new ShoppingCart();
+            }
+            return cart;
         }
 
-        public Task RemoveItemFromShoppingCart(int productId)
+        public void RemoveItemFromShoppingCart(int productId)
         {
             throw new NotImplementedException();
         }

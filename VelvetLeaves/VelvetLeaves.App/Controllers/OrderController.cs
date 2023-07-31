@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VelvetLeaves.Web.Infrastructure.Models;
+using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
 namespace VelvetLeaves.Web.App.Controllers
@@ -9,13 +10,16 @@ namespace VelvetLeaves.Web.App.Controllers
     public class OrderController : Controller
     {
         private readonly IShoppingCartService _shoppingCartService;
-        public OrderController(IShoppingCartService shoppingCartService)
+        private readonly IOrderService _orderService;
+        public OrderController(IShoppingCartService shoppingCartService, IOrderService orderService)
         {
             _shoppingCartService = shoppingCartService;
+            _orderService = orderService;
         }
-        public async Task<IActionResult> ShoppingCart()
+        public  IActionResult ShoppingCart()
         {
-            ShoppingCart model = await _shoppingCartService.GetShoppingCart();
+            var cart = _shoppingCartService.GetShoppingCart();
+            var model = _orderService.GetShoppingCartForCheckout(cart);
             return View(model);
 
         }

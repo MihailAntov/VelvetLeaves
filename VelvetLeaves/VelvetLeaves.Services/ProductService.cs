@@ -10,6 +10,7 @@ using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Subcategory;
 using VelvetLeaves.ViewModels.ProductSeries;
+using VelvetLeaves.Service.Models.ShoppingCart;
 
 namespace VelvetLeaves.Services
 {
@@ -342,5 +343,20 @@ namespace VelvetLeaves.Services
             await _context.SaveChangesAsync();
             await _galleryService.RemoveItemFromAllGalleries(productId);
         }
-	}
+
+        public async Task<IEnumerable<ProductForCartDto>> GetProductsForCart(IEnumerable<int> productIds)
+        {
+            var productDtos = await _context.Products
+                .Where(p => productIds.Contains(p.Id))
+                .Select(p => new ProductForCartDto()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    ImageId = p.Images.First().Id,
+                    Price = p.Price
+                }).ToArrayAsync();
+
+            return productDtos;
+        }
+    }
 }

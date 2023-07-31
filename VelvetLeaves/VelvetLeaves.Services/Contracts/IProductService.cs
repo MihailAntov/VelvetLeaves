@@ -3,6 +3,7 @@
 using VelvetLeaves.Service.Models;
 using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.Colors;
+using VelvetLeaves.Service.Models.ShoppingCart;
 
 namespace VelvetLeaves.Services.Contracts
 {
@@ -25,6 +26,8 @@ namespace VelvetLeaves.Services.Contracts
         Task UpdateAsync(ProductEditFormViewModel model);
 
         Task DeleteAsync(int productId);
+
+        Task<IEnumerable<ProductForCartDto>> GetProductsForCart(IEnumerable<int> productIds);
 
 
 
