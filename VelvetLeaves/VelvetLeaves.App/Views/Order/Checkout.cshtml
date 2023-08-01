@@ -1,5 +1,5 @@
 ﻿@model CheckoutFormViewModel
-@inject IAddressService
+@inject IAddressService addressService;
 
 <form method="post">
 	<ul hidden>
@@ -20,11 +20,11 @@
 	}
 	else
 	{
-		<select class="form-select" aria-label="Default select example">
-		<option selected>Open this select menu</option>
-		<option value="1">One</option>
-		<option value="2">Two</option>
-		<option value="3">Three</option>
+		<select class="form-select" aria-label="Select Address">
+		<option value="1">София, Дружба 1, бл. 185а</option>
+		<option value="1">София, Овча купел 1, бл. 54</option>
+		<option value="1">Бургас, Братя Миладинови, бл. 132</option>
+		
 		</select>
 	}
 

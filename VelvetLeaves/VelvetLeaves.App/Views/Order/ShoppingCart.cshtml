@@ -14,41 +14,41 @@
 
 	<h1 class="mb-4">Shopping Cart</h1>
 
-	<div class="row">
-		<div class="col-md-7 w-auto ms-0 me-0 ps-0 pe-0">
+	
+		<div class="row w-auto ms-0 me-0 ps-0 pe-0">
 			<table class="table shadow-lg bg-transparent full-cart @(Model.Items.Any() ? "d-block" : "d-none")">
 				<thead>
-					<tr>
-						<th></th>
-						<th>Product</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Total</th>
-						<th></th>
+					<tr class="row ">
+						<th class="col-3 d-none d-md-block"></th>
+						<th class="col-3 d-none d-md-block">Product</th>
+						<th class="col-1 d-none d-md-block">Price</th>
+						<th class="col-1 d-none d-md-block">Quantity</th>
+						<th class="col-1 d-none d-md-block">Total</th>
+						<th class="col-1 d-none d-md-block"></th>
 
 					</tr>
 				</thead>
 
 				<tbody>
-					@*@foreach (var item in Model.Items)*@
+					
 					@for(int i = 0; i < Model.Items.Count; i++)
 					{
 						<input hidden asp-for="Items[i].Id" value="@Model.Items[i].Id"/>
-						<tr id="product@(Model.Items[i].Id)">
-							<td>
+						<tr class="row mb-3" id="product@(Model.Items[i].Id)">
+							<td class="col-md-3 col-4">
 								<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId"/>
-								<img width="50" height="50" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Items[i].ImageId)" />
+								<img class="img-fluid shadow-lg" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Items[i].ImageId)" />
 							</td>
 							<input hidden asp-for="Items[i].Name" value="@Model.Items[i].Name"/>
-							<td class="fw-bold">@Model.Items[i].Name</td>
-							<td>
+							<td class="col-md-3 col-6 fw-bold">@Model.Items[i].Name</td>
+							<td class="col-md-1 col-3">
 								<div class="flex-md-row d-md-flex">
 									<input hidden asp-for="Items[i].Price" value="@Model.Items[i].Price"/>
 									<span>@Model.Items[i].Price.ToString()</span>
 									<span class="me-auto">@Model.Currency</span>
 								</div>
 							</td>
-							<td>
+							<td class="col-md-1 col-5 align-middle">
 								<div class="flex-row d-flex">
 									<a class="btn p-1 minus-button" @(Model.Items[i].Quantity == 1 ? "disabled" : "") productId="@Model.Items[i].Id"><i class="fa-solid fa-minus"></i></a>
 									<span class=" p-1 product-quantity" productId="@Model.Items[i].Id">@Model.Items[i].Quantity</span>
@@ -57,48 +57,19 @@
 								</div>
 
 							</td>
-							<td>
+							<td class="col-md-1 col-3 align-middle">
 
 								<div class="flex-md-row d-md-flex">
+									<span class="d-block d-md-none">Total: </span>
 									<span class="product-total" productId=@Model.Items[i].Id>@((Model.Items[i].Price * Model.Items[i].Quantity).ToString("f2"))</span>
 									<span class="me-auto">@Model.Currency</span>
 								</div>
 							</td>
-							<td>
+							<td class="col-md-1 col-1 me-auto">
 								<a class="btn p-0 m-0 col-1 delete-button" productId="@Model.Items[i].Id"><i class="fa-solid fa-trash"></i></a>
 							</td>
 						</tr>
 						
-						@*<tr id="product@(item.Id)">
-							<td>
-								<img width="50" height="50" src="data:img/jpg;base64,@await imageService.GetAsync(item.ImageId)" />
-							</td>
-							<td class="fw-bold">@item.Name</td>
-							<td>
-								<div class="flex-md-row d-md-flex">
-									<span>@item.Price.ToString("f2")</span>
-									<span class="me-auto">@Model.Currency</span>
-								</div>
-							</td>
-							<td>
-								<div class="flex-row d-flex">
-									<a class="btn p-1 minus-button" @(item.Quantity == 1 ? "disabled" : "") productId="@item.Id"><i class="fa-solid fa-minus"></i></a>
-									<span class=" p-1 product-quantity" productId="@item.Id">@item.Quantity</span>
-									<a class="btn p-1 plus-button me-auto" productId="@item.Id"><i class="fa-solid fa-plus"></i></a>
-								</div>
-
-							</td>
-							<td>
-
-								<div class="flex-md-row d-md-flex">
-									<span class="product-total" productId=@item.Id>@((item.Price * item.Quantity).ToString("f2"))</span>
-									<span class="me-auto">@Model.Currency</span>
-								</div>
-							</td>
-							<td>
-								<a class="btn p-0 m-0 col-1 delete-button" productId="@item.Id"><i class="fa-solid fa-trash"></i></a>
-							</td>
-						</tr>*@
 					}
 
 
@@ -117,32 +88,37 @@
 			</table>
 
 		</div>
+		
 
-		<div class="col-md-5 checkout-panel @(Model.Items.Any() ? "d-block" : "d-none")">
-			<div class="card shadow-lg bg-transparent">
+		<div class="row checkout-panel @(Model.Items.Any() ? "d-block" : "d-none")">
+			<div class="card shadow-lg bg-transparent ">
 				<div class="card-body">
-					<h5 class="card-title">Order Summary</h5>
+					<h5 class="card-title mb-3 text-center">Order Summary</h5>
 
-					<div class="d-flex flex-row">
+					<div class="d-flex flex-row mb-3 justify-content-center">
 						<span class="p-2">Total items:</span>
 						<span class="p-2 ps-1" id="total-items">@Model.TotalItems</span>
 					</div>
 
 
-					<div class="d-flex flex-row">
+					<div class="d-flex flex-row mb-3 justify-content-center">
 						<h4 class="p-2">Total:</h4>
 						<h4 class="p-2" id="total">@Model.Total</h4>
 						<h4 class="p-2 ps-0">@Model.Currency</h4>
+					</div>
+
+					<div class="d-flex flex-row mb-3">
+						<button asp-controller="Order" asp-action="ShoppingCart" type="submit" class="btn btn-primary w-100">Checkout</button>
 					</div>
 					
 
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-<button asp-controller="Order" asp-action="ShoppingCart" type="submit" class="btn btn-primary">Checkout</button>
+
+
 					</form>
 </div>
 
