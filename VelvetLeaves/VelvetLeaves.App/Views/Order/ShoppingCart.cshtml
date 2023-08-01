@@ -19,7 +19,7 @@
 			<table class="table shadow-lg bg-transparent full-cart @(Model.Items.Any() ? "d-block" : "d-none")">
 				<thead>
 					<tr class="row ">
-						<th class="col-3 d-none d-md-block"></th>
+						<th class="col-2 d-none d-md-block"></th>
 						<th class="col-3 d-none d-md-block">Product</th>
 						<th class="col-1 d-none d-md-block">Price</th>
 						<th class="col-1 d-none d-md-block">Quantity</th>
@@ -35,7 +35,7 @@
 					{
 						<input hidden asp-for="Items[i].Id" value="@Model.Items[i].Id"/>
 						<tr class="row mb-3" id="product@(Model.Items[i].Id)">
-							<td class="col-md-3 col-4">
+							<td class="col-md-2 col-4">
 								<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId"/>
 								<img class="img-fluid shadow-lg" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Items[i].ImageId)" />
 							</td>
@@ -93,10 +93,10 @@
 		<div class="row checkout-panel @(Model.Items.Any() ? "d-block" : "d-none")">
 			<div class="card shadow-lg bg-transparent ">
 				<div class="card-body">
-					<h5 class="card-title mb-3 text-center">Order Summary</h5>
+					@*<h5 class="card-title mb-3 text-center">Order Summary</h5>*@
 
 					<div class="d-flex flex-row mb-3 justify-content-center">
-						<span class="p-2">Total items:</span>
+						<span class="p-2">Items:</span>
 						<span class="p-2 ps-1" id="total-items">@Model.TotalItems</span>
 					</div>
 
