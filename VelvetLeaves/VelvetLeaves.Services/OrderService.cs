@@ -35,7 +35,8 @@ namespace VelvetLeaves.Services
                 model.Items.Add(itemModel);
 
                 model.Total = model.Items.Select(i => i.Quantity * i.Price).Sum();
-                model.TotalItems = model.Items.Count;
+                model.TotalItems = model.Items.Select(i=>i.Quantity).Sum();
+                model.Currency = "лв.";
                 
             }
 

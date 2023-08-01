@@ -14,9 +14,9 @@ deleteButton.forEach(b => b.addEventListener('click', deleteItemFromCart));
 function increaseNumberInCart(e) {
     e.stopPropagation();
     const productId = e.currentTarget.getAttribute('productId');
-    const minusButton = e.currentTarget.previousElementSibling.previousElementSibling;
-    const quantity = e.currentTarget.previousElementSibling;
-    const totalForThisItem = e.currentTarget.parentElement.parentElement.nextElementSibling;
+    const minusButton = document.querySelector(`.minus-button[productId='${productId}'`);
+    const quantity = document.querySelector(`.product-quantity[productId='${productId}'`);
+    const totalForThisItem = document.querySelector(`.product-total[productId='${productId}'`);
 
     $.ajax({
         type: 'GET',
@@ -25,12 +25,12 @@ function increaseNumberInCart(e) {
         data: { "productId": productId }
         ,
         success: function (response) {
-            document.getElementById('total').textContent = `Total: ${response.total.toFixed(2)} BGN`;
-            document.getElementById('total-items').textContent = `Total items: ${response.totalItems}`;
+            document.getElementById('total').textContent = response.total.toFixed(2);
+            document.getElementById('total-items').textContent = response.totalItems;
 
             const newValues = Array.from(response.items).filter(i => i.id === Number(productId))[0];
 
-            minusButton.classList.remove('invisible');
+            minusButton.disabled = false;
             quantity.textContent = newValues.quantity;
 
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
@@ -51,8 +51,8 @@ function decreaseNumberInCart(e) {
     e.stopPropagation();
     const productId = e.currentTarget.getAttribute('productId');
     const minusButton = e.currentTarget;
-    const quantity = e.currentTarget.nextElementSibling;
-    const totalForThisItem = e.currentTarget.parentElement.parentElement.nextElementSibling;
+    const quantity = document.querySelector(`.product-quantity[productId='${productId}'`);
+    const totalForThisItem = document.querySelector(`.product-total[productId='${productId}'`);
 
     if (quantity.textContent === 1) {
         return;
@@ -65,8 +65,8 @@ function decreaseNumberInCart(e) {
         data: { "productId": e.currentTarget.getAttribute('productId') }
         ,
         success: function (response) {
-            document.getElementById('total').textContent = `Total: ${response.total.toFixed(2)} BGN`;
-            document.getElementById('total-items').textContent = `Total items: ${response.totalItems}`;
+            document.getElementById('total').textContent = response.total.toFixed(2);
+            document.getElementById('total-items').textContent = response.totalItems;
 
             const newValues = Array.from(response.items).filter(i => i.id === Number(productId))[0];
 
@@ -74,7 +74,7 @@ function decreaseNumberInCart(e) {
             quantity.textContent = newValues.quantity;
             
             if (newValues.quantity === 1) {
-                minusButton.classList.add('invisible');
+                minusButton.disabled = true;
             }
 
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
@@ -92,7 +92,7 @@ function deleteItemFromCart(e) {
     e.stopPropagation();
     
     const productId = e.currentTarget.getAttribute('productId');
-    const productRow = e.currentTarget.parentElement.parentElement.parentElement;
+    const productRow = e.currentTarget.parentElement.parentElement;
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
@@ -100,9 +100,24 @@ function deleteItemFromCart(e) {
         data: { "productId": productId }
         ,
         success: function (response) {
-            document.getElementById('total').textContent = `Total: ${response.total.toFixed(2)} BGN`;
-            document.getElementById('total-items').textContent = `Total items: ${response.totalItems}`;
+            document.getElementById('total').textContent = response.total.toFixed(2);
+            document.getElementById('total-items').textContent = response.totalItems;
             productRow.remove();
+
+            if (response.items.length === 0) {
+                console.log(response.items.length);
+                const full = document.querySelector('.full-cart');
+                const empty = document.querySelector('.empty-cart');
+                const checkout = document.querySelector('.checkout-panel');
+                full.classList.remove('d-block');
+                full.classList.add('d-none');
+                empty.classList.remove('d-none');
+                empty.classList.add('d-block');
+                checkout.classList.remove('d-block');
+                checkout.classList.add('d-none');
+                
+                
+            }
         },
         error: function (response) {
             console.log(response);
