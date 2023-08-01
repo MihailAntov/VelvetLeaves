@@ -29,6 +29,8 @@ namespace VelvetLeaves.Services.Contracts
 
         Task<IEnumerable<ProductForCartDto>> GetProductsForCart(IEnumerable<int> productIds);
 
+        Task<bool> ProductExistsAsync(int productId);
+
 
 
     }

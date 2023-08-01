@@ -21,6 +21,7 @@ namespace VelvetLeaves.Web.App.Controllers
         {
             var cart = _shoppingCartService.GetShoppingCart();
             var model = await _orderService.GetShoppingCartForCheckoutAsync(cart);
+            
             return View(model);
 
         }
@@ -48,6 +49,51 @@ namespace VelvetLeaves.Web.App.Controllers
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
 
             return Json(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ShoppingCart(ShoppingCartViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (!await _orderService.CartValidAsync(model))
+            {
+                ModelState.AddModelError("cart", "Cart contents are not valid.");
+                return View(model);
+            }
+
+            return View("Checkout",model);
+        }
+
+        
+        private async Task<IActionResult> Checkout()
+        {
+            var cart = _shoppingCartService.GetShoppingCart();
+            var cartModel = await _orderService.GetShoppingCartForCheckoutAsync(cart);
+
+            if(cartModel == null)
+            {
+                return BadRequest();
+            }
+            var  model = _orderService.GetCheckoutInfo(cartModel);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CheckoutFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await _orderService.PlaceOrderAsync(model);
+
+            return RedirectToAction("All", "Order");
         }
 
 

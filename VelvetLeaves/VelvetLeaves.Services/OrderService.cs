@@ -1,6 +1,7 @@
 ﻿
 
 using VelvetLeaves.Data;
+using VelvetLeaves.Data.Models;
 using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Order;
@@ -15,6 +16,28 @@ namespace VelvetLeaves.Services
         {
             _context = context;
             _productService = productService;
+        }
+
+        public async Task<bool> CartValidAsync(ShoppingCartViewModel model)
+        {
+            foreach(var item in model.Items)
+            {
+                if(!await _productService.ProductExistsAsync(item.Id))
+                {
+                    return false;
+                }
+            }
+            return true;
+
+            
+        }
+
+        public CheckoutFormViewModel GetCheckoutInfo(ShoppingCartViewModel cart)
+        {
+            var model = new CheckoutFormViewModel();
+            model.ShoppingCart = cart;
+
+            return model;
         }
 
         public async Task<ShoppingCartViewModel> GetShoppingCartForCheckoutAsync(ShoppingCart cart)
@@ -41,6 +64,11 @@ namespace VelvetLeaves.Services
             }
 
             return model;
+        }
+
+        public Task PlaceOrderAsync(CheckoutFormViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

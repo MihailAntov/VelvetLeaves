@@ -358,5 +358,10 @@ namespace VelvetLeaves.Services
 
             return productDtos;
         }
+
+        public async Task<bool> ProductExistsAsync(int productId)
+        {
+            return await _context.Products.AnyAsync(p => p.Id == productId && p.IsActive);
+        }
     }
 }
