@@ -16,6 +16,8 @@ function increaseNumberInCart(e) {
     const productId = e.currentTarget.getAttribute('productId');
     const minusButton = document.querySelector(`.minus-button[productId='${productId}'`);
     const quantity = document.querySelector(`.product-quantity[productId='${productId}'`);
+    const hiddenQuantity = document.querySelector(`.product-quantity-hidden[productId='${productId}'`);
+
     const totalForThisItem = document.querySelector(`.product-total[productId='${productId}'`);
 
     $.ajax({
@@ -32,6 +34,7 @@ function increaseNumberInCart(e) {
 
             minusButton.disabled = false;
             quantity.textContent = newValues.quantity;
+            hiddenQuantity.value = newValues.quantity;
 
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
                 
@@ -52,9 +55,10 @@ function decreaseNumberInCart(e) {
     const productId = e.currentTarget.getAttribute('productId');
     const minusButton = e.currentTarget;
     const quantity = document.querySelector(`.product-quantity[productId='${productId}'`);
+    const hiddenQuantity = document.querySelector(`.product-quantity-hidden[productId='${productId}'`);
     const totalForThisItem = document.querySelector(`.product-total[productId='${productId}'`);
 
-    if (quantity.textContent === 1) {
+    if (quantity.value === 1) {
         return;
     }
 
@@ -72,8 +76,9 @@ function decreaseNumberInCart(e) {
 
             
             quantity.textContent = newValues.quantity;
+            hiddenQuantity.value = newValues.quantity;
             
-            if (newValues.quantity === 1) {
+            if (newValues.textContent === 1) {
                 minusButton.disabled = true;
             }
 

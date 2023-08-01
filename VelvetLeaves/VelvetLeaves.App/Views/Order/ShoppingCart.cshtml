@@ -7,7 +7,8 @@
 <div class="container-fluid">
 
 	<form method="post">
-						
+			<input asp-for="Currency" value="@Model.Currency" hidden/>			
+			
 						
 
 
@@ -32,7 +33,43 @@
 					@*@foreach (var item in Model.Items)*@
 					@for(int i = 0; i < Model.Items.Count; i++)
 					{
-						<tr id="product@(item.Id)">
+						<input hidden asp-for="Items[i].Id" value="@Model.Items[i].Id"/>
+						<tr id="product@(Model.Items[i].Id)">
+							<td>
+								<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId"/>
+								<img width="50" height="50" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Items[i].ImageId)" />
+							</td>
+							<input hidden asp-for="Items[i].Name" value="@Model.Items[i].Name"/>
+							<td class="fw-bold">@Model.Items[i].Name</td>
+							<td>
+								<div class="flex-md-row d-md-flex">
+									<input hidden asp-for="Items[i].Price" value="@Model.Items[i].Price"/>
+									<span>@Model.Items[i].Price.ToString()</span>
+									<span class="me-auto">@Model.Currency</span>
+								</div>
+							</td>
+							<td>
+								<div class="flex-row d-flex">
+									<a class="btn p-1 minus-button" @(Model.Items[i].Quantity == 1 ? "disabled" : "") productId="@Model.Items[i].Id"><i class="fa-solid fa-minus"></i></a>
+									<span class=" p-1 product-quantity" productId="@Model.Items[i].Id">@Model.Items[i].Quantity</span>
+									<input asp-for="Items[i].Quantity" hidden size="1" class="product-quantity-hidden" productId="@Model.Items[i].Id" value="@Model.Items[i].Quantity">
+									<a class="btn p-1 plus-button me-auto" productId="@Model.Items[i].Id"><i class="fa-solid fa-plus"></i></a>
+								</div>
+
+							</td>
+							<td>
+
+								<div class="flex-md-row d-md-flex">
+									<span class="product-total" productId=@Model.Items[i].Id>@((Model.Items[i].Price * Model.Items[i].Quantity).ToString("f2"))</span>
+									<span class="me-auto">@Model.Currency</span>
+								</div>
+							</td>
+							<td>
+								<a class="btn p-0 m-0 col-1 delete-button" productId="@Model.Items[i].Id"><i class="fa-solid fa-trash"></i></a>
+							</td>
+						</tr>
+						
+						@*<tr id="product@(item.Id)">
 							<td>
 								<img width="50" height="50" src="data:img/jpg;base64,@await imageService.GetAsync(item.ImageId)" />
 							</td>
@@ -61,7 +98,7 @@
 							<td>
 								<a class="btn p-0 m-0 col-1 delete-button" productId="@item.Id"><i class="fa-solid fa-trash"></i></a>
 							</td>
-						</tr>
+						</tr>*@
 					}
 
 

@@ -35,7 +35,12 @@ namespace VelvetLeaves.Services
         public CheckoutFormViewModel GetCheckoutInfo(ShoppingCartViewModel cart)
         {
             var model = new CheckoutFormViewModel();
-            model.ShoppingCart = cart;
+            model.Items = cart.Items
+                .Select(i => new CheckoutItemViewModel()
+                {
+                    Id = i.Id,
+                    Quantity = i.Quantity
+                }).ToArray();
 
             return model;
         }

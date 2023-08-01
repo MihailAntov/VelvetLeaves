@@ -1,16 +1,32 @@
 ﻿@model CheckoutFormViewModel
-
+@inject IAddressService
 
 <form method="post">
 	<ul hidden>
-		@for(int i = 0; i < Model.ShoppingCart.Items.Count; i++)
+		@for (int i = 0; i < Model.Items.Count; i++)
 		{
 			<li>
-				<input asp-for="ShoppingCart.Items[i].Id" value="@Model.ShoppingCart.Items[i].Id" />
-				<input asp-for="ShoppingCart.Items[i].Quantity" value="@Model.ShoppingCart.Items[i].Quantity" />
+				<input asp-for="Items[i].Id" value="@Model.Items[i].Id" />
+				<input asp-for="Items[i].Quantity" value="@Model.Items[i].Quantity" />
 			</li>
 		}
 	</ul>
+
+
+	@if(!User?.Identity?.IsAuthenticated ?? false)
+	{
+		@*@Html.Partial("PartialView1", Model.Address)*@
+			<partial name="_AddressForm" model="@Model.Address"> </partial>
+	}
+	else
+	{
+		<select class="form-select" aria-label="Default select example">
+		<option selected>Open this select menu</option>
+		<option value="1">One</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		</select>
+	}
 
 	<button asp-controller="Order" asp-action="Checkout" class="btn btn-primary" type="submit">Place Order</button>
 </form>

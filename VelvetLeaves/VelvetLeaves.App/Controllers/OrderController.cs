@@ -17,6 +17,7 @@ namespace VelvetLeaves.Web.App.Controllers
             _orderService = orderService;
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ShoppingCart()
         {
             var cart = _shoppingCartService.GetShoppingCart();
@@ -27,6 +28,7 @@ namespace VelvetLeaves.Web.App.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> AddToCart(int productId)
         {
             var newCart = _shoppingCartService.AddOneItemToShoppingCart(productId);
@@ -35,6 +37,7 @@ namespace VelvetLeaves.Web.App.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
             var newCart = _shoppingCartService.RemoveOneItemFromShoppingCart(productId);
@@ -43,6 +46,7 @@ namespace VelvetLeaves.Web.App.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async  Task<IActionResult> DeleteFromCart(int productId)
         {
             var newCart = _shoppingCartService.DeleteItemFromShoppingCart(productId);
@@ -52,6 +56,7 @@ namespace VelvetLeaves.Web.App.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ShoppingCart(ShoppingCartViewModel model)
         {
             if (!ModelState.IsValid)
@@ -65,25 +70,14 @@ namespace VelvetLeaves.Web.App.Controllers
                 return View(model);
             }
 
-            return View("Checkout",model);
+            var checkOutModel = _orderService.GetCheckoutInfo(model);
+            return View("Checkout", checkOutModel);
         }
 
         
-        private async Task<IActionResult> Checkout()
-        {
-            var cart = _shoppingCartService.GetShoppingCart();
-            var cartModel = await _orderService.GetShoppingCartForCheckoutAsync(cart);
-
-            if(cartModel == null)
-            {
-                return BadRequest();
-            }
-            var  model = _orderService.GetCheckoutInfo(cartModel);
-
-            return View(model);
-        }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Checkout(CheckoutFormViewModel model)
         {
             if (!ModelState.IsValid)
