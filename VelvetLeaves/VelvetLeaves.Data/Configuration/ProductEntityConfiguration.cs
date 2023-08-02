@@ -181,6 +181,9 @@ namespace VelvetLeaves.Data.Configuration
                         );
                 });
 
+            builder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
+
 
 
         }

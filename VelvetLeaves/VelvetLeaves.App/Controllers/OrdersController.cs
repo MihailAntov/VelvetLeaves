@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VelvetLeaves.Services.Contracts;
-using VelvetLeaves.ViewModels.Order;
+using VelvetLeaves.ViewModels.Checkout;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
 namespace VelvetLeaves.Web.App.Controllers
 {
-    [Authorize]
+	[Authorize]
     public class OrdersController : Controller
     {
         private readonly IShoppingCartService _shoppingCartService;

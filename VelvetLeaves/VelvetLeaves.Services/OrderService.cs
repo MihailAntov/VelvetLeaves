@@ -5,12 +5,13 @@ using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.Services.Contracts;
-using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Common.Enums;
+using VelvetLeaves.ViewModels.Checkout;
+using VelvetLeaves.ViewModels.Order;
 
 namespace VelvetLeaves.Services
 {
-    public class OrderService : IOrderService
+	public class OrderService : IOrderService
     {
         private readonly VelvetLeavesDbContext _context;
         private readonly IProductService _productService;
@@ -20,7 +21,39 @@ namespace VelvetLeaves.Services
             _productService = productService;
         }
 
-        public async Task<bool> CartValidAsync(ShoppingCartViewModel model)
+		public Task<IEnumerable<OrderListViewModel>> AllAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<IEnumerable<OrderListViewModel>> AllByIdAsync(string userId)
+		{
+            var orders = await _context
+                .Orders
+                .Where(o => o.Id.ToString() == userId)
+                .Select(o => new OrderListViewModel()
+                {
+                    Address = $"{o.Country} - {o.City} - {o.StreetAddress}",
+                    ZipCode = o.ZipCode,
+                    Recipient = $"{o.FirstName} {o.LastName}",
+                    Status = o.OrderStatus.ToString(),
+                    Date = o.DateTime.ToString("MMMM dd yy"),
+                    PhoneNumber = o.PhoneNumber,
+                    Products = o.Products
+                                .Select(p => new OrderProductListViewModel()
+								{
+                                    ProductId = p.Id,
+                                    Price = p.Price,
+                                    ImageId = p.Images.First().Id,
+                                    Name = p.Name
+
+								})
+                }).ToArrayAsync();
+
+            return orders;
+		}
+
+		public async Task<bool> CartValidAsync(ShoppingCartViewModel model)
         {
             foreach(var item in model.Items)
             {

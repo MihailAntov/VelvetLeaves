@@ -39,7 +39,7 @@ namespace VelvetLeaves.Data.Models
         [Column(TypeName = "decimal(5, 2)")]
         public decimal Price { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<OrderProduct> ProductsOrders { get; set; } = new HashSet<OrderProduct>();
 
         public virtual ICollection<Color> Colors { get; set; } = new HashSet<Color>();
 

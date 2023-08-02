@@ -20,7 +20,7 @@ namespace VelvetLeaves.Data.Models
         public virtual ApplicationUser? User { get; set; } = null!;
 
         [Required]
-        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public virtual ICollection<OrderProduct> OrdersProducts { get; set; } = new HashSet<OrderProduct>();
 
         [Required]
 		[MaxLength(CountryMaxLength)]
