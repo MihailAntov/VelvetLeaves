@@ -8,7 +8,7 @@ namespace VelvetLeaves.Data.Models
 	{
 		[Required]
 		[ForeignKey(nameof(Order))]
-		public string OrderId { get; set; } = null!;
+		public Guid OrderId { get; set; } 
 
 		[Required]
 		public virtual Order Order { get; set; } = null!;

@@ -39,16 +39,17 @@ namespace VelvetLeaves.Services
                     Status = o.OrderStatus.ToString(),
                     Date = o.DateTime.ToString("MMMM dd yy"),
                     PhoneNumber = o.PhoneNumber,
-                    Products = o.Products
-                                .Select(p => new OrderProductListViewModel()
+					Products = o.OrdersProducts
+								.Select(op => new OrderProductListViewModel()
 								{
-                                    ProductId = p.Id,
-                                    Price = p.Price,
-                                    ImageId = p.Images.First().Id,
-                                    Name = p.Name
+									ProductId = op.Product.Id,
+									Price = op.Product.Price,
+									ImageId = op.Product.Images.First().Id,
+									Name = op.Product.Name,
+                                    Quantity = op.Quantity
 
 								})
-                }).ToArrayAsync();
+				}).ToArrayAsync();
 
             return orders;
 		}
@@ -108,11 +109,7 @@ namespace VelvetLeaves.Services
 
         public async Task PlaceOrderAsync(CheckoutFormViewModel model, string userId)
         {
-            int[] productIds = model.Items.Select(i => i.Id).ToArray();
-            var products = await _context
-                .Products
-                .Where(p => productIds.Contains(p.Id))
-                .ToArrayAsync();
+            
 
             var order = new Order
             {
@@ -125,8 +122,12 @@ namespace VelvetLeaves.Services
                 ZipCode = model.ZipCode,
                 OrderStatus = OrderStatus.Processing,
                 UserId = userId,
-                Products = products,
-                DateTime = DateTime.UtcNow
+                OrdersProducts = model.Items.Select(i => new OrderProduct()
+                {
+                    ProductId = i.Id,
+                    Quantity = i.Quantity
+                }).ToArray(),
+				DateTime = DateTime.UtcNow
             };
 
             await _context.Orders.AddAsync(order);

@@ -6,7 +6,7 @@ namespace VelvetLeaves.ViewModels.Order
 	{
 		public string ImageId { get; set; } = null!;
 		public string Name { get; set; } = null!;
-		public string Quantity { get; set; } = null!;
+		public int Quantity { get; set; }
 
 		public int ProductId { get; set; }
 
