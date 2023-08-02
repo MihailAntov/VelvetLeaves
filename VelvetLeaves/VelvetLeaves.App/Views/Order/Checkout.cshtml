@@ -1,5 +1,10 @@
-﻿@model CheckoutFormViewModel
+﻿@using System.Security.Claims
+@model CheckoutFormViewModel
 @inject IAddressService addressService;
+@{
+	var addressOptions = await addressService.GetAddressOptionsAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+}
+
 
 <form method="post">
 	<ul hidden>
@@ -15,11 +20,25 @@
 
 	@if(!User?.Identity?.IsAuthenticated ?? false)
 	{
-		@*@Html.Partial("PartialView1", Model.Address)*@
-			<partial name="_AddressForm" model="@Model.Address"> </partial>
+		<div class="container-fluid">
+
+
+		<div class="row mb-3">
+		<div class="col-6 col-md-4 mb-3">
+			<label asp-for="Email">Email</label>
+			<input class="form-control" asp-for="Email" />
+			<span asp-validation-for="Email"></span>
+		</div>
+		</div>
+		
+	</div>
+
+		<partial name="_AddressForm" for="Address"> </partial>
 	}
 	else
 	{
+		
+
 		<select class="form-select" aria-label="Select Address">
 		<option value="1">София, Дружба 1, бл. 185а</option>
 		<option value="1">София, Овча купел 1, бл. 54</option>
@@ -28,5 +47,10 @@
 		</select>
 	}
 
-	<button asp-controller="Order" asp-action="Checkout" class="btn btn-primary" type="submit">Place Order</button>
+	<div class="container-fluid">
+
+	<div class="d-flex flex-row mb-3">
+						<button asp-controller="Order" asp-action="Checkout" type="submit" class="btn btn-primary w-100">Checkout</button>
+					</div>
+	</div>
 </form>

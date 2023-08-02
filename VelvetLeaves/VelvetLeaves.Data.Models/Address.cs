@@ -1,6 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 using static VelvetLeaves.Common.ValidationConstants.Address;
 
 
@@ -23,7 +23,14 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(StreetAddressMaxLength)]
         public string StreetAddress { get; set; } = null!;
 
+        
+        public int? ZipCode { get; set; }
+
+		[ForeignKey(nameof(User))]
+		[Required]
+        public string UserId { get; set; } = null!;
+
         [Required]
-        public int ZipCode { get; set; }
+        public ApplicationUser User { get; set; } = null!;
     }
 }

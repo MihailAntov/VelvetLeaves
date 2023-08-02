@@ -71,6 +71,7 @@ namespace VelvetLeaves.Web.App.Controllers
             }
 
             var checkOutModel = _orderService.GetCheckoutInfo(model);
+            
             return View("Checkout", checkOutModel);
         }
 
