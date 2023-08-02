@@ -34,13 +34,16 @@ namespace VelvetLeaves.Services
             var model = await orders.Select(o => new OrderProcessViewModel()
                 {
                     Id = o.Id.ToString(),
-                    Address = $"{o.Country} - {o.City} - {o.StreetAddress}",
+                    StreetAddress = o.StreetAddress,
+                    City = o.City,
+                    Country = o.Country,
                     ZipCode = o.ZipCode,
-                    Recipient = $"{o.FirstName} {o.LastName}",
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
                     Status = o.OrderStatus,
-                    Date = o.DateTime.ToString("d"),
-                Total = o.OrdersProducts.Select(op => op.Product.Price * op.Quantity).Sum(),
-                PhoneNumber = o.PhoneNumber,
+                    Date = o.DateTime,
+                    Total = o.OrdersProducts.Select(op => op.Product.Price * op.Quantity).Sum(),
+                    PhoneNumber = o.PhoneNumber,
                     Products = o.OrdersProducts
                                 .Select(op => new OrderProductListViewModel()
                                 {
@@ -62,15 +65,17 @@ namespace VelvetLeaves.Services
 		{
             var orders = await _context
                 .Orders
-                .OrderByDescending(o => o.DateTime)
-                .Where(o => o.Id.ToString() == userId)
+                .Where(o => o.UserId == userId)
                 .Select(o => new OrderListViewModel()
                 {
-                    Address = $"{o.Country} - {o.City} - {o.StreetAddress}",
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
+                    StreetAddress = o.StreetAddress,
+                    City = o.City,
+                    Country = o.Country,
                     ZipCode = o.ZipCode,
-                    Recipient = $"{o.FirstName} {o.LastName}",
-                    Status = o.OrderStatus.ToString(),
-                    Date = o.DateTime.ToString("MMMM dd yy"),
+                    Status = o.OrderStatus,
+                    Date = o.DateTime,
                     PhoneNumber = o.PhoneNumber,
                     Total = o.OrdersProducts.Select(op=> op.Product.Price * op.Quantity).Sum(),
 					Products = o.OrdersProducts
@@ -84,6 +89,7 @@ namespace VelvetLeaves.Services
 
 								})
 				})
+                .OrderByDescending(o=> o.Date)
                 .ToArrayAsync();
 
             return orders;
@@ -101,6 +107,41 @@ namespace VelvetLeaves.Services
             return true;
 
             
+        }
+
+        public async Task<OrderProcessViewModel> DetailsAsync(string orderId)
+        {
+            var order = await _context
+                .Orders
+                .Where(o => o.Id.ToString() == orderId)
+                .Select(o => new OrderProcessViewModel()
+                {
+                    Id = o.Id.ToString(),
+                    Status = o.OrderStatus,
+                    Date = o.DateTime,
+                    PhoneNumber = o.PhoneNumber,
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
+                    City = o.City,
+                    Country = o.Country,
+                    StreetAddress = o.StreetAddress,
+                    ZipCode = o.ZipCode,
+                    Total = o.OrdersProducts.Select(op => op.Product.Price * op.Quantity).Sum(),
+                    Products = o.OrdersProducts
+                                .Select(op => new OrderProductListViewModel()
+                                {
+                                    ProductId = op.Product.Id,
+                                    Price = op.Product.Price,
+                                    ImageId = op.Product.Images.First().Id,
+                                    Name = op.Product.Name,
+                                    Quantity = op.Quantity
+
+                                })
+
+
+                }).FirstAsync();
+
+            return order;
         }
 
         public CheckoutFormViewModel GetCheckoutInfo(ShoppingCartViewModel cart)

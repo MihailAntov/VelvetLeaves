@@ -1,6 +1,7 @@
 ﻿const addressPicker = document.querySelector('.address-picker');
 addressPicker.addEventListener('change', fetchAddress);
-
+const initial = new Event('change');
+addressPicker.dispatchEvent(initial);
 
 function fetchAddress(e) {
     const addressId = e.currentTarget.value;

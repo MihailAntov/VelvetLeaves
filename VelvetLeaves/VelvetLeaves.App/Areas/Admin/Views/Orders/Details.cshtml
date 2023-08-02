@@ -1,0 +1,103 @@
+﻿@model OrderProcessViewModel
+@inject IImageService imageService
+
+<div class="container-fluid">
+
+	<ul class="list-group">
+		<li class="list-group-item d-md-block d-none border-1 border-dark">
+			<div class="row">
+				<div class="col col-md-3 fw-bold">
+					Recipient:
+				</div>
+				<div class="col col-md-6 fw-bold">
+					Address:
+				</div>
+				<div class="col-6 col-md-1 fw-bold">
+					Total:
+				</div>
+				<div class="col-6 col-md-2 fw-bold">
+					Status:
+				</div>
+
+			</div>
+		</li>
+
+
+		<li class="list-group-item border-1 border-dark">
+			<div class="row">
+				<div class="col-12 col-md-3 mb-2">
+					<label class="d-block d-sm-none fw-bold">
+						Recipient
+					</label>
+					@Model.FirstName @Model.LastName
+				</div>
+				<div class="col-12 col-md-6 mb-2">
+					<label class="d-block d-sm-none fw-bold">
+						Address
+					</label>
+					@Model.StreetAddress @Model.City @Model.Country
+				</div>
+				<div class="col-6 col-md-1 mb-2">
+					<label class="d-block d-sm-none fw-bold">
+						Total
+					</label>
+					@Model.Total.ToString("f2");
+				</div>
+				<div class="col-6 col-md-1 mb-2">
+					<label class="d-block d-sm-none fw-bold">
+						Status
+					</label>
+					@Model.Status;
+				</div>
+				
+			</div>
+		</li>
+
+
+
+	</ul>
+	<h3>Products</h3>
+	<ul>
+		@foreach (var product in Model.Products)
+		{
+			<li>
+				<div class="row">
+					<img class="col-6 col-md-3" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+					<div class="col-6 col-md-4">
+						<strong>Name:</strong>@product.Name 
+					</div>
+					<div class="col-6 col-md-4">
+						<strong>Price:</strong>@product.Price 
+					</div>
+					<div class="col-6 col-md-4">
+						<strong>Quantity:</strong>@product.Quantity 
+					</div>
+				</div>
+			</li>
+		}
+
+	</ul>
+	@if(Model.Status == OrderStatus.Pending)
+	{
+		<div class="row">
+		<a class="btn btn-success">Accept</a>
+		<a class="btn btn-danger">Decline</a>
+		</div>
+	}else if (Model.Status == OrderStatus.Processing)
+	{
+		<div class="row">
+		<a class="btn btn-success">Complete</a>
+		<a class="btn btn-danger">Decline</a>
+		</div>
+	}else{
+		<div>
+			<div class="row">
+		<a class="btn btn-warning">Reopen</a>
+		
+		</div>
+		</div>
+	}
+
+
+</div>
+
