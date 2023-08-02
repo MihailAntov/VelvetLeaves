@@ -92,7 +92,8 @@ namespace VelvetLeaves.Services
                 ZipCode = model.ZipCode,
                 OrderStatus = OrderStatus.Processing,
                 UserId = userId,
-                Products = products
+                Products = products,
+                DateTime = DateTime.UtcNow
             };
 
             await _context.Orders.AddAsync(order);

@@ -8,11 +8,11 @@ using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 namespace VelvetLeaves.Web.App.Controllers
 {
     [Authorize]
-    public class OrderController : Controller
+    public class OrdersController : Controller
     {
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IOrderService _orderService;
-        public OrderController(IShoppingCartService shoppingCartService, IOrderService orderService)
+        public OrdersController(IShoppingCartService shoppingCartService, IOrderService orderService)
         {
             _shoppingCartService = shoppingCartService;
             _orderService = orderService;
