@@ -8,9 +8,10 @@ namespace VelvetLeaves.Common.Enums
 {
     public enum OrderStatus
     {
-        Processing = 0,
-        Complete = 1,
-        Declined = 2
+        Pending = 0,
+        Processing = 1,
+        Complete = 2,
+        Declined = 3
 
     }
 }

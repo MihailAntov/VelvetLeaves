@@ -23,7 +23,9 @@ namespace VelvetLeaves.Services
 
 		public async Task<IEnumerable<OrderProcessViewModel>> AllAsync(int? status)
 		{
-            var orders = _context.Orders.AsQueryable();
+            var orders = _context.Orders
+                .OrderByDescending(o=> o.DateTime)
+                .AsQueryable();
 			if (status.HasValue)
 			{
                 orders = orders.Where(o => o.OrderStatus == (OrderStatus)status);
@@ -36,8 +38,9 @@ namespace VelvetLeaves.Services
                     ZipCode = o.ZipCode,
                     Recipient = $"{o.FirstName} {o.LastName}",
                     Status = o.OrderStatus,
-                    Date = o.DateTime,
-                    PhoneNumber = o.PhoneNumber,
+                    Date = o.DateTime.ToString("d"),
+                Total = o.OrdersProducts.Select(op => op.Product.Price * op.Quantity).Sum(),
+                PhoneNumber = o.PhoneNumber,
                     Products = o.OrdersProducts
                                 .Select(op => new OrderProductListViewModel()
                                 {
@@ -59,6 +62,7 @@ namespace VelvetLeaves.Services
 		{
             var orders = await _context
                 .Orders
+                .OrderByDescending(o => o.DateTime)
                 .Where(o => o.Id.ToString() == userId)
                 .Select(o => new OrderListViewModel()
                 {
@@ -68,6 +72,7 @@ namespace VelvetLeaves.Services
                     Status = o.OrderStatus.ToString(),
                     Date = o.DateTime.ToString("MMMM dd yy"),
                     PhoneNumber = o.PhoneNumber,
+                    Total = o.OrdersProducts.Select(op=> op.Product.Price * op.Quantity).Sum(),
 					Products = o.OrdersProducts
 								.Select(op => new OrderProductListViewModel()
 								{
@@ -78,7 +83,8 @@ namespace VelvetLeaves.Services
                                     Quantity = op.Quantity
 
 								})
-				}).ToArrayAsync();
+				})
+                .ToArrayAsync();
 
             return orders;
 		}
@@ -149,7 +155,7 @@ namespace VelvetLeaves.Services
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 ZipCode = model.ZipCode,
-                OrderStatus = OrderStatus.Processing,
+                OrderStatus = OrderStatus.Pending,
                 UserId = userId,
                 OrdersProducts = model.Items.Select(i => new OrderProduct()
                 {

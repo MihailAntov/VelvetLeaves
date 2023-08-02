@@ -7,7 +7,7 @@ namespace VelvetLeaves.ViewModels.Order
 		public IEnumerable<OrderProductListViewModel> Products { get; set; } = new HashSet<OrderProductListViewModel>();
 		
 
-		public string Date { get; set; } = null!;
+		public string Date { get; set; }
 		public decimal Total { get; set; }
 
 		public string Status { get; set; } = null!;

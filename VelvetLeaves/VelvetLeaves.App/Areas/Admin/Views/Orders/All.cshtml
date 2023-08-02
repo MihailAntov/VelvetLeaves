@@ -1,2 +1,40 @@
 ﻿@model IEnumerable<OrderProcessViewModel>
+@inject IImageService imageService
+
+<div class="container-fluid">
+	@foreach(var order in Model)
+	{
+		
+	
+
+
+	<div class="card p-3">
+
+	
+		<div class="row border-1 justify-content-center"> 
+
+			<div class="col col-md-2 ">
+				@order.Recipient
+			</div>
+
+			<div class=" col col-md-6 ">
+				@order.Address
+
+			</div>
+
+			<div class="col col-md-2 ">
+				@order.Total.ToString("f2");
+			</div>
+
+			<div class=" col col-md-2 ms-auto">
+				<a class="btn btn-primary" asp-area="Admin" asp-controller="Orders" asp-action="Details">Details</a>
+			</div>
+
+
+		</div>
+		</div>
+		}
+	
+
+</div>
 

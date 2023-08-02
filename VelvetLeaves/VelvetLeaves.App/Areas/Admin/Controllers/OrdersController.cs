@@ -15,9 +15,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			_orderService = orderService;
 		}
-		public async Task<IActionResult> All(int? status)
+		public async Task<IActionResult> All(int? orderStatus)
 		{
-			var model = await _orderService.AllAsync(status);
+			var model = await _orderService.AllAsync(orderStatus);
 
 			return View(model);
 		}
