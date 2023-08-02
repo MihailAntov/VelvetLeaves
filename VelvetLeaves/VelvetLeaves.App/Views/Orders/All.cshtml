@@ -13,9 +13,19 @@
 		{
 			<div class="col-md-4">
 				<div class="card mb-3">
-					<div class="row">
-						<img class="card-img-top" src="data:img/jpg;base64,@await imageService.GetAsync(order.Products.First().ImageId)">
+
+
+					<div class="row m-0 p-0">
+						@foreach (var product in order.Products)
+						{
+							<a class="col-6" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+								<img class="img-fluid" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+							</a>
+						}
+
 					</div>
+
+
 					<div class="card-body">
 						<p class="card-text"><strong>Date:</strong>@order.Date.ToString("dd MMMM yyyy")</p>
 						<p class="card-text"><strong>Recipient:</strong>@order.FirstName @order.LastName</p>

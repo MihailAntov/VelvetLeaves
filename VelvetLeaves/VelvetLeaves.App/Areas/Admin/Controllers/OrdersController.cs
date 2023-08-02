@@ -25,7 +25,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		public async Task<IActionResult> Details(string orderId)
 		{
 			var model = await _orderService.DetailsAsync(orderId);
-			return View();
+			return View(model);
 		}
 
 		public IActionResult Complete(string orderId)

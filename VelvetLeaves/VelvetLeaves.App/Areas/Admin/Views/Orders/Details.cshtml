@@ -2,9 +2,9 @@
 @inject IImageService imageService
 
 <div class="container-fluid">
-
+	<h3>Order Details</h3>
 	<ul class="list-group">
-		<li class="list-group-item d-md-block d-none border-1 border-dark">
+		<li class="list-group-item d-md-block d-none ">
 			<div class="row">
 				<div class="col col-md-3 fw-bold">
 					Recipient:
@@ -23,7 +23,7 @@
 		</li>
 
 
-		<li class="list-group-item border-1 border-dark">
+		<li class="list-group-item">
 			<div class="row">
 				<div class="col-12 col-md-3 mb-2">
 					<label class="d-block d-sm-none fw-bold">
@@ -57,10 +57,10 @@
 
 	</ul>
 	<h3>Products</h3>
-	<ul>
+	<ul class="list-group">
 		@foreach (var product in Model.Products)
 		{
-			<li>
+			<li class="list-group-item">
 				<div class="row">
 					<img class="col-6 col-md-3" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
 					<div class="col-6 col-md-4">
@@ -79,20 +79,20 @@
 	</ul>
 	@if(Model.Status == OrderStatus.Pending)
 	{
-		<div class="row">
-		<a class="btn btn-success">Accept</a>
-		<a class="btn btn-danger">Decline</a>
+		<div class="row mt-3">
+		<a class="m-auto col-3 btn btn-success">Accept</a>
+		<a class="m-auto col-3 btn btn-danger">Decline</a>
 		</div>
 	}else if (Model.Status == OrderStatus.Processing)
 	{
 		<div class="row">
-		<a class="btn btn-success">Complete</a>
-		<a class="btn btn-danger">Decline</a>
+		<a class="m-auto col-3 btn btn-success">Complete</a>
+		<a class="m-auto col-3 btn btn-danger">Decline</a>
 		</div>
 	}else{
 		<div>
 			<div class="row">
-		<a class="btn btn-warning">Reopen</a>
+		<a class="m-auto col-3 btn btn-warning">Reopen</a>
 		
 		</div>
 		</div>
