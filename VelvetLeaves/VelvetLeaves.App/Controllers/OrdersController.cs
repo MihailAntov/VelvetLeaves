@@ -91,7 +91,18 @@ namespace VelvetLeaves.Web.App.Controllers
 
             await _orderService.PlaceOrderAsync(model,userId);
 
-            return RedirectToAction("All", "Order");
+
+            _shoppingCartService.EmptyShoppingCart();
+
+			if (User?.Identity?.IsAuthenticated ?? false)
+			{
+
+                return RedirectToAction("All", "Orders");
+			}
+
+            return RedirectToAction("Index", "Home");
+
+
         }
 
 

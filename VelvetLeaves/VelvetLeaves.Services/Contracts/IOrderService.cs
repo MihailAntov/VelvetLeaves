@@ -1,5 +1,6 @@
 ﻿
 
+using VelvetLeaves.Common.Enums;
 using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.ViewModels.Checkout;
 using VelvetLeaves.ViewModels.Order;
@@ -17,6 +18,6 @@ namespace VelvetLeaves.Services.Contracts
         Task PlaceOrderAsync(CheckoutFormViewModel model,string userId);
 
         Task<IEnumerable<OrderListViewModel>> AllByIdAsync(string userId);
-        Task<IEnumerable<OrderListViewModel>> AllAsync();
+        Task<IEnumerable<OrderProcessViewModel>> AllAsync(int? status);
     }
 }

@@ -1,22 +1,22 @@
 ﻿
 
+using VelvetLeaves.Common.Enums;
+
 namespace VelvetLeaves.ViewModels.Order
 {
-	public class OrderListViewModel
+	public class OrderProcessViewModel
 	{
 		public IEnumerable<OrderProductListViewModel> Products { get; set; } = new HashSet<OrderProductListViewModel>();
-		
+		public string Id { get; set; } = null!;
 
-		public string Date { get; set; } = null!;
+		public DateTime Date { get; set; } 
 		public decimal Total { get; set; }
 
-		public string Status { get; set; } = null!;
-		public string Recipient { get; set; } = null!; 
-		public string Address { get; set; } = null!; 
+		public OrderStatus Status { get; set; }
+		public string Recipient { get; set; } = null!;
+		public string Address { get; set; } = null!;
 		public string? ZipCode { get; set; }
 
 		public string PhoneNumber { get; set; } = null!;
-
-
 	}
 }

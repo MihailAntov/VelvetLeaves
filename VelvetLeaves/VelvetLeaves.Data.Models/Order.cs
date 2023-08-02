@@ -53,6 +53,8 @@ namespace VelvetLeaves.Data.Models
         [Required]
         public OrderStatus OrderStatus { get; set; }
 
+        public string? AdminNote { get; set; }
+
 
 
     }

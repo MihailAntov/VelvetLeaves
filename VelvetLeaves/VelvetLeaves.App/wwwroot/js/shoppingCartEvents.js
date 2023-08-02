@@ -23,7 +23,7 @@ function increaseNumberInCart(e) {
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '/Order/AddToCart/',
+        url: '/Orders/AddToCart/',
         data: { "productId": productId }
         ,
         success: function (response) {
@@ -65,7 +65,7 @@ function decreaseNumberInCart(e) {
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '/Order/RemoveFromCart/',
+        url: '/Orders/RemoveFromCart/',
         data: { "productId": e.currentTarget.getAttribute('productId') }
         ,
         success: function (response) {
@@ -101,7 +101,7 @@ function deleteItemFromCart(e) {
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: '/Order/DeleteFromCart/',
+        url: '/Orders/DeleteFromCart/',
         data: { "productId": productId }
         ,
         success: function (response) {

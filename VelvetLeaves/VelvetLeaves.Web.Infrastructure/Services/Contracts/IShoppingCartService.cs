@@ -15,5 +15,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services.Contracts
         ShoppingCart GetShoppingCart();
 
         ShoppingCart DeleteItemFromShoppingCart(int productId);
+
+        void EmptyShoppingCart();
     }
 }

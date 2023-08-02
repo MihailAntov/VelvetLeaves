@@ -1,15 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VelvetLeaves.Common.Enums;
+using VelvetLeaves.Services.Contracts;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area("Admin")]
 	[Authorize(Roles = "Admin,Moderator")]
-	public class OrderController : Controller
+	public class OrdersController : Controller
 	{
-		public IActionResult All()
+
+		private readonly IOrderService _orderService;
+		public OrdersController(IOrderService orderService)
 		{
-			return View();
+			_orderService = orderService;
+		}
+		public async Task<IActionResult> All(int? status)
+		{
+			var model = await _orderService.AllAsync(status);
+
+			return View(model);
 		}
 
 		public IActionResult Details(string orderId)

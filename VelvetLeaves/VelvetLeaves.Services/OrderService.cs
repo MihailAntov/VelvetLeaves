@@ -21,10 +21,39 @@ namespace VelvetLeaves.Services
             _productService = productService;
         }
 
-		public Task<IEnumerable<OrderListViewModel>> AllAsync()
+		public async Task<IEnumerable<OrderProcessViewModel>> AllAsync(int? status)
 		{
-			throw new NotImplementedException();
-		}
+            var orders = _context.Orders.AsQueryable();
+			if (status.HasValue)
+			{
+                orders = orders.Where(o => o.OrderStatus == (OrderStatus)status);
+			}
+
+            var model = await orders.Select(o => new OrderProcessViewModel()
+                {
+                    Id = o.Id.ToString(),
+                    Address = $"{o.Country} - {o.City} - {o.StreetAddress}",
+                    ZipCode = o.ZipCode,
+                    Recipient = $"{o.FirstName} {o.LastName}",
+                    Status = o.OrderStatus,
+                    Date = o.DateTime,
+                    PhoneNumber = o.PhoneNumber,
+                    Products = o.OrdersProducts
+                                .Select(op => new OrderProductListViewModel()
+                                {
+                                    ProductId = op.Product.Id,
+                                    Price = op.Product.Price,
+                                    ImageId = op.Product.Images.First().Id,
+                                    Name = op.Product.Name,
+                                    Quantity = op.Quantity
+
+                                })
+                }).ToArrayAsync();
+
+			
+
+            return model;
+        }
 
 		public async Task<IEnumerable<OrderListViewModel>> AllByIdAsync(string userId)
 		{

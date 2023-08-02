@@ -100,5 +100,11 @@ namespace VelvetLeaves.Web.Infrastructure.Services
 
             return cart;
         }
-    }
+
+		public void EmptyShoppingCart()
+		{
+			var cart = new ShoppingCart();
+            _httpContextAccessor.HttpContext.Session.Set("cart", cart);
+		}
+	}
 }
