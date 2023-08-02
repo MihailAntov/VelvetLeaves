@@ -23,8 +23,8 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(StreetAddressMaxLength)]
         public string StreetAddress { get; set; } = null!;
 
-        
-        public int? ZipCode { get; set; }
+		[MaxLength(ZipCodeMaxLength)]
+        public string? ZipCode { get; set; }
 
 		[ForeignKey(nameof(User))]
 		[Required]
