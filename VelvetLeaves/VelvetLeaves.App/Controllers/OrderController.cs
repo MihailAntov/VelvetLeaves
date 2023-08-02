@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
@@ -86,7 +87,9 @@ namespace VelvetLeaves.Web.App.Controllers
                 return View(model);
             }
 
-            await _orderService.PlaceOrderAsync(model);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _orderService.PlaceOrderAsync(model,userId);
 
             return RedirectToAction("All", "Order");
         }

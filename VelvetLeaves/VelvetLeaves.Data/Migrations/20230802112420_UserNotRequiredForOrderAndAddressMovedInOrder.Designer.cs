@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VelvetLeaves.Data;
 
@@ -11,9 +12,10 @@ using VelvetLeaves.Data;
 namespace VelvetLeaves.Data.Migrations
 {
     [DbContext(typeof(VelvetLeavesDbContext))]
-    partial class VelvetLeavesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802112420_UserNotRequiredForOrderAndAddressMovedInOrder")]
+    partial class UserNotRequiredForOrderAndAddressMovedInOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -551,49 +553,49 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cf81ae48-c5c6-442d-a575-cd040519a4d4",
+                            Id = "a0f59b40-7592-45d9-95e1-af7139c67496",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6e0b2673-d139-4c22-a95d-f8264ccd88f6",
+                            ConcurrencyStamp = "31d4a125-a634-4868-86d0-bb3cd8f6bb5b",
                             Email = "user@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@VLS.COM",
                             NormalizedUserName = "USER@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO6Zy4vQUJFa9u0sHW9weQQJ9gXP2XT+IvB43dkJo7A6MG6Bt6jb87Ld8UBYLhzm5w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGoxt0+c1dW1L/ZRAb48siHlHnlpkerW9s9qfpzv+8HWaU4hTW1eQcVUur1QVTFD8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1a57361-5b6b-4340-9006-93cf09a97f09",
+                            SecurityStamp = "2f08af4d-7823-455d-9dad-cdfa481b8f78",
                             TwoFactorEnabled = false,
                             UserName = "user@vls.com"
                         },
                         new
                         {
-                            Id = "b0e97437-08d4-41c8-95b3-2f4c466d7f50",
+                            Id = "c7486a9d-877f-48b9-b28c-5bd09d074e08",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "66b8197d-18e4-42ab-870d-36f634211261",
+                            ConcurrencyStamp = "4e09347b-6b85-4969-8cd6-9653e5164ff8",
                             Email = "moderator@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODERATOR@VLS.COM",
                             NormalizedUserName = "MODERATOR@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDNl1BXWdLGuYvPV3Q64DXJI4uxZpi5qVdBAeMwcCfqzP6ODKc2pp1FFa0oZACUQYg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJhhT0FFieDGwnXL8DW97VYN/4DY2g6scs7mxhJxKPM+f9Mo1cSh1ckXlhIVtEMt4Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71a05d11-bc8b-403e-a24d-b83aeae45490",
+                            SecurityStamp = "c0ce3f1a-e18e-4042-b082-cd57819adc94",
                             TwoFactorEnabled = false,
                             UserName = "moderator@vls.com"
                         },
                         new
                         {
-                            Id = "6d208598-94e8-45ec-91ad-ef498ac0c588",
+                            Id = "bf868576-2bd7-45d7-a06a-adc1d373322c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4800a06e-7126-41fb-a431-98aad26f7659",
+                            ConcurrencyStamp = "27c32272-6cae-491b-a470-cdbb74a7e261",
                             Email = "admin@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@VLS.COM",
                             NormalizedUserName = "ADMIN@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGjxnk3tgCILBEof6HQVdfIXtO/YKy6EiyBC4vPXgk9P0sIIvG7shFF674zKyE1mtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOIUzWf39Yc5QpW5QzKPB9kvIVBXFdmKQivIAhUnh+j0EQtQxyciev0zzyrVZQEvZQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d43d520-a895-4b32-a012-dc7e49bfb854",
+                            SecurityStamp = "86349c67-bc86-4526-9078-ab239aaa3c26",
                             TwoFactorEnabled = false,
                             UserName = "admin@vls.com"
                         });
@@ -997,6 +999,7 @@ namespace VelvetLeaves.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ZipCode")
@@ -1546,7 +1549,9 @@ namespace VelvetLeaves.Data.Migrations
                 {
                     b.HasOne("VelvetLeaves.Data.Models.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

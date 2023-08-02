@@ -16,7 +16,6 @@ function fetchAddress(e) {
             
             resultBox.innerHTML = response;
             
-            console.log(response);
             
 
            

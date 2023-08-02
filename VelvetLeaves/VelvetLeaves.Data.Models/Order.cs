@@ -15,10 +15,8 @@ namespace VelvetLeaves.Data.Models
         [Required]
         public DateTime DateTime { get; set; }
 
-        [Required]
         public string? UserId { get; set; } = null!;
 
-        [Required]
         public virtual ApplicationUser? User { get; set; } = null!;
 
         [Required]

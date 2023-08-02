@@ -1,10 +1,12 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Order;
+using VelvetLeaves.Common.Enums;
 
 namespace VelvetLeaves.Services
 {
@@ -71,9 +73,30 @@ namespace VelvetLeaves.Services
             return model;
         }
 
-        public Task PlaceOrderAsync(CheckoutFormViewModel model)
+        public async Task PlaceOrderAsync(CheckoutFormViewModel model, string userId)
         {
-            throw new NotImplementedException();
+            int[] productIds = model.Items.Select(i => i.Id).ToArray();
+            var products = await _context
+                .Products
+                .Where(p => productIds.Contains(p.Id))
+                .ToArrayAsync();
+
+            var order = new Order
+            {
+                Country = model.Country,
+                City = model.City,
+                StreetAddress = model.Address,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                ZipCode = model.ZipCode,
+                OrderStatus = OrderStatus.Processing,
+                UserId = userId,
+                Products = products
+            };
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
     }
 }

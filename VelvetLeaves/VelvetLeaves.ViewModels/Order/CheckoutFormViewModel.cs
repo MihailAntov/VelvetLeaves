@@ -11,9 +11,26 @@ namespace VelvetLeaves.ViewModels.Order
         public IList<CheckoutItemViewModel> Items { get; set; } = null!;
 
         [Required]
-        public AddressFormViewModel Address { get; set; } = null!;
+        public string Country { get; set; } = null!;
 
         [Required]
-        public string Email { get; set; } = null!;
+        public string City { get; set; } = null!;
+
+        [Required]
+        public string Address { get; set; } = null!;
+
+        [Required]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        public string LastName { get; set; } = null!;
+
+        [Required]
+        public string PhoneNumber { get; set; } = null!;
+
+        public string? ZipCode { get; set; }
+
+
+        public string? Email { get; set; } = null!;
     }
 }
