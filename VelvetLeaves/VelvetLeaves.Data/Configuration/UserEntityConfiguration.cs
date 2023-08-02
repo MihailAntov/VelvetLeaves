@@ -43,11 +43,13 @@ namespace VelvetLeaves.Data.Configuration
             };
             admin.PasswordHash = hasher.HashPassword(admin, "123456");
 
-            builder.Entity<Address>()
-                .HasOne(a => a.User)
-                .WithMany(u => u.Addresses)
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+            
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u=> u.Addresses)
+                .WithOne(a=> a.User)
+                .HasForeignKey(a=>a.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.Entity<ApplicationUser>()
                 .HasData(new List<ApplicationUser> { user, moderator, admin });

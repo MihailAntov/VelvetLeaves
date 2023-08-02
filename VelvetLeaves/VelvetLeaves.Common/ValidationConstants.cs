@@ -43,6 +43,13 @@ namespace VelvetLeaves.Common
             public const int StreetAddressMaxLength = 100;
             public const int ZipCodeMinLength = 3;
             public const int ZipCodeMaxLength = 8;
+            public const int FirstNameMinLength = 2;
+            public const int FirstNameMaxLength = 20;
+            public const int LastNameMinLength = 2;
+            public const int LastNameMaxLength = 20;
+            public const int PhoneNumberMinLength = 3;
+            public const int PhoneNumberMaxLength = 15;
+
         }
 
         public static class Color

@@ -1,0 +1,14 @@
+﻿
+<form method="post">
+	<input hidden />
+
+@{
+	ViewData["Title"] = "Edit Address";
+}
+
+<partial name="_AddressForm"> </partial>
+
+
+
+<button type="submit" asp-area="" asp-controller="Addresses" asp-action="Edit" class="btn btn-primary">Apply Changes</button>
+</form>

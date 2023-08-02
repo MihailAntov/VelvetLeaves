@@ -27,10 +27,22 @@ namespace VelvetLeaves.Data.Models
         public string? ZipCode { get; set; }
 
 		[ForeignKey(nameof(User))]
-		[Required]
-        public string UserId { get; set; } = null!;
+        public string? UserId { get; set; } = null!;
+
+        public ApplicationUser? User { get; set; } = null!;
 
         [Required]
-        public ApplicationUser User { get; set; } = null!;
+        [MaxLength(FirstNameMaxLength)]
+
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+
+        public string LastName { get; set; } = null!;
+
+        [Required]
+		[MaxLength(PhoneNumberMaxLength)]
+        public string PhoneNumber { get; set; } = null!;
     }
 }

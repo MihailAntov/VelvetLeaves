@@ -1,0 +1,13 @@
+﻿
+<form method="post">
+
+
+@{
+	ViewData["Title"] = "Add New Address";
+}
+
+
+<partial name="_AddressForm"> </partial>
+
+<button type="submit" asp-area="" asp-controller="Addresses" asp-action="Add" class="btn btn-primary">Save Address</button>
+</form>

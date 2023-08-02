@@ -1,7 +1,10 @@
-﻿namespace VelvetLeaves.ViewModels.Address
+﻿
+
+namespace VelvetLeaves.ViewModels.Address
 {
-	public class AddressFormViewModel
+	public class AddressEditFormViewModel
 	{
+		public string Id { get; set; }
 		public string Country { get; set; } = null!;
 		public string City { get; set; } = null!;
 		public string Address { get; set; } = null!;
@@ -12,7 +15,5 @@
 		public string PhoneNumber { get; set; } = null!;
 
 		public string? ZipCode { get; set; }
-
-
 	}
 }

@@ -74,6 +74,8 @@ app.SeedAdmin();
 
 //Uncomment this to seed initial images
 //app.SeedImages();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
