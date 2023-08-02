@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static VelvetLeaves.Common.ValidationConstants.Address;
+using static VelvetLeaves.Common.ValidationConstants.Order;
 
 using VelvetLeaves.Common.Enums;
 
@@ -53,6 +54,7 @@ namespace VelvetLeaves.Data.Models
         [Required]
         public OrderStatus OrderStatus { get; set; }
 
+        [MaxLength(NoteMaxLength)]
         public string? AdminNote { get; set; }
 
 

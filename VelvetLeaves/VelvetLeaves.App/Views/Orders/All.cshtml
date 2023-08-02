@@ -1,6 +1,35 @@
 ﻿@model IEnumerable<OrderListViewModel>
+@inject IImageService imageService
 
 @{
 	ViewData["Title"] = "My Orders";
 }
 
+<div class="container">
+  <h2>Order History</h2>
+  <div class="row">
+      @foreach(var order in Model){
+          <div class="col-md-6">
+      <div class="card mb-3">
+          <div class="card-img-top">
+             @foreach(var product in order.Products)
+                 {
+                    <img class="img-fluid" src="data:img/jpg;base64,@await imageService.GetAsync(order.Products.First().ImageId)">
+                            
+                 }
+
+          </div>
+        <div class="card-body">
+          <p class="card-text"><strong>Date:</strong> 2023-08-01</p>
+          <p class="card-text"><strong>Customer Name:</strong> John Doe</p>
+          <p class="card-text"><strong>Total Amount:</strong> $100.00</p>
+          <p class="card-text"><strong>Status:</strong> Delivered</p>
+          <p></p>
+        </div>
+      </div>
+    </div>
+      }
+
+   
+  </div>
+</div>

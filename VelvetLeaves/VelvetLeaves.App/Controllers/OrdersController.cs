@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Checkout;
+using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
 namespace VelvetLeaves.Web.App.Controllers
@@ -103,6 +104,14 @@ namespace VelvetLeaves.Web.App.Controllers
             return RedirectToAction("Index", "Home");
 
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = await _orderService.AllByIdAsync(userId);
+            return View(model);
         }
 
 
