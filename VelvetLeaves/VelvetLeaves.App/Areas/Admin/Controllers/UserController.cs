@@ -11,9 +11,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UserController(RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserController(
+            RoleManager<IdentityRole> roleManager, 
+            UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
+;
         }
 
         public async Task<IActionResult> MakeModerator()
@@ -24,6 +29,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             }
 
             return Redirect("Admin/ProductsController/Index");
+        }
+
+        public async Task<IActionResult> Promote()
+        {
+            var model = _userManager.Users.Select(u=> new UserPromoteViewModel()
+            {
+
+            })
         }
     }
 }

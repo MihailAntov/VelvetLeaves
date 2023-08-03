@@ -15,12 +15,19 @@ namespace VelvetLeaves.Web.App.Controllers
         private readonly IColorService _colorService;
         private readonly IMaterialService _materialService;
         private readonly ITagService _tagService;
-        public ProductsController(IProductService productService, IColorService colorService, IMaterialService materialService, ITagService tagService)
+        private readonly IFavoriteService _favoriteService;
+        public ProductsController(
+            IProductService productService,
+            IColorService colorService,
+            IMaterialService materialService,
+            ITagService tagService,
+            IFavoriteService favoriteService)
         {
             _productService = productService;
             _colorService = colorService;
             _materialService = materialService;
             _tagService = tagService;
+            _favoriteService = favoriteService;
         }
 
         [AllowAnonymous]
@@ -56,24 +63,8 @@ namespace VelvetLeaves.Web.App.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task AddToFavorites(int productId)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        [HttpGet]
-        public async Task RemoveFromFavorites(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ViewFavorites()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = await _productService.GetFavoritesByUserIdAsync(userId);
-            return View(model);
-        }
+        
     }
 }

@@ -1,11 +1,15 @@
-﻿@model ProductDetailsViewModel
+﻿@using System.Security.Claims
+@model ProductDetailsViewModel
 @inject IImageService imageService
+@inject IHelperService helperService
+@inject IFavoriteService favoriteService
 @{
+	string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 	ViewData["Title"] = Model.Name;
 }
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="container-fluid">
-
+	<h2>@ViewData["Title"]</h2>
 
 	<div class="row">
 		<div class="col-md-5">
@@ -38,7 +42,7 @@
 
 					<p class="d-inline-flex m-auto mb-2">Price: @Model.Price</p>
 					<a class="d-inline-flex m-auto mb-3 btn btn-primary buy-button" productId="@Model.Id">Add to Cart</a>
-					<a productId=@Model.Id class="favorite-item m-auto text-dark mb-3"><i class="fa-regular fa-heart"></i></a>
+					<a productId=@Model.Id class="favorite-item m-auto text-dark mb-3"><i style="color:@(await helperService.FavoriteColor())" class="fa-2x @(await favoriteService.IsFavorited(userId, Model.Id) ? "fa-solid" : "fa-regular") fa-@(await helperService.FavoriteIcon())"></i></a>
 					<textarea class="p-3 mb-3" style="resize:none" disabled>@Model.Description</textarea>
 
 					@if (Model.Materials.Any())

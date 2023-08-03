@@ -10,5 +10,15 @@ namespace VelvetLeaves.Services
         {
             return "лв.";
         }
+
+        public async Task<string> FavoriteColor()
+        {
+            return "gold";
+        }
+
+        public async Task<string> FavoriteIcon()
+        {
+            return "star";
+        }
     }
 }

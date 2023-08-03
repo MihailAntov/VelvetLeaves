@@ -16,11 +16,6 @@ function fetchAddress(e) {
             const resultBox = document.querySelector('.result-box');
             
             resultBox.innerHTML = response;
-            
-            
-
-           
-
         },
         error: function (response) {
             console.log(response);

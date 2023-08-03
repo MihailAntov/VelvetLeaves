@@ -31,13 +31,7 @@ namespace VelvetLeaves.Services.Contracts
 
         Task<bool> ProductExistsAsync(int productId);
 
-        Task<ICollection<ProductListViewModel>> GetFavoritesByUserIdAsync(string userId);
-
-        Task AddToFavorites(string userId, int productId);
-
-        Task RemoveFromFavorites(string userId, int productId);
-
-
+        
 
     }
 }

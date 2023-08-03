@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.User;
 using VelvetLeaves.Web.Infrastructure.Extensions;
 using static VelvetLeaves.Common.ApplicationConstants;
@@ -18,13 +20,19 @@ namespace VelvetLeaves.App.Controllers
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IFavoriteService _favoriteService;
         
 
-        public UserController(IUserStore<ApplicationUser> userStore, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager )
+        public UserController(
+            IUserStore<ApplicationUser> userStore,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IFavoriteService favoriteService)
         {
             _userStore = userStore;
             _userManager = userManager;
             _signInManager = signInManager;
+            _favoriteService = favoriteService;
         }
 
         [HttpGet]
@@ -156,6 +164,31 @@ namespace VelvetLeaves.App.Controllers
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Favorites()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = await _favoriteService.GetFavoritesByUserIdAsync(userId);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task AddToFavorites(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _favoriteService.AddToFavorites(userId, productId);
+        }
+
+        [HttpGet]
+        public async Task RemoveFromFavorites(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _favoriteService.RemoveFromFavorites(userId, productId);
         }
     }
 }
