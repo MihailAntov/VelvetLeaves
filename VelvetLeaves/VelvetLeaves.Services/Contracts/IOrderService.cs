@@ -18,8 +18,11 @@ namespace VelvetLeaves.Services.Contracts
         Task PlaceOrderAsync(CheckoutFormViewModel model,string userId);
 
         Task<IEnumerable<OrderListViewModel>> AllByIdAsync(string userId);
-        Task<IEnumerable<OrderProcessViewModel>> AllAsync(int? status);
+        Task<AllOrderProcessViewModel> AllAsync(OrderStatus status);
 
         Task<OrderProcessViewModel> DetailsAsync(string orderId);
+
+        Task ChangeStatusAsync(string orderId, OrderStatus status);
+        
     }
 }

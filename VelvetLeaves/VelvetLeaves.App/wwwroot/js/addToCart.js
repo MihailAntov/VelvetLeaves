@@ -5,7 +5,7 @@ buyButton.addEventListener('click', addTocart);
 
 
 function addTocart(e) {
-    console.log("THIS IS IT?")
+   
 
     $.ajax({
         type: 'GET',

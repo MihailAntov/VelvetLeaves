@@ -1,0 +1,63 @@
+﻿@model AllOrderProcessViewModel
+
+@{
+	ViewData["Title"] = @Model.Title;
+}
+<h2>@ViewData["Title"]</h2>
+
+
+	<ul class="list-group">
+		<li class="list-group-item d-md-block d-none border-1 border-dark">
+				<div class="row">
+					<div class="col col-md-3 fw-bold">
+						Recipient:
+					</div>
+					<div class="col col-md-6 fw-bold">
+						Address:
+					</div>
+					<div class="col-6 col-md-1 fw-bold">
+						Total:
+					</div>
+					<div class="col-6 col-md-1 fw-bold">
+						Status:
+					</div>
+					<div class="col-12 col-md-1 fw-bold">
+						
+					</div>
+				</div>
+			</li>
+		
+		@foreach(var order in Model.Orders){
+			<li class="list-group-item border-1 border-dark">
+				<div class="row">
+					<div class="col-12 col-md-3 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Recipient
+						</label>
+						@order.FirstName @order.LastName
+					</div>
+					<div class="col-12 col-md-6 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Address
+						</label>
+						@order.StreetAddress @order.City @order.Country @order.ZipCode
+					</div>
+					<div class="col-6 col-md-1 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Total
+						</label>
+						@order.Total.ToString("f2")
+					</div>
+					<div class="col-6 col-md-1 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Status
+						</label>
+						@order.Status
+					</div>
+					<div class="col-12 col-md-1 mb-2 text-center">
+						<a class="btn btn-primary me-auto " asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id">Details</a>
+					</div>
+				</div>
+			</li>
+		}
+	</ul>

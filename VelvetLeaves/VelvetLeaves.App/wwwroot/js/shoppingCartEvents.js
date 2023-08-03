@@ -97,7 +97,8 @@ function deleteItemFromCart(e) {
     e.stopPropagation();
     
     const productId = e.currentTarget.getAttribute('productId');
-    const productRow = e.currentTarget.parentElement.parentElement;
+    //const productRow = e.currentTarget.parentElement.parentElement;
+    const productRow = document.querySelector(`#product${productId}`);
     $.ajax({
         type: 'GET',
         dataType: 'JSON',

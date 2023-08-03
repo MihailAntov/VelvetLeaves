@@ -80,19 +80,19 @@
 	@if(Model.Status == OrderStatus.Pending)
 	{
 		<div class="row mt-3">
-		<a class="m-auto col-3 btn btn-success">Accept</a>
-		<a class="m-auto col-3 btn btn-danger">Decline</a>
+		<a asp-area="Admin" asp-controller="Orders" asp-action="Process" asp-route-orderId="@Model.Id" asp-route-status="@OrderStatus.Processing" class="m-auto col-3 btn btn-success">Accept</a>
+		<a asp-area="Admin" asp-controller="Orders" asp-action="Process" asp-route-orderId="@Model.Id" asp-route-status="@OrderStatus.Declined" class="m-auto col-3 btn btn-danger">Decline</a>
 		</div>
 	}else if (Model.Status == OrderStatus.Processing)
 	{
 		<div class="row">
-		<a class="m-auto col-3 btn btn-success">Complete</a>
-		<a class="m-auto col-3 btn btn-danger">Decline</a>
+		<a asp-area="Admin" asp-controller="Orders" asp-action="Process" asp-route-orderId="@Model.Id" asp-route-status="@OrderStatus.Complete" class="m-auto col-3 btn btn-success">Complete</a>
+		<a asp-area="Admin" asp-controller="Orders" asp-action="Process" asp-route-orderId="@Model.Id" asp-route-status="@OrderStatus.Declined" class="m-auto col-3 btn btn-danger">Decline</a>
 		</div>
 	}else{
 		<div>
 			<div class="row">
-		<a class="m-auto col-3 btn btn-warning">Reopen</a>
+		<a asp-area="Admin" asp-controller="Orders" asp-action="Process" asp-route-orderId="@Model.Id" asp-route-status="@OrderStatus.Processing" class="m-auto col-3 btn btn-warning">Reopen</a>
 		
 		</div>
 		</div>

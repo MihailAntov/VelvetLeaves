@@ -15,9 +15,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			_orderService = orderService;
 		}
-		public async Task<IActionResult> All(int? orderStatus)
+		public async Task<IActionResult> All(OrderStatus status = OrderStatus.Pending)
 		{
-			var model = await _orderService.AllAsync(orderStatus);
+			var model = await _orderService.AllAsync(status);
 
 			return View(model);
 		}
@@ -28,14 +28,22 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			return View(model);
 		}
 
-		public IActionResult Complete(string orderId)
-		{
-			throw new NotImplementedException();
-		}
+        [HttpGet]
+		public async Task<IActionResult> Process (string orderId, OrderStatus status)
+        {
+			await _orderService.ChangeStatusAsync(orderId, status);
+			return RedirectToAction("All", "Orders", new { Area = "Admin" });
+        }
 
-		public IActionResult Decline(string orderId)
-		{
-			throw new NotImplementedException();
-		}
+        [HttpGet]
+		public async Task<IActionResult> FetchOrders(OrderStatus status)
+        {
+			var model = await _orderService.AllAsync(status);
+			return PartialView("_OrderList", model);
+        }
+
+	
+
+	
 	}
 }

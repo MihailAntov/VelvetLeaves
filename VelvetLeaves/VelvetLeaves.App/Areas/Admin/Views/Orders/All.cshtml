@@ -1,64 +1,48 @@
-﻿@model IEnumerable<OrderProcessViewModel>
+﻿@model AllOrderProcessViewModel
 @inject IImageService imageService
 
+
+
+
+
 <div class="container-fluid">
+	@*<div class="mb-3 row">
+		<div class="col-5 col-md-2">
+			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Pending" class="btn btn-info pending-orders">Pending Orders</a>
+		</div>
+		<div class="col-5 col-md-2">
+			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Processing" class="btn btn-primary processing-orders">Processing Orders</a>
+		</div>
+		<div class="col-5 col-md-2">
+			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Complete" class="btn btn-success complete-orders">Complete Orders</a>
+		</div>
+		<div class="col-5 col-md-2">
+			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Declined" class="btn btn-danger declined-orders">Declined Orders</a>
+		</div>
+	</div>*@
 	
-	<ul class="list-group">
-		<li class="list-group-item d-md-block d-none border-1 border-dark">
-				<div class="row">
-					<div class="col col-md-3 fw-bold">
-						Recipient:
-					</div>
-					<div class="col col-md-6 fw-bold">
-						Address:
-					</div>
-					<div class="col-6 col-md-1 fw-bold">
-						Total:
-					</div>
-					<div class="col-6 col-md-1 fw-bold">
-						Status:
-					</div>
-					<div class="col-12 col-md-1 fw-bold">
-						
-					</div>
-				</div>
-			</li>
-		
-		@foreach(var order in Model){
-			<li class="list-group-item border-1 border-dark">
-				<div class="row">
-					<div class="col-12 col-md-3 mb-2">
-						<label class="d-block d-sm-none fw-bold">
-							Recipient
-						</label>
-						@order.FirstName @order.LastName
-					</div>
-					<div class="col-12 col-md-6 mb-2">
-						<label class="d-block d-sm-none fw-bold">
-							Address
-						</label>
-						@order.StreetAddress @order.City @order.Country @order.ZipCode
-					</div>
-					<div class="col-6 col-md-1 mb-2">
-						<label class="d-block d-sm-none fw-bold">
-							Total
-						</label>
-						@order.Total.ToString("f2");
-					</div>
-					<div class="col-6 col-md-1 mb-2">
-						<label class="d-block d-sm-none fw-bold">
-							Status
-						</label>
-						@order.Status;
-					</div>
-					<div class="col-12 col-md-1 mb-2 text-center">
-						<a class="btn btn-primary me-auto " asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-orderId="@order.Id">Details</a>
-					</div>
-				</div>
-			</li>
-		}
-	</ul>
+	<div class="mb-3 row">
+		<div class="col-5 col-md-3 mb-1">
+			<button orderStatus="@OrderStatus.Pending" class="btn btn-lg btn-info order-type-button">Pending Orders</button>
+		</div>
+		<div class="col-5 col-md-3 mb-1">
+			<button orderStatus="@OrderStatus.Processing" class="btn btn-primary order-type-button">Processing Orders</button>
+		</div>
+		<div class="col-5 col-md-3 mb-1">
+			<button orderStatus="@OrderStatus.Complete" class="btn btn-success order-type-button">Complete Orders</button>
+		</div>
+		<div class="col-5 col-md-3 mb-1">
+			<button orderStatus="@OrderStatus.Declined" class="btn btn-danger order-type-button">Declined Orders</button>
+		</div>
+	</div>
+	<div class="orders-list">
+		<partial name="_OrderList" model="@Model" />
+	</div>
 	
 
 </div>
+
+@section Scripts{
+	<script src="~/js/processOrders.js"></script>
+}
 

@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ICollection<ProductListViewModel>
+@inject IImageService imageService
 @{
+	ViewData["Title"] = "My Favorites";
+
 }
+
+<div class="container-fluid">
+	<h2>@ViewData["Title"]</h2>
+
+	<div class="row">
+						@foreach (var product in Model)
+						{
+							<div class="col-md-4">
+								<a class="text-decoration-none text-black fw-normal" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+								<div class="card mb-3">
+									<img src="data:img/jpeg;base64,@await imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
+									<div class="card-body">
+										<h5 class="card-title">@product.Name</h5>
+										<p class="card-text">@product.Price BGN</p>
+									</div>
+								</div>
+								</a>
+							</div>
+						}
+
+					</div>
+</div>

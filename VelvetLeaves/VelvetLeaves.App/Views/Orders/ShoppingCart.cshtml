@@ -7,14 +7,14 @@
 <div class="container-fluid">
 
 	<form method="post">
-			<input asp-for="Currency" value="@Model.Currency" hidden/>			
-			
-						
+		<input asp-for="Currency" value="@Model.Currency" hidden />
 
 
-	<h1 class="mb-4">Shopping Cart</h1>
 
-	
+
+		<h1 class="mb-4">Shopping Cart</h1>
+
+
 		<div class="row w-auto ms-0 me-0 ps-0 pe-0">
 			<table class="table shadow-lg bg-transparent full-cart @(Model.Items.Any() ? "d-block" : "d-none")">
 				<thead>
@@ -30,20 +30,20 @@
 				</thead>
 
 				<tbody>
-					
-					@for(int i = 0; i < Model.Items.Count; i++)
+
+					@for (int i = 0; i < Model.Items.Count; i++)
 					{
-						<input hidden asp-for="Items[i].Id" value="@Model.Items[i].Id"/>
 						<tr class="row mb-3" id="product@(Model.Items[i].Id)">
 							<td class="col-md-2 col-4">
-								<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId"/>
 								<img class="img-fluid shadow-lg" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Items[i].ImageId)" />
 							</td>
-							<input hidden asp-for="Items[i].Name" value="@Model.Items[i].Name"/>
 							<td class="col-md-3 col-6 fw-bold">@Model.Items[i].Name</td>
 							<td class="col-md-1 col-3">
 								<div class="flex-md-row d-md-flex">
-									<input hidden asp-for="Items[i].Price" value="@Model.Items[i].Price"/>
+									<input hidden asp-for="Items[i].Id" value="@Model.Items[i].Id" />
+									<input hidden asp-for="Items[i].Price" value="@Model.Items[i].Price" />
+									<input hidden asp-for="Items[i].Name" value="@Model.Items[i].Name" />
+									<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId" />
 									<span>@Model.Items[i].Price.ToString()</span>
 									<span class="me-auto">@Model.Currency</span>
 								</div>
@@ -69,7 +69,7 @@
 								<a class="btn p-0 m-0 col-1 delete-button" productId="@Model.Items[i].Id"><i class="fa-solid fa-trash"></i></a>
 							</td>
 						</tr>
-						
+
 					}
 
 
@@ -88,7 +88,7 @@
 			</table>
 
 		</div>
-		
+
 
 		<div class="row checkout-panel @(Model.Items.Any() ? "d-block" : "d-none")">
 			<div class="card shadow-lg bg-transparent ">
@@ -110,7 +110,7 @@
 					<div class="d-flex flex-row mb-3">
 						<button asp-controller="Orders" asp-action="ShoppingCart" type="submit" class="btn btn-primary w-100">Checkout</button>
 					</div>
-					
+
 
 				</div>
 			</div>
@@ -119,7 +119,7 @@
 
 
 
-					</form>
+	</form>
 </div>
 
 

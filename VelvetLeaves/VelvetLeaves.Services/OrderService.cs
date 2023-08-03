@@ -21,17 +21,14 @@ namespace VelvetLeaves.Services
             _productService = productService;
         }
 
-		public async Task<IEnumerable<OrderProcessViewModel>> AllAsync(int? status)
-		{
-            var orders = _context.Orders
-                .OrderByDescending(o=> o.DateTime)
-                .AsQueryable();
-			if (status.HasValue)
-			{
-                orders = orders.Where(o => o.OrderStatus == (OrderStatus)status);
-			}
+        
 
-            var model = await orders.Select(o => new OrderProcessViewModel()
+        public async Task<AllOrderProcessViewModel> AllAsync(OrderStatus status)
+		{
+            var orders = await _context.Orders
+                .OrderByDescending(o=> o.DateTime)
+                .Where(o => o.OrderStatus == (OrderStatus)status)
+			    .Select(o => new OrderProcessViewModel()
                 {
                     Id = o.Id.ToString(),
                     StreetAddress = o.StreetAddress,
@@ -56,8 +53,14 @@ namespace VelvetLeaves.Services
                                 })
                 }).ToArrayAsync();
 
-			
 
+            var model = new AllOrderProcessViewModel
+            {
+                Orders = orders,
+                Title = $"{status.ToString()} Orders"
+
+            };
+            
             return model;
         }
 
@@ -108,6 +111,18 @@ namespace VelvetLeaves.Services
 
             
         }
+        public async Task ChangeStatusAsync(string orderId, OrderStatus status)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id.ToString() == orderId);
+            if(order == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            order.OrderStatus = status;
+            await _context.SaveChangesAsync();
+        }
+
 
         public async Task<OrderProcessViewModel> DetailsAsync(string orderId)
         {
@@ -209,5 +224,9 @@ namespace VelvetLeaves.Services
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
         }
+
+       
+
+        
     }
 }
