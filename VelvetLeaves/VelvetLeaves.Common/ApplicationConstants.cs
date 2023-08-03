@@ -10,6 +10,6 @@ namespace VelvetLeaves.Common
 		public const string AdminAreaName = "Admin";
 		public const string ModeratorAreaName = "Admin";
 
-		public const string PreferencesKey = "AppPreferencesKey";
+		public const string PreferencesKey = "64cbee2adc8f8b8bff3914f1";
 	}
 }

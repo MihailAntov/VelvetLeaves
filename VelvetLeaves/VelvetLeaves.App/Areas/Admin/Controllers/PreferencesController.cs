@@ -33,13 +33,19 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 return View(model);
             }
-            var backgroundImageId = await _imageService.CreateAsync(model.Image);
-            if (backgroundImageId == null)
-            {
-                ModelState.AddModelError("image", "Image upload unsuccessful.");
-            }
 
-            model.ImageId = backgroundImageId;
+            if(model.Image != null)
+            {
+                var backgroundImageId = await _imageService.CreateAsync(model.Image);
+                if (backgroundImageId == null)
+                {
+                    ModelState.AddModelError("image", "Image upload unsuccessful.");
+                    return View(model);
+                }
+                model.ImageId = backgroundImageId!;
+            }
+            
+
             await _helperService.SetCurrentPreferences(model);
 
             return RedirectToAction("All", "Products", new { Area = "Admin" });

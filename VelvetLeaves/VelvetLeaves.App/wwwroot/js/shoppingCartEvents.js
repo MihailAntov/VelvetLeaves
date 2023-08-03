@@ -58,7 +58,7 @@ function decreaseNumberInCart(e) {
     const hiddenQuantity = document.querySelector(`.product-quantity-hidden[productId='${productId}'`);
     const totalForThisItem = document.querySelector(`.product-total[productId='${productId}'`);
 
-    if (quantity.value === 1) {
+    if (quantity.value < 2) {
         return;
     }
 

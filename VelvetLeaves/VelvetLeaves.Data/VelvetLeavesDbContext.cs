@@ -13,7 +13,6 @@ namespace VelvetLeaves.Data
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;
-        public DbSet<AppPreferences> AppPreferences { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Subcategory> Subcategories { get; set; } = null!;
         public DbSet<Gallery> Galleries { get; set; } = null!;

@@ -52,6 +52,12 @@ namespace VelvetLeaves.Data.Configuration
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<ApplicationUser>()
                 .HasData(new List<ApplicationUser> { user, moderator, admin });
         }
     }

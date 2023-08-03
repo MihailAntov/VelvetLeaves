@@ -1,6 +1,7 @@
 ﻿@*@model IEnumerable<CategoryListViewModel>*@
 	@inject IMenuService menuService
 	@inject IImageService imageService
+	@inject IHelperService helperService
 	@{
 		var Menu = await menuService.GetMenuCategoriesAsync();
 	}
@@ -17,7 +18,7 @@
 
 </head>
 <body>
-	<img id="background"   src="/img/bg.jpg"/>
+	<img id="background" src="data:img/jpg;base64,@await imageService.GetAsync(await helperService.Background())"/>
 	<header>
 		<nav id="mainNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			

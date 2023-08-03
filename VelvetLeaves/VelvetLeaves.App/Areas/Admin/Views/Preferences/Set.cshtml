@@ -1,0 +1,69 @@
+﻿@model AppPreferencesFormViewModel
+@inject IImageService imageService
+
+@{
+	ViewData["Title"] = "Set Application Preferences";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+<div class="container-fluid">
+	<form class="form-control" method="post" enctype="multipart/form-data">
+		<div class="mb-3">
+			<label asp-for="RootNavigationName"></label>
+			<input class="form-control" type="text" asp-for="RootNavigationName"/>
+			<span asp-validation-for="RootNavigationName"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Currency"></label>
+			<input class="form-control" type="text" asp-for="Currency"/>
+			<span asp-validation-for="Currency"></span>
+		</div>
+
+		<div class="row">
+
+		<div class="mb-3 col-5">
+			<label asp-for="FavoriteColor"></label>
+			<select id="favorite-color-select" class="form-select" asp-for="FavoriteColor">
+				<option value="gold">Gold</option>
+				<option value="pink">Pink</option>
+			</select>
+			<span asp-validation-for="FavoriteColor"></span>
+		</div>
+
+		<div class="mb-3 col-5">
+			<label asp-for="FavoriteIcon"></label>
+			<select id="favorite-icon-select" class="form-select" asp-for="FavoriteIcon">
+				<option value="star">Star</option>
+				<option value="heart">Heart</option>
+			</select>
+			<span asp-validation-for="FavoriteIcon"></span>
+		</div>
+		<div class="col-1" id="preview-icons">
+		<a><i style="color:@Model.FavoriteColor" class="fa-@Model.FavoriteIcon fa-2x fa-solid"></i></a>
+		<a><i style="color:@Model.FavoriteColor" class="fa-@Model.FavoriteIcon fa-2x fa-regular"></i></a>
+		
+
+		</div>
+
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Image" class="form-label">Background Image</label>
+			<input class="form-control" asp-for="Image" class="form-control" type="file" id="formFile">
+			<span asp-validation-for="Image" class="text-danger"></span>
+			<div class="m-1 image-preview-gallery row">
+				<img src="data:img/jpg;base64,@await imageService.GetAsync(Model.ImageId)" class="img-fluid col-2 "/>
+			</div>
+		</div>
+		<input hidden asp-for="ImageId" value="@Model.ImageId"/>
+		<button cclass="btn btn-primary" asp-area="Admin" asp-controller="Preferences" asp-action="Set" type="submit">Save</button>
+	</form>
+</div>
+
+			@section Scripts{
+				<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+				<script src="~/js/changeFavoriteIcon.js"></script>
+				<script src="~/js/uploadImage.js"></script>
+			}

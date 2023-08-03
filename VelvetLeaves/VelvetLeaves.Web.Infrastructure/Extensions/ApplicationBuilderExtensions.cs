@@ -62,6 +62,13 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
             var _preferences = mongoDatabase.GetCollection<AppPreferences>(
                 objectDatabaseSettings.Value.AppPreferencesCollectionName);
 
+            var exists = _preferences.Find(i => i.Id == PreferencesKey).Any();
+
+            if (exists)
+            {
+                return app;
+            }
+
             AppPreferences preferences = new AppPreferences
             {
                 Id = PreferencesKey,

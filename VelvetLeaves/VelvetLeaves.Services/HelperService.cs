@@ -30,25 +30,46 @@ namespace VelvetLeaves.Services
 
         public async Task<string> Currency()
         {
-            return "лв.";
+            var references = await (await _preferences.FindAsync(p => p.Id == PreferencesKey)).FirstOrDefaultAsync();
+            string currency = references.Currency;
+            return currency;
         }
 
         public async Task<string> FavoriteColor()
         {
-            return "gold";
+            var references = await (await _preferences.FindAsync(p => p.Id == PreferencesKey)).FirstOrDefaultAsync();
+            string color = references.FavoriteColor;
+            return color;
+        }
+
+        public async Task<string> Background()
+        {
+            var references = await (await _preferences.FindAsync(p => p.Id == PreferencesKey)).FirstOrDefaultAsync();
+            string background = references.BackGroundImageId;
+            return background;
         }
 
         public async Task<string> FavoriteIcon()
         {
-            return "star";
+            var references = await (await _preferences.FindAsync(p => p.Id == PreferencesKey)).FirstOrDefaultAsync();
+            string icon = references.FavoriteIcon;
+            return icon;
         }
 
         public async Task<AppPreferencesFormViewModel> GetCurrentPreferences()
         {
 
-            var preferences = await _preferences.FindAsync(i=> i.Id == PreferencesKey);
+            var preferences = await (await _preferences.FindAsync(i => i.Id == PreferencesKey)).FirstOrDefaultAsync();
 
-            return new AppPreferencesFormViewModel();
+            return new AppPreferencesFormViewModel()
+            {
+                ImageId = preferences.BackGroundImageId,
+                Currency = preferences.Currency,
+                FavoriteColor = preferences.FavoriteColor,
+                FavoriteIcon = preferences.FavoriteIcon,
+                RootNavigationName = preferences.RootNavigationName
+            };
+
         }
 
         public async Task SetCurrentPreferences(AppPreferencesFormViewModel model)
@@ -57,12 +78,16 @@ namespace VelvetLeaves.Services
             var preferences = new AppPreferences()
             {
                 Id = PreferencesKey,
-                BackGroundImageId = model.ImageId!,
                 Currency = model.Currency,
                 FavoriteColor = model.FavoriteColor,
                 FavoriteIcon = model.FavoriteIcon,
                 RootNavigationName = model.RootNavigationName
             };
+
+            if(model.ImageId != null)
+            {
+                preferences.BackGroundImageId = model.ImageId;
+            }
 
             await _preferences.FindOneAndReplaceAsync(p => p.Id == PreferencesKey, preferences);
         }
