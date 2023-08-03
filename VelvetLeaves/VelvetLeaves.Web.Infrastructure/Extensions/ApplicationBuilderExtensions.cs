@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Services.Contracts;
 using static VelvetLeaves.Common.ApplicationConstants;
 
@@ -44,6 +47,38 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
             return app;
         }
 
+        public  static IApplicationBuilder SeedAppPreferences(this IApplicationBuilder app)
+        {
+            using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
+            var services = scopedServices.ServiceProvider;
+            IOptions<ObjectDatabaseSettings> objectDatabaseSettings = services.GetRequiredService<IOptions<ObjectDatabaseSettings>>();  
+
+            var mongoClient = new MongoClient(
+            objectDatabaseSettings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                objectDatabaseSettings.Value.DatabaseName);
+
+            var _preferences = mongoDatabase.GetCollection<AppPreferences>(
+                objectDatabaseSettings.Value.AppPreferencesCollectionName);
+
+            AppPreferences preferences = new AppPreferences
+            {
+                Id = PreferencesKey,
+                RootNavigationName = "Velvet Leaves",
+                Currency = "лв.",
+                BackGroundImageId = "64cbe4e072b00421cdf31294",
+                FavoriteColor = "pink",
+                FavoriteIcon = "heart"
+            };
+
+            _preferences.InsertOne(preferences);
+
+            
+
+            return app;
+        }
+
         public static IApplicationBuilder SeedImages(this IApplicationBuilder app)
         {
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
@@ -69,6 +104,8 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                 {"64be8cae1813d7aff61e173b","handbag2.jpg" },
                 {"64be8cb3b390e17c62039322","book.jpg" },
                 {"64be8cb81a39dd6ed0351ebb","book.jpg" },
+                //background
+                {"64cbe4e072b00421cdf31294", "bg.jpg" }
             };
 
             foreach (KeyValuePair<string, string> image in imagesToSeed)

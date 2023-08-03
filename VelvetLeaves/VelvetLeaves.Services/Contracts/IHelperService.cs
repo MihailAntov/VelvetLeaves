@@ -1,5 +1,7 @@
 ﻿
 
+using VelvetLeaves.ViewModels.AppPreferences;
+
 namespace VelvetLeaves.Services.Contracts
 {
     public interface IHelperService
@@ -8,5 +10,9 @@ namespace VelvetLeaves.Services.Contracts
 
         public Task<string> FavoriteColor();
         public Task<string> FavoriteIcon();
+
+        public Task<AppPreferencesFormViewModel> GetCurrentPreferences();
+
+        public Task SetCurrentPreferences (AppPreferencesFormViewModel model);  
     }
 }

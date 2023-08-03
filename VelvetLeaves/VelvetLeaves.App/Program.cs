@@ -6,7 +6,7 @@ using VelvetLeaves.App;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.Services;
 using VelvetLeaves.Web.Infrastructure.Extensions;
-using VelvetLeaves.Data.Images;
+using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Web.Infrastructure.Services;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 
@@ -17,8 +17,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<VelvetLeavesDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.Configure<ImageDatabaseSettings>(
-    builder.Configuration.GetSection("ImageDatabase"));
+builder.Services.Configure<ObjectDatabaseSettings>(
+    builder.Configuration.GetSection("ObjectDatabase"));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -74,8 +74,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.SeedAdmin();
 
-//Uncomment this to seed initial images
-//app.SeedImages();
+//Uncomment this to seed initial images and preferences
+app.SeedImages();
+app.SeedAppPreferences();
+
 
 
 if (app.Environment.IsDevelopment())

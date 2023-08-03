@@ -1,26 +1,29 @@
 ﻿
 
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using VelvetLeaves.Data.Models;
+using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.AppPreferences;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.Services
 {
     public class HelperService : IHelperService
     {
         private readonly IMongoCollection<AppPreferences> _preferences;
-        public HelperService( IOptions<ImageDatabaseSettings> imageDatabaseSettings)
+        public HelperService( IOptions<ObjectDatabaseSettings> objectDatabaseSettings)
         {
 
 
             var mongoClient = new MongoClient(
-            imageDatabaseSettings.Value.ConnectionString);
+            objectDatabaseSettings.Value.ConnectionString);
 
             var mongoDatabase = mongoClient.GetDatabase(
-                imageDatabaseSettings.Value.DatabaseName);
+                objectDatabaseSettings.Value.DatabaseName);
 
-            _imagesCollection = mongoDatabase.GetCollection<Image>(
-                imageDatabaseSettings.Value.ImagesCollectionName);
+            _preferences = mongoDatabase.GetCollection<AppPreferences>(
+                objectDatabaseSettings.Value.AppPreferencesCollectionName);
 
 
         }
@@ -38,6 +41,30 @@ namespace VelvetLeaves.Services
         public async Task<string> FavoriteIcon()
         {
             return "star";
+        }
+
+        public async Task<AppPreferencesFormViewModel> GetCurrentPreferences()
+        {
+
+            var preferences = await _preferences.FindAsync(i=> i.Id == PreferencesKey);
+
+            return new AppPreferencesFormViewModel();
+        }
+
+        public async Task SetCurrentPreferences(AppPreferencesFormViewModel model)
+        {
+
+            var preferences = new AppPreferences()
+            {
+                Id = PreferencesKey,
+                BackGroundImageId = model.ImageId!,
+                Currency = model.Currency,
+                FavoriteColor = model.FavoriteColor,
+                FavoriteIcon = model.FavoriteIcon,
+                RootNavigationName = model.RootNavigationName
+            };
+
+            await _preferences.FindOneAndReplaceAsync(p => p.Id == PreferencesKey, preferences);
         }
     }
 }

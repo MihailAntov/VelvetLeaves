@@ -7,8 +7,6 @@ namespace VelvetLeaves.Services.Contracts
 {
     public interface IImageService
     {
-        
-        public Task<List<string>> GetAllAsync();
 
         public  Task<string?> GetAsync(string id);
 

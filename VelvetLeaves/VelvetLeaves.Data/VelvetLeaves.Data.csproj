@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VelvetLeaves.Data.Images\VelvetLeaves.Data.Images.csproj" />
+    <ProjectReference Include="..\VelvetLeaves.Data.Images\VelvetLeaves.Data.ObjectDatabase.csproj" />
     <ProjectReference Include="..\VelvetLeaves.Data.Models\VelvetLeaves.Data.Models.csproj" />
   </ItemGroup>
 

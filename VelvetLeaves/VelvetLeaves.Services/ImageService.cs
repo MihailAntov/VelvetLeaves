@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using VelvetLeaves.Data.Configuration;
-using VelvetLeaves.Data.Images;
+using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Services.Contracts;
 
 namespace VelvetLeaves.Services
@@ -13,18 +13,22 @@ namespace VelvetLeaves.Services
     {
         
         private readonly IMongoCollection<Image> _imagesCollection;
-        public ImageService(IOptions<ImageDatabaseSettings> imageDatabaseSettings)
+        private readonly IMongoCollection<AppPreferences> _appPreferences;
+        public ImageService(IOptions<ObjectDatabaseSettings> objectDatabaseSettings)
         {
             
 
             var mongoClient = new MongoClient(
-            imageDatabaseSettings.Value.ConnectionString);
+            objectDatabaseSettings.Value.ConnectionString);
 
             var mongoDatabase = mongoClient.GetDatabase(
-                imageDatabaseSettings.Value.DatabaseName);
+                objectDatabaseSettings.Value.DatabaseName);
 
             _imagesCollection = mongoDatabase.GetCollection<Image>(
-                imageDatabaseSettings.Value.ImagesCollectionName);
+                objectDatabaseSettings.Value.ImagesCollectionName);
+
+            _appPreferences = mongoDatabase.GetCollection<AppPreferences>(
+                objectDatabaseSettings.Value.AppPreferencesCollectionName);
 
 
         }
@@ -108,10 +112,7 @@ namespace VelvetLeaves.Services
             return results;
         }
 
-        public Task<List<string>> GetAllAsync()
-		{
-			throw new NotImplementedException();
-		}
+
 
 		public async Task<string?> GetAsync(string id)
 		{

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Service.Models
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Web.Infrastructure", "VelvetLeaves.Web.Infrastructure\VelvetLeaves.Web.Infrastructure.csproj", "{22FB61EC-E811-432C-8093-AE9D7012F681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelvetLeaves.Data.Images", "VelvetLeaves.Data.Images\VelvetLeaves.Data.Images.csproj", "{040BCEC8-5209-4113-A789-8E757F392419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetLeaves.Data.ObjectDatabase", "VelvetLeaves.Data.Images\VelvetLeaves.Data.ObjectDatabase.csproj", "{040BCEC8-5209-4113-A789-8E757F392419}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
