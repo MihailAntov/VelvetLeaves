@@ -7,7 +7,7 @@ namespace VelvetLeaves.Services.Contracts
 {
     public interface IImageService
     {
-        //public Task<IList<string>> WriteToDisk(IFormFile file, string fileName);
+        
         public Task<List<string>> GetAllAsync();
 
         public  Task<string?> GetAsync(string id);

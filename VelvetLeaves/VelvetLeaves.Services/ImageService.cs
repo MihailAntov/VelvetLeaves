@@ -13,7 +13,7 @@ namespace VelvetLeaves.Services
     {
         
         private readonly IMongoCollection<Image> _imagesCollection;
-        public ImageService(IHostingEnvironment hostingEnvironment, IOptions<ImageDatabaseSettings> imageDatabaseSettings)
+        public ImageService(IOptions<ImageDatabaseSettings> imageDatabaseSettings)
         {
             
 

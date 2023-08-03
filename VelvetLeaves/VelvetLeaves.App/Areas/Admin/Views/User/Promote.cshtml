@@ -1,0 +1,60 @@
+﻿@model IEnumerable<UserPromoteViewModel>
+
+<div class="container-fluid">
+	<ul class="list-group">
+		<li class="list-group-item d-md-block d-none border-1 border-dark">
+				<div class="row">
+					<div class="col col-md-3 fw-bold">
+						Username:
+					</div>
+					<div class="col col-md-3 fw-bold">
+						Email:
+					</div>
+					<div class="col-6 col-md-3 fw-bold">
+						
+					</div>
+					<div class="col-6 col-md-3 fw-bold">
+						
+					</div>
+					
+				</div>
+			</li>
+		
+		@foreach(var user in Model){
+			<li class="list-group-item border-1 border-dark">
+				<div class="row">
+					<div class="col-6 col-md-3 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Username
+						</label>
+						@user.Username
+					</div>
+					<div class="col-6 col-md-3 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Email
+						</label>
+						@user.Email
+					</div>
+					<div class="col-6 col-md-3 mb-2">
+						@if (!user.IsModerator)
+						{
+						<a asp-area="Admin" asp-controller="User" asp-action="MakeModerator" asp-route-userId="@user.UserId" class="btn btn-primary">Make Moderator</a>
+						}else{
+						<p>Already a moderator!</p>
+						}
+					</div>
+					<div class="col-6 col-md-3 mb-2">
+						@if (!user.IsAdmin)
+						{
+						<a asp-area="Admin" asp-controller="User" asp-action="MakeAdmin" asp-route-userId="@user.UserId" class="btn btn-success">Make Admin</a>
+						}else{
+						<p>Already an admin!</p>
+						}
+					</div>
+
+				</div>
+			</li>
+		}
+	</ul>
+
+</div>
