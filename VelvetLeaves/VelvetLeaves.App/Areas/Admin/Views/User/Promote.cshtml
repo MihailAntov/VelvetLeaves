@@ -38,15 +38,15 @@
 					<div class="col-6 col-md-3 mb-2">
 						@if (!user.IsModerator)
 						{
-						<a asp-area="Admin" asp-controller="User" asp-action="MakeModerator" asp-route-userId="@user.UserId" class="btn btn-primary">Make Moderator</a>
+						<a asp-area="Admin" asp-controller="User" asp-action="MakeModerator" asp-route-userId="@user.UserId" class="btn btn-primary">Promote to Moderator</a>
 						}else{
-						<p>Already a moderator!</p>
+						<a asp-area="Admin" asp-controller="User" asp-action="RemoveModerator" asp-route-userId="@user.UserId" class="btn btn-primary">Demote to User</a>
 						}
 					</div>
 					<div class="col-6 col-md-3 mb-2">
 						@if (!user.IsAdmin)
 						{
-						<a asp-area="Admin" asp-controller="User" asp-action="MakeAdmin" asp-route-userId="@user.UserId" class="btn btn-success">Make Admin</a>
+						<a onclick="return confirm('Are you sure? This is permanent!')" asp-area="Admin" asp-controller="User" asp-action="MakeAdmin" asp-route-userId="@user.UserId" class="btn btn-success">Promote to Admin</a>
 						}else{
 						<p>Already an admin!</p>
 						}

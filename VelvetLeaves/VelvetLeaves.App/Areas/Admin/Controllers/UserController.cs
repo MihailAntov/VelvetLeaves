@@ -8,8 +8,8 @@ using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Area(AdminAreaName)]
+    [Authorize(Roles = AdminRoleName)]
     public class UserController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -34,6 +34,24 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
             var user = await _userManager.FindByIdAsync(userId);
             await _userManager.AddToRoleAsync(user, ModeratorRoleName);
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Promote", "User", new { Area = "Admin" });
+        }
+
+        public async Task<IActionResult> RemoveModerator(string userId)
+        {
+            
+
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                await _userManager.RemoveFromRoleAsync(user, ModeratorRoleName);
 
             }
             catch

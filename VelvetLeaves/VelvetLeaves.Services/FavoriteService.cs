@@ -20,13 +20,15 @@ namespace VelvetLeaves.Services
                 .Users
                 .Include(u => u.Favorites)
                 .Where(u => u.Id == userId)
-                .Select(u => new List<ProductListViewModel>(u.Favorites.Select(f => new ProductListViewModel()
-                {
-                    Id = f.Id,
-                    Name = f.Name,
-                    ImageId = f.Images.First().Id,
-                    Price = f.Price
-                }))).FirstAsync();
+                .Select(u => new List<ProductListViewModel>(u.Favorites
+                    .Where(f=> f.IsActive)
+                    .Select(f => new ProductListViewModel()
+                    {
+                        Id = f.Id,
+                        Name = f.Name,
+                        ImageId = f.Images.First().Id,
+                        Price = f.Price
+                    }))).FirstAsync();
 
             return model;
 

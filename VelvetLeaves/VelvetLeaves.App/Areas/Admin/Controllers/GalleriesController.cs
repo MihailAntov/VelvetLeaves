@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Gallery;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {

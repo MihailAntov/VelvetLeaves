@@ -56,6 +56,13 @@ namespace VelvetLeaves.Services
             return icon;
         }
 
+        public async Task<string> RootNavigationName()
+        {
+            var references = await(await _preferences.FindAsync(p => p.Id == PreferencesKey)).FirstOrDefaultAsync();
+            string name = references.RootNavigationName;
+            return name;
+        }
+
         public async Task<AppPreferencesFormViewModel> GetCurrentPreferences()
         {
 
@@ -91,5 +98,7 @@ namespace VelvetLeaves.Services
 
             await _preferences.FindOneAndReplaceAsync(p => p.Id == PreferencesKey, preferences);
         }
+
+        
     }
 }

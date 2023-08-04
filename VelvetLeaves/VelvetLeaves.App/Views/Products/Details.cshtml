@@ -40,7 +40,7 @@
 				<div class="card mb-5 p-3">
 					<h4 class="mb-2 m-auto">@Model.Name</h4>
 
-					<p class="d-inline-flex m-auto mb-2">Price: @Model.Price</p>
+					<p class="d-inline-flex m-auto mb-2">Price: @Model.Price @(await helperService.Currency())</p>
 					<a class="d-inline-flex m-auto mb-3 btn btn-primary buy-button" productId="@Model.Id">Add to Cart</a>
 					@if(User?.Identity?.IsAuthenticated ?? false)
 					{

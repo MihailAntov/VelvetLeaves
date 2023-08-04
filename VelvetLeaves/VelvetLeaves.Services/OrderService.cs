@@ -15,13 +15,17 @@ namespace VelvetLeaves.Services
     {
         private readonly VelvetLeavesDbContext _context;
         private readonly IProductService _productService;
-        public OrderService(VelvetLeavesDbContext context, IProductService productService)
+        private readonly IHelperService _helperService;
+        public OrderService(VelvetLeavesDbContext context,
+            IProductService productService,
+            IHelperService helperService)
         {
             _context = context;
             _productService = productService;
+            _helperService = helperService;
         }
 
-        
+
 
         public async Task<AllOrderProcessViewModel> AllAsync(OrderStatus status)
 		{
@@ -149,7 +153,12 @@ namespace VelvetLeaves.Services
                                     Price = op.Product.Price,
                                     ImageId = op.Product.Images.First().Id,
                                     Name = op.Product.Name,
-                                    Quantity = op.Quantity
+                                    Quantity = op.Quantity,
+                                    Id = op.ProductId,
+                                    CategoryId = op.Product.Subcategory.CategoryId,
+                                    SubcategoryId = op.Product.SubcategoryId,
+                                    ProductSeriesId = op.Product.ProductSeriesId,
+                                    Removed = !op.Product.IsActive
 
                                 })
 
@@ -191,7 +200,7 @@ namespace VelvetLeaves.Services
 
                 model.Total = model.Items.Select(i => i.Quantity * i.Price).Sum();
                 model.TotalItems = model.Items.Select(i=>i.Quantity).Sum();
-                model.Currency = "лв.";
+                model.Currency = await _helperService.Currency();
                 
             }
 

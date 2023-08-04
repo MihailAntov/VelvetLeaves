@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.ProductSeries;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-	[Area("Admin")]
-    [Authorize(Roles = "Admin,Moderator")]
-    public class ProductSeriesController : Controller
+	[Area(AdminAreaName)]
+	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+	public class ProductSeriesController : Controller
 	{
 		private readonly ICategoryService _categoryService;
 		private readonly ISubcategoryService _subcategoryService;

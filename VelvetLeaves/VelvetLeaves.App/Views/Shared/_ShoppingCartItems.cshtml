@@ -1,5 +1,6 @@
 ﻿@model ShoppingCartViewModel
 @inject IImageService imageService;
+@inject IHelperService helperService;
 @{
 	ViewData["Title"] = "Shopping cart";
 }
@@ -62,7 +63,7 @@
 
 								<div class="flex-md-row d-md-flex">
 									<span class="d-block d-md-none">Total: </span>
-									<span class="product-total" productId=@Model.Items[i].Id>@((Model.Items[i].Price * Model.Items[i].Quantity).ToString("f2"))</span>
+									<span class="product-total" productId=@Model.Items[i].Id>@((Model.Items[i].Price * Model.Items[i].Quantity).ToString("f2")) @(await helperService.Currency())</span>
 									<span class="me-auto">@Model.Currency</span>
 								</div>
 							</td>

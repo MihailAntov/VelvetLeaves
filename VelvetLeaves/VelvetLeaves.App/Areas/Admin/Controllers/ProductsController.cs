@@ -4,11 +4,12 @@ using VelvetLeaves.Data;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.ProductSeries;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin, Moderator")]
+    [Area(AdminAreaName)]
+    [Authorize(Roles = $"{AdminRoleName},{ModeratorRoleName}")]
     
     public class ProductsController : Controller
     {

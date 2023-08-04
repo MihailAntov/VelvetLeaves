@@ -10,13 +10,13 @@
 <div class="container-fluid">
 	<form class="form-control" method="post" enctype="multipart/form-data">
 		<div class="mb-3">
-			<label asp-for="RootNavigationName"></label>
+			<label asp-for="RootNavigationName">Website Logo</label>
 			<input class="form-control" type="text" asp-for="RootNavigationName"/>
 			<span asp-validation-for="RootNavigationName"></span>
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="Currency"></label>
+			<label asp-for="Currency">Currency</label>
 			<input class="form-control" type="text" asp-for="Currency"/>
 			<span asp-validation-for="Currency"></span>
 		</div>
@@ -24,7 +24,7 @@
 		<div class="row">
 
 		<div class="mb-3 col-5">
-			<label asp-for="FavoriteColor"></label>
+			<label asp-for="FavoriteColor">Color of "Favorite" button</label>
 			<select id="favorite-color-select" class="form-select" asp-for="FavoriteColor">
 				<option value="gold">Gold</option>
 				<option value="pink">Pink</option>
@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="mb-3 col-5">
-			<label asp-for="FavoriteIcon"></label>
+			<label asp-for="FavoriteIcon">Shape of "Favorite" button</label>
 			<select id="favorite-icon-select" class="form-select" asp-for="FavoriteIcon">
 				<option value="star">Star</option>
 				<option value="heart">Heart</option>

@@ -4,10 +4,11 @@ using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.AppPreferences;
 using static VelvetLeaves.Common.ApplicationConstants;
 
+
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
     [Area(AdminAreaName)]
-    [Authorize(Roles = AdminRoleName)]
+    [Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
     public class PreferencesController : Controller
     {
         private readonly IHelperService _helperService;

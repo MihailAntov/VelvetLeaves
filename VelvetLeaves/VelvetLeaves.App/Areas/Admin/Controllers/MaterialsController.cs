@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Material;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-	[Area("Admin")]
-	[Authorize(Roles = "Admin,Moderator")]
+	[Area(AdminAreaName)]
+	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
 	public class MaterialsController : Controller
 	{
 		private readonly IMaterialService _materialService;

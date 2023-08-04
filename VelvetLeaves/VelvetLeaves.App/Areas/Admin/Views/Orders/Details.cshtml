@@ -62,9 +62,14 @@
 		{
 			<li class="list-group-item">
 				<div class="row">
+					<a asp-area="Admin" asp-controller="Products" asp-action="All" asp-route-categoryId="@product.CategoryId" asp-route-subcategoryId="@product.SubcategoryId" asp-route-productSeriesId="@product.ProductSeriesId">
 					<img class="col-6 col-md-3" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
+
+					</a>
 					<div class="col-6 col-md-4">
-						<strong>Name:</strong>@product.Name 
+						<strong>Name:</strong>@product.Name @if(product.Removed){
+							<span class="text-danger fw-bold">REMOVED</span>
+						}
 					</div>
 					<div class="col-6 col-md-4">
 						<strong>Price:</strong>@product.Price 

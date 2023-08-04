@@ -12,6 +12,8 @@ namespace VelvetLeaves.Services.Contracts
         public Task<string> FavoriteColor();
         public Task<string> FavoriteIcon();
 
+        public Task<string> RootNavigationName();
+
         public Task<AppPreferencesFormViewModel> GetCurrentPreferences();
 
         public Task SetCurrentPreferences (AppPreferencesFormViewModel model);  
