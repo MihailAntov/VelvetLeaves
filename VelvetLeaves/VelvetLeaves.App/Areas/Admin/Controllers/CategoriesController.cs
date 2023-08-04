@@ -50,9 +50,18 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 		[HttpGet]
         public async Task<IActionResult> Edit(int categoryId)
-		{
-            var model = await _categoryService.GetForEditAsync(categoryId);
-            return View(model);
+        {
+            try
+            {
+                var model = await _categoryService.GetForEditAsync(categoryId);
+                return View(model);
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
+
+            
 		}
 
 		[HttpPost]

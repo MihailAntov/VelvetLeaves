@@ -14,5 +14,7 @@ namespace VelvetLeaves.Services.Contracts
         public Task EditAsync(CategoryEditFormViewModel model);
 
         public Task DeleteAsync(int categoryId);
+
+        public Task<bool> CategoryExistsByIdAsync(int categoryId);
     }
 }

@@ -9,10 +9,13 @@
 	<ul class="list-group">
 		<li class="list-group-item d-md-block d-none border-1 border-dark">
 				<div class="row">
-					<div class="col col-md-3 fw-bold">
+					<div class="col col-md-2 fw-bold">
+						Date:
+					</div>
+					<div class="col col-md-2 fw-bold">
 						Recipient:
 					</div>
-					<div class="col col-md-6 fw-bold">
+					<div class="col col-md-5 fw-bold">
 						Address:
 					</div>
 					<div class="col-6 col-md-1 fw-bold">
@@ -30,13 +33,19 @@
 		@foreach(var order in Model.Orders){
 			<li class="list-group-item border-1 border-dark">
 				<div class="row">
-					<div class="col-12 col-md-3 mb-2">
+					<div class="col-12 col-md-2 mb-2">
+						<label class="d-block d-sm-none fw-bold">
+							Date
+						</label>
+						@order.Date.ToString("d MMMM yyyy - hh:mm")
+					</div>
+					<div class="col-12 col-md-2 mb-2">
 						<label class="d-block d-sm-none fw-bold">
 							Recipient
 						</label>
 						@order.FirstName @order.LastName
 					</div>
-					<div class="col-12 col-md-6 mb-2">
+					<div class="col-12 col-md-5 mb-2">
 						<label class="d-block d-sm-none fw-bold">
 							Address
 						</label>

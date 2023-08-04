@@ -59,8 +59,19 @@ namespace VelvetLeaves.Services
             return id;
         }
 
+        public async Task<bool> CategoryExistsByIdAsync(int categoryId)
+        {
+            return await _context.Categories
+                .AnyAsync(c=> c.Id == categoryId);
+        }
+
 		public async Task<CategoryEditFormViewModel> GetForEditAsync(int categoryId)
 		{
+            if(!await CategoryExistsByIdAsync(categoryId))
+            {
+                throw new ArgumentException();
+            }
+            
             var model = await _context
                 .Categories
                 .Where(c => c.IsActive && c.Id == categoryId)
@@ -69,7 +80,12 @@ namespace VelvetLeaves.Services
                     Id = c.Id,
                     Name = c.Name,
                     ImageId = c.ImageId
-                }).FirstAsync();
+                }).FirstOrDefaultAsync();
+
+            if(model == null)
+            {
+                throw new ArgumentException();
+            }
 
             return model;
 		}
@@ -92,6 +108,11 @@ namespace VelvetLeaves.Services
 		}
         public async Task DeleteAsync(int categoryId)
         {
+            if(!await CategoryExistsByIdAsync(categoryId))
+            {
+                throw new ArgumentException();
+            }
+            
             var category = await _context.Categories
                 .Include(c=> c.Subcategories)
                 .ThenInclude(sc=> sc.ProductSeries)
@@ -117,5 +138,9 @@ namespace VelvetLeaves.Services
 
             await _context.SaveChangesAsync();
         }
+
+
+
+
     }
 }
