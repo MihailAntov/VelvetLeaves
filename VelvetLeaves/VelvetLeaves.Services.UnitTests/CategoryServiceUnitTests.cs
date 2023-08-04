@@ -384,16 +384,18 @@ namespace VelvetLeaves.Services.UnitTests
                         {
                             Id = 111,
                             Name = "Series 1",
+                            DefaultDescription = "test description",
+                            DefaultName = "test name",
 
                             IsActive = true,
                             Products = new List<Product>
                             {
-                                new Product { Id = 1111, Name = "Product 1", IsActive = true, Images = new List<Image> ()
+                                new Product { Id = 1111, Name = "Product 1", IsActive = true, Description = "test description", Images = new List<Image> ()
                                 {
                                     new Image() { Id = "image1guid"},
                                     new Image() { Id = "image2guid"}
                                 } },
-                                new Product { Id = 1112, Name = "Product 2", IsActive = true , Images = new List<Image>(){
+                                new Product { Id = 1112, Name = "Product 2", IsActive = true ,Description = "test description", Images = new List<Image>(){
                                     new Image() { Id = "image3guid"},
                                     new Image() { Id = "image4guid"}
                                 } }
