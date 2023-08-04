@@ -1,4 +1,7 @@
-﻿namespace VelvetLeaves.ViewModels.Product
+﻿using VelvetLeaves.ViewModels.Material;
+using VelvetLeaves.ViewModels.Tag;
+
+namespace VelvetLeaves.ViewModels.Product
 {
     public class ProductDetailsViewModel
     {
@@ -11,8 +14,8 @@
         
         public IEnumerable<ProductListViewModel> ProductSeries { get; set; } = new HashSet<ProductListViewModel>();
 
-        public IEnumerable<string> Materials { get; set; } = new HashSet<string>();
-        public IEnumerable<string> Tags { get; set; } = new HashSet<string>();
+        public IEnumerable<MaterialListViewModel> Materials { get; set; } = new HashSet<MaterialListViewModel>();
+        public IEnumerable<TagListViewModel> Tags { get; set; } = new HashSet<TagListViewModel>();
 
     }
 }

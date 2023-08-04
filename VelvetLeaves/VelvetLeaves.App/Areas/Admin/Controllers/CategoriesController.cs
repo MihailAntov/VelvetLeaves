@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Category;
+using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin,Moderator")]
+    [Area(AdminAreaName)]
+    [Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
     public class CategoriesController : Controller
     {
         private readonly IImageService _imageService;

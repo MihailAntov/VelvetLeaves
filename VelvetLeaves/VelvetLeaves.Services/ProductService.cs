@@ -11,6 +11,8 @@ using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Subcategory;
 using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.Service.Models.ShoppingCart;
+using VelvetLeaves.ViewModels.Material;
+using VelvetLeaves.ViewModels.Tag;
 
 namespace VelvetLeaves.Services
 {
@@ -66,8 +68,18 @@ namespace VelvetLeaves.Services
                     Description = p.Description,
                     Price = p.Price,
                     Images = p.Images.Select(i=> i.Id).ToArray(),
-                    Materials = p.Materials.Select(m=> m.Name).ToArray(),
-                    Tags = p.Tags.Select(t=> t.Name).ToArray(),
+                    Materials = p.Materials
+                        .Select(m=> new MaterialListViewModel()
+                        {
+                            Name = m.Name,
+                            Id = m.Id
+                        }).ToArray(),
+                    Tags = p.Tags
+                        .Select(t=> new TagListViewModel()
+                        {
+                            Name = t.Name,
+                            Id = t.Id
+                        }).ToArray(),
                     ProductSeries = p.ProductSeries
                                     .Products
                                     .Where(lp => lp.Id != id && lp.IsActive)

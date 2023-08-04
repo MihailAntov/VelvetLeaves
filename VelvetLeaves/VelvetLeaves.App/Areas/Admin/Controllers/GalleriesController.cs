@@ -5,8 +5,8 @@ using VelvetLeaves.ViewModels.Gallery;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Moderator, Admin")]
+    [Area(AdminAreaName)]
+    [Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
     public class GalleriesController : Controller
     {
         private readonly IImageService _imageService;

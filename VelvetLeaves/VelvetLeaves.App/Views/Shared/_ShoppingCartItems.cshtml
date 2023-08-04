@@ -4,10 +4,9 @@
 	ViewData["Title"] = "Shopping cart";
 }
 
-<div class="container-fluid" id="cart-items">
 
-	<partial name="_ShoppingCartItems" model="@Model"></partial>
-	@*<form method="post">
+
+	<form method="post">
 		<input asp-for="Currency" value="@Model.Currency" hidden />
 
 
@@ -95,7 +94,7 @@
 		<div class="row checkout-panel @(Model.Items.Any() ? "d-block" : "d-none")">
 			<div class="card shadow-lg bg-transparent ">
 				<div class="card-body">
-					
+					@*<h5 class="card-title mb-3 text-center">Order Summary</h5>*@
 
 					<div class="d-flex flex-row mb-3 justify-content-center">
 						<span class="p-2">Items:</span>
@@ -121,8 +120,8 @@
 
 
 
-	</form>*@
-</div>
+	</form>
+
 
 
 

@@ -44,7 +44,7 @@ namespace VelvetLeaves.Services
 
             if (user == null || product == null)
             {
-                throw new InvalidOperationException();
+                return;
             }
 
             user.Favorites.Add(product);
@@ -62,14 +62,14 @@ namespace VelvetLeaves.Services
 
             if (user == null || product == null)
             {
-                throw new InvalidOperationException();
+                return;
             }
 
             user.Favorites.Remove(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> IsFavorited(string userId, int productId)
+        public async Task<bool> IsFavorited(string? userId, int productId)
         {
             var user = await _context.Users
                 .Include(u => u.Favorites)
@@ -80,7 +80,7 @@ namespace VelvetLeaves.Services
 
             if (user == null || product == null)
             {
-                throw new InvalidOperationException();
+                return false;
             }
 
             return user.Favorites.Contains(product);

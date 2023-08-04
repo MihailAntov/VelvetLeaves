@@ -1,5 +1,8 @@
 ﻿const favoriteIcon = document.querySelector('.favorite-item');
+if (favoriteIcon) {
+
 favoriteIcon.addEventListener('click', addOrRemove);
+}
 
 
 function addOrRemove(e) {

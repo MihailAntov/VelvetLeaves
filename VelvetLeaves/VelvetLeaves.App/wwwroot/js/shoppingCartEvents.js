@@ -98,32 +98,34 @@ function deleteItemFromCart(e) {
     
     const productId = e.currentTarget.getAttribute('productId');
     //const productRow = e.currentTarget.parentElement.parentElement;
-    const productRow = document.querySelector(`#product${productId}`);
+    const shoppingCartItems = document.querySelector('main[role="main"]');
+    
     $.ajax({
         type: 'GET',
-        dataType: 'JSON',
         url: '/Orders/DeleteFromCart/',
         data: { "productId": productId }
         ,
         success: function (response) {
-            document.getElementById('total').textContent = response.total.toFixed(2);
-            document.getElementById('total-items').textContent = response.totalItems;
-            productRow.remove();
-
-            if (response.items.length === 0) {
-                console.log(response.items.length);
-                const full = document.querySelector('.full-cart');
-                const empty = document.querySelector('.empty-cart');
-                const checkout = document.querySelector('.checkout-panel');
-                full.classList.remove('d-block');
-                full.classList.add('d-none');
-                empty.classList.remove('d-none');
-                empty.classList.add('d-block');
-                checkout.classList.remove('d-block');
-                checkout.classList.add('d-none');
+            //document.getElementById('total').textContent = response.total.toFixed(2);
+            //document.getElementById('total-items').textContent = response.totalItems;
+            /*productRow.remove();*/
+            const items = document.querySelector('#cart-items');
+            console.log(items);
+            items.innerHTML = response;
+            //if (response.items.length === 0) {
+            //    console.log(response.items.length);
+            //    const full = document.querySelector('.full-cart');
+            //    const empty = document.querySelector('.empty-cart');
+            //    const checkout = document.querySelector('.checkout-panel');
+            //    full.classList.remove('d-block');
+            //    full.classList.add('d-none');
+            //    empty.classList.remove('d-none');
+            //    empty.classList.add('d-block');
+            //    checkout.classList.remove('d-block');
+            //    checkout.classList.add('d-none');
                 
                 
-            }
+            //}
         },
         error: function (response) {
             console.log(response);

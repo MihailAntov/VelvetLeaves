@@ -29,7 +29,7 @@
 					<div class="card-body">
 						<p class="card-text"><strong>Date:</strong>@order.Date.ToString("dd MMMM yyyy")</p>
 						<p class="card-text"><strong>Recipient:</strong>@order.FirstName @order.LastName</p>
-						<p class="card-text"><strong>Total Amount:</strong> @order.Total @await helperService.Currency()</p>
+						<p class="card-text"><strong>Total Amount:</strong> @order.Total.ToString("f2") @await helperService.Currency()</p>
 						<p class="card-text"><strong>Status:</strong> @order.Status</p>
 						<p></p>
 					</div>

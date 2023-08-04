@@ -5,8 +5,8 @@ using VelvetLeaves.ViewModels.Colors;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
-	[Area("Admin")]
-	[Authorize(Roles = "Admin,Moderator")]
+	[Area(AdminAreaName)]
+	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
 	public class ColorsController : Controller
 	{
 		private readonly IColorService _colorService;

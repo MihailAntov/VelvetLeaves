@@ -54,7 +54,7 @@ namespace VelvetLeaves.Web.App.Controllers
             var newCart = _shoppingCartService.DeleteItemFromShoppingCart(productId);
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
 
-            return Json(model);
+            return PartialView("ShoppingCart",model);
         }
 
         [HttpPost]
