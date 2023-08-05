@@ -9,6 +9,7 @@ using VelvetLeaves.Web.Infrastructure.Extensions;
 using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Web.Infrastructure.Services;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
+using VelvetLeaves.Web.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +42,10 @@ builder.Services.ConfigureExternalCookie(options =>
     options.LogoutPath = "/Home/Index";
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options=>
+{
+    options.Filters.Add<LoggingActionFilter>();
+});
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

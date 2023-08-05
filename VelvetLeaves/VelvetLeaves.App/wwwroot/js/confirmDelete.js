@@ -1,6 +1,10 @@
-﻿const deleteButtons = document.querySelectorAll('#delete-button');
+﻿const deleteButtons = document.querySelectorAll('.delete-button');
 
 
-deleteButtons.forEach(b => b.setAttribute("onclick", "return confirm('Are you sure?'"));
+deleteButtons.forEach(b => b.addEventListener('click', confirmDelete));
+
+function confirmDelete(e) {
+    return confirm(`Are you sure? ${e}`)
+}
 
 

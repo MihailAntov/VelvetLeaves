@@ -71,7 +71,7 @@
 																	<p class="w-auto p-3 d-inline-flex p-2 mb-auto mt-auto"> @product.Name </p>
 																	<img class="col-sm-1 d-infline-flex  ms-auto md-4" style="width:120px" src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)">
 																	<a asp-controller="Products" asp-action="Edit" asp-route-productId="@product.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-secondary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-																	<a onclick="return confirm('Are you sure? This will delete this product.')" asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+																	<a asp-controller="Products" asp-action="Delete" asp-route-productId="@product.Id" asp-route-categoryId="@category.Id" asp-route-subcategoryId="@subcategory.Id" asp-route-productSeriesId="@series.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 
 
 																</div>

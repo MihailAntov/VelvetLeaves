@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Category;
 using static VelvetLeaves.Common.ApplicationConstants;
+using static VelvetLeaves.Web.Infrastructure.Extensions.ControllerExtensions;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
@@ -12,13 +14,20 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     {
         private readonly IImageService _imageService;
         private readonly ICategoryService _categoryService;
-        public CategoriesController(IImageService imageService, ICategoryService categoryService)
+        private readonly ILogger<CategoriesController> logger;
+        public CategoriesController(
+            IImageService imageService,
+            ICategoryService categoryService,
+            ILogger<CategoriesController> logger)
         {
             _imageService = imageService;
             _categoryService = categoryService;
+            this.logger = logger;
         }
 
         [HttpGet]
+        [DisplayName("Add")]
+        
         public IActionResult Add()
         {
             return View();
@@ -78,6 +87,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         }
 
 		[HttpGet]
+        [DisplayName("Delete")]
         public async Task<IActionResult> Delete(int categoryId)
 		{
             await _categoryService.DeleteAsync(categoryId);
