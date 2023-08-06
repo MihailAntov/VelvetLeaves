@@ -13,7 +13,9 @@ namespace VelvetLeaves.ViewModels.Category
 		public int Id { get; set; }
 
         [Required]
-        [StringLength(NameMaxLength, MinimumLength =NameMinLength, ErrorMessage ="Name should be between {1} and {0} symbols.")]
+		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        [DataType(DataType.Text)]
+		[RegularExpression(@"[\w\-]+", ErrorMessage = "Invalid symbol in name.")]
 		public string Name { get; set; } = null!;
 
         [Required]
