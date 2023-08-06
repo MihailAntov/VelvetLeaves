@@ -9,25 +9,43 @@ using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.ViewModels.Subcategory;
 using VelvetLeaves.ViewModels.Tag;
 
+using static VelvetLeaves.Common.ValidationConstants.Product;
+using static VelvetLeaves.Common.ValidationConstants.Common;
+
 namespace VelvetLeaves.ViewModels.Product
 {
     public class ProductFormViewModel
     {
-        public string Name { get; set; }
-        //public string DefaultName { get; set; }
+        [Required]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        //[RegularExpression(StringInputRegex)]
+        public string Name { get; set; } = null!;
 
-        public decimal Price { get; set; }
-        //public decimal DefaultPrice { get; set; }
-
-        public string Description { get; set; }
-        //public string DefaultDescription { get; set; } = null!;
 
         [Required]
-        public IEnumerable<IFormFile> Images { get; set; } = null!;
-        public IEnumerable<string>? ImageIds { get; set; } 
+        [Range(MinPrice, MaxPrice)]
+        public decimal Price { get; set; }
 
+        [Required]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        [DataType(DataType.Text)]
+        //[RegularExpression(StringInputRegex)]
+
+        public string Description { get; set; } = null!;
+
+        [Required]
+        //[FileExtensions(ErrorMessage = "Invalid file.")]
+        public IEnumerable<IFormFile> Images { get; set; } = null!;
+
+        public IEnumerable<string>? ImageIds { get; set; }
+
+        [Required]
         public  int ProductSeriesId { get; set; }
+
+        [Required]
         public int SubcategoryId { get; set; }
+
+        [Required]
         public int CategoryId { get; set; }
 
 

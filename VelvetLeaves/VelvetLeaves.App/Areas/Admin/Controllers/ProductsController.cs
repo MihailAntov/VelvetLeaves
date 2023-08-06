@@ -14,30 +14,15 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
-        private readonly ISubcategoryService _subcategoryService;
         private readonly IProductSeriesService _productSeriesService;
-        private readonly IColorService _colorService;
-        private readonly IMaterialService _materialService;
-        private readonly ITagService _tagService;
         private readonly IImageService _imageService;
         public ProductsController(
             IProductService productService,
-            ICategoryService categoryService,
-            ISubcategoryService subcategoryService,
             IProductSeriesService productSeriesService,
-            IColorService colorService,
-            IMaterialService materialService,
-            ITagService tagService,
             IImageService imageService)
         {
             _productService = productService;
-            _categoryService = categoryService;
-            _subcategoryService = subcategoryService;
             _productSeriesService = productSeriesService;
-            _colorService = colorService;
-            _materialService = materialService;
-            _tagService = tagService;
             _imageService = imageService;   
         }
         /// <summary>
@@ -54,8 +39,16 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int productId)
         {
+            try
+            {
             var model = await _productService.GetFormForEditAsync(productId);
             return View(model);
+
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -117,16 +110,34 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> FetchDefaultValues(int productSeriesId)
         {
-            var model = await _productSeriesService.GetDefaultValues(productSeriesId);
-            return Json(model);
+            try
+            {
+                var model = await _productSeriesService.GetDefaultValues(productSeriesId);
+                return Json(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
+            
         }
 
 		[HttpGet]
         public async Task<IActionResult> Delete(int productId, int categoryId, int subcategoryId, int productSeriesId)
 		{
+            try
+            {
             await _productService.DeleteAsync(productId);
 
             return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}&subcategoryId={subcategoryId}&productSeriesId={productSeriesId}");
+
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
 
         }
     }

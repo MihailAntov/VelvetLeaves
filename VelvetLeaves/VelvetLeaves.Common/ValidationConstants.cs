@@ -16,6 +16,9 @@ namespace VelvetLeaves.Common
             public const int NameMaxLength = 50;
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 250;
+
+            public const double MinPrice = 0.01;
+            public const double MaxPrice = 999999.99;
         }
 
         public static class Category

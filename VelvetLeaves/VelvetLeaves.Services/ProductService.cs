@@ -13,6 +13,7 @@ using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.ViewModels.Material;
 using VelvetLeaves.ViewModels.Tag;
+using Microsoft.Extensions.Logging;
 
 namespace VelvetLeaves.Services
 {
@@ -27,6 +28,7 @@ namespace VelvetLeaves.Services
         private readonly IColorService _colorService;
         private readonly IImageService _imageService;
         private readonly IGalleryService _galleryService;
+        private readonly ILogger _logger;
         public ProductService(
             VelvetLeavesDbContext context,
             ICategoryService categoryService,
@@ -36,7 +38,8 @@ namespace VelvetLeaves.Services
             IMaterialService materialService,
             IColorService colorService,
             IImageService imageService,
-            IGalleryService galleryService
+            IGalleryService galleryService,
+            ILogger<ProductService> logger
             )
         {
             _context = context;
@@ -48,6 +51,7 @@ namespace VelvetLeaves.Services
             _colorService = colorService;
             _imageService = imageService;
             _galleryService = galleryService;
+            _logger = logger;
         }
 
         public async Task<bool> ExistsByIdAsync(int id)
@@ -58,6 +62,12 @@ namespace VelvetLeaves.Services
 
         public async Task<ProductDetailsViewModel> DetailsByIdAsync(int id)
         {
+            if(!await ExistsByIdAsync(id))
+            {
+                _logger.LogError($"Product with id {id} not found.");
+                throw new InvalidOperationException();
+            }
+            
             ProductDetailsViewModel model = await _context
                 .Products
                 .Where(p => p.Id == id && p.IsActive)
@@ -90,9 +100,10 @@ namespace VelvetLeaves.Services
                                         ImageId = lp.Images.Select(i=> i.Id).First(),
                                         Price =lp.Price,
                                         Colors = lp.Colors.Select(c=>c.ColorValue).ToHashSet()
-                                    }).ToArray()
+                                    })
                                     
                 }).FirstAsync();
+
 
             return model;
         }
@@ -113,7 +124,7 @@ namespace VelvetLeaves.Services
 
             if(model.SearchString != null)
 			{
-                products = products.Where(p => p.Name.Contains(model.SearchString.ToLower()));
+                products = products.Where(p => p.Name.ToLower().Contains(model.SearchString.ToLower()));
 			}
 
 			if (model.ColorIds.Any())
@@ -131,8 +142,10 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.Tags.Any(t => model.Tags.Contains(t.Name)));
             }
 
+            int maxPages = (int)Math.Ceiling((double)products.Count() / (double)model.ProductsPerPage);
+
             var productsFiltered = await products
-                .Skip(model.CurrentPage - 1)
+                .Skip((model.CurrentPage - 1) * model.ProductsPerPage)
                 .Take(model.ProductsPerPage)
                 .Select(p => new ProductListViewModel()
                 {
@@ -142,6 +155,7 @@ namespace VelvetLeaves.Services
                     Price = p.Price
                 }).ToArrayAsync();
 
+            _logger.LogInformation($"Returning {products.Count()} total products.");
             return new ProductsFilteredAndPagedServiceModel()
             {
                 Products = productsFiltered,
@@ -258,6 +272,11 @@ namespace VelvetLeaves.Services
 
         public async Task<ProductEditFormViewModel> GetFormForEditAsync(int productId)
         {
+            if(!await ExistsByIdAsync(productId))
+            {
+                throw new ArgumentException();
+            }
+
             var model = await _context.Products
                 .Where(p => p.Id == productId && p.IsActive)
                 .Select(p => new ProductEditFormViewModel()
@@ -348,6 +367,11 @@ namespace VelvetLeaves.Services
 
 		public async Task DeleteAsync(int productId)
 		{
+            if(!await ExistsByIdAsync(productId))
+            {
+                throw new ArgumentException();
+            }
+            
             var product = await _context.Products
                 .FirstAsync(p => p.Id == productId);
 
@@ -359,7 +383,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<ProductForCartDto>> GetProductsForCart(IEnumerable<int> productIds)
         {
             var productDtos = await _context.Products
-                .Where(p => productIds.Contains(p.Id))
+                .Where(p => productIds.Contains(p.Id) && p.IsActive)
                 .Select(p => new ProductForCartDto()
                 {
                     Id = p.Id,
@@ -371,10 +395,7 @@ namespace VelvetLeaves.Services
             return productDtos;
         }
 
-        public async Task<bool> ProductExistsAsync(int productId)
-        {
-            return await _context.Products.AnyAsync(p => p.Id == productId && p.IsActive);
-        }
+        
 
         
     }

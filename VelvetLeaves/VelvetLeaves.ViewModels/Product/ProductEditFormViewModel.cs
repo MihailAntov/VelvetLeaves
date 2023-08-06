@@ -12,23 +12,40 @@ using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.ViewModels.Subcategory;
 using VelvetLeaves.ViewModels.Tag;
 
+using static VelvetLeaves.Common.ValidationConstants.Product;
+using static VelvetLeaves.Common.ValidationConstants.Common;
+
 namespace VelvetLeaves.ViewModels.Product
 {
     public class ProductEditFormViewModel
     {
+        [Required]
         public int Id { get; set; }
 
+        [Required]
+        [RegularExpression(StringInputRegex)]
+        [DataType(DataType.Text)]
         public string Name { get; set; } = null!;
 
+        [Required]
+        [Range(MinPrice, MaxPrice)]
         public decimal Price { get; set; }
 
+        [Required]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        [DataType(DataType.Text)]
+        [RegularExpression(StringInputRegex)]
         public string Description { get; set; } = null!;
 
+        [Required]
         public int CategoryId { get; set; }
+        [Required]
         public int SubcategoryId { get; set; }
+
+        [Required]
         public int ProductSeriesId { get; set; }
 
-        
+        [FileExtensions(ErrorMessage = "Invalid file.")]
         public IEnumerable<IFormFile>? Images { get; set; } 
         public IList<string>? ImageIds { get; set; }
 

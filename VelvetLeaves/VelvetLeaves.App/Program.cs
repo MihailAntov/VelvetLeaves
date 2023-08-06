@@ -47,7 +47,7 @@ builder.Services.AddControllersWithViews(options=>
 {
     options.Filters.Add<LoggingActionFilter>();
     options.Filters.Add<ImageResourceFilter>();
-    options.Filters.Add<StringResourceFilter>();
+    //options.Filters.Add<StringResourceFilter>();
 
 });
 builder.Services.AddHttpContextAccessor();

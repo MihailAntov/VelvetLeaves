@@ -10,7 +10,7 @@ using VelvetLeaves.ViewModels.Category;
 
 namespace VelvetLeaves.Services.UnitTests
 {
-    public class Tests
+    public class CategoryServiceUnitTests
     {
         public VelvetLeavesDbContext _dbContext;
         public CategoryService _categoryService;

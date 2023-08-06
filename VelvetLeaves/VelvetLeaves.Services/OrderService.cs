@@ -106,7 +106,7 @@ namespace VelvetLeaves.Services
         {
             foreach(var item in model.Items)
             {
-                if(!await _productService.ProductExistsAsync(item.Id))
+                if(!await _productService.ExistsByIdAsync(item.Id))
                 {
                     return false;
                 }
