@@ -4,6 +4,12 @@ namespace VelvetLeaves.Common
 {
     public static class ValidationConstants
     {
+        public static class Common
+        {
+            public const string StringInputRegex = @"[\w\-]+";
+            public const string StringInputRegexErrorMessage = "Invalid symbol in name.";
+        }
+        
         public static class Product
         {
             public const int NameMinLength = 4;
@@ -49,6 +55,8 @@ namespace VelvetLeaves.Common
             public const int LastNameMaxLength = 20;
             public const int PhoneNumberMinLength = 3;
             public const int PhoneNumberMaxLength = 15;
+
+            public const string PhoneRegex = @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$";
 
         }
 

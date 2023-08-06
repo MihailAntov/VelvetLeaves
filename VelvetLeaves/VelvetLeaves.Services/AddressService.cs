@@ -36,6 +36,7 @@ namespace VelvetLeaves.Services
 
 		public async Task<AddressFormViewModel?> GetAddressByIdAsync(string addressId)
 		{
+			
 			var address = await  _context.Addresses
 				.Where(a => a.Id.ToString() == addressId)
 				.Select(a => new AddressFormViewModel()
@@ -50,12 +51,19 @@ namespace VelvetLeaves.Services
 					LastName = a.LastName
 				}).FirstOrDefaultAsync();
 
+			if(address == null)
+            {
+				throw new InvalidOperationException();
+            }
+
 
 			return address;
 		}
 
 		public async Task<IEnumerable<AddressListViewModel>> GetAddressOptionsAsync(string userId)
 		{
+			
+			
 			var options = await _context
 				.Addresses
 				.Where(a => a.UserId == userId)
@@ -76,10 +84,17 @@ namespace VelvetLeaves.Services
 
 		public async Task UpdateAsync(string id, AddressFormViewModel model)
 		{
+			
+			
 			var address = await _context
 				.Addresses
 				.Where(a => a.Id.ToString() == id)
-				.FirstAsync();
+				.FirstOrDefaultAsync();
+
+			if(address == null)
+            {
+				throw new InvalidOperationException();
+            }
 
 			address.FirstName = model.FirstName;
 			address.LastName = model.LastName;
@@ -87,6 +102,8 @@ namespace VelvetLeaves.Services
 			address.City = model.City;
 			address.Country = model.Country;
 			address.ZipCode = model.ZipCode;
+			address.StreetAddress = model.Address;
+			
 
 			await _context.SaveChangesAsync();
 

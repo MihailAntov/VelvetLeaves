@@ -12,7 +12,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<IEnumerable<AddressListViewModel>> GetAddressOptionsAsync(string userId);
         Task AddAsync(AddressFormViewModel model, string userId);
 
-        Task<AddressFormViewModel> GetAddressByIdAsync(string addressId);   
+        Task<AddressFormViewModel?> GetAddressByIdAsync(string addressId);   
 
         Task UpdateAsync(string id, AddressFormViewModel model);
     }

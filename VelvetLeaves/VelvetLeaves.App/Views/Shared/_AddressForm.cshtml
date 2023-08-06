@@ -5,17 +5,17 @@
 		<div class="col-6 col-md-4 mb-3">
 			<label asp-for="FirstName">First Name</label>
 			<input class="form-control" asp-for="FirstName" />
-			<span asp-validation-for="FirstName"></span>
+			<span class="text-danger" asp-validation-for="FirstName"></span>
 		</div>
 		<div class="col-6 col-md-4 mb-3">
 			<label asp-for="LastName">Last Name</label>
 			<input class="form-control" asp-for="LastName" />
-			<span asp-validation-for="LastName"></span>
+			<span class="text-danger" asp-validation-for="LastName"></span>
 		</div>
 		<div class="col-md-5 mb-3">
 			<label asp-for="PhoneNumber">Phone</label>
 			<input class="form-control" asp-for="PhoneNumber" />
-			<span asp-validation-for="PhoneNumber"></span>
+			<span class="text-danger" asp-validation-for="PhoneNumber"></span>
 		</div>
 	</div>
 
@@ -23,17 +23,17 @@
 		<div class="col col-md-3">
 			<label asp-for="Country">Country</label>
 			<input class="form-control" asp-for="Country" />
-			<span asp-validation-for="Country"></span>
+			<span class="text-danger" asp-validation-for="Country"></span>
 		</div>
 		<div class="col col-md-3">
 			<label asp-for="City">City</label>
 			<input class="form-control" asp-for="City" />
-			<span asp-validation-for="City"></span>
+			<span class="text-danger" asp-validation-for="City"></span>
 		</div>
 		<div class="col col-md-3">
 			<label asp-for="ZipCode">Zip Code</label>
 			<input class="form-control" asp-for="ZipCode" />
-			<span asp-validation-for="ZipCode"></span>
+			<span class="text-danger" asp-validation-for="ZipCode"></span>
 		</div>
 	</div>
 
@@ -42,12 +42,13 @@
 		<div class="">
 			<label asp-for="Address">Address</label>
 			<textarea class="form-control" asp-for="Address">
-
 			</textarea>
-			<span asp-validation-for="Address"></span>
+			<span class="text-danger" asp-validation-for="Address"></span>
 		</div>
 
 	</div>
 
 
 </div>
+
+			
