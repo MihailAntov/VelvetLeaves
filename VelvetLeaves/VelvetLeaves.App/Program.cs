@@ -10,6 +10,7 @@ using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Web.Infrastructure.Services;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 using VelvetLeaves.Web.Infrastructure.Filters;
+using Ganss.Xss;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,8 @@ builder.Services.AddControllersWithViews(options=>
 {
     options.Filters.Add<LoggingActionFilter>();
     options.Filters.Add<ImageResourceFilter>();
+    options.Filters.Add<StringResourceFilter>();
+
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
@@ -71,7 +74,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IHelperService, HelperService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
-
+builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
 
 
 var app = builder.Build();

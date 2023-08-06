@@ -41,7 +41,7 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
             }
 
             // The resource filter is finished processing. Continue to the action.
-            var result = await next();
+            await next();
         }
 
         private bool IsValidExtension(string fileName)
