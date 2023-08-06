@@ -9,6 +9,7 @@ namespace VelvetLeaves.App.Controllers
     {
 
         private readonly IGalleryService _galleryService;
+
 		public HomeController(IGalleryService galleryService)
 		{
             _galleryService = galleryService;

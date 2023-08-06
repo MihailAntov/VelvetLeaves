@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Services.Contracts;
@@ -11,12 +12,16 @@ namespace VelvetLeaves.Services
 	public class AddressService : IAddressService
 	{
 		private readonly VelvetLeavesDbContext _context;
-		public AddressService(VelvetLeavesDbContext context)
-		{
-			_context = context;
-		}
+		private readonly ILogger _logger;
+		public AddressService(
+            VelvetLeavesDbContext context
+			, ILogger<AddressService> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
 
-		public async Task AddAsync(AddressFormViewModel model, string userId)
+        public async Task AddAsync(AddressFormViewModel model, string userId)
 		{
 			var address = new Address()
 			{
@@ -53,6 +58,7 @@ namespace VelvetLeaves.Services
 
 			if(address == null)
             {
+				_logger.LogWarning($"Address with id {addressId} not found. ");
 				throw new InvalidOperationException();
             }
 
@@ -93,6 +99,7 @@ namespace VelvetLeaves.Services
 
 			if(address == null)
             {
+				_logger.LogError($"Address with id {id} not found for edit.");
 				throw new InvalidOperationException();
             }
 

@@ -1,6 +1,8 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.ViewModels.Address;
@@ -11,7 +13,10 @@ namespace VelvetLeaves.Services.UnitTests
     public class AddressServiceUnitTests
     {
         private VelvetLeavesDbContext _dbContext;
+        private Mock<ILogger<AddressService>> _mockLogger;
+        private ILogger<AddressService> _logger;
         private AddressService _addressService;
+
 
         [SetUp]
         public void Setup()
@@ -21,7 +26,9 @@ namespace VelvetLeaves.Services.UnitTests
                 .Options;
 
             _dbContext = new VelvetLeavesDbContext(options);
-            _addressService = new AddressService(_dbContext);
+            _mockLogger = new Mock<ILogger<AddressService>>();
+            _logger = _mockLogger.Object;
+            _addressService = new AddressService(_dbContext, _logger);
         }
 
         [TearDown]

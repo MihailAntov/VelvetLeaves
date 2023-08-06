@@ -92,7 +92,7 @@ namespace VelvetLeaves.Services
 
             if(model == null)
             {
-                _logger.LogWarning($"Category with id {categoryId} for edit not found.");
+                _logger.LogError($"Category with id {categoryId} for edit not found.");
                 throw new ArgumentException();
             }
             _logger.LogInformation($"Returning category {model.Name} for edit. ");
@@ -120,7 +120,7 @@ namespace VelvetLeaves.Services
         {
             if(!await CategoryExistsByIdAsync(categoryId))
             {
-                _logger.LogWarning($"Category with id {categoryId} for delete not found. ");
+                _logger.LogError($"Category with id {categoryId} for delete not found. ");
                 throw new ArgumentException();
             }
 

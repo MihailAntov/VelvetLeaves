@@ -33,17 +33,6 @@ namespace VelvetLeaves.Web.App.Controllers
             return View(galleries);
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> Featured()
-        {
-            //TODO replace 1 with app preferences variable
-
-            var featuredGallery = await galleryService.GetGalleryByIdAsync(1);
-            if (featuredGallery == null)
-            {
-                return NotFound();
-            }
-            return View("Show", featuredGallery);
-        }
+        
     }
 }
