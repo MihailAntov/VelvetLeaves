@@ -52,7 +52,7 @@ namespace VelvetLeaves.Services
 
         public async Task<bool> ExistsByIdAsync(int id)
         {
-            var result = await _context.Products.AnyAsync(p => p.Id == id);
+            var result = await _context.Products.AnyAsync(p => p.Id == id && p.IsActive);
             return result;
         }
 

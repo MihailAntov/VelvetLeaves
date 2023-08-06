@@ -90,7 +90,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [DisplayName("Delete")]
         public async Task<IActionResult> Delete(int categoryId)
 		{
+            try
+            {
             await _categoryService.DeleteAsync(categoryId);
+
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
             return RedirectToAction("All", "Products");
         }
     }

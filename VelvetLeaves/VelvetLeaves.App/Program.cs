@@ -45,6 +45,7 @@ builder.Services.ConfigureExternalCookie(options =>
 builder.Services.AddControllersWithViews(options=>
 {
     options.Filters.Add<LoggingActionFilter>();
+    options.Filters.Add<ImageResourceFilter>();
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();

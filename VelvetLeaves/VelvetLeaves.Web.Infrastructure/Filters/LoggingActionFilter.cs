@@ -55,6 +55,8 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
             string message = "Action {0} in controller {1} hit by user {2} at {3}";
             int code = 0;
 
+            
+
             if(filterContext.HttpContext.Request.Method == "GET")
             {
                 code = 1000;

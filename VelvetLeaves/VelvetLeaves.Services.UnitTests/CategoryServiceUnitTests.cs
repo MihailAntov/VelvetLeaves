@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
@@ -14,10 +15,12 @@ namespace VelvetLeaves.Services.UnitTests
         public VelvetLeavesDbContext _dbContext;
         public CategoryService _categoryService;
 
-        public IImageService _imageService;
-        public IGalleryService _galleryService;
+        public IImageService imageService;
+        public IGalleryService galleryService;
+        public ILogger<CategoryService> logger;
         public Mock<IImageService> _mockImageService;
         public Mock<IGalleryService> _mockGalleryService;
+        public Mock<ILogger<CategoryService>> _mockLogger;
 
 
         [SetUp]
@@ -30,11 +33,14 @@ namespace VelvetLeaves.Services.UnitTests
             _dbContext = new VelvetLeavesDbContext(options);
             _mockGalleryService = new Mock<IGalleryService>();
             _mockImageService = new Mock<IImageService>();
+            _mockLogger = new Mock<ILogger<CategoryService>>();
 
-            IImageService imageService = _mockImageService.Object;
-            IGalleryService galleryService = _mockGalleryService.Object;
+            imageService = _mockImageService.Object;
+            galleryService = _mockGalleryService.Object;
+            logger = _mockLogger.Object;
 
-            _categoryService = new CategoryService(_dbContext, imageService, galleryService);
+
+            _categoryService = new CategoryService(_dbContext, imageService, galleryService, logger);
         }
 
 

@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http;
 using VelvetLeaves.Service.Models.ShoppingCart;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Order;
 using VelvetLeaves.Web.Infrastructure.Extensions;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
@@ -11,17 +12,26 @@ namespace VelvetLeaves.Web.Infrastructure.Services
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ShoppingCartService(IHttpContextAccessor httpContextAccessor)
+        private readonly IProductService _productService;
+        public ShoppingCartService(IHttpContextAccessor httpContextAccessor, IProductService productService)
         {
             _httpContextAccessor = httpContextAccessor;
+            _productService = productService;
         }
 
-        public ShoppingCart AddOneItemToShoppingCart(int productId)
+        public async Task<ShoppingCart> AddOneItemToShoppingCart(int productId)
         {
+            
+            
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
             if(cart == null)
             {
                 cart = new ShoppingCart();
+            }
+
+            if (!await _productService.ExistsByIdAsync(productId))
+            {
+                return cart;
             }
 
             var product = cart.Items.FirstOrDefault(i => i.Id == productId);

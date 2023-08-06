@@ -4,7 +4,9 @@
 deleteButtons.forEach(b => b.addEventListener('click', confirmDelete));
 
 function confirmDelete(e) {
-    return confirm(`Are you sure? ${e}`)
+    if (!confirm(`Are you sure?`)) {
+        e.preventDefault();
+    }
 }
 
 

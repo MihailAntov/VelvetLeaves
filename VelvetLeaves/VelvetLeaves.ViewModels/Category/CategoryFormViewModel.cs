@@ -9,7 +9,7 @@ namespace VelvetLeaves.ViewModels.Category
 		[Required]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
-        //[RegularExpression(@"[\w\-]+",ErrorMessage = "Invalid name.")]
+        [RegularExpression(@"[\w\-]+",ErrorMessage = "Invalid name.")]
         public string Name { get; set; } = null!;
 
 
