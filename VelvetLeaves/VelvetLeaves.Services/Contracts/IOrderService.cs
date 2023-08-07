@@ -23,6 +23,11 @@ namespace VelvetLeaves.Services.Contracts
         Task<OrderProcessViewModel> DetailsAsync(string orderId);
 
         Task ChangeStatusAsync(string orderId, OrderStatus status);
-        
+
+        Task<string> AddAdminNoteAsync(string note, string orderId);
+
+        Task<bool> ExistsByIdAsync(string orderId);
+
+
     }
 }

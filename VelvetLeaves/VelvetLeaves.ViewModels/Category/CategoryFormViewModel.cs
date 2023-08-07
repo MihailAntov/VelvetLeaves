@@ -17,6 +17,7 @@ namespace VelvetLeaves.ViewModels.Category
 
         [Required(ErrorMessage = "Please select a file.")]
         [DataType(DataType.Upload)]
+        [ImageInput]
         public IFormFile Image { get; set; } = null!;
     }
 }

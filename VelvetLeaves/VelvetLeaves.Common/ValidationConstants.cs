@@ -96,7 +96,10 @@ namespace VelvetLeaves.Common
 
         public static class Order
         {
+            public const int NoteMinLength = 0;
             public const int NoteMaxLength = 255;
+            public const int EmailMinLength = 5;
+            public const int EmailMaxLength = 320;
         }
     }
 }

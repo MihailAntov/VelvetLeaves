@@ -11,6 +11,7 @@ using VelvetLeaves.ViewModels.Tag;
 
 using static VelvetLeaves.Common.ValidationConstants.Product;
 using static VelvetLeaves.Common.ValidationConstants.Common;
+using VelvetLeaves.Common.Validation;
 
 namespace VelvetLeaves.ViewModels.Product
 {
@@ -34,7 +35,7 @@ namespace VelvetLeaves.ViewModels.Product
         public string Description { get; set; } = null!;
 
         [Required]
-        //[FileExtensions(ErrorMessage = "Invalid file.")]
+        [ImageInput]
         public IEnumerable<IFormFile> Images { get; set; } = null!;
 
         public IEnumerable<string>? ImageIds { get; set; }

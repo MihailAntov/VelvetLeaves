@@ -23,7 +23,7 @@ namespace VelvetLeaves.ViewModels.Category
         [Required]
 		public string ImageId { get; set; } = null!;
 
-        
+		[ImageInput]
 		public IFormFile? Image { get; set; }
 	}
 }

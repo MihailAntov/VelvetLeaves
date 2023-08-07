@@ -57,6 +57,9 @@ namespace VelvetLeaves.Data.Models
         [MaxLength(NoteMaxLength)]
         public string? AdminNote { get; set; }
 
+        [MaxLength(EmailMaxLength)]
+        public string? Email { get; set; }
+
 
 
     }

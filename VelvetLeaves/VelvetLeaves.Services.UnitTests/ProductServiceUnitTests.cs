@@ -269,7 +269,7 @@ namespace VelvetLeaves.Tests
         }
 
         [Test]
-        public async Task DetailsByIdAsync_InactiveProductId_ShouldThrowInvalidOperationException()
+        public void DetailsByIdAsync_InactiveProductId_ShouldThrowInvalidOperationException()
         {
             // Arrange
             var productId = 3; // Inactive product ID in the seed data
@@ -279,7 +279,7 @@ namespace VelvetLeaves.Tests
         }
 
         [Test]
-        public async Task DetailsByIdAsync_InvalidProductId_ShouldThrowInvalidOperationException()
+        public void DetailsByIdAsync_InvalidProductId_ShouldThrowInvalidOperationException()
         {
             // Arrange
             var productId = 99; // Non-existing product ID
@@ -668,7 +668,7 @@ namespace VelvetLeaves.Tests
         [TestCase(1,1,999)]
         [TestCase(1,999,1)]
         [TestCase(999,1,1)]
-        public async Task AddAsync_Should_Throw_Exception_When_Subcategory_Or_ProductSeries_Does_Not_Exist(int category, int subcategory, int series)
+        public void AddAsync_Should_Throw_Exception_When_Subcategory_Or_ProductSeries_Does_Not_Exist(int category, int subcategory, int series)
         {
             // Arrange
             var model = new ProductFormViewModel

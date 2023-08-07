@@ -25,7 +25,22 @@ namespace VelvetLeaves.Services
             _helperService = helperService;
         }
 
+        public async Task<string> AddAdminNoteAsync(string note, string orderId)
+        {
+            if(!await ExistsByIdAsync(orderId))
+            {
+                throw new InvalidOperationException();
+            }
+            
+            var order = await _context.Orders
+                .Where(o=> o.Id.ToString() == orderId)
+                .FirstAsync();
 
+            order.AdminNote = note;
+            await _context.SaveChangesAsync();
+            return note;
+
+        }
 
         public async Task<AllOrderProcessViewModel> AllAsync(OrderStatus status)
 		{
@@ -146,6 +161,7 @@ namespace VelvetLeaves.Services
                     StreetAddress = o.StreetAddress,
                     ZipCode = o.ZipCode,
                     Total = o.OrdersProducts.Select(op => op.Product.Price * op.Quantity).Sum(),
+                    AdminNote = o.AdminNote,
                     Products = o.OrdersProducts
                                 .Select(op => new OrderProductListViewModel()
                                 {
@@ -166,6 +182,12 @@ namespace VelvetLeaves.Services
                 }).FirstAsync();
 
             return order;
+        }
+
+        public async Task<bool> ExistsByIdAsync(string orderId)
+        {
+            return await _context.Orders
+                .AnyAsync(o => o.Id.ToString() == orderId);
         }
 
         public CheckoutFormViewModel GetCheckoutInfo(ShoppingCartViewModel cart)
@@ -227,7 +249,8 @@ namespace VelvetLeaves.Services
                     ProductId = i.Id,
                     Quantity = i.Quantity
                 }).ToArray(),
-				DateTime = DateTime.UtcNow
+				DateTime = DateTime.UtcNow,
+                Email = model.Email
             };
 
             await _context.Orders.AddAsync(order);

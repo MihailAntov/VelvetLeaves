@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VelvetLeaves.Common.Enums;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Order;
 using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.App.Areas.Admin.Controllers
@@ -41,6 +42,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         {
 			var model = await _orderService.AllAsync(status);
 			return PartialView("_OrderList", model);
+        }
+
+        [HttpPost]
+		public async Task<IActionResult> AddAdminNote(string note, string orderId)
+        {
+            
+
+			var result = await _orderService.AddAdminNoteAsync(note, orderId);
+
+			return Json(result);
         }
 
 	

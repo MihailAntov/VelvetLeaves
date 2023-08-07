@@ -21,14 +21,36 @@ namespace VelvetLeaves.Common.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value != null  && value is IEnumerable<IFormFile> files)
+            if (value != null && value is IEnumerable<IFormFile> files)
             {
-                
-                foreach(var file in files)
+
+                foreach (var file in files)
                 {
 
-                
-                // Verify the file extension
+                    // Verify the file extension
+                    if (!IsValidExtension(file.FileName))
+                    {
+                        return new ValidationResult("Invalid file format.Only JPG, JPEG, PNG, and GIF are allowed.");
+                    }
+
+                    // Perform signature validation
+                    if (!IsValidSignature(file))
+                    {
+                        return new ValidationResult("Invalid file signature.");
+                    }
+
+                    // Check the file size
+                    if (file.Length > maxFileSizeBytes)
+                    {
+                        return new ValidationResult("File size exceeds the maximum allowed limit.");
+                    }
+
+
+                }
+
+            }
+            else if (value != null && value is IFormFile file)
+            {
                 if (!IsValidExtension(file.FileName))
                 {
                     return new ValidationResult("Invalid file format.Only JPG, JPEG, PNG, and GIF are allowed.");
@@ -45,10 +67,6 @@ namespace VelvetLeaves.Common.Validation
                 {
                     return new ValidationResult("File size exceeds the maximum allowed limit.");
                 }
-
-                
-                }
-
             }
 
             // Always return success since we have updated the value

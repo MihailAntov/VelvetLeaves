@@ -87,9 +87,12 @@ namespace VelvetLeaves.Web.App.Controllers
             {
                 return View(model);
             }
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                model.Email = User.FindFirstValue(ClaimTypes.Email);
+            }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             await _orderService.PlaceOrderAsync(model,userId);
 
 

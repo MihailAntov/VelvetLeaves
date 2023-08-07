@@ -21,5 +21,9 @@ namespace VelvetLeaves.ViewModels.Order
 		public string? ZipCode { get; set; }
 
 		public string PhoneNumber { get; set; } = null!;
+
+		public string? Email { get; set; }
+
+		public string? AdminNote { get; set; }
 	}
 }

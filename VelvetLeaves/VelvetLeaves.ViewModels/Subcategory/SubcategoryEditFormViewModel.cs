@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VelvetLeaves.Common.Validation;
 using VelvetLeaves.ViewModels.Category;
 
 namespace VelvetLeaves.ViewModels.Subcategory
@@ -14,6 +15,8 @@ namespace VelvetLeaves.ViewModels.Subcategory
 		public string Name { get; set; } = null!;
 
 		public int CategoryId { get; set; }
+
+		[ImageInput]
 		public IFormFile? Image { get; set; }
 
 		public string ImageId { get; set; } = null!;

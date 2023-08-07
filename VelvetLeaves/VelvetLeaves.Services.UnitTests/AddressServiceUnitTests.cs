@@ -103,7 +103,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task GetAddressByIdAsync_ShouldThrowExceptionIfAddressNotFound()
+        public  void GetAddressByIdAsync_ShouldThrowExceptionIfAddressNotFound()
         {
             // Arrange
             var addressId = Guid.NewGuid().ToString();
@@ -201,7 +201,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task UpdateAsync_ShouldThrowExceptionIfAddressNotFound()
+        public void UpdateAsync_ShouldThrowExceptionIfAddressNotFound()
         {
             // Arrange
             var addressId = Guid.NewGuid().ToString();
