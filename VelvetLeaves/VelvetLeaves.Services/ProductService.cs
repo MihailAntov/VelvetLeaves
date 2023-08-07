@@ -217,6 +217,21 @@ namespace VelvetLeaves.Services
 
         public async Task AddAsync(ProductFormViewModel model)
         {
+            var series = await _context.ProductSeries.FirstAsync(ps=> ps.Id == model.ProductSeriesId);
+            if(series.SubcategoryId != model.SubcategoryId)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var subcategory = await _context.Subcategories.FirstAsync(sc => sc.Id == model.SubcategoryId);
+            if (subcategory.CategoryId != model.CategoryId)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var category = await _context.Categories.FirstAsync(c=> c.Id == model.CategoryId);
+
+
             Product product = new Product()
             {
                 Name = model.Name,
@@ -303,6 +318,11 @@ namespace VelvetLeaves.Services
 
 		public async Task UpdateAsync(ProductEditFormViewModel model)
 		{
+            if(!await ExistsByIdAsync(model.Id))
+            {
+                throw new InvalidOperationException();
+            }
+            
             model.ImageIds = model.StartingImageIds!.ToList();
 			if (model.Images!= null)
 			{
@@ -316,15 +336,15 @@ namespace VelvetLeaves.Services
 					}
 				}
 			}
-            if(model.StartingImageIds != null && model.KeptImageIds != null)
-			{
+            //if(model.StartingImageIds != null && model.KeptImageIds != null)
+            
                 var imgsToDelete = model.StartingImageIds.Where(i => !model.KeptImageIds.Contains(i));
                 foreach(var img in imgsToDelete)
 				{
                     await _imageService.RemoveAsync(img);
                     model.ImageIds.Remove(img);
 				}
-			}
+			
 
             var product = await _context.Products
                 .Where(p => p.IsActive)
@@ -340,7 +360,7 @@ namespace VelvetLeaves.Services
             product.Materials = model.MaterialIds.Select(mId => _context.Materials.First(m => m.Id == mId)).ToList();
             product.Tags = model.TagIds.Select(tId => _context.Tags.First(t => t.Id == tId)).ToList();
 
-            var currentImages = product.Images;
+            var currentImages = product.Images.ToList();
 
             foreach(var image in currentImages)
 			{

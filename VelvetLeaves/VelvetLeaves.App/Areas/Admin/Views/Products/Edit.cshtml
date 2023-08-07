@@ -40,6 +40,7 @@
 			<div class="row">
 			@foreach(var imageId in Model.ImageIds){
 				<input hidden name=startingImageIds value="@imageId"/>
+				
 				<div class="col-md-2">
 						<img src="data:img/jpg;base64,@await imageService.GetAsync(imageId)"  class="card-img mb-2" alt="@Model.Name">
 						<a href="#" id="@imageId" class="text-decoration-none col-1 d-flex m-auto link-dark text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
@@ -53,7 +54,7 @@
 			<label asp-for="Images" class="form-label">Add more images:</label>
 			<input asp-for="Images" value="@Model.Images" type="file" multiple id="allImages" class="form-control file-input" hidden/>
 			<input value="" type="file" multiple id="imageBatch" class="form-control"/>
-			<span asp-validation-for="Price" class="text-danger"></span>
+			<span asp-validation-for="Images" class="text-danger"></span>
 			<div class="m-1 image-preview-gallery row">
 
 			</div>
@@ -120,4 +121,5 @@
 	<script src="~/js/uploadMultipleImages.js"></script>
 	<script src="~/js/deleteOldImages.js"></script>
 	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+	
 }

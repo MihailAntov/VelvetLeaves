@@ -1,13 +1,12 @@
 ﻿
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
+using System.ComponentModel.DataAnnotations;
 
-namespace VelvetLeaves.Web.Infrastructure.Filters
+namespace VelvetLeaves.Common.Validation
 {
-    public class ImageResourceFilter : IAsyncResourceFilter
+    public class ImageInputAttribute : ValidationAttribute
     {
-
         private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
         private readonly Dictionary<string, byte[]> expectedSignatures = new Dictionary<string, byte[]>
         {
@@ -15,39 +14,45 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
             {".jpeg",new byte[]{ 0xFF, 0xD8, 0xFF, 0xE0 } },
             {".png", new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A } }
         };
-        
+
+
+
         private readonly int maxFileSizeBytes = 10 * 1024 * 1024; // 10MB
-        public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (context.HttpContext.Request.HasFormContentType)
+            if (value != null  && value is IEnumerable<IFormFile> files)
             {
-                var form = await context.HttpContext.Request.ReadFormAsync();
-                var formFiles = form.Files;
-
-                foreach (var file in formFiles)
+                
+                foreach(var file in files)
                 {
-                    // Verify the file extension
-                    if (!IsValidExtension(file.FileName))
-                    {
-                        context.ModelState.AddModelError("Image", "Invalid file format. Only JPG, JPEG, PNG, and GIF are allowed.");
-                    }
 
-                    // Perform signature validation
-                    if (!IsValidSignature(file))
-                    {
-                        context.ModelState.AddModelError("Image", "Invalid file signature.");
-                    }
-
-                    // Check the file size
-                    if (file.Length > maxFileSizeBytes)
-                    {
-                        context.ModelState.AddModelError("Image", "File size exceeds the maximum allowed limit.");
-                    }
+                
+                // Verify the file extension
+                if (!IsValidExtension(file.FileName))
+                {
+                    return new ValidationResult("Invalid file format.Only JPG, JPEG, PNG, and GIF are allowed.");
                 }
+
+                // Perform signature validation
+                if (!IsValidSignature(file))
+                {
+                    return new ValidationResult("Invalid file signature.");
+                }
+
+                // Check the file size
+                if (file.Length > maxFileSizeBytes)
+                {
+                    return new ValidationResult("File size exceeds the maximum allowed limit.");
+                }
+
+                
+                }
+
             }
 
-            // The resource filter is finished processing. Continue to the action.
-            await next();
+            // Always return success since we have updated the value
+            return ValidationResult.Success;
         }
 
         private bool IsValidExtension(string fileName)

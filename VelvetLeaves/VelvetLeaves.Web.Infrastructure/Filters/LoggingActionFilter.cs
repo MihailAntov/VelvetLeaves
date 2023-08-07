@@ -17,7 +17,7 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             string message = "Action {0} in controller {1} executed at {2}";
-            int code = 0;
+            int code;
             DateTime time = DateTime.UtcNow;
             string action = filterContext.ActionDescriptor.DisplayName;
             string controller = filterContext.Controller.GetType().Name;

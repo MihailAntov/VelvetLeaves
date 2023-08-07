@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using VelvetLeaves.Data;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.Service.Models.ShoppingCart;
 using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Product;
+using VelvetLeaves.ViewModels.ProductSeries;
+using VelvetLeaves.ViewModels.Subcategory;
 
 namespace VelvetLeaves.Tests
 {
@@ -47,7 +52,14 @@ namespace VelvetLeaves.Tests
             _materialServiceMock = new Mock<IMaterialService>();
             _colorServiceMock = new Mock<IColorService>();
             _imageServiceMock = new Mock<IImageService>();
+
+
+            _imageServiceMock.Setup(i => i.RemoveAsync(It.IsAny<string>())).Verifiable();
+            _imageServiceMock.Setup(i => i.CreateAsync(It.IsAny<IFormFile>())).ReturnsAsync("newImgId");
+            _imageServiceMock.Setup(i => i.CreateRangeAsync(It.IsAny<ICollection<IFormFile>>())).ReturnsAsync(new List<string> {"newImgId" });
             _galleryServiceMock = new Mock<IGalleryService>();
+
+
             _loggerMock = new Mock<ILogger<ProductService>>();
 
             _productService = new ProductService(
@@ -89,19 +101,21 @@ namespace VelvetLeaves.Tests
                 new Subcategory { Id = 3, Name = "Subcategory 3", CategoryId = 3, IsActive = true, ImageId = "sc3img" }
             };
 
-            var productSeries = new List<ProductSeries>
-            {
-                new ProductSeries { Id = 1, Name = "Series 1", SubcategoryId = 1, IsActive = true, DefaultName = "Series1Name", DefaultDescription = "Series1Description" },
-                new ProductSeries { Id = 2, Name = "Series 2", SubcategoryId = 2, IsActive = true, DefaultName = "Series2Name", DefaultDescription = "Series2Description" },
-                new ProductSeries { Id = 3, Name = "Series 3", SubcategoryId = 3, IsActive = true, DefaultName = "Series3Name", DefaultDescription = "Series3Description" }
-            };
-
             var tags = new List<Tag>
             {
                 new Tag { Id = 1, Name = "Tag 1" },
                 new Tag { Id = 2, Name = "Tag 2" },
                 new Tag { Id = 3, Name = "Tag 3" }
             };
+
+            var productSeries = new List<ProductSeries>
+            {
+                new ProductSeries { Id = 1, Name = "Series 1", SubcategoryId = 1, IsActive = true, DefaultName = "Series1Name", DefaultDescription = "Series1Description", DefaultTags = new List<Tag> { tags[0] }, DefaultColors = new List<Color>(), DefaultMaterials = new List<Material>() },
+                new ProductSeries { Id = 2, Name = "Series 2", SubcategoryId = 2, IsActive = true, DefaultName = "Series2Name", DefaultDescription = "Series2Description", DefaultTags = new List<Tag> {  }, DefaultColors = new List<Color>(), DefaultMaterials = new List<Material>() },
+                new ProductSeries { Id = 3, Name = "Series 3", SubcategoryId = 3, IsActive = true, DefaultName = "Series3Name", DefaultDescription = "Series3Description", DefaultTags = new List<Tag> {  }, DefaultColors = new List<Color>(), DefaultMaterials = new List<Material>() }
+            };
+
+            
 
 
             var materials = new List<Material>
@@ -120,12 +134,12 @@ namespace VelvetLeaves.Tests
 
             var products = new[]
             {
-                new Product { Id = 1, SubcategoryId = 1, IsActive = true, Name = "Product1 Name", Description = "Product1 Description", Images = new List<Image> {new Image {Id = "p1img1" }, new Image {Id = "p1img2"} }, ProductSeriesId = 1, Colors = new List<Color> {colors[0], colors[1] } },
-                new Product { Id = 2, SubcategoryId = 1, IsActive = true , Name = "Product2 Name", Description = "Product2 Description", Images = new List<Image> {new Image {Id = "p2img1" }, new Image {Id = "p2img2"}, new Image{Id = "p2img3" } }, ProductSeriesId = 1 , Colors = new List<Color> {colors[0], colors[1] } },
-                new Product { Id = 3, SubcategoryId = 2, IsActive = false, Name = "Product3 Name", Description = "Product3 Description", Images = new List<Image> {new Image {Id = "p3img1" }, new Image {Id = "p3img2"} }, ProductSeriesId = 2 }, // Inactive product
-                new Product { Id = 4, SubcategoryId = 2, IsActive = true, Name = "Product4 Name", Description = "Product4 Description", Images = new List<Image> {new Image {Id = "p4img1" }, new Image {Id = "p4img2"} }, ProductSeriesId = 2 , Colors = new List<Color> {colors[2] }}, 
-                new Product { Id = 5, SubcategoryId = 2, IsActive = true, Name = "Product5 Name", Description = "Product5 Description", Images = new List<Image> {new Image {Id = "p5img1" }, new Image {Id = "p5img2"} }, ProductSeriesId = 2 , Tags = new List<Tag> { new Tag { Id = 4, Name = "Tag 4" } }, Materials = new List<Material> { new Material { Id = 4, Name = "Material 4" } } },
-                new Product { Id = 6, SubcategoryId = 2, IsActive = true, Name = "Product6 Name", Description = "Product6 Description", Images = new List<Image> {new Image {Id = "p6img1" }, new Image {Id = "p6img2"} }, ProductSeriesId = 2 }
+                new Product { Id = 1, SubcategoryId = 1, IsActive = true, Name = "Product1 Name", Description = "Product1 Description", Price=10.00M, Images = new List<Image> {new Image {Id = "p1img1" }, new Image {Id = "p1img2"} }, ProductSeriesId = 1, Colors = new List<Color> {colors[0], colors[1] } },
+                new Product { Id = 2, SubcategoryId = 1, IsActive = true , Name = "Product2 Name", Description = "Product2 Description",Price=60.00M, Images = new List<Image> {new Image {Id = "p2img1" }, new Image {Id = "p2img2"}, new Image{Id = "p2img3" } }, ProductSeriesId = 1 , Colors = new List<Color> {colors[0], colors[1] } },
+                new Product { Id = 3, SubcategoryId = 2, IsActive = false, Name = "Product3 Name", Description = "Product3 Description",Price=50.00M, Images = new List<Image> {new Image {Id = "p3img1" }, new Image {Id = "p3img2"} }, ProductSeriesId = 2 }, // Inactive product
+                new Product { Id = 4, SubcategoryId = 2, IsActive = true, Name = "Product4 Name", Description = "Product4 Description",Price=40.00M, Images = new List<Image> {new Image {Id = "p4img1" }, new Image {Id = "p4img2"} }, ProductSeriesId = 2 , Colors = new List<Color> {colors[2] }}, 
+                new Product { Id = 5, SubcategoryId = 2, IsActive = true, Name = "Product5 Name", Description = "Product5 Description",Price=20.00M, Images = new List<Image> {new Image {Id = "p5img1" }, new Image {Id = "p5img2"} }, ProductSeriesId = 2 , Tags = new List<Tag> { new Tag { Id = 4, Name = "Tag 4" } }, Materials = new List<Material> { new Material { Id = 4, Name = "Material 4" } } },
+                new Product { Id = 6, SubcategoryId = 2, IsActive = true, Name = "Product6 Name", Description = "Product6 Description",Price=30.00M, Images = new List<Image> {new Image {Id = "p6img1" }, new Image {Id = "p6img2"} }, ProductSeriesId = 2 }
             };
 
 
@@ -584,6 +598,7 @@ namespace VelvetLeaves.Tests
             var model = new ProductFormViewModel
             {
                 Name = "Test Product",
+                CategoryId = 1,
                 SubcategoryId = 1,
                 ProductSeriesId = 1,
                 Description = "Test Description",
@@ -624,6 +639,7 @@ namespace VelvetLeaves.Tests
             {
                 Name = "Test Product",
                 SubcategoryId = 1,
+                CategoryId = 1,
                 ProductSeriesId = 1,
                 Description = "Test Description",
                 Price = 99.99m,
@@ -649,14 +665,18 @@ namespace VelvetLeaves.Tests
         }
 
         [Test]
-        public async Task AddAsync_Should_Throw_Exception_When_Subcategory_Or_ProductSeries_Does_Not_Exist()
+        [TestCase(1,1,999)]
+        [TestCase(1,999,1)]
+        [TestCase(999,1,1)]
+        public async Task AddAsync_Should_Throw_Exception_When_Subcategory_Or_ProductSeries_Does_Not_Exist(int category, int subcategory, int series)
         {
             // Arrange
             var model = new ProductFormViewModel
             {
                 Name = "Test Product",
-                SubcategoryId = 1, // Use a subcategoryId that does not exist in the test data
-                ProductSeriesId = 999, // Use a productSeriesId that does not exist in the test data
+                SubcategoryId = subcategory, // Use a subcategoryId that does not exist in the test data
+                CategoryId = category,
+                ProductSeriesId = series, // Use a productSeriesId that does not exist in the test data
                 Description = "Test Description",
                 Price = 99.99m,
                 ImageIds = new List<string> { "img1", "img2" },
@@ -666,51 +686,289 @@ namespace VelvetLeaves.Tests
             };
 
             // Act and Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _productService.AddAsync(model));
             // Add more assertions if needed to verify that no product was added in the database.
+        }
+
+
+        [Test]
+        [TestCase(null, null, null)]
+        [TestCase("Series1Name", "Series1Description", 9.99)]
+        public async Task GetFormForAddAsync_Should_Initialize_ProductFormViewModel_With_Default_Values(string defaultName, string defaultDescription, decimal? defaultPrice)
+        {
+            // Arrange
+            int categoryId = 1; // Sample categoryId
+            int subcategoryId = 1; // Sample subcategoryId
+            int productSeriesId = 1; // Sample productSeriesId
+
+            // Setup the mock CategoryService to return some categories
+            var categories = await _dbContext.Categories
+                .Select(c => new CategorySelectViewModel { Id = c.Id, Name = c.Name })
+                .ToListAsync();
+            _categoryServiceMock.Setup(s => s.AllCategoriesAsync()).ReturnsAsync(categories);
+
+            // Setup the mock SubcategoryService to return subcategories for the given categoryId
+            var subcategories = await _dbContext.Subcategories
+                .Where(sc => sc.CategoryId == categoryId)
+                .Select(sc => new SubcategorySelectViewModel { Id = sc.Id, Name = sc.Name })
+                .ToListAsync();
+            _subcategoryServiceMock.Setup(s => s.SubcategoriesByCategoryIdAsync(categoryId)).ReturnsAsync(subcategories);
+
+            // Setup the mock ProductSeriesService to return product series for the given subcategoryId
+            var productSeries = await _dbContext.ProductSeries
+                .Where(ps => ps.SubcategoryId == subcategoryId)
+                .Select(ps => new ProductSeriesSelectViewModel { Id = ps.Id, Name = ps.Name })
+                .ToListAsync();
+            _productSeriesServiceMock.Setup(s => s.ProductSeriesBySubcategoryIdAsync(subcategoryId)).ReturnsAsync(productSeries);
+            _productSeriesServiceMock.Setup(s => s.GetDefaultValues(productSeriesId)).ReturnsAsync(new ProductSeriesDefaultValues()
+            {
+                Name = defaultName,
+                Description = defaultDescription,
+                Price = defaultPrice,
+                
+                TagIds = new List<int> { 1 },
+                ColorIds = new List<int>(),
+                MaterialIds = new List<int>()
+            });
+
+
+
+
+            // Act
+            var result = await _productService.GetFormForAddAsync(categoryId, subcategoryId, productSeriesId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(categoryId, result.CategoryId);
+            Assert.AreEqual(subcategoryId, result.SubcategoryId);
+            Assert.AreEqual(productSeriesId, result.ProductSeriesId);
+
+            // Add more assertions to validate the content of the ProductFormViewModel with the default values.
+            Assert.IsNotNull(result.ProductSeriesOptions);
+            Assert.IsNotNull(result.DefaultTagIds);
+            Assert.IsNotNull(result.DefaultColorIds);
+            Assert.IsNotNull(result.DefaultMaterialIds);
+            Assert.IsNotNull(result.Name);
+            Assert.AreEqual(defaultName ?? string.Empty, result.Name);
+            //Assert.AreEqual(defaultValues?.Price ?? 0.00M, result.Price);
+            Assert.AreEqual(defaultDescription ?? string.Empty, result.Description);
+            Assert.AreEqual(defaultPrice ?? 0.00m, result.Price);
+        }
+
+
+        [Test]
+        public async Task GetFormForEditAsync_Should_Return_ProductEditFormViewModel_When_Product_Exists_And_IsActive()
+        {
+            // Arrange
+            int productId = 1; // Sample productId
+
+            //new Product { Id = 1, SubcategoryId = 1, IsActive = true, Name = "Product1 Name", Description = "Product1 Description", Images = new List<Image> { new Image { Id = "p1img1" }, new Image { Id = "p1img2" } }, ProductSeriesId = 1, Colors = new List<Color> { colors[0], colors[1] } },
+
+
+            // Act
+            var result = await _productService.GetFormForEditAsync(productId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(productId, result.Id);
+            Assert.AreEqual(1, result.SubcategoryId);
+            Assert.AreEqual(1, result.ProductSeriesId);
+            Assert.AreEqual("Product1 Name", result.Name);
+            CollectionAssert.AreEqual(new List<int> {1,2 }, result.ColorIds);
+            CollectionAssert.AreEqual(new List<int>(), result.TagIds);
+            CollectionAssert.AreEqual(new List<int>(), result.MaterialIds);
+            Assert.AreEqual("Product1 Description", result.Description);
+            CollectionAssert.AreEqual(new List<string> {"p1img1","p1img2" }, result.ImageIds);
+            Assert.AreEqual(10.00M, result.Price);
         }
 
         [Test]
-        public async Task AddAsync_Should_Throw_Exception_When_Duplicate_ImageIds()
+        public void GetFormForEditAsync_Should_Throw_ArgumentException_When_Product_Does_Not_Exist()
         {
             // Arrange
-            var model = new ProductFormViewModel
-            {
-                Name = "Test Product",
-                SubcategoryId = 1,
-                ProductSeriesId = 1,
-                Description = "Test Description",
-                Price = 99.99m,
-                ImageIds = new List<string> { "img1", "img2", "img1" } // Duplicate image ID "img1"
-                                                                       // Add valid ColorIds, MaterialIds, and TagIds
-            };
+            int nonExistentProductId = 999; // Non-existent productId
 
-            // Act and Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
-            // Add more assertions if needed to verify that no product was added in the database.
+            // Setup the mock ProductService to return an empty list (no products)
+
+            // Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.GetFormForEditAsync(nonExistentProductId));
         }
 
         [Test]
-        public async Task AddAsync_Should_Throw_Exception_When_Invalid_Price()
+        public async Task UpdateAsync_Should_Update_Product_In_Database_With_Given_Model()
         {
             // Arrange
-            var model = new ProductFormViewModel
+            int productId = 2; // Sample productId
+            var model = new ProductEditFormViewModel
             {
-                Name = "Test Product",
-                SubcategoryId = 1,
+                Id = productId,
+                Name = "Updated Product Name",
+                SubcategoryId = 2,
                 ProductSeriesId = 1,
-                Description = "Test Description",
-                Price = -10.0m // Negative price (invalid)
-                              // Add valid ImageIds, ColorIds, MaterialIds, and TagIds
+                Description = "Updated Product Description",
+                Price = 150.00M,
+                ColorIds = new List<int> { 1 },
+                TagIds = new List<int> { 1, 2 },
+                MaterialIds = new List<int> { 2 },
+                StartingImageIds = new List<string> { "p2img1", "p2img2", "p2img3" },
+                Images = new List<IFormFile> { new Mock<IFormFile>().Object },
+                KeptImageIds = new List<string> { "p2img1" },
+
             };
 
-            // Act and Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
-            // Add more assertions if needed to verify that no product was added in the database.
+            //new Product { Id = 2, SubcategoryId = 1, IsActive = true, Name = "Product2 Name", Description = "Product2 Description", Images = new List<Image> { new Image { Id = "p2img1" }, new Image { Id = "p2img2" }, new Image { Id = "p2img3" } }, ProductSeriesId = 1, Colors = new List<Color> { colors[0], colors[1] }, Price = 10.00M },
+            
+            // Act
+            await _productService.UpdateAsync(model);
+
+            var product = await _dbContext.Products.FirstAsync(p => p.Id == productId);
+
+            // Assert
+            // Verify that the product in the database has been updated with the values from the model
+            Assert.AreEqual(product.Name, "Updated Product Name");
+            Assert.AreEqual(product.SubcategoryId, 1);
+            Assert.That(1, Is.EqualTo(product.ProductSeriesId));
+            Assert.That("Updated Product Description", Is.EqualTo(product.Description));
+            Assert.AreEqual(product.Price, 150.00M);
+            Assert.AreEqual(product.Colors.First().Id, 1);
+            Assert.AreEqual(product.Colors.Count, 1);
+            Assert.AreEqual(product.Tags.First().Id, 1);
+            Assert.AreEqual(product.Tags.Count, 2);
+            Assert.AreEqual(product.Materials.First().Id, 2);
+            Assert.AreEqual(product.Materials.Count, 1);
+            Assert.AreEqual(product.Images.First().Id, "p2img1");
+            Assert.AreEqual(product.Images.Count, 2);
+
+
+
         }
 
+        [Test]
+        public async Task UpdateAsync_Should_Update_Images_In_Database_With_Given_Model()
+        {
+            // Arrange
+            int productId = 2; // Sample productId
+            var model = new ProductEditFormViewModel
+            {
+                Id = productId,
+                Name = "Updated Product Name",
+                SubcategoryId = 2,
+                ProductSeriesId = 1,
+                Description = "Updated Product Description",
+                Price = 150.00M,
+                ColorIds = new List<int> { 1 },
+                TagIds = new List<int> { 1, 2 },
+                MaterialIds = new List<int> { 2 },
+                StartingImageIds = new List<string> { "p2img1", "p2img2", "p2img3" },
+                Images = new List<IFormFile> { new Mock<IFormFile>().Object },
+                
+
+            };
+
+            //new Product { Id = 2, SubcategoryId = 1, IsActive = true, Name = "Product2 Name", Description = "Product2 Description", Images = new List<Image> { new Image { Id = "p2img1" }, new Image { Id = "p2img2" }, new Image { Id = "p2img3" } }, ProductSeriesId = 1, Colors = new List<Color> { colors[0], colors[1] }, Price = 10.00M },
+
+            // Act
+            await _productService.UpdateAsync(model);
+
+            var product = await _dbContext.Products.FirstAsync(p => p.Id == productId);
+
+            // Assert
+            // Verify that the product in the database has been updated with the values from the model
+            Assert.AreEqual(product.Name, "Updated Product Name");
+            Assert.AreEqual(product.SubcategoryId, 1);
+            Assert.That(1, Is.EqualTo(product.ProductSeriesId));
+            Assert.That("Updated Product Description", Is.EqualTo(product.Description));
+            Assert.AreEqual(product.Price, 150.00M);
+            Assert.AreEqual(product.Colors.First().Id, 1);
+            Assert.AreEqual(product.Colors.Count, 1);
+            Assert.AreEqual(product.Tags.First().Id, 1);
+            Assert.AreEqual(product.Tags.Count, 2);
+            Assert.AreEqual(product.Materials.First().Id, 2);
+            Assert.AreEqual(product.Materials.Count, 1);
+            Assert.AreEqual(product.Images.First().Id, "newImgId");
+            Assert.AreEqual(product.Images.Count, 1);
 
 
 
+        }
+
+        [Test]
+        public void UpdateAsync_Should_Throw_ArgumentException_When_Product_Does_Not_Exist()
+        {
+            // Arrange
+            int nonExistentProductId = 999; // Non-existent productId
+            var model = new ProductEditFormViewModel { Id = nonExistentProductId, /* other properties */ };
+
+            
+
+            // Assert
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _productService.UpdateAsync(model));
+        }
+
+        [Test]
+        public async Task DeleteAsync_Should_Set_Product_IsActive_To_False_And_Remove_From_Gallery()
+        {
+            // Arrange
+
+            // Setup the mock ProductService to return a product for the given productId
+
+            int productId = 1;
+
+            // Act
+            await _productService.DeleteAsync(productId);
+
+            // Assert
+            // Verify that the product's IsActive property has been set to false
+            var product = _dbContext.Products.First(p => p.Id == productId);
+            Assert.IsFalse(product.IsActive);
+
+            // Verify that the product has been removed from the gallery
+            _galleryServiceMock.Verify(gs => gs.RemoveItemFromAllGalleries(productId), Times.Once());
+        }
+
+        [Test]
+        public void DeleteAsync_Should_Throw_ArgumentException_When_Product_Does_Not_Exist()
+        {
+            // Arrange
+            int nonExistentProductId = 999; // Non-existent productId
+
+            // Setup the mock ProductService to return an empty list (no products)
+            
+
+            // Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.DeleteAsync(nonExistentProductId));
+        }
+
+        [Test]
+        public async Task GetProductsForCart_Should_Return_Products_With_Correct_Dtos()
+        {
+            // Arrange
+            var productIds = new[] { 1, 2, 3 }; // Sample productIds
+
+            // Setup the mock ProductService to return some products for the given productIds
+            
+
+            // Act
+            var result = await _productService.GetProductsForCart(productIds);
+
+            // Assert
+            // Verify that the correct DTOs are returned, only for active products
+            Assert.AreEqual(result.Count(), 2);
+            Assert.AreEqual(result.First().Name, "Product1 Name");
+            Assert.AreEqual(result.First().ImageId, "p1img1");
+            Assert.AreEqual(result.First().Price, 10.00M);
+
+        }
+
+        
     }
 }
+
+
+
+
+
+
+
+
+

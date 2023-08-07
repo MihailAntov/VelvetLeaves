@@ -56,7 +56,7 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                
+                model.ImageIds = model.StartingImageIds!.ToList();
                 return View(model);
             }
 
@@ -102,9 +102,17 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
             }
 
             model.ImageIds = imageIds!;
+            try
+            {
             await _productService.AddAsync(model);
-
             return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}&productSeriesId={model.ProductSeriesId}");
+
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
         }
 
         [HttpGet]

@@ -46,7 +46,8 @@ namespace VelvetLeaves.ViewModels.Product
         [Required]
         public int ProductSeriesId { get; set; }
 
-        [FileExtensions(ErrorMessage = "Invalid file.")]
+        //[FileExtensions(ErrorMessage = "Invalid file.")]
+        [ImageInput]
         public IEnumerable<IFormFile>? Images { get; set; } 
         public IList<string>? ImageIds { get; set; }
 
