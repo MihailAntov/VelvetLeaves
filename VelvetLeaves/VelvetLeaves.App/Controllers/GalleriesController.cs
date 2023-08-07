@@ -18,12 +18,15 @@ namespace VelvetLeaves.Web.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Show(int id)
         {
+            try
+            {
             var gallery = await galleryService.GetGalleryByIdAsync(id);
-            if (gallery == null)
+            return View(gallery);
+            }
+            catch (Exception)
             {
                 return NotFound();
             }
-            return View(gallery);
         }
 
         [AllowAnonymous]

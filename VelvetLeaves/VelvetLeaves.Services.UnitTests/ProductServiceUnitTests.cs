@@ -17,7 +17,7 @@ using VelvetLeaves.ViewModels.Product;
 using VelvetLeaves.ViewModels.ProductSeries;
 using VelvetLeaves.ViewModels.Subcategory;
 
-namespace VelvetLeaves.Tests
+namespace VelvetLeaves.Services.UnitTests
 {
     [TestFixture]
     public class ProductServiceUnitTests

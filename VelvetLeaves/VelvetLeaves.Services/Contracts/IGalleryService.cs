@@ -6,7 +6,7 @@ namespace VelvetLeaves.Services.Contracts
 	{
 		Task<IEnumerable<GalleryViewModel>> AllGalleriesAsync();
 
-		Task<GalleryViewModel?> GetGalleryByIdAsync(int id);
+		Task<GalleryViewModel> GetGalleryByIdAsync(int id);
 
 		Task AddAsync(GalleryFormViewModel model);
 
@@ -27,5 +27,7 @@ namespace VelvetLeaves.Services.Contracts
 		Task DeleteAsync(int galleryId);
 
 		Task RemoveItemFromAllGalleries(int productId);
+
+		Task<bool> ExistsByIdAsync (int galleryId);	
 	}
 }

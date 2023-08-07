@@ -71,11 +71,18 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
         public async Task<IActionResult> Edit(int galleryId)
 		{
+            try
+            {
+
             var model = await _galleryService.GetGalleryEditFormAsync(galleryId);
 
             return View(model);
 
-
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -101,8 +108,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Show(int galleryId)
         {
+            try
+            {
+
             var model = await _galleryService.GetGalleryByIdAsync(galleryId);
             return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
@@ -134,9 +149,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AddItem(int galleryId)
         {
-            var model = await _galleryService.GetItemsToAddAsync(galleryId);
+            try
+            {
 
+            var model = await _galleryService.GetItemsToAddAsync(galleryId);
             return View(model);
+            
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -155,7 +178,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
         public async Task<IActionResult> Delete(int galleryId)
 		{
+            try
+            {
             await _galleryService.DeleteAsync(galleryId);
+
+            }
+            catch(Exception)
+            {
+                return NotFound();
+            }
+            
             
             return RedirectToAction("All", "Galleries");
         }

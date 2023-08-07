@@ -31,7 +31,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
 
             if (!await _productService.ExistsByIdAsync(productId))
             {
-                return cart;
+                throw new InvalidOperationException();
             }
 
             var product = cart.Items.FirstOrDefault(i => i.Id == productId);

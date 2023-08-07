@@ -33,28 +33,51 @@ namespace VelvetLeaves.Web.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AddToCart(int productId)
         {
+            try
+            {
+
             var newCart = await _shoppingCartService.AddOneItemToShoppingCart(productId);
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
             return Json(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
+            try
+            {
+
             var newCart = _shoppingCartService.RemoveOneItemFromShoppingCart(productId);
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
             return Json(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async  Task<IActionResult> DeleteFromCart(int productId)
         {
+            try
+            {
+
             var newCart = _shoppingCartService.DeleteItemFromShoppingCart(productId);
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
 
             return PartialView("ShoppingCart",model);
+            }
+            catch(Exception){
+                return NotFound();
+            }
         }
 
         [HttpPost]
