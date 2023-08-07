@@ -8,8 +8,14 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
     public class ImageResourceFilter : IAsyncResourceFilter
     {
 
-        private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
-        private readonly byte[] expectedSignature = new byte[] { /* Expected signature bytes here */ };
+        private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+        private readonly Dictionary<string, byte[]> expectedSignatures = new Dictionary<string, byte[]>
+        {
+            {".jpg",new byte[]{ 0xFF, 0xD8, 0xFF, 0xE0 } },
+            {".jpeg",new byte[]{ 0xFF, 0xD8, 0xFF, 0xE0 } },
+            {".png", new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A } }
+        };
+        
         private readonly int maxFileSizeBytes = 10 * 1024 * 1024; // 10MB
         public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
         {
@@ -55,11 +61,13 @@ namespace VelvetLeaves.Web.Infrastructure.Filters
             using (var stream = file.OpenReadStream())
             {
                 // Read the first few bytes of the file to compare with the expected signature
-                byte[] buffer = new byte[expectedSignature.Length];
-                stream.Read(buffer, 0, expectedSignature.Length);
+                var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+                byte[] buffer = new byte[expectedSignatures[extension].Length];
+                stream.Read(buffer, 0, expectedSignatures[extension].Length);
 
                 // Compare the read bytes with the expected signature
-                return buffer.SequenceEqual(expectedSignature);
+                return buffer.SequenceEqual(expectedSignatures[extension]);
             }
         }
     }
