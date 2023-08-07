@@ -145,6 +145,11 @@ namespace VelvetLeaves.Services
 
         public async Task<OrderProcessViewModel> DetailsAsync(string orderId)
         {
+            if(!await ExistsByIdAsync(orderId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var order = await _context
                 .Orders
                 .Where(o => o.Id.ToString() == orderId)

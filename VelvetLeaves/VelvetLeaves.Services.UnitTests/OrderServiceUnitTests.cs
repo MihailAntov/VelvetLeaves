@@ -38,6 +38,7 @@ namespace VelvetLeaves.Services.UnitTests
             _helperService = _helperServiceMock.Object;
             _helperServiceMock = new Mock<IHelperService>();
             _orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+            _dbContext.Database.EnsureDeleted();
 
             var categories = new List<Category>
             {
@@ -96,9 +97,9 @@ namespace VelvetLeaves.Services.UnitTests
 
             var orders = new List<Order>
             {
-                new Order { Id = Guid.NewGuid(), OrderStatus = OrderStatus.Pending, City = "test1", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 1 } } },
-                new Order { Id = Guid.NewGuid(), OrderStatus = OrderStatus.Processing, City = "test2", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 2 } } },
-                new Order { Id = Guid.NewGuid(), OrderStatus = OrderStatus.Pending, City = "test3", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 4 }, new OrderProduct { ProductId = 5 } } }
+                new Order { Id = Guid.NewGuid(), UserId = "user1", OrderStatus = OrderStatus.Pending, City = "test1", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 1 } } },
+                new Order { Id = Guid.NewGuid(), UserId = "user1", OrderStatus = OrderStatus.Processing, City = "test2", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 2 } } },
+                new Order { Id = Guid.NewGuid(), UserId = "user2", OrderStatus = OrderStatus.Pending, City = "test3", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123", OrdersProducts = new List<OrderProduct>{ new OrderProduct {ProductId = 4 }, new OrderProduct { ProductId = 5 } } }
             };
 
             
@@ -126,15 +127,30 @@ namespace VelvetLeaves.Services.UnitTests
         public async Task AddAdminNoteAsync_ExistingOrder_ShouldAddNote()
         {
             // Arrange
-            var orderId = Guid.NewGuid().ToString();
-            var order = new Order { Id = new Guid(orderId), OrderStatus = OrderStatus.Pending, City = "test", Country = "test", StreetAddress = "test", FirstName = "test", LastName = "test", PhoneNumber = "test123" };
-            _dbContext.Orders.Add(order);
+            await _dbContext.Database.EnsureDeletedAsync();
+
+            Guid orderId = Guid.NewGuid();
+            Order order = new Order
+            {
+                Id = orderId,
+                UserId = "user2",
+                OrderStatus = OrderStatus.Pending,
+                City = "test3",
+                Country = "test",
+                StreetAddress = "test",
+                FirstName = "test",
+                LastName = "test",
+                PhoneNumber = "test123",
+                OrdersProducts = new List<OrderProduct> { new OrderProduct { ProductId = 4 }, new OrderProduct { ProductId = 5 } }
+            };
+            await _dbContext.Orders.AddAsync(order);
             await _dbContext.SaveChangesAsync();
 
+           
             var note = "Admin note";
 
             // Act
-            var result = await _orderService.AddAdminNoteAsync(note, orderId);
+            var result = await _orderService.AddAdminNoteAsync(note, orderId.ToString());
 
             // Assert
             Assert.AreEqual(note, result);
@@ -173,7 +189,7 @@ namespace VelvetLeaves.Services.UnitTests
         public async Task AllAsync_NoOrders_ShouldReturnEmptyResult()
         {
             // Arrange
-            var orderStatus = OrderStatus.Processing;
+            var orderStatus = OrderStatus.Complete;
 
             // Act
             var result = await _orderService.AllAsync(orderStatus);
@@ -188,14 +204,8 @@ namespace VelvetLeaves.Services.UnitTests
         public async Task AllByIdAsync_ShouldReturnCorrectOrders()
         {
             // Arrange
-            var userId = Guid.NewGuid().ToString();
-            var orders = new List<Order>
-            {
-                new Order { Id = Guid.NewGuid(), UserId = userId, DateTime = DateTime.UtcNow },
-                new Order { Id = Guid.NewGuid(), UserId = userId, DateTime = DateTime.UtcNow.AddHours(-1) }
-            };
-            _dbContext.Orders.AddRange(orders);
-            await _dbContext.SaveChangesAsync();
+            var userId = "user1";
+            
 
             // Act
             var result = await _orderService.AllByIdAsync(userId);
@@ -266,17 +276,217 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task DetailsAsync_NonExistingOrderId_ShouldReturnNull()
+        public async Task DetailsAsync_NonExistingOrderId_ShouldThrow()
         {
             // Arrange
             var orderId = Guid.NewGuid().ToString();
             var orderService = new OrderService(_dbContext, _productService, _helperService);
 
             // Act
-            var result = await orderService.DetailsAsync(orderId);
+
 
             // Assert
-            Assert.Null(result);
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _orderService.DetailsAsync(orderId));
         }
+
+        [Test]
+        public async Task CartValidAsync_AllItemsExist_ShouldReturnTrue()
+        {
+            // Arrange
+            var cart = new ShoppingCartViewModel
+            {
+                Items = new List<ShoppingCartItemViewModel>
+                {
+                    new ShoppingCartItemViewModel { Id = 1, Quantity = 2 },
+                    new ShoppingCartItemViewModel { Id = 2, Quantity = 1 },
+                }
+            };
+
+            _productServiceMock.Setup(p => p.ExistsByIdAsync(It.IsAny<int>())).ReturnsAsync(true);
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            var result = await orderService.CartValidAsync(cart);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task CartValidAsync_AtLeastOneItemDoesNotExist_ShouldReturnFalse()
+        {
+            // Arrange
+            var cart = new ShoppingCartViewModel
+            {
+                Items = new List<ShoppingCartItemViewModel>
+                {
+                    new ShoppingCartItemViewModel { Id = 1, Quantity = 2 },
+                    new ShoppingCartItemViewModel { Id = 3, Quantity = 1 },
+                }
+            };
+
+            _productServiceMock.Setup(p => p.ExistsByIdAsync(1)).ReturnsAsync(true);
+            _productServiceMock.Setup(p => p.ExistsByIdAsync(3)).ReturnsAsync(false);
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            var result = await orderService.CartValidAsync(cart);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task ChangeStatusAsync_ExistingOrderId_ShouldChangeStatus()
+        {
+            // Arrange
+
+
+            var order = await _dbContext.Orders.FirstAsync();
+            string orderId = order.Id.ToString();
+
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            await orderService.ChangeStatusAsync(orderId, OrderStatus.Processing);
+            
+
+            // Assert
+            Assert.AreEqual(OrderStatus.Processing, order.OrderStatus);
+        }
+
+        [Test]
+        public void ChangeStatusAsync_NonExistingOrderId_ShouldThrowInvalidOperationException()
+        {
+            // Arrange
+            var orderId = Guid.NewGuid().ToString();
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await orderService.ChangeStatusAsync(orderId, OrderStatus.Processing));
+        }
+
+
+        [Test]
+        public void GetCheckoutInfo_ShouldMapToCheckoutFormViewModel()
+        {
+            // Arrange
+            var cart = new ShoppingCartViewModel
+            {
+                Items = new List<ShoppingCartItemViewModel>
+                {
+                    new ShoppingCartItemViewModel { Id = 1, Quantity = 2 },
+                    new ShoppingCartItemViewModel { Id = 2, Quantity = 1 },
+                }
+            };
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            var checkoutInfo = orderService.GetCheckoutInfo(cart);
+
+            // Assert
+            Assert.IsInstanceOf<CheckoutFormViewModel>(checkoutInfo);
+            Assert.AreEqual(cart.Items.Count, checkoutInfo.Items.Count);
+            Assert.AreEqual(cart.Items[0].Id, checkoutInfo.Items[0].Id);
+            Assert.AreEqual(cart.Items[0].Quantity, checkoutInfo.Items[0].Quantity);
+            Assert.AreEqual(cart.Items[1].Id, checkoutInfo.Items[1].Id);
+            Assert.AreEqual(cart.Items[1].Quantity, checkoutInfo.Items[1].Quantity);
+        }
+
+        [Test]
+        public async Task GetShoppingCartForCheckoutAsync_ShouldReturnShoppingCartViewModel()
+        {
+            // Arrange
+            var cart = new ShoppingCart
+            {
+                Items = new List<ShoppingCartItem>
+                {
+                    new ShoppingCartItem { Id = 10, Quantity = 2 },
+                    new ShoppingCartItem { Id = 11, Quantity = 1 },
+                }
+            };
+
+            var products = new List<Product>
+            {
+                new Product { Id = 10, Name = "Product 10", Price = 10.00M, Images = new List<Image> {new Image{Id = "p10img1" } },  Description = "test"},
+                new Product { Id = 11, Name = "Product 11", Price = 15.00M, Images = new List<Image> {new Image{Id = "p11img1" } }  ,Description = "test"}
+            };
+            _dbContext.Products.AddRange(products);
+            await _dbContext.SaveChangesAsync();
+
+            var productDtos = new List<ProductForCartDto>
+            {
+                new ProductForCartDto { Id = 10, Name = "Product 10", Price = 10.00M, ImageId = "p10img1"},
+                new ProductForCartDto {Id =  11, Name = "Product 11", Price = 15.00M, ImageId = "p11img1"}
+            };
+            
+            _productServiceMock.Setup(p => p.GetProductsForCart(It.IsAny<IEnumerable<int>>())).ReturnsAsync(productDtos);
+            _helperServiceMock.Setup(h => h.Currency()).ReturnsAsync("USD");
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            var shoppingCartForCheckout = await orderService.GetShoppingCartForCheckoutAsync(cart);
+
+            // Assert
+            Assert.IsInstanceOf<ShoppingCartViewModel>(shoppingCartForCheckout);
+            Assert.AreEqual(2, shoppingCartForCheckout.Items.Count);
+            Assert.AreEqual(products[0].Name, shoppingCartForCheckout.Items[0].Name);
+            Assert.AreEqual(products[0].Price, shoppingCartForCheckout.Items[0].Price);
+            Assert.AreEqual(cart.Items[0].Quantity, shoppingCartForCheckout.Items[0].Quantity);
+            Assert.AreEqual(products[1].Name, shoppingCartForCheckout.Items[1].Name);
+            Assert.AreEqual(products[1].Price, shoppingCartForCheckout.Items[1].Price);
+            Assert.AreEqual(cart.Items[1].Quantity, shoppingCartForCheckout.Items[1].Quantity);
+            Assert.AreEqual(2 * 10.00M + 1 * 15.00M, shoppingCartForCheckout.Total);
+            Assert.AreEqual(2 + 1, shoppingCartForCheckout.TotalItems);
+            Assert.AreEqual("USD", shoppingCartForCheckout.Currency);
+        }
+
+        [Test]
+        public async Task PlaceOrderAsync_ShouldAddNewOrderToDatabase()
+        {
+            // Arrange
+            await _dbContext.Database.EnsureDeletedAsync();
+
+            var model = new CheckoutFormViewModel
+            {
+                Country = "Country",
+                City = "City",
+                Address = "Address",
+                FirstName = "First Name",
+                LastName = "Last Name",
+                PhoneNumber = "1234567890",
+                ZipCode = "12345",
+                Email = "test@example.com",
+                Items = new List<CheckoutItemViewModel>
+                {
+                    new CheckoutItemViewModel { Id = 1, Quantity = 2 },
+                    new CheckoutItemViewModel { Id = 2, Quantity = 1 }
+                }
+            };
+            var userId = "user123";
+            var orderService = new OrderService(_dbContext, _productServiceMock.Object, _helperServiceMock.Object);
+
+            // Act
+            await orderService.PlaceOrderAsync(model, userId);
+
+            // Assert
+            var ordersInDb = await _dbContext.Orders.ToListAsync();
+            Assert.AreEqual(1, ordersInDb.Count);
+            var orderInDb = ordersInDb.First();
+            Assert.AreEqual(model.Country, orderInDb.Country);
+            Assert.AreEqual(model.City, orderInDb.City);
+            Assert.AreEqual(model.Address, orderInDb.StreetAddress);
+            Assert.AreEqual(model.FirstName, orderInDb.FirstName);
+            Assert.AreEqual(model.LastName, orderInDb.LastName);
+            Assert.AreEqual(model.PhoneNumber, orderInDb.PhoneNumber);
+            Assert.AreEqual(model.ZipCode, orderInDb.ZipCode);
+            Assert.AreEqual(OrderStatus.Pending, orderInDb.OrderStatus);
+            Assert.AreEqual(userId, orderInDb.UserId);
+            Assert.AreEqual(model.Items.Count, orderInDb.OrdersProducts.Count);
+            Assert.AreEqual(DateTime.UtcNow.Date, orderInDb.DateTime.Date);
+            Assert.AreEqual(model.Email, orderInDb.Email);
+        }
+
+
     }
 }
