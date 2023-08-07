@@ -120,12 +120,12 @@ namespace VelvetLeaves.Tests
 
             var products = new[]
             {
-                new Product { Id = 1, SubcategoryId = 1, IsActive = true, Name = "Product1 Name", Description = "Product1 Description", Images = new List<Image> {new Image {Id = "p1img1" }, new Image {Id = "p1img2"} }, ProductSeriesId = 1 },
-                new Product { Id = 2, SubcategoryId = 2, IsActive = true , Name = "Product2 Name", Description = "Product2 Description", Images = new List<Image> {new Image {Id = "p2img1" }, new Image {Id = "p2img2"}, new Image{Id = "p2img3" } }, ProductSeriesId = 1  },
+                new Product { Id = 1, SubcategoryId = 1, IsActive = true, Name = "Product1 Name", Description = "Product1 Description", Images = new List<Image> {new Image {Id = "p1img1" }, new Image {Id = "p1img2"} }, ProductSeriesId = 1, Colors = new List<Color> {colors[0], colors[1] } },
+                new Product { Id = 2, SubcategoryId = 1, IsActive = true , Name = "Product2 Name", Description = "Product2 Description", Images = new List<Image> {new Image {Id = "p2img1" }, new Image {Id = "p2img2"}, new Image{Id = "p2img3" } }, ProductSeriesId = 1 , Colors = new List<Color> {colors[0], colors[1] } },
                 new Product { Id = 3, SubcategoryId = 2, IsActive = false, Name = "Product3 Name", Description = "Product3 Description", Images = new List<Image> {new Image {Id = "p3img1" }, new Image {Id = "p3img2"} }, ProductSeriesId = 2 }, // Inactive product
-                new Product { Id = 4, SubcategoryId = 2, IsActive = true, Name = "Product4 Name", Description = "Product4 Description", Images = new List<Image> {new Image {Id = "p4img1" }, new Image {Id = "p4img2"} }, ProductSeriesId = 2 }, 
+                new Product { Id = 4, SubcategoryId = 2, IsActive = true, Name = "Product4 Name", Description = "Product4 Description", Images = new List<Image> {new Image {Id = "p4img1" }, new Image {Id = "p4img2"} }, ProductSeriesId = 2 , Colors = new List<Color> {colors[2] }}, 
                 new Product { Id = 5, SubcategoryId = 2, IsActive = true, Name = "Product5 Name", Description = "Product5 Description", Images = new List<Image> {new Image {Id = "p5img1" }, new Image {Id = "p5img2"} }, ProductSeriesId = 2 , Tags = new List<Tag> { new Tag { Id = 4, Name = "Tag 4" } }, Materials = new List<Material> { new Material { Id = 4, Name = "Material 4" } } },
-                new Product { Id = 6, SubcategoryId = 2, IsActive = true, Name = "Product6 Name", Description = "Product6 Description", Images = new List<Image> {new Image {Id = "p6img1" }, new Image {Id = "p6img2"} }, ProductSeriesId = 2  }
+                new Product { Id = 6, SubcategoryId = 2, IsActive = true, Name = "Product6 Name", Description = "Product6 Description", Images = new List<Image> {new Image {Id = "p6img1" }, new Image {Id = "p6img2"} }, ProductSeriesId = 2 }
             };
 
 
@@ -311,9 +311,9 @@ namespace VelvetLeaves.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(4, result.TotalProductCount); // Only 1 product belongs to Category 2
-            Assert.AreEqual(4, result.Products.Count()); // The filtered product should be returned
-            Assert.AreEqual("Product2 Name", result.Products.First().Name); // Verify the product name
+            Assert.AreEqual(3, result.TotalProductCount); 
+            Assert.AreEqual(3, result.Products.Count()); // The filtered product should be returned
+            Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the product name
         }
 
         [Test]
@@ -358,5 +358,359 @@ namespace VelvetLeaves.Tests
             Assert.AreEqual(2, result.Products.Count()); // The second page should have 2 products
             Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the first product on the second page
         }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsCorrectItemsWithSubcategory()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                SubCategoryId = 2,
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.TotalProductCount); 
+            Assert.AreEqual(3, result.Products.Count()); 
+            Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the first product on the second page
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsNoItemsWithMaterialsWhenNoProductInDbHasThem()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                Materials = new List<int> { 1 } 
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.TotalProductCount); 
+            Assert.AreEqual(0, result.Products.Count()); 
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsCorrectItemsWithMaterial()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                Materials = new List<int> { 4 }
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(1, result.Products.Count()); // The second page should have 2 products
+            Assert.AreEqual("Product5 Name", result.Products.First().Name); // Verify the first product on the second page
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsNoItemsWithTagWhenNoProductInDbHasThem()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                Tags = new List<string> { "Tag 1" }
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.TotalProductCount);
+            Assert.AreEqual(0, result.Products.Count());
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsCorrectItemsWithTag()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                Tags = new List<string> { "Tag 4" }
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(1, result.Products.Count()); // The second page should have 2 products
+            Assert.AreEqual("Product5 Name", result.Products.First().Name); // Verify the first product on the second page
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsNoItemsWithColorWhenNoProductInDbHasThem()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                ColorIds = new List<int> { 5 }
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.TotalProductCount);
+            Assert.AreEqual(0, result.Products.Count());
+        }
+
+        [Test]
+        public async Task ProductsFilteredAndPagedAsync_Paging_ReturnsCorrectItemsWithColor()
+        {
+            // Arrange
+
+            var model = new ProductsQueryModel
+            {
+                ColorIds= new List<int> { 1,2 }
+
+            };
+
+            // Act
+            var result = await _productService.ProductsFilteredAndPagedAsync(model);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(2, result.Products.Count()); // The second page should have 2 products
+            Assert.AreEqual("Product1 Name", result.Products.First().Name); // Verify the first product on the second page
+        }
+
+
+        [Test]
+        public async Task GetProductTreeAsync_Should_Return_ProductTreeViewModel()
+        {
+            // Arrange
+            var categoryId = 2; // Set your desired categoryId here for testing
+            var subcategoryId = 2; // Set your desired subcategoryId here for testing
+            var productSeriesId = 2; // Set your desired productSeriesId here for testing
+
+            // Act
+            var result = await _productService.GetProductTreeAsync(categoryId, subcategoryId, productSeriesId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(categoryId, result.CategoryId);
+            Assert.AreEqual(subcategoryId, result.SubcategoryId);
+            Assert.AreEqual(productSeriesId, result.ProductSeriesId);
+
+            // Assert that Categories and Subcategories are not null and contain items
+            Assert.IsNotNull(result.Products);
+            Assert.IsNotEmpty(result.Products);
+            Assert.IsNotNull(result.Products.First().Subcategories);
+            Assert.IsNotEmpty(result.Products.First().Subcategories);
+            Assert.IsNotEmpty(result.Products.First().Subcategories.First().ProductSeries);
+            Assert.IsNotEmpty(result.Products.First().Subcategories.First().ProductSeries.First().Products);
+            Assert.IsNotNull(result.Products.First().Subcategories.First().ProductSeries.First().Products.First());
+
+            // Add more assertions to validate the structure and data of the ProductTreeViewModel
+        }
+
+        [Test]
+        public async Task GetProductTreeAsync_Should_Return_AllProductsEvenWithoutMatch()
+        {
+            // Arrange
+            var categoryId = 999; // Use a categoryId that does not exist in the test data
+            var subcategoryId = 999; // Use a subcategoryId that does not exist in the test data
+            var productSeriesId = 999; // Use a productSeriesId that does not exist in the test data
+
+            // Act
+            var result = await _productService.GetProductTreeAsync(categoryId, subcategoryId, productSeriesId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(categoryId, result.CategoryId); // CategoryId should match the input even if no match is found
+            Assert.AreEqual(subcategoryId, result.SubcategoryId); // SubcategoryId should match the input even if no match is found
+            Assert.AreEqual(productSeriesId, result.ProductSeriesId); // ProductSeriesId should match the input even if no match is found
+
+            // Assert that Categories and Subcategories are empty
+            Assert.IsNotNull(result.Products);
+            Assert.AreEqual(result.Products.Count(), _dbContext.Categories.Count());
+        }
+
+        [Test]
+        public async Task GetProductTreeAsync_Should_Return_AllProductsAndNotSetNavigationMarkers()
+        {
+            // Arrange
+            int? categoryId = null; // Use a categoryId that does not exist in the test data
+            int? subcategoryId = null; // Use a subcategoryId that does not exist in the test data
+            int? productSeriesId = null; // Use a productSeriesId that does not exist in the test data
+
+            // Act
+            var result = await _productService.GetProductTreeAsync(categoryId, subcategoryId, productSeriesId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.CategoryId); // CategoryId should match the input even if no match is found
+            Assert.IsNull(result.SubcategoryId); // SubcategoryId should match the input even if no match is found
+            Assert.IsNull( result.ProductSeriesId); // ProductSeriesId should match the input even if no match is found
+
+            // Assert that Categories and Subcategories are empty
+            Assert.IsNotNull(result.Products);
+            Assert.AreEqual(result.Products.Count(), _dbContext.Categories.Count());
+        }
+
+        [Test]
+        public async Task AddAsync_Should_Add_Product_To_DbContext()
+        {
+            // Arrange
+            var model = new ProductFormViewModel
+            {
+                Name = "Test Product",
+                SubcategoryId = 1,
+                ProductSeriesId = 1,
+                Description = "Test Description",
+                Price = 99.99m,
+                ImageIds = new List<string> { "img1", "img2" },
+                ColorIds = new List<int> { 3 },
+                MaterialIds = new List<int> { 1, 2, 3 },
+                TagIds = new List<int> { 1, 2 }
+            };
+
+            // Act
+            await _productService.AddAsync(model);
+
+            // Assert
+            var result = _dbContext.Products.First(p => p.Name == "Test Product");
+            
+            Assert.AreEqual(result.Description, model.Description);
+            Assert.AreEqual(result.Price, model.Price);
+            Assert.AreEqual(result.ProductSeriesId, model.ProductSeriesId);
+            Assert.IsTrue(result.Images.Count == 2);
+            Assert.AreEqual(result.Images.First().Id, "img1");
+            Assert.IsTrue(result.Tags.Count == 2);
+            Assert.AreEqual(result.Tags.First().Id, 1);
+            Assert.IsTrue(result.Materials.Count == 3);
+            Assert.AreEqual(result.Materials.First().Id, 1);
+            Assert.IsTrue(result.Colors.Count == 1);
+            Assert.AreEqual(result.Colors.First().Id, 3);
+            
+
+            
+        }
+
+        [Test]
+        public async Task AddAsync_Should_Add_Product_With_No_Images_Colors_Materials_Tags()
+        {
+            // Arrange
+            var model = new ProductFormViewModel
+            {
+                Name = "Test Product",
+                SubcategoryId = 1,
+                ProductSeriesId = 1,
+                Description = "Test Description",
+                Price = 99.99m,
+                ImageIds = new List<string> { "img2" }
+                // Leave ImageIds, ColorIds, MaterialIds, and TagIds empty
+            };
+
+            // Act
+            await _productService.AddAsync(model);
+
+            // Assert
+
+            var result = _dbContext.Products.First(p => p.Name == "Test Product");
+
+            Assert.AreEqual(result.Description, model.Description);
+            Assert.AreEqual(result.Price, model.Price);
+            Assert.AreEqual(result.ProductSeriesId, model.ProductSeriesId);
+            Assert.IsTrue(result.Images.Count == 1);
+            Assert.AreEqual(result.Images.First().Id, "img2");
+            Assert.IsTrue(result.Tags.Count == 0);
+            Assert.IsTrue(result.Materials.Count == 0);
+            Assert.IsTrue(result.Colors.Count == 0);
+        }
+
+        [Test]
+        public async Task AddAsync_Should_Throw_Exception_When_Subcategory_Or_ProductSeries_Does_Not_Exist()
+        {
+            // Arrange
+            var model = new ProductFormViewModel
+            {
+                Name = "Test Product",
+                SubcategoryId = 1, // Use a subcategoryId that does not exist in the test data
+                ProductSeriesId = 999, // Use a productSeriesId that does not exist in the test data
+                Description = "Test Description",
+                Price = 99.99m,
+                ImageIds = new List<string> { "img1", "img2" },
+                ColorIds = new List<int> { 3 },
+                MaterialIds = new List<int> { 1, 2, 3 },
+                TagIds = new List<int> { 1, 2 }
+            };
+
+            // Act and Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
+            // Add more assertions if needed to verify that no product was added in the database.
+        }
+
+        [Test]
+        public async Task AddAsync_Should_Throw_Exception_When_Duplicate_ImageIds()
+        {
+            // Arrange
+            var model = new ProductFormViewModel
+            {
+                Name = "Test Product",
+                SubcategoryId = 1,
+                ProductSeriesId = 1,
+                Description = "Test Description",
+                Price = 99.99m,
+                ImageIds = new List<string> { "img1", "img2", "img1" } // Duplicate image ID "img1"
+                                                                       // Add valid ColorIds, MaterialIds, and TagIds
+            };
+
+            // Act and Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
+            // Add more assertions if needed to verify that no product was added in the database.
+        }
+
+        [Test]
+        public async Task AddAsync_Should_Throw_Exception_When_Invalid_Price()
+        {
+            // Arrange
+            var model = new ProductFormViewModel
+            {
+                Name = "Test Product",
+                SubcategoryId = 1,
+                ProductSeriesId = 1,
+                Description = "Test Description",
+                Price = -10.0m // Negative price (invalid)
+                              // Add valid ImageIds, ColorIds, MaterialIds, and TagIds
+            };
+
+            // Act and Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.AddAsync(model));
+            // Add more assertions if needed to verify that no product was added in the database.
+        }
+
+
+
+
     }
 }
