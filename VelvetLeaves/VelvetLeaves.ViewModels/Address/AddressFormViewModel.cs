@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VelvetLeaves.Common.Validation;
 using static VelvetLeaves.Common.ValidationConstants.Address;
 using static VelvetLeaves.Common.ValidationConstants.Common;
 
@@ -8,27 +9,27 @@ namespace VelvetLeaves.ViewModels.Address
 	{
         [Required]
         [StringLength(CountryMaxLength, MinimumLength = CountryMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 		public string Country { get; set; } = null!;
 
 		[Required]
 		[StringLength(CityMaxLength, MinimumLength = CityMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 		public string City { get; set; } = null!;
 
 		[Required]
 		[StringLength(StreetAddressMaxLength, MinimumLength = StreetAddressMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(@StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 		public string Address { get; set; } = null!;
 
 		[Required]
 		[StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 		public string FirstName { get; set; } = null!;
 
 		[Required]
 		[StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 		public string LastName { get; set; } = null!;
 
 		[Required]
@@ -38,7 +39,7 @@ namespace VelvetLeaves.ViewModels.Address
 		public string PhoneNumber { get; set; } = null!;
 
 		[StringLength(ZipCodeMaxLength, MinimumLength = ZipCodeMinLength, ErrorMessage = "Must be between {1} and {1} symbols.")]
-		[RegularExpression(StringInputRegex, ErrorMessage = StringInputRegexErrorMessage)]
+		[SanitizeStringInput]
 
 		public string? ZipCode { get; set; }
 

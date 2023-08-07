@@ -14,6 +14,7 @@ using VelvetLeaves.ViewModels.Tag;
 
 using static VelvetLeaves.Common.ValidationConstants.Product;
 using static VelvetLeaves.Common.ValidationConstants.Common;
+using VelvetLeaves.Common.Validation;
 
 namespace VelvetLeaves.ViewModels.Product
 {
@@ -23,7 +24,7 @@ namespace VelvetLeaves.ViewModels.Product
         public int Id { get; set; }
 
         [Required]
-        [RegularExpression(StringInputRegex)]
+        [SanitizeStringInput]
         [DataType(DataType.Text)]
         public string Name { get; set; } = null!;
 
@@ -34,7 +35,7 @@ namespace VelvetLeaves.ViewModels.Product
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
-        [RegularExpression(StringInputRegex)]
+        [SanitizeStringInput]
         public string Description { get; set; } = null!;
 
         [Required]
