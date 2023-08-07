@@ -15,7 +15,7 @@ namespace VelvetLeaves.ViewModels.Category
 		public int Id { get; set; }
 
         [Required]
-		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
 		[SanitizeStringInput]
 		public string Name { get; set; } = null!;

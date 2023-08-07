@@ -19,7 +19,7 @@ namespace VelvetLeaves.ViewModels.Product
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
-        //[SanitizeStringInput]
+        [SanitizeStringInput]
         public string Name { get; set; } = null!;
 
 
@@ -30,7 +30,7 @@ namespace VelvetLeaves.ViewModels.Product
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
-        //[SanitizeStringInput]
+        [SanitizeStringInput]
 
         public string Description { get; set; } = null!;
 

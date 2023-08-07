@@ -10,18 +10,19 @@ namespace VelvetLeaves.ViewModels.Gallery
     public class GalleryFormViewModel
     {
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
         [SanitizeStringInput]
         public string Name { get; set; } = null!;
 
         [Required]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = "Must be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
         [SanitizeStringInput]
         public string Description { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Please select a file.")]
+        [DataType(DataType.Upload)]
         [ImageInput]
         public IFormFile Image { get; set; } = null!;
 

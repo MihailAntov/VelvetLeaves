@@ -9,7 +9,7 @@ namespace VelvetLeaves.ViewModels.Category
     public class CategoryFormViewModel
     {
 		[Required]
-		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Name must be between {2} and {1} symbols.")]
+		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Nust be between {2} and {1} symbols.")]
         [DataType(DataType.Text)]
         [SanitizeStringInput]
         public string Name { get; set; } = null!;
