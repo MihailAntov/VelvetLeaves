@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using VelvetLeaves.Data.Configuration;
 using VelvetLeaves.Data.ObjectDatabase;
+using VelvetLeaves.Data.ObjectDatabase.Contracts;
 using VelvetLeaves.Services.Contracts;
 
 namespace VelvetLeaves.Services
@@ -13,24 +14,9 @@ namespace VelvetLeaves.Services
     {
         
         private readonly IMongoCollection<Image> _imagesCollection;
-        private readonly IMongoCollection<AppPreferences> _appPreferences;
-        public ImageService(IOptions<ObjectDatabaseSettings> objectDatabaseSettings)
+        public ImageService(IObjectDbContext context)
         {
-            
-
-            var mongoClient = new MongoClient(
-            objectDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                objectDatabaseSettings.Value.DatabaseName);
-
-            _imagesCollection = mongoDatabase.GetCollection<Image>(
-                objectDatabaseSettings.Value.ImagesCollectionName);
-
-            _appPreferences = mongoDatabase.GetCollection<AppPreferences>(
-                objectDatabaseSettings.Value.AppPreferencesCollectionName);
-
-
+            _imagesCollection = context.Images;
         }
 
 		public async Task<string?> CreateAsync(IFormFile content)
@@ -53,7 +39,7 @@ namespace VelvetLeaves.Services
                     
                     
 
-                    var result = _imagesCollection.InsertOneAsync(image);
+                    await _imagesCollection.InsertOneAsync(image);
 
                     id = image.Id;
                     

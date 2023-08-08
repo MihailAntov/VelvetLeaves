@@ -11,6 +11,7 @@ using VelvetLeaves.Web.Infrastructure.Services;
 using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 using VelvetLeaves.Web.Infrastructure.Filters;
 using Ganss.Xss;
+using VelvetLeaves.Data.ObjectDatabase.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +67,8 @@ builder.Services.AddScoped<IGalleryService, GalleryService>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IColorService, ColorService>();
-builder.Services.AddSingleton<IImageService, ImageService>();
+builder.Services.AddSingleton<IObjectDbContext, ObjectDbContext>();
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ISubcategoryService, SubcategoryService>();
 builder.Services.AddScoped<IProductSeriesService, ProductSeriesService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
