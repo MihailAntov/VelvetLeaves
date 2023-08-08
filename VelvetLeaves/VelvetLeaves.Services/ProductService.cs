@@ -77,6 +77,7 @@ namespace VelvetLeaves.Services
                     Name = p.Name,
                     Description = p.Description,
                     Price = p.Price,
+                    IsAvailable = p.IsAvailable,
                     Images = p.Images.Select(i=> i.Id).ToArray(),
                     Materials = p.Materials
                         .Select(m=> new MaterialListViewModel()
@@ -306,7 +307,8 @@ namespace VelvetLeaves.Services
                     MaterialIds = p.Materials.Select(m => m.Id),
                     Description = p.Description,
                     ImageIds = p.Images.Select(i => i.Id).ToList(),
-                    Price = p.Price
+                    Price = p.Price,
+                    IsAvailable = p.IsAvailable
                 }).FirstAsync();
 
             model.ColorOptions = await _colorService.GetAllColorsAsync();
@@ -359,6 +361,7 @@ namespace VelvetLeaves.Services
             product.Colors = model.ColorIds.Select(cId => _context.Colors.First(c => c.Id == cId)).ToList();
             product.Materials = model.MaterialIds.Select(mId => _context.Materials.First(m => m.Id == mId)).ToList();
             product.Tags = model.TagIds.Select(tId => _context.Tags.First(t => t.Id == tId)).ToList();
+            product.IsAvailable = model.IsAvailable;
 
             var currentImages = product.Images.ToList();
 
@@ -403,7 +406,7 @@ namespace VelvetLeaves.Services
         public async Task<IEnumerable<ProductForCartDto>> GetProductsForCart(IEnumerable<int> productIds)
         {
             var productDtos = await _context.Products
-                .Where(p => productIds.Contains(p.Id) && p.IsActive)
+                .Where(p => productIds.Contains(p.Id) && p.IsActive && p.IsAvailable)
                 .Select(p => new ProductForCartDto()
                 {
                     Id = p.Id,

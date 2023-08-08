@@ -21,14 +21,23 @@
 
 
 		<div class="mb-3">
-			<label asp-for="Description" class="form-label">Description:</label>
+			<label asp-for="Description" class="form-label">Description</label>
 			<textarea asp-for="Description" class="form-control description-input" rows="4">@Model.Description</textarea>
 			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="Price" class="form-label">Default Price:</label>
+			<label asp-for="Price" class="form-label">Price</label>
 			<input asp-for="Price" value="@Model.Price" class="form-control price-input" autocomplete="Enter price here" aria-required="true" />
+			<span asp-validation-for="Price" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="IsAvailable" class="form-label">Available</label>
+			<select class="form-select" value=@(Model.IsAvailable ? "true" : "false") asp-for="IsAvailable">
+				<option class="form-select" value="true">Yes</option>
+				<option class="form-select" value="false">No</option>
+			</select>
 			<span asp-validation-for="Price" class="text-danger"></span>
 		</div>
 

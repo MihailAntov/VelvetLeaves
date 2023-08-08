@@ -51,6 +51,9 @@ namespace VelvetLeaves.ViewModels.Product
         public IEnumerable<IFormFile>? Images { get; set; } 
         public IList<string>? ImageIds { get; set; }
 
+        [Required]
+        public bool IsAvailable { get; set; }
+
         public IEnumerable<string>? StartingImageIds { get; set; } = new HashSet<string>();
         public IEnumerable<string>? KeptImageIds { get; set; } = new HashSet<string>();
         public IEnumerable<int> ColorIds { get; set; } = new HashSet<int>();

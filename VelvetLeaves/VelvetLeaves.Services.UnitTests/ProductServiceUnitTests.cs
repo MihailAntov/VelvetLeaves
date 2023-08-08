@@ -138,7 +138,7 @@ namespace VelvetLeaves.Services.UnitTests
                 new Product { Id = 2, SubcategoryId = 1, IsActive = true , Name = "Product2 Name", Description = "Product2 Description",Price=60.00M, Images = new List<Image> {new Image {Id = "p2img1" }, new Image {Id = "p2img2"}, new Image{Id = "p2img3" } }, ProductSeriesId = 1 , Colors = new List<Color> {colors[0], colors[1] } },
                 new Product { Id = 3, SubcategoryId = 2, IsActive = false, Name = "Product3 Name", Description = "Product3 Description",Price=50.00M, Images = new List<Image> {new Image {Id = "p3img1" }, new Image {Id = "p3img2"} }, ProductSeriesId = 2 }, // Inactive product
                 new Product { Id = 4, SubcategoryId = 2, IsActive = true, Name = "Product4 Name", Description = "Product4 Description",Price=40.00M, Images = new List<Image> {new Image {Id = "p4img1" }, new Image {Id = "p4img2"} }, ProductSeriesId = 2 , Colors = new List<Color> {colors[2] }}, 
-                new Product { Id = 5, SubcategoryId = 2, IsActive = true, Name = "Product5 Name", Description = "Product5 Description",Price=20.00M, Images = new List<Image> {new Image {Id = "p5img1" }, new Image {Id = "p5img2"} }, ProductSeriesId = 2 , Tags = new List<Tag> { new Tag { Id = 4, Name = "Tag 4" } }, Materials = new List<Material> { new Material { Id = 4, Name = "Material 4" } } },
+                new Product { Id = 5, SubcategoryId = 2, IsActive = true, IsAvailable = false, Name = "Product5 Name", Description = "Product5 Description",Price=20.00M, Images = new List<Image> {new Image {Id = "p5img1" }, new Image {Id = "p5img2"} }, ProductSeriesId = 2 , Tags = new List<Tag> { new Tag { Id = 4, Name = "Tag 4" } }, Materials = new List<Material> { new Material { Id = 4, Name = "Material 4" } } },
                 new Product { Id = 6, SubcategoryId = 2, IsActive = true, Name = "Product6 Name", Description = "Product6 Description",Price=30.00M, Images = new List<Image> {new Image {Id = "p6img1" }, new Image {Id = "p6img2"} }, ProductSeriesId = 2 }
             };
 
@@ -813,6 +813,7 @@ namespace VelvetLeaves.Services.UnitTests
                 StartingImageIds = new List<string> { "p2img1", "p2img2", "p2img3" },
                 Images = new List<IFormFile> { new Mock<IFormFile>().Object },
                 KeptImageIds = new List<string> { "p2img1" },
+                IsAvailable = false
 
             };
 
@@ -838,6 +839,7 @@ namespace VelvetLeaves.Services.UnitTests
             Assert.AreEqual(product.Materials.Count, 1);
             Assert.AreEqual(product.Images.First().Id, "p2img1");
             Assert.AreEqual(product.Images.Count, 2);
+            Assert.IsFalse(product.IsAvailable);
 
 
 
@@ -943,7 +945,7 @@ namespace VelvetLeaves.Services.UnitTests
         public async Task GetProductsForCart_Should_Return_Products_With_Correct_Dtos()
         {
             // Arrange
-            var productIds = new[] { 1, 2, 3 }; // Sample productIds
+            var productIds = new[] { 1, 2, 3, 5 }; // Sample productIds, 3 is not active, 5 is not available
 
             // Setup the mock ProductService to return some products for the given productIds
             
@@ -960,7 +962,30 @@ namespace VelvetLeaves.Services.UnitTests
 
         }
 
+        [Test]
+        public async Task GetProductsForCart_Should_NotReturnUnavailableItems()
+        {
+            // Arrange
+            var productIds = new[] { 1, 2, 3 }; // Sample productIds
+
+            // Setup the mock ProductService to return some products for the given productIds
+
+
+            // Act
+            var result = await _productService.GetProductsForCart(productIds);
+
+            // Assert
+            // Verify that the correct DTOs are returned, only for active products
+            Assert.AreEqual(result.Count(), 2);
+            Assert.AreEqual(result.First().Name, "Product1 Name");
+            Assert.AreEqual(result.First().ImageId, "p1img1");
+            Assert.AreEqual(result.First().Price, 10.00M);
+
+        }
+
         
+
+
     }
 }
 

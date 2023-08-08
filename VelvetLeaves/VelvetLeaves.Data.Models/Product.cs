@@ -49,5 +49,7 @@ namespace VelvetLeaves.Data.Models
 
 
         public bool IsActive { get; set; } = true;
+
+        public bool IsAvailable { get; set; } = true;
     }
 }

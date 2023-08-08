@@ -10,6 +10,7 @@ namespace VelvetLeaves.ViewModels.Product
         public int Id { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; } = null!;
+        public bool IsAvailable { get; set; }   
         public IEnumerable<string> Images { get; set; } = new HashSet<string>();
         
         public IEnumerable<ProductListViewModel> ProductSeries { get; set; } = new HashSet<ProductListViewModel>();
