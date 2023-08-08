@@ -93,7 +93,12 @@ namespace VelvetLeaves.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
+        public async Task<bool> ExistsByIdAsync(int subcategoryId)
+        {
+			return await _context.Subcategories.AnyAsync(sc => sc.IsActive && sc.Id == subcategoryId);
+        }
+
+        public async Task<int> GetDefaultSubcategoryIdAsync(int categoryId)
         {
 			var id = await _context.Subcategories
 				.Where(sc => sc.CategoryId == categoryId && sc.IsActive)

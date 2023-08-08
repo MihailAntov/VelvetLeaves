@@ -12,7 +12,6 @@ namespace VelvetLeaves.Services
     {
         private readonly VelvetLeavesDbContext _context;
         private readonly ICategoryService _categoryService;
-        
         private readonly ISubcategoryService _subcategoryService;
         private readonly ITagService _tagService;
         private readonly IMaterialService _materialService;
@@ -67,6 +66,11 @@ namespace VelvetLeaves.Services
 
         public async Task<ProductSeriesDefaultValues> GetDefaultValues(int productSeriesId)
         {
+            if(!await ExistsByIdAsync(productSeriesId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var productSeries = await _context.ProductSeries
                 .Where(ps=> ps.Id == productSeriesId && ps.IsActive)
                 .Select(ps => new ProductSeriesDefaultValues()
@@ -84,6 +88,11 @@ namespace VelvetLeaves.Services
 
         public async Task<int> GetDefaultProductSeriesIdAsync(int subcategoryId)
         {
+            if(!await _subcategoryService.ExistsByIdAsync(subcategoryId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var id = await _context.ProductSeries
                 .Where(s => s.SubcategoryId == subcategoryId && s.IsActive)
                 .Select(s=> s.Id)
@@ -94,6 +103,11 @@ namespace VelvetLeaves.Services
 
         public async Task<IEnumerable<ProductSeriesSelectViewModel>> ProductSeriesBySubcategoryIdAsync(int subcategoryId)
         {
+            if (!await _subcategoryService.ExistsByIdAsync(subcategoryId))
+            {
+                throw new InvalidOperationException();
+            }
+
             var productSeries = await _context.ProductSeries
                 .Where(ps => ps.SubcategoryId == subcategoryId && ps.IsActive)
                 .Select(ps=> new ProductSeriesSelectViewModel()
@@ -108,7 +122,10 @@ namespace VelvetLeaves.Services
 
 		public async Task<ProductSeriesFormViewModel> GetProductSeriesByIdAsync(int productSeriesId)
 		{
-            
+            if(!await ExistsByIdAsync(productSeriesId))
+            {
+                throw new InvalidOperationException();
+            }
             
             ProductSeriesFormViewModel model = await _context
                 .ProductSeries
@@ -136,6 +153,11 @@ namespace VelvetLeaves.Services
 
         public async Task EditAsync(int productSeriesId, ProductSeriesFormViewModel model)
 		{
+            if(!await ExistsByIdAsync(productSeriesId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var productSeries = await _context
                 .ProductSeries
                 .Include(p=> p.DefaultColors)
@@ -159,6 +181,11 @@ namespace VelvetLeaves.Services
 
 		public async Task DeleteAsync(int productSeriesId)
 		{
+            if (!await ExistsByIdAsync(productSeriesId))
+            {
+                throw new InvalidOperationException();
+            }
+
             var productSeries = await _context.ProductSeries
                 .Include(ps=> ps.Products)
                 .FirstAsync(ps => ps.Id == productSeriesId);
@@ -192,6 +219,11 @@ namespace VelvetLeaves.Services
             model.TagOptions = await _tagService.GetAllTagsAsync();
 
             return model;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int productSeriesId)
+        {
+            return await _context.ProductSeries.AnyAsync(ps => ps.IsActive && ps.Id == productSeriesId);
         }
     }
 }

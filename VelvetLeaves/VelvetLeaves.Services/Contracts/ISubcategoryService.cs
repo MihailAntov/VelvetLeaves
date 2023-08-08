@@ -17,5 +17,7 @@ namespace VelvetLeaves.Services.Contracts
 		Task EditAsync(SubcategoryEditFormViewModel model);
 
 		Task DeleteAsync(int subcategoryId);
+
+		Task<bool> ExistsByIdAsync(int subcategoryId);
 	}
 }
