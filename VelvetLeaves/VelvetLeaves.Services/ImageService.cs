@@ -51,13 +51,15 @@ namespace VelvetLeaves.Services
             
         }
 
-		public async Task CreateFromStringAsync(string id, string content)
+		public async Task<Image> CreateFromStringAsync(string id, string content)
 		{
 
 
             await _imagesCollection.FindOneAndDeleteAsync(i => i.Id == id);
+            Image newImage = new Image { Id = id, Content = content };
+            await _imagesCollection.InsertOneAsync(newImage);
 
-            await _imagesCollection.InsertOneAsync(new Image { Id = id, Content = content });
+            return newImage;
             
 		}
 
@@ -102,19 +104,24 @@ namespace VelvetLeaves.Services
 
 		public async Task<string?> GetAsync(string id)
 		{
-            var result = await ((await _imagesCollection.FindAsync(i=>i.Id == id)).ToListAsync());
-            var image = result.FirstOrDefault();
-            if(image != null)
+			List<Image> result = await FindAsyncInCollection(id);
+			var image = result.FirstOrDefault();
+			if (image != null)
 			{
-                return image.Content;
+				return image.Content;
 			}
-            return null;
+			return null;
 		}
 
-		public async Task RemoveAsync(string id)
+		protected virtual async Task<List<Image>> FindAsyncInCollection(string id) => await((await _imagesCollection.FindAsync(i => i.Id == id)).ToListAsync());
+		
+		public async Task<bool> RemoveAsync(string id)
 		{
-            await _imagesCollection.FindOneAndDeleteAsync(i=> i.Id == id);
+			var removed = await FindOneAndDeleteInCollection(id);
+            return removed != null;
 		}
+
+		protected virtual async Task<Image?> FindOneAndDeleteInCollection(string id) => await _imagesCollection.FindOneAndDeleteAsync(i => i.Id == id);
 
 		public async Task UpdateAsync(string id, IFormFile content)
 		{
