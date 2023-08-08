@@ -10,6 +10,7 @@ namespace VelvetLeaves.Services.UnitTests.HelperClasses
 {
 	public class ImageServiceTest : ImageService
 	{
+		
 		public ImageServiceTest(IObjectDbContext context) : base(context)
 		{
 		}
