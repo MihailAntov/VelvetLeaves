@@ -117,25 +117,38 @@ namespace VelvetLeaves.Web.App.Controllers
             {
                 return View(model);
             }
+
+
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 model.Email = User.FindFirstValue(ClaimTypes.Email);
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _orderService.PlaceOrderAsync(model,userId);
-            await _hubContext.Clients.All.SendAsync("NewOrderPlaced");
+
+            try
+            {
+                await _orderService.PlaceOrderAsync(model, userId);
+                await _hubContext.Clients.All.SendAsync("NewOrderPlaced");
+
+                _shoppingCartService.EmptyShoppingCart();
+
+                if (User?.Identity?.IsAuthenticated ?? false)
+                {
+
+                    return RedirectToAction("All", "Orders");
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
 
 
-            _shoppingCartService.EmptyShoppingCart();
-
-			if (User?.Identity?.IsAuthenticated ?? false)
-			{
-
-                return RedirectToAction("All", "Orders");
-			}
-
-            return RedirectToAction("Index", "Home");
+            
 
 
         }
@@ -143,9 +156,17 @@ namespace VelvetLeaves.Web.App.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = await _orderService.AllByIdAsync(userId);
-            return View(model);
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var model = await _orderService.AllByIdAsync(userId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
 

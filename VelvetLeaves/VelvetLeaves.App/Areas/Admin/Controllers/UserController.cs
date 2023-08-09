@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.User;
 using static VelvetLeaves.Common.ApplicationConstants;
 
@@ -12,58 +13,39 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     [Authorize(Roles = AdminRoleName)]
     public class UserController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        public UserController(
-            RoleManager<IdentityRole> roleManager, 
-            UserManager<ApplicationUser> userManager)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
-;
+
+            _userService = userService;
         }
 
         [HttpGet]
         public async Task<IActionResult> MakeModerator(string userId)
         {
-            
-
             try
             {
-                if (!await _roleManager.RoleExistsAsync(ModeratorRoleName))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(ModeratorRoleName));
-                }
-
-                var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.AddToRoleAsync(user, ModeratorRoleName);
+                await _userService.MakeModeratorAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
             }
             catch
             {
                 return NotFound();
-            }
-
-            
+            }  
         }
 
         [HttpGet]
         public async Task<IActionResult> RemoveModerator(string userId)
         {
-            
-
             try
             {
-                var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.RemoveFromRoleAsync(user, ModeratorRoleName);
+                await _userService.RemoveModeratorAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
-
             }
             catch
             {
                 return NotFound();
             }
-
         }
 
         [HttpGet]
@@ -71,10 +53,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(userId);
-                await _userManager.AddToRoleAsync(user, AdminRoleName);
+                await _userService.MakeAdminAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
-
             }
             catch
             {
@@ -91,22 +71,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             try
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var model = _userManager.Users
-                    .Where(u => u.Id != userId)
-                    .Select(u => new UserPromoteViewModel()
-                    {
-                        Email = u.Email,
-                        Username = u.UserName,
-                        UserId = u.Id,
-                    }).ToList();
-
-                foreach (var user in model)
-                {
-                    var thisUser = await _userManager.FindByIdAsync(user.UserId);
-                    user.IsModerator = await _userManager.IsInRoleAsync(thisUser, "Moderator");
-                    user.IsAdmin = await _userManager.IsInRoleAsync(thisUser, "Admin");
-                }
-
+                var model = await _userService.GetFormForPromoteAsync(userId);
                 return View(model);
             }
             catch(Exception)

@@ -17,8 +17,17 @@ namespace VelvetLeaves.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var model = await _galleryService.GetGalleryByIdAsync(1);
-            return View(model);
+            try
+            {
+                var model = await _galleryService.GetGalleryByIdAsync(1);
+                return View(model);
+                //TODO change index
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         [Authorize(Roles = "Admin, Moderator")]

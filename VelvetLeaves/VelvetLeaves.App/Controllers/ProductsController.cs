@@ -39,32 +39,38 @@ namespace VelvetLeaves.Web.App.Controllers
                 return BadRequest();
             }
 
-            ProductsFilteredAndPagedServiceModel serviceModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);
+            //ProductsFilteredAndPagedServiceModel serviceModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);
 
-            queryModel.Products = serviceModel.Products;
-            queryModel.TotalProducts = serviceModel.TotalProductCount;
-            queryModel.ColorOptions = await _colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            queryModel.MaterialOptions = await _materialService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            queryModel.TagOptions = await _tagService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            //queryModel.Products = serviceModel.Products;
+            //queryModel.TotalProducts = serviceModel.TotalProductCount;
+            //queryModel.ColorOptions = await _colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            //queryModel.MaterialOptions = await _materialService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            //queryModel.TagOptions = await _tagService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
+            try
+            {
+                queryModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);
+                return View("Products", queryModel);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
 
-            return View("Products", queryModel);
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            if (!await _productService.ExistsByIdAsync(id))
+            try
             {
-                return BadRequest();
+                var model = await _productService.DetailsByIdAsync(id);
+                return View(model);
             }
-            var model = await _productService.DetailsByIdAsync(id);
-
-            return View(model);
-        }
-
-        
-
-        
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        } 
     }
 }

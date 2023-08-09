@@ -304,7 +304,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(5, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(5, result.TotalProducts); // There are 5 active products in the seed data
             Assert.AreEqual(5, result.Products.Count()); // All active products should be returned
         }
 
@@ -325,7 +325,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.TotalProductCount); 
+            Assert.AreEqual(3, result.TotalProducts); 
             Assert.AreEqual(3, result.Products.Count()); // The filtered product should be returned
             Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the product name
         }
@@ -347,7 +347,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.TotalProductCount); // Only 1 product matches the search criteria
+            Assert.AreEqual(1, result.TotalProducts); // Only 1 product matches the search criteria
             Assert.AreEqual(1, result.Products.Count()); // The filtered product should be returned
             Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the product name
         }
@@ -368,7 +368,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(5, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(5, result.TotalProducts); // There are 5 active products in the seed data
             Assert.AreEqual(2, result.Products.Count()); // The second page should have 2 products
             Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the first product on the second page
         }
@@ -389,7 +389,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.TotalProductCount); 
+            Assert.AreEqual(3, result.TotalProducts); 
             Assert.AreEqual(3, result.Products.Count()); 
             Assert.AreEqual("Product4 Name", result.Products.First().Name); // Verify the first product on the second page
         }
@@ -410,7 +410,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.TotalProductCount); 
+            Assert.AreEqual(0, result.TotalProducts); 
             Assert.AreEqual(0, result.Products.Count()); 
         }
 
@@ -430,7 +430,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(1, result.TotalProducts); // There are 5 active products in the seed data
             Assert.AreEqual(1, result.Products.Count()); // The second page should have 2 products
             Assert.AreEqual("Product5 Name", result.Products.First().Name); // Verify the first product on the second page
         }
@@ -451,7 +451,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.TotalProductCount);
+            Assert.AreEqual(0, result.TotalProducts);
             Assert.AreEqual(0, result.Products.Count());
         }
 
@@ -471,7 +471,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(1, result.TotalProducts); // There are 5 active products in the seed data
             Assert.AreEqual(1, result.Products.Count()); // The second page should have 2 products
             Assert.AreEqual("Product5 Name", result.Products.First().Name); // Verify the first product on the second page
         }
@@ -492,7 +492,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.TotalProductCount);
+            Assert.AreEqual(0, result.TotalProducts);
             Assert.AreEqual(0, result.Products.Count());
         }
 
@@ -512,7 +512,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.TotalProductCount); // There are 5 active products in the seed data
+            Assert.AreEqual(2, result.TotalProducts); // There are 5 active products in the seed data
             Assert.AreEqual(2, result.Products.Count()); // The second page should have 2 products
             Assert.AreEqual("Product1 Name", result.Products.First().Name); // Verify the first product on the second page
         }
@@ -791,7 +791,7 @@ namespace VelvetLeaves.Services.UnitTests
             // Setup the mock ProductService to return an empty list (no products)
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.GetFormForEditAsync(nonExistentProductId));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _productService.GetFormForEditAsync(nonExistentProductId));
         }
 
         [Test]

@@ -35,7 +35,6 @@ namespace VelvetLeaves.Services
                 Name = categoryName,
                 ImageId = imageId
             };
-            _logger.LogInformation($"Creating category with name {categoryName} and imageId {imageId}.");
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
         }
@@ -50,7 +49,6 @@ namespace VelvetLeaves.Services
                     Name = c.Name,
                 }).ToArrayAsync();
 
-            _logger.LogInformation($"Returning ${categories.Length} categories.");
             return categories;
         }
 
@@ -64,20 +62,21 @@ namespace VelvetLeaves.Services
                 .Select(c => c.Id)
                 .FirstOrDefaultAsync();
 
-            _logger.LogInformation($"Returning {id} as default categoryId.");
             return id;
         }
 
         public async Task<bool> CategoryExistsByIdAsync(int categoryId)
         {
-            _logger.LogInformation($"Checking if {categoryId} is a valid categoryId");
             return await _context.Categories
                 .AnyAsync(c=> c.Id == categoryId && c.IsActive);
         }
 
 		public async Task<CategoryEditFormViewModel> GetForEditAsync(int categoryId)
 		{
-            
+            if(!await CategoryExistsByIdAsync(categoryId))
+            {
+                throw new InvalidOperationException();
+            }
             
             var model = await _context
                 .Categories
@@ -87,22 +86,16 @@ namespace VelvetLeaves.Services
                     Id = c.Id,
                     Name = c.Name,
                     ImageId = c.ImageId
-                }).FirstOrDefaultAsync();
+                }).FirstAsync();
             
-
-            if(model == null)
-            {
-                _logger.LogError($"Category with id {categoryId} for edit not found.");
-                throw new ArgumentException();
-            }
-            _logger.LogInformation($"Returning category {model.Name} for edit. ");
             return model;
+
+            
 		}
 		public async Task EditAsync(CategoryEditFormViewModel model)
 		{
 			if(model.Image != null)
 			{
-                
                 await _imageService.UpdateAsync(model.ImageId, model.Image);
 			}
             
@@ -120,8 +113,7 @@ namespace VelvetLeaves.Services
         {
             if(!await CategoryExistsByIdAsync(categoryId))
             {
-                _logger.LogError($"Category with id {categoryId} for delete not found. ");
-                throw new ArgumentException();
+                throw new InvalidOperationException();
             }
 
 

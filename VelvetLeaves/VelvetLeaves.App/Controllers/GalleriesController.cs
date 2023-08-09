@@ -32,8 +32,15 @@ namespace VelvetLeaves.Web.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var galleries = await galleryService.AllGalleriesAsync();
-            return View(galleries);
+            try
+            {
+                var galleries = await galleryService.AllGalleriesAsync();
+                return View(galleries);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         

@@ -41,8 +41,6 @@ namespace VelvetLeaves.App.Controllers
         {
             RegisterFormViewModel model = new RegisterFormViewModel();
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
-
-
             return View(model);
         }
         [HttpPost]
@@ -169,26 +167,48 @@ namespace VelvetLeaves.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Favorites()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = await _favoriteService.GetFavoritesByUserIdAsync(userId);
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var model = await _favoriteService.GetFavoritesByUserIdAsync(userId);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet]
         public async Task AddToFavorites(int productId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await _favoriteService.AddToFavorites(userId, productId);
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _favoriteService.AddToFavorites(userId, productId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
         }
 
         [HttpGet]
         public async Task RemoveFromFavorites(int productId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await _favoriteService.RemoveFromFavorites(userId, productId);
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _favoriteService.RemoveFromFavorites(userId, productId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
         }
     }
 }

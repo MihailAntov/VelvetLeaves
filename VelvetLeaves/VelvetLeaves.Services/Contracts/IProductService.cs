@@ -9,7 +9,7 @@ namespace VelvetLeaves.Services.Contracts
 {
     public interface IProductService
     {
-        Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model);
+        Task<ProductsQueryModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model);
 
         public Task<ProductTreeViewModel> GetProductTreeAsync(int? categoryId, int? subcategoryId, int? productSeriesId);
 

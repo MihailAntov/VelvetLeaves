@@ -78,6 +78,7 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IHelperService, HelperService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSignalR();
 var app = builder.Build();

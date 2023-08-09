@@ -99,7 +99,6 @@ namespace VelvetLeaves.Services
 
 			if(address == null)
             {
-				_logger.LogError($"Address with id {id} not found for edit.");
 				throw new InvalidOperationException();
             }
 

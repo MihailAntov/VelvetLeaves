@@ -17,9 +17,17 @@ namespace VelvetLeaves.App.Controllers
         }
         public async Task<IActionResult> All()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = await _addressService.GetAddressOptionsAsync(userId);
-            return View(model);
+            try
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var model = await _addressService.GetAddressOptionsAsync(userId);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet]
@@ -39,13 +47,13 @@ namespace VelvetLeaves.App.Controllers
             try
             {
                 await _addressService.AddAsync(model, userId);
+                return RedirectToAction("All");
 
             }
             catch (Exception)
             {
-                AddGeneralError();
+                return NotFound();
             }
-            return RedirectToAction("All");
         }
 
         [HttpGet]

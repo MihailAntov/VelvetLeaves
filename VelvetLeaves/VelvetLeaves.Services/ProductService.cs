@@ -110,7 +110,7 @@ namespace VelvetLeaves.Services
             return model;
         }
 
-        public async Task<ProductsFilteredAndPagedServiceModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
+        public async Task<ProductsQueryModel> ProductsFilteredAndPagedAsync(ProductsQueryModel model)
 		{
             IQueryable<Product> products = _context.Products.Where(p => p.IsActive).AsQueryable();
 
@@ -158,14 +158,22 @@ namespace VelvetLeaves.Services
                 }).ToArrayAsync();
 
             _logger.LogInformation($"Returning {products.Count()} total products.");
-            return new ProductsFilteredAndPagedServiceModel()
+            var filteredPorudctsModel = new ProductsFilteredAndPagedServiceModel()
             {
                 Products = productsFiltered,
                 TotalProductCount = products.Count()
             };
 
+            model.Products = filteredPorudctsModel.Products;
+            model.TotalProducts = filteredPorudctsModel.TotalProductCount;
+            model.ColorOptions = await _colorService.GetColorOptionsAsync(model.CategoryId, model.SubCategoryId);
+            model.MaterialOptions = await _materialService.GetMaterialOptionsAsync(model.CategoryId, model.SubCategoryId);
+            model.TagOptions = await _tagService.GetTagOptionsAsync(model.CategoryId, model.SubCategoryId);
 
-		}
+            return model;
+
+
+        }
 
         public async Task<ProductTreeViewModel> GetProductTreeAsync(int? categoryId, int? subcategoryId, int? productSeriesId)
         {
