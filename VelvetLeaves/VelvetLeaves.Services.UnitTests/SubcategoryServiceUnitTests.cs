@@ -93,6 +93,38 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
+        public async Task DeleteAsync_ThrowsIfSubcategoryIdNotValid()
+        {
+            var subcategory = new Subcategory
+            {
+                Id = 1,
+                IsActive = true,
+                Name = "Test Subcategory",
+                ImageId = "img1id",
+                ProductSeries = new List<ProductSeries>
+                {
+                    new ProductSeries
+                    {
+                        Id = 1,
+                        IsActive = true,
+                        Name = "testName",
+                        DefaultName = "test",
+                        DefaultDescription = "test",
+                        Products = new List<Product>
+                        {
+                            new Product { Id = 1, IsActive = true, Name = "Product Name", Description = "Product Description" }
+                        }
+                    }
+                }
+            };
+            _dbContext.Subcategories.Add(subcategory);
+            await _dbContext.SaveChangesAsync();
+            var incorrectId = 555;
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _subcategoryService.DeleteAsync(incorrectId));
+        }
+
+
+        [Test]
         public async Task DeleteAsync_DeactivatesSubcategoryAndRelatedData()
         {
             // Arrange
@@ -135,6 +167,34 @@ namespace VelvetLeaves.Services.UnitTests
             
         }
 
+
+        [Test]
+        public async Task EditAsync_ThrowsIfSubcategoryIdNotValid()
+        {
+
+            var subcategory = new Subcategory
+            {
+                Id = 1,
+                IsActive = true,
+                Name = "Old Name",
+                CategoryId = 1,
+                ImageId = "Old Image"
+
+            };
+            _dbContext.Subcategories.Add(subcategory);
+            await _dbContext.SaveChangesAsync();
+
+            var editModel = new SubcategoryEditFormViewModel
+            {
+                Id = 555,
+                Name = "New Name",
+                CategoryId = 2,
+                Image = new Mock<IFormFile>().Object,
+                ImageId = "Old Image"
+
+            };
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _subcategoryService.EditAsync(editModel));
+        }
         [Test]
         public async Task EditAsync_UpdatesSubcategory()
         {
@@ -283,6 +343,53 @@ namespace VelvetLeaves.Services.UnitTests
             // Assert
             Assert.NotNull(subcategories);
             Assert.AreEqual(2, subcategories.Count());
+        }
+
+        //public async Task<SubcategoryFormViewModel> PopulateModel(SubcategoryFormViewModel model)
+        //{
+        //    var categories = await _categoryService.AllCategoriesAsync();
+        //    model.CategoryId = !categories.Select(c => c.Id).Contains(model.CategoryId) ? await _categoryService.GetDefaultCategoryIdAsync() : model.CategoryId;
+        //    model.CategoryOptions = categories;
+
+        //    return model;
+        //}
+
+        [Test]
+        public async Task PopulateModel_ValidCategoryId_ReturnsCorrectOptions()
+        {
+            var categoryId = 1;
+            
+
+            _mockCategoryService.Setup(service => service.AllCategoriesAsync()).ReturnsAsync(new List<CategorySelectViewModel>
+            {
+                new CategorySelectViewModel { Id = 1, Name = "c1"},
+                new CategorySelectViewModel { Id = 2, Name = "c2"}
+            });
+            
+
+            var model = new SubcategoryFormViewModel()
+            {
+                CategoryId = categoryId
+            };
+
+            _subcategoryService = new SubcategoryService(
+                _dbContext,
+                _mockCategoryService.Object,
+                _mockImageService.Object,
+                _mockGalleryService.Object
+            );
+
+            model = await _subcategoryService.PopulateModel(model);
+
+            Assert.AreEqual(model.CategoryOptions.Count(), 2);
+            Assert.IsTrue(model.CategoryOptions.Any(o => o.Name == "c1"));
+            Assert.IsTrue(model.CategoryOptions.Any(o => o.Name == "c2"));
+        }
+
+        [Test]
+        public async Task PopulateModel_InValidCategoryId_ReturnsDefaultOptions()
+        {
+
         }
 
     }

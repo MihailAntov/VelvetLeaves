@@ -213,6 +213,25 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
+        [TestCase(1, 25)]
+        [TestCase(25, 1)]
+        public void MoveLeft_ThrowsIfProductOrGalleryIdIncorrect(int productId, int galleryId)
+        {
+            // Arrange
+            Assert.ThrowsAsync<InvalidOperationException>(async ()=> await _galleryService.MoveLeft(productId, galleryId));
+        }
+
+
+        [Test]
+        [TestCase(1, 25)]
+        [TestCase(25, 1)]
+        public void MoveRight_ThrowsIfProductOrGalleryIdIncorrect(int productId, int galleryId)
+        {
+            // Arrange
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _galleryService.MoveRight(productId, galleryId));
+        }
+
+        [Test]
         public async Task MoveRight_LastProductInGallery_ShouldNotMoveProduct()
         {
             // Arrange

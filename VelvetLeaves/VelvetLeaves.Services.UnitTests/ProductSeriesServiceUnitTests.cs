@@ -78,6 +78,7 @@ namespace VelvetLeaves.Services.UnitTests
             {
                 new Category { Id = 1, Name = "Category 1", ImageId = "category1img" },
                 new Category { Id = 2, Name = "Category 2",  ImageId = "category2img" },
+                new Category { Id = 3, Name = "Category 3", ImageId = "category3img"}
             };
             _context.Categories.AddRange(categories);
             await _context.SaveChangesAsync();
@@ -85,7 +86,8 @@ namespace VelvetLeaves.Services.UnitTests
             var subcategories = new List<Subcategory>
             {
                 new Subcategory { Id = 1, CategoryId = 1, Name = "Subcategory 1" ,  ImageId = "subcategory1img"},
-                new Subcategory { Id = 2, CategoryId = 2, Name = "Subcategory 2",  ImageId = "subcategory1img" },
+                new Subcategory { Id = 2, CategoryId = 2, Name = "Subcategory 2",  ImageId = "subcategory2img" },
+                new Subcategory { Id = 3, CategoryId = 2, Name = "Subcategory 3",  ImageId = "subcategory3img",IsActive = false },
              };
             _context.Subcategories.AddRange(subcategories);
             await _context.SaveChangesAsync();

@@ -15,8 +15,8 @@ namespace VelvetLeaves.Services
 	{
 		private readonly VelvetLeavesDbContext _context;
 		public GalleryService(VelvetLeavesDbContext context)
-		{
-			_context = context;
+        {
+            _context = context;
         }
 
         public async Task AddAsync(GalleryFormViewModel model)
@@ -88,7 +88,10 @@ namespace VelvetLeaves.Services
 
         public async Task DeleteItem(int productId, int galleryId)
         {
-            var gp = await _context.GalleriesProducts.FirstAsync(gp=> gp.ProductId == productId && gp.GalleryId == galleryId);
+            
+
+
+			var gp = await _context.GalleriesProducts.FirstAsync(gp=> gp.ProductId == productId && gp.GalleryId == galleryId);
 			
 			var remainingItems = _context.GalleriesProducts.Where(ri => ri.Position > gp.Position && ri.GalleryId == galleryId);
 			if (remainingItems.Any())
@@ -104,13 +107,18 @@ namespace VelvetLeaves.Services
         public async Task MoveLeft(int productId, int galleryId)
         {
 
+			
 
 			var products = await _context.GalleriesProducts
 				.Include(gp => gp.Product)
 				.Where(gp => gp.GalleryId == galleryId && gp.Gallery.IsActive)
 				.ToArrayAsync();
 
-			var product = products.First(p => p.ProductId == productId);
+			var product = products.FirstOrDefault(p => p.ProductId == productId);
+			if(product == null)
+            {
+				throw new InvalidOperationException();
+            }
 			
 			var previousProduct = products.FirstOrDefault(p => p.Position == product.Position - 1);
 			if(previousProduct == null)
@@ -130,8 +138,12 @@ namespace VelvetLeaves.Services
 				.Where(gp => gp.GalleryId == galleryId)
 				.ToArrayAsync();
 
-			var product = products.First(p => p.ProductId == productId);
-			
+			var product = products.FirstOrDefault(p => p.ProductId == productId);
+
+			if (product == null)
+			{
+				throw new InvalidOperationException();
+			}
 			var previousProduct = products.FirstOrDefault(p => p.Position == product.Position + 1);
 			if (previousProduct == null)
 			{

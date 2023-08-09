@@ -58,7 +58,6 @@ namespace VelvetLeaves.Services
 
 			if(address == null)
             {
-				_logger.LogWarning($"Address with id {addressId} not found. ");
 				throw new InvalidOperationException();
             }
 

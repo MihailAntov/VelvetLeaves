@@ -51,6 +51,23 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
+        public async Task DeleteAsync_ThrowsifMaterialIdNotFound()
+        {
+            var materialId = 1;
+            var material = new Material { Name = "Material Name", Id = materialId, IsActive = true };
+
+
+            _dbContext.Materials.Add(material);
+            await _dbContext.SaveChangesAsync();
+            var wrongMaterialId = 555;
+
+            // Act
+            Assert.ThrowsAsync<InvalidOperationException>(async ()=> await _materialService.DeleteAsync(wrongMaterialId));
+        }
+
+
+
+        [Test]
         public async Task DeleteAsync_ExistingMaterialId_SetsMaterialInactive()
         {
             // Arrange

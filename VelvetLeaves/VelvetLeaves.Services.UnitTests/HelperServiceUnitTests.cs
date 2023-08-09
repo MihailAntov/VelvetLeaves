@@ -31,6 +31,8 @@ namespace VelvetLeaves.Services.UnitTests
 
         }
 
+       
+
         [Test]
         public async Task GetCurrentPreferences_PreferencesExist_ReturnsViewModel()
         {

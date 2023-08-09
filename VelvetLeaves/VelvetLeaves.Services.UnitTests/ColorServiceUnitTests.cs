@@ -74,6 +74,19 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
+        public async Task DeleteAsync_ThrowsifColorDoesntExists()
+        {
+            var color = new Color { Id = 1, Name = "Red", ColorValue = "#FF0000", IsActive = true };
+            _dbContext.Colors.Add(color);
+            await _dbContext.SaveChangesAsync();
+
+            // Act
+            int colorId = 555;
+
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _colorService.DeleteAsync(colorId));
+        }
+
+        [Test]
         public async Task GetAllColorsAsync_ReturnsAllActiveColors()
         {
             // Arrange

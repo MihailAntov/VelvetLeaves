@@ -57,6 +57,11 @@ namespace VelvetLeaves.Services
 
 		public  async Task DeleteAsync(int subcategoryId)
 		{
+			if(!await ExistsByIdAsync(subcategoryId))
+            {
+				throw new InvalidOperationException();
+            }
+			
 			var subcategory = await _context.Subcategories
 				.Include(sc=> sc.ProductSeries)
 				.ThenInclude(ps=> ps.Products)
@@ -79,7 +84,12 @@ namespace VelvetLeaves.Services
 
 		public async Task EditAsync(SubcategoryEditFormViewModel model)
 		{
-			if(model.Image != null)
+			if (!await ExistsByIdAsync(model.Id))
+			{
+				throw new InvalidOperationException();
+			}
+
+			if (model.Image != null)
 			{
 				await _imageService.UpdateAsync(model.ImageId, model.Image);
 			}

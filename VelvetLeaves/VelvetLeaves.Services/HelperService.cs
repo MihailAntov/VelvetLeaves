@@ -56,10 +56,7 @@ namespace VelvetLeaves.Services
         public async Task<AppPreferencesFormViewModel> GetCurrentPreferences()
 		{
 			AppPreferences preferences = await FindAsyncInCollectionFirstOrDefault();
-            if(preferences == null)
-            {
-                throw new InvalidOperationException();
-            }
+            
 
 			return new AppPreferencesFormViewModel()
 			{

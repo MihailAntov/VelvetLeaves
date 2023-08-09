@@ -86,6 +86,30 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
+        public async Task AllCategoriesAsync_ShouldNotReturnInactiveCategories()
+        {
+            // Arrange
+            // Ensure that the database is empty
+            _dbContext.Categories.RemoveRange(_dbContext.Categories);
+            await _dbContext.SaveChangesAsync();
+            var categoriesData = new List<Category>
+            {
+                new Category { Id = 1, Name = "Category 1", ImageId = "Image1", IsActive = true },
+                new Category { Id = 2, Name = "Category 2",  ImageId = "Image1" , IsActive = true},
+                new Category { Id = 3, Name = "Category 3",  ImageId = "Image1", IsActive = false }
+            };
+            _dbContext.Categories.AddRange(categoriesData);
+            await _dbContext.SaveChangesAsync();
+
+            // Act
+            var result = await _categoryService.AllCategoriesAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [Test]
         public async Task AllCategoriesAsync_ShouldReturnCorrectCategories_WhenCategoriesExist()
         {
             // Arrange
@@ -229,7 +253,7 @@ namespace VelvetLeaves.Services.UnitTests
             await _dbContext.SaveChangesAsync();
 
             // Act & Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _categoryService.GetForEditAsync(1));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _categoryService.GetForEditAsync(1));
         }
 
         [Test]
@@ -245,7 +269,7 @@ namespace VelvetLeaves.Services.UnitTests
             await _dbContext.SaveChangesAsync();
 
             // Act & Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _categoryService.GetForEditAsync(1));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _categoryService.GetForEditAsync(1));
         }
 
         [Test]
@@ -269,6 +293,29 @@ namespace VelvetLeaves.Services.UnitTests
             Assert.AreEqual("Category 2", result.Name);
             Assert.AreEqual("imageId2", result.ImageId);
         }
+        [Test]
+        public async Task EditAsync_ShouldThrowIfCategoryIdInvalid()
+        {
+            var categoriesData = new List<Category>
+        {
+            new Category { Id = 1, Name = "Category 1", IsActive = true, ImageId = "image1id" },
+            new Category { Id = 2, Name = "Category 2", IsActive = true, ImageId = "image2id" }
+        };
+            _dbContext.Categories.AddRange(categoriesData);
+            await _dbContext.SaveChangesAsync();
+
+            var model = new CategoryEditFormViewModel
+            {
+                Id = 25,
+                Name = "Updated Category",
+                ImageId = "imageId1",
+                Image = null // Not updating the image in this test
+            };
+
+            // Act
+            Assert.ThrowsAsync<InvalidOperationException>(async ()=> await _categoryService.EditAsync(model));
+        }
+
 
         [Test]
         public async Task EditAsync_ShouldUpdateCategoryName_WhenValidModelIsProvided()
@@ -364,7 +411,7 @@ namespace VelvetLeaves.Services.UnitTests
             await _dbContext.SaveChangesAsync();
 
             // Act & Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _categoryService.DeleteAsync(1));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _categoryService.DeleteAsync(1));
         }
 
         [Test]

@@ -43,6 +43,7 @@ namespace VelvetLeaves.Services
         {
             var categories = await _context
                 .Categories
+                .Where(c=> c.IsActive)
                 .Select(c => new CategorySelectViewModel()
                 {
                     Id = c.Id,
@@ -94,7 +95,12 @@ namespace VelvetLeaves.Services
 		}
 		public async Task EditAsync(CategoryEditFormViewModel model)
 		{
-			if(model.Image != null)
+            if (!await CategoryExistsByIdAsync(model.Id))
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (model.Image != null)
 			{
                 await _imageService.UpdateAsync(model.ImageId, model.Image);
 			}
