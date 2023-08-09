@@ -35,5 +35,9 @@ namespace VelvetLeaves.ViewModels.AppPreferences
         [SanitizeStringInput]
         public string FavoriteColor { get; set; } = null!;
 
+        [Required]
+        [SanitizeStringInput]
+        public string Description { get; set; } = null!;
+
     }
 }

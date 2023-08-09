@@ -32,6 +32,13 @@ namespace VelvetLeaves.Services
             return color;
         }
 
+        public async Task<string> Description()
+        {
+            AppPreferences preferences = await FindAsyncInCollectionFirstOrDefault();
+            string description = preferences.Description;
+            return description;
+        }
+
         public async Task<string> Background()
         {
             AppPreferences preferences = await FindAsyncInCollectionFirstOrDefault();
@@ -64,7 +71,8 @@ namespace VelvetLeaves.Services
 				Currency = preferences.Currency,
 				FavoriteColor = preferences.FavoriteColor,
 				FavoriteIcon = preferences.FavoriteIcon,
-				RootNavigationName = preferences.RootNavigationName
+				RootNavigationName = preferences.RootNavigationName,
+                Description = preferences.Description
 			};
 
 		}
@@ -81,7 +89,8 @@ namespace VelvetLeaves.Services
 				Currency = model.Currency,
 				FavoriteColor = model.FavoriteColor,
 				FavoriteIcon = model.FavoriteIcon,
-				RootNavigationName = model.RootNavigationName
+				RootNavigationName = model.RootNavigationName,
+                Description = model.Description
 			};
 
 			if (model.ImageId != null)
@@ -93,7 +102,7 @@ namespace VelvetLeaves.Services
 		}
 
 		protected virtual async Task FindOneAndreplaceInCollection(AppPreferences preferences) => await _preferences.FindOneAndReplaceAsync(p => p.Id == PreferencesKey, preferences);
-		
 
-	}
+        
+    }
 }

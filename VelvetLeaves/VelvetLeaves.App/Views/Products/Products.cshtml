@@ -88,7 +88,9 @@
 
 					<!-- Gallery -->
 
-
+					@if(!Model.Products.Any()){
+						<p>No products match the search criteria.</p>
+					}
 					<div class="row">
 						@foreach (var product in Model.Products)
 						{
@@ -105,7 +107,6 @@
 								
 							</div>
 						}
-
 					</div>
 					<div class="text-center">
 						<!-- Page selector -->
@@ -118,7 +119,7 @@
 							</select>
 						</div>
 						<div class="row justify-content-around">
-							<input id="current-page" hdiden asp-for="CurrentPage" value="@Model.CurrentPage"/>
+							<input id="current-page" hidden asp-for="CurrentPage" value="@Model.CurrentPage"/>
 							<a class="col-1 prev-page"><i class="fa-solid fa-angles-left"></i></a>
 							<a class="col-1 next-page"><i class="fa-solid fa-angles-right"></i></a>
 						</div>

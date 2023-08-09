@@ -12,10 +12,10 @@
 	<h2>@ViewData["Title"]</h2>
 
 	<div class="row">
-		<div class="col-md-5">
-			<div class="row">
+		<div class="col-lg-5 me-3 ">
+			<div class="row mb-3">
 
-				<div class="card mb-1">
+				<div class="card p-0">
 					<img class="main-image" src="data:img/jpg;base64,@await imageService.GetAsync(Model.Images.First())" />
 				</div>
 			</div>
@@ -25,9 +25,9 @@
 					<div class="col-4">
 						<div class="card mb-1" data-toggle="tooltip-lg" data-placement="bottom" title="@Model.Name">
 							<a class="all-images">
-								<div class="card-body">
+								@*<div class="card-body">*@
 									<img src="data:img/jpg;base64,@await imageService.GetAsync(picture)" class="card-img-bottom alt-img-src" alt="@Model.Name">
-								</div>
+								@*</div>*@
 							</a>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 
 			</div>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="row">
 				<div class="card mb-5 p-3">
 					<h4 class="mb-2 m-auto">@Model.Name</h4>

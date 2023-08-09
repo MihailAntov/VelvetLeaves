@@ -1,5 +1,6 @@
 ﻿
 
+using Ganss.Xss;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,11 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Data.ObjectDatabase;
+using VelvetLeaves.Data.ObjectDatabase.Contracts;
+using VelvetLeaves.Services;
 using VelvetLeaves.Services.Contracts;
+using VelvetLeaves.Web.Infrastructure.Services;
+using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 using static VelvetLeaves.Common.ApplicationConstants;
 
 namespace VelvetLeaves.Web.Infrastructure.Extensions
@@ -76,7 +81,8 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                 Currency = "лв.",
                 BackGroundImageId = "64cbe4e072b00421cdf31294",
                 FavoriteColor = "pink",
-                FavoriteIcon = "heart"
+                FavoriteIcon = "heart",
+                Description = "Бижута от естествени копринени пашкули"
             };
 
             _preferences.InsertOne(preferences);
@@ -139,6 +145,33 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 
 
             return app;
+        }
+
+
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+           
+            
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IGalleryService, GalleryService>();
+            services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IColorService, ColorService>();
+            services.AddSingleton<IObjectDbContext, ObjectDbContext>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<ISubcategoryService, SubcategoryService>();
+            services.AddScoped<IProductSeriesService, ProductSeriesService>();
+            services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IHelperService, HelperService>();
+            services.AddScoped<IFavoriteService, FavoriteService>();
+            services.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
+            services.AddScoped<IUserService, UserService>();
+
+            return services;
         }
     }
 }

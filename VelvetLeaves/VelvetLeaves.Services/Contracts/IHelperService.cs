@@ -11,6 +11,7 @@ namespace VelvetLeaves.Services.Contracts
 
         public Task<string> FavoriteColor();
         public Task<string> FavoriteIcon();
+        public Task<string> Description();
 
         public Task<string> RootNavigationName();
 

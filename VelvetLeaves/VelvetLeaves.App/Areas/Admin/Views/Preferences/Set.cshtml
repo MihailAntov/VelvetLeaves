@@ -10,9 +10,15 @@
 <div class="container-fluid">
 	<form class="form-control" method="post" enctype="multipart/form-data">
 		<div class="mb-3">
-			<label asp-for="RootNavigationName">Website Logo</label>
+			<label asp-for="RootNavigationName">Website Name</label>
 			<input class="form-control" type="text" asp-for="RootNavigationName"/>
 			<span asp-validation-for="RootNavigationName"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="RootNavigationName">Website Description</label>
+			<input class="form-control" type="text" asp-for="Description"/>
+			<span asp-validation-for="Description"></span>
 		</div>
 
 		<div class="mb-3">

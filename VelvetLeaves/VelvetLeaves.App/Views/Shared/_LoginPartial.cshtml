@@ -3,6 +3,7 @@
 @using VelvetLeaves.Data.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IHelperService helperService
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
@@ -11,7 +12,7 @@
         <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="ShoppingCart"><i class="fa-solid fa-cart-shopping"></i></a>
     </li>
     <li class="nav-item me-3">
-        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Favorites"><i class="fa-regular fa-heart"></i></a>
+        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Favorites"><i class="fa-regular fa-@(await helperService.FavoriteIcon())"></i></a>
     </li>
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>

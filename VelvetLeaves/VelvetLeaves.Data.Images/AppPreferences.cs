@@ -28,5 +28,8 @@ namespace VelvetLeaves.Data.ObjectDatabase
         [BsonElement("FavoriteColor")]
         public string FavoriteColor { get; set; } = null!;
 
+        [BsonElement("Description")]
+        public string Description { get; set; } = null!;
+
     }
 }
