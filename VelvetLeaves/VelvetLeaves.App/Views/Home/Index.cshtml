@@ -1,4 +1,4 @@
-﻿@model GalleryViewModel
+﻿@model IEnumerable<GalleryViewModel>
 @inject IImageService imageService
 @inject IHelperService helperService
   
@@ -8,10 +8,10 @@
     
 <div id="carouselExampleSlidesOnly" class="carousel slide col col-lg-6" data-bs-ride="carousel">
   <div class="carousel-inner">
-        @for(int i = 0; i < Model.Products.Count(); i++)
+        @for(int i = 0; i < Model.Count(); i++)
         {
             <div class="carousel-item @(i == 0 ? "active" : "")">
-                <img src="data:img/jpg;base64,@await imageService.GetAsync(Model.Products.ToArray()[i].ImageId)" class="d-block w-100" >
+                <img src="data:img/jpg;base64,@await imageService.GetAsync(Model.ToArray()[i].ImageId)" class="d-block w-100" >
             </div>
         }
         
@@ -23,6 +23,8 @@
     <h1 class="card-title">@await helperService.RootNavigationName()</h1>
     <p class="card-subtitle">@await helperService.Description()</p>
 </div>
+
+
 
 </div>
 

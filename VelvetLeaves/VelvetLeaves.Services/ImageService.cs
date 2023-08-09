@@ -27,8 +27,8 @@ namespace VelvetLeaves.Services
             {
                 await content.CopyToAsync(memoryStream);
                 
-                // Upload the file if less than 2 MB
-                if (memoryStream.Length < 2097152)
+                // Upload the file if less than 6 MB
+                if (memoryStream.Length < 6291456)
                 {
                     var image = new Image()
                     {
