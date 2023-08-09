@@ -7,42 +7,53 @@
 
 <div class="container-fluid">
 	@*<div class="mb-3 row">
-		<div class="col-5 col-md-2">
-			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Pending" class="btn btn-info pending-orders">Pending Orders</a>
+	<div class="col-5 col-md-2">
+	<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Pending" class="btn btn-info pending-orders">Pending Orders</a>
+	</div>
+	<div class="col-5 col-md-2">
+	<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Processing" class="btn btn-primary processing-orders">Processing Orders</a>
+	</div>
+	<div class="col-5 col-md-2">
+	<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Complete" class="btn btn-success complete-orders">Complete Orders</a>
+	</div>
+	<div class="col-5 col-md-2">
+	<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Declined" class="btn btn-danger declined-orders">Declined Orders</a>
+	</div>
+	</div>*@
+
+	@*<div class="mb-3 row">
+		<div class="col-3 col-lg-3 mb-2 mt-2 m-0 p-0">
+			<button orderStatus="@OrderStatus.Pending" class="btn btn-lg btn-info order-type-button pending-orders-button">Pending</button>
 		</div>
-		<div class="col-5 col-md-2">
-			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Processing" class="btn btn-primary processing-orders">Processing Orders</a>
+		<div class="col-3 col-lg-3 mb-2 mt-2 m-0 p-0">
+			<button orderStatus="@OrderStatus.Processing" class="btn btn-primary order-type-button">Processing</button>
 		</div>
-		<div class="col-5 col-md-2">
-			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Complete" class="btn btn-success complete-orders">Complete Orders</a>
+		<div class="col-3 col-lg-3 mb-2 mt-2 m-0 p-0">
+			<button orderStatus="@OrderStatus.Complete" class="btn btn-success order-type-button">Complete</button>
 		</div>
-		<div class="col-5 col-md-2">
-			<a asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-status="@OrderStatus.Declined" class="btn btn-danger declined-orders">Declined Orders</a>
+		<div class="col-3 col-lg-3 mb-2 mt-2 m-0 p-0">
+			<button orderStatus="@OrderStatus.Declined" class="btn btn-danger order-type-button">Declined</button>
 		</div>
 	</div>*@
-	
-	<div class="mb-3 row">
-		<div class="col-5 col-md-3 mb-1">
-			<button orderStatus="@OrderStatus.Pending" class="btn btn-lg btn-info order-type-button">Pending Orders</button>
-		</div>
-		<div class="col-5 col-md-3 mb-1">
-			<button orderStatus="@OrderStatus.Processing" class="btn btn-primary order-type-button">Processing Orders</button>
-		</div>
-		<div class="col-5 col-md-3 mb-1">
-			<button orderStatus="@OrderStatus.Complete" class="btn btn-success order-type-button">Complete Orders</button>
-		</div>
-		<div class="col-5 col-md-3 mb-1">
-			<button orderStatus="@OrderStatus.Declined" class="btn btn-danger order-type-button">Declined Orders</button>
-		</div>
+
+	<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+			<a orderStatus="@OrderStatus.Pending" class=" btn btn-secondary active order-type-button pending-orders-button text-decoration-none text-light">Pending</a>
+			<a orderStatus="@OrderStatus.Processing" class=" btn btn-secondary order-type-button text-decoration-none text-light">Processing</a>
+			<a orderStatus="@OrderStatus.Complete" class="btn btn-secondary order-type-button text-decoration-none text-light">Complete</a>
+			<a orderStatus="@OrderStatus.Declined" class="btn btn-secondary order-type-button text-decoration-none text-light">Declined</a>
 	</div>
+
+
 	<div class="orders-list">
 		<partial name="_OrderList" model="@Model" />
 	</div>
-	
+
 
 </div>
 
 @section Scripts{
 	<script src="~/js/processOrders.js"></script>
+	<script src="~/lib/microsoft//signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/SignalR/updateOrders.js"></script>
 }
 

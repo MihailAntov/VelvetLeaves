@@ -4,9 +4,10 @@ orderButtons.forEach(b => b.addEventListener('click', updateList));
 
 function updateList(e) {
     const orderButtons = document.querySelectorAll('.order-type-button');
-    orderButtons.forEach(b => b.classList.remove('btn-lg'));
+    orderButtons.forEach(b => b.classList.remove('active'));
+    
     const newStatus = e.currentTarget.getAttribute('orderStatus');
-    e.currentTarget.classList.add('btn-lg');
+    e.currentTarget.classList.add('active');
     $.ajax({
         type: 'GET',
         url: 'FetchOrders/',

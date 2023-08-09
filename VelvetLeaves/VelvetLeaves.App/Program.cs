@@ -12,6 +12,7 @@ using VelvetLeaves.Web.Infrastructure.Services.Contracts;
 using VelvetLeaves.Web.Infrastructure.Filters;
 using Ganss.Xss;
 using VelvetLeaves.Data.ObjectDatabase.Contracts;
+using VelvetLeaves.App.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,7 +79,7 @@ builder.Services.AddScoped<IHelperService, HelperService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
 
-
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -118,5 +119,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapHub<OrderTrackerHub>("/OrderUpdate");
 
 app.Run();

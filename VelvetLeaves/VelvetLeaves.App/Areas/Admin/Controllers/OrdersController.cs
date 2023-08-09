@@ -17,13 +17,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			_orderService = orderService;
 		}
+		[HttpGet]
 		public async Task<IActionResult> All(OrderStatus status = OrderStatus.Pending)
 		{
 			var model = await _orderService.AllAsync(status);
 
 			return View(model);
 		}
-
+		
+		[HttpGet]
 		public async Task<IActionResult> Details(string orderId)
 		{
 			var model = await _orderService.DetailsAsync(orderId);

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
+using VelvetLeaves.App.Hubs;
 using VelvetLeaves.Services.Contracts;
 using VelvetLeaves.ViewModels.Checkout;
 using VelvetLeaves.ViewModels.Order;
@@ -13,10 +15,15 @@ namespace VelvetLeaves.Web.App.Controllers
     {
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IOrderService _orderService;
-        public OrdersController(IShoppingCartService shoppingCartService, IOrderService orderService)
+        private readonly IHubContext<OrderTrackerHub> _hubContext;
+        public OrdersController(
+            IShoppingCartService shoppingCartService,
+            IOrderService orderService,
+            IHubContext<OrderTrackerHub> hubContext)
         {
             _shoppingCartService = shoppingCartService;
             _orderService = orderService;
+            _hubContext = hubContext;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -24,7 +31,7 @@ namespace VelvetLeaves.Web.App.Controllers
         {
             var cart = _shoppingCartService.GetShoppingCart();
             var model = await _orderService.GetShoppingCartForCheckoutAsync(cart);
-            
+
             return View(model);
 
         }
@@ -117,6 +124,7 @@ namespace VelvetLeaves.Web.App.Controllers
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await _orderService.PlaceOrderAsync(model,userId);
+            await _hubContext.Clients.All.SendAsync("NewOrderPlaced");
 
 
             _shoppingCartService.EmptyShoppingCart();

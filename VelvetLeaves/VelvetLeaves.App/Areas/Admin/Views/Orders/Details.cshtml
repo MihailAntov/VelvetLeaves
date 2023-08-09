@@ -34,7 +34,7 @@
 					<label class="d-block d-sm-none fw-bold">
 						Date
 					</label>
-					 @Model.Date.ToString("d MMMM yyyy - HH:MM");
+					 @Model.Date.ToString("d MMMM yyyy - HH:MM")
 					 </div>
 				<div class="col-12 col-md-2 mb-2">
 					<label class="d-block d-sm-none fw-bold">
@@ -52,7 +52,7 @@
 					<label class="d-block d-sm-none fw-bold">
 						Total
 					</label>
-					@Model.Total.ToString("f2");
+					@Model.Total.ToString("f2")
 				</div>
 				<div class="col-6 col-md-1 mb-2">
 					<label class="d-block d-sm-none fw-bold">
@@ -100,7 +100,7 @@
 		</li>
 	</ul>
 	<h3>Products</h3>
-	<ul class="list-group">
+	<ul class="list-group mb-3">
 		@foreach (var product in Model.Products)
 		{
 			<li class="list-group-item">
@@ -110,15 +110,15 @@
 
 					</a>
 					<div class="col-6 col-md-4">
-						<strong>Name:</strong>@product.Name @if(product.Removed){
+						<strong>Name:</strong>  @product.Name @if(product.Removed){
 							<span class="text-danger fw-bold">REMOVED</span>
 						}
 					</div>
 					<div class="col-6 col-md-4">
-						<strong>Price:</strong>@product.Price 
+						<strong>Price:</strong>  @product.Price 
 					</div>
 					<div class="col-6 col-md-4">
-						<strong>Quantity:</strong>@product.Quantity 
+						<strong>Quantity:</strong>  @product.Quantity 
 					</div>
 				</div>
 			</li>
