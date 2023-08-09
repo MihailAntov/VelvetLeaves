@@ -12,5 +12,7 @@ namespace VelvetLeaves.Services.Contracts
 
         Task DeleteAsync(int materialId);
 
+        Task<bool> ExistsByIdAsync(int materialId);
+
     }
 }

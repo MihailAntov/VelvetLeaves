@@ -10,6 +10,7 @@ namespace VelvetLeaves.Services.Contracts
         Task AddAsync(ColorFormViewModel model);
 
         Task DeleteAsync(int colorId);
+        Task<bool> ExistsByIdAsync(int colorId);    
 
     }
 }

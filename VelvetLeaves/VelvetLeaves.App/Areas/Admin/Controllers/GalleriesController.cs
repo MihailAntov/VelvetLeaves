@@ -51,12 +51,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         }
 
 
-        /// <summary>
-        /// Deletes a GalleryProduct item from the gallery
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="galleryId"></param>
-        /// <returns></returns>
+        
         [HttpPost]
         public async Task Delete(int productId, int galleryId)
         {

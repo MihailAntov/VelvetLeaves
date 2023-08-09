@@ -28,6 +28,11 @@ namespace VelvetLeaves.Services
 
 		public async Task DeleteAsync(int materialId)
 		{
+            if(!await ExistsByIdAsync(materialId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var material = await _context
                 .Materials
                 .Where(m => m.Id == materialId)
@@ -69,6 +74,11 @@ namespace VelvetLeaves.Services
                 Name = m.Name,
             })).Distinct().ToArrayAsync();
             return materials;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int materialId)
+        {
+            return await _context.Materials.AnyAsync(m => m.IsActive && m.Id == materialId);
         }
     }
 }

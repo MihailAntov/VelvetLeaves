@@ -29,6 +29,11 @@ namespace VelvetLeaves.Services
 
 		public async Task DeleteAsync(int colorId)
 		{
+            if(!await ExistsByIdAsync(colorId))
+            {
+                throw new InvalidOperationException();
+            }
+            
             var color = await _context.Colors
                 .FirstAsync(c => c.Id == colorId);
 
@@ -70,6 +75,11 @@ namespace VelvetLeaves.Services
                 })
                 .ToArrayAsync();
             return colors;
+        }
+
+        public async Task<bool> ExistsByIdAsync(int colorId)
+        {
+            return await _context.Colors.AnyAsync(c => c.IsActive && c.Id == colorId);
         }
     }
 }

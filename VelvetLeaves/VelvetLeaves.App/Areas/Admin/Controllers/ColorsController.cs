@@ -39,8 +39,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Delete(int colorId)
 		{
-			await _colorService.DeleteAsync(colorId);
-			return RedirectToAction("All", "Products");
+            try
+            {
+				await _colorService.DeleteAsync(colorId);
+				return RedirectToAction("All", "Products");
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
+			
 
 		}
 	}
