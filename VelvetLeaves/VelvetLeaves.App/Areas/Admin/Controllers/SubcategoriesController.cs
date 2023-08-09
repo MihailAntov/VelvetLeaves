@@ -23,13 +23,22 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Add(int categoryId)
 		{
-			var model = new SubcategoryFormViewModel();
-			model.CategoryOptions = await _categoryService.AllCategoriesAsync();
-			if(categoryId > 0 && categoryId <= model.CategoryOptions.Count())
+
+
+			var model = new SubcategoryFormViewModel()
+			{
+				CategoryId = categoryId
+			};
+
+            try
             {
-				model.CategoryId = categoryId;
+				model = await _subcategoryService.PopulateModel(model);
+				return View(model);
+			}
+            catch(Exception)
+            {
+				return NotFound();
             }
-			return View(model);
 		}
 
 		[HttpPost]
@@ -40,33 +49,58 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				return View(model);
 			}
 
+            try
+            {
+				string? imageId = await _imageService.CreateAsync(model.Image);
 
-			string? imageId = await _imageService.CreateAsync(model.Image);
+				if (imageId == null)
+				{
+					ModelState.AddModelError("Image", "Image upload unsuccessful.");
+				}
 
-			if (imageId == null)
-			{
-				ModelState.AddModelError("Image", "Image upload unsuccessful.");
+				await _subcategoryService.AddAsync(model.Name, model.CategoryId, imageId!);
+
+
+				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
+			}
+            catch (Exception)
+            {
+				return NotFound();
 			}
 
-			await _subcategoryService.AddAsync(model.Name, model.CategoryId, imageId!);
-
-
-			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
+			
 		}
 
         [HttpGet]
 		public async Task<IActionResult> FetchSubcategories(int categoryId)
         {
-			var model = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
+			try
+			{
+				var model = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
+				return Json(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
 
-			return Json(model);
+			
         }
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int subcategoryId)
 		{
-			var model = await _subcategoryService.GetForEditAsync(subcategoryId);
-			return View(model);
+			try
+			{
+				var model = await _subcategoryService.GetForEditAsync(subcategoryId);
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+
+			
 		}
 
 		[HttpPost]
@@ -77,17 +111,32 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				return View(model);
 			}
 
-			await _subcategoryService.EditAsync(model);
+			try
+			{
+				await _subcategoryService.EditAsync(model);
+				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
 
-			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
+			
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(int subcategoryId, int categoryId)
 		{
-			await _subcategoryService.DeleteAsync(subcategoryId);
-
-			return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}");
+			try
+			{
+				await _subcategoryService.DeleteAsync(subcategoryId);
+				return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}");
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+			
 		}
 	}
 }

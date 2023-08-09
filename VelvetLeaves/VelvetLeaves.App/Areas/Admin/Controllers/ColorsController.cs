@@ -31,9 +31,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				return View(model);
             }
 
-			await _colorService.AddAsync(model);
-
-			return RedirectToAction("All", "Products");
+            try
+            {
+				await _colorService.AddAsync(model);
+				return RedirectToAction("All", "Products");
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
 		}
 
 		[HttpGet]

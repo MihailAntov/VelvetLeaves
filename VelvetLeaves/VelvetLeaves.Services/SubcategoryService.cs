@@ -126,7 +126,16 @@ namespace VelvetLeaves.Services
 			return model;
 		}
 
-		public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
+        public async Task<SubcategoryFormViewModel> PopulateModel(SubcategoryFormViewModel model)
+        {
+			var categories = await _categoryService.AllCategoriesAsync();
+			model.CategoryId = !categories.Select(c => c.Id).Contains(model.CategoryId) ? await _categoryService.GetDefaultCategoryIdAsync() : model.CategoryId;
+			model.CategoryOptions = categories;
+
+			return model;
+		}
+
+        public async Task<IEnumerable<SubcategorySelectViewModel>> SubcategoriesByCategoryIdAsync(int categoryId)
         {
 			var subcategories = await _context.Subcategories
 				.Where(s=> s.CategoryId == categoryId && s.IsActive)

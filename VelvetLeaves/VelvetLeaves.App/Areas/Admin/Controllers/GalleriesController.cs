@@ -22,8 +22,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var model = await _galleryService.AllGalleriesAsync();
-            return View(model);
+            try
+            {
+                var model = await _galleryService.AllGalleriesAsync();
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpPost]
@@ -34,8 +42,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return;
             }
 
-            await _galleryService.MoveLeft(productId, galleryId);
-
+            try
+            {
+                await _galleryService.MoveLeft(productId, galleryId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
         }
 
@@ -47,7 +61,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return;
             }
 
-            await _galleryService.MoveRight(productId, galleryId);
+
+            try
+            {
+                await _galleryService.MoveRight(productId, galleryId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
 
@@ -60,7 +82,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return;
             }
 
-            await _galleryService.DeleteItem(productId, galleryId);
+            try
+            {
+                await _galleryService.DeleteItem(productId, galleryId);
+            }
+            catch(Exception)
+            {
+                return;
+            }
         }
 
 		[HttpGet]
@@ -68,11 +97,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
             try
             {
-
-            var model = await _galleryService.GetGalleryEditFormAsync(galleryId);
-
-            return View(model);
-
+                var model = await _galleryService.GetGalleryEditFormAsync(galleryId);
+                return View(model);
             }
             catch (Exception)
             {
@@ -87,15 +113,24 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			{
                 return View(model);
 			}
-            if(model.Image != null)
+
+            
+
+            try
             {
-                await _imageService.UpdateAsync(model.ImageId, model.Image);
+                if (model.Image != null)
+                {
+                    await _imageService.UpdateAsync(model.ImageId, model.Image);
 
+                }
+                await _galleryService.EditAsync(model);
+                return RedirectToAction("All", "Galleries");
             }
-
-            await _galleryService.EditAsync(model);
-
-            return RedirectToAction("All", "Galleries");
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
 
 
 		}
@@ -105,9 +140,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         {
             try
             {
-
-            var model = await _galleryService.GetGalleryByIdAsync(galleryId);
-            return View(model);
+                var model = await _galleryService.GetGalleryByIdAsync(galleryId);
+                return View(model);
             }
             catch (Exception)
             {
@@ -129,27 +163,34 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return View(model);
             }
 
-            string? imageId = await _imageService.CreateAsync(model.Image);
-            if(imageId == null)
+            try
             {
-                ModelState.AddModelError("Image", "Image upload unsuccessful.");
-                return View(model);
+                string? imageId = await _imageService.CreateAsync(model.Image);
+                if (imageId == null)
+                {
+                    ModelState.AddModelError("Image", "Image upload unsuccessful.");
+                    return View(model);
+                }
+                model.ImageId = imageId;
+
+
+                await _galleryService.AddAsync(model);
+
+                return RedirectToAction("All", "Galleries");
             }
-            model.ImageId = imageId;
-
-            await _galleryService.AddAsync(model);
-
-            return RedirectToAction("All", "Galleries");
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
         [HttpGet]
         public async Task<IActionResult> AddItem(int galleryId)
         {
             try
             {
-
-            var model = await _galleryService.GetItemsToAddAsync(galleryId);
-            return View(model);
-            
+                var model = await _galleryService.GetItemsToAddAsync(galleryId);
+                return View(model);
             }
             catch
             {
@@ -164,9 +205,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 return View(model);
             }
-            await _galleryService.AddItemsToGalleryAsync(model.GalleryId, model.ProductIds);
 
-            return LocalRedirect($"~/Admin/Galleries/Show?galleryId={model.GalleryId}");
+            try
+            {
+                await _galleryService.AddItemsToGalleryAsync(model.GalleryId, model.ProductIds);
+                return LocalRedirect($"~/Admin/Galleries/Show?galleryId={model.GalleryId}");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
             
         }
 
@@ -175,8 +224,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
             try
             {
-            await _galleryService.DeleteAsync(galleryId);
-
+                await _galleryService.DeleteAsync(galleryId);
+                return RedirectToAction("All", "Galleries");
             }
             catch(Exception)
             {
@@ -184,7 +233,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             }
             
             
-            return RedirectToAction("All", "Galleries");
+            
         }
     }
 }

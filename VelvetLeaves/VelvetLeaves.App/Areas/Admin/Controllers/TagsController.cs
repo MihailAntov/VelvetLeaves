@@ -30,18 +30,33 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
 				return View(model);
             }
-			
-			await _tagService.AddAsync(model);
 
-			return RedirectToAction("All", "Products");
+            try
+            {
+				await _tagService.AddAsync(model);
+				return RedirectToAction("All", "Products");
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Delete(int tagId)
 		{
-			await _tagService.DeleteAsync(tagId);
-
-			return RedirectToAction("All", "Products");
+            try
+            {
+				await _tagService.DeleteAsync(tagId);
+				return RedirectToAction("All", "Products");
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
+			
 		}
 	}
 }

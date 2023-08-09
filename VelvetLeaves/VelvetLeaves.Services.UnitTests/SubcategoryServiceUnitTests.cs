@@ -58,12 +58,15 @@ namespace VelvetLeaves.Services.UnitTests
             var categoryId = 1;
             var imageId = "imageId";
 
+            _dbContext.Subcategories.RemoveRange(_dbContext.Subcategories);
+            await _dbContext.SaveChangesAsync();
             // Act
             await _subcategoryService.AddAsync(name, categoryId, imageId);
             await _dbContext.SaveChangesAsync();
 
             // Assert
             var savedSubcategory = await _dbContext.Subcategories.FirstOrDefaultAsync();
+            Assert.AreEqual(_dbContext.Subcategories.Count(), 1);
             Assert.NotNull(savedSubcategory);
             Assert.AreEqual(name, savedSubcategory.Name);
             Assert.AreEqual(categoryId, savedSubcategory.CategoryId);

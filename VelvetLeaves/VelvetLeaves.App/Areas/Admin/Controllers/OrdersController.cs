@@ -20,40 +20,76 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> All(OrderStatus status = OrderStatus.Pending)
 		{
-			var model = await _orderService.AllAsync(status);
-
-			return View(model);
+            try
+            {
+				var model = await _orderService.AllAsync(status);
+				return View(model);
+			}
+            catch(Exception)
+            {
+				return NotFound();
+            }
+			
 		}
 		
 		[HttpGet]
 		public async Task<IActionResult> Details(string orderId)
 		{
-			var model = await _orderService.DetailsAsync(orderId);
-			return View(model);
+            try
+            {
+				var model = await _orderService.DetailsAsync(orderId);
+				return View(model);
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
 		}
 
         [HttpGet]
 		public async Task<IActionResult> Process (string orderId, OrderStatus status)
         {
-			await _orderService.ChangeStatusAsync(orderId, status);
-			return RedirectToAction("All", "Orders", new { Area = "Admin" });
+            try
+            {
+				await _orderService.ChangeStatusAsync(orderId, status);
+				return RedirectToAction("All", "Orders", new { Area = "Admin" });
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
+			
         }
 
         [HttpGet]
 		public async Task<IActionResult> FetchOrders(OrderStatus status)
         {
-			var model = await _orderService.AllAsync(status);
-			return PartialView("_OrderList", model);
+            try
+            {
+				var model = await _orderService.AllAsync(status);
+				return PartialView("_OrderList", model);
+            }
+            catch (Exception)
+            {
+				return NotFound();
+            }
         }
 
         [HttpPost]
 		public async Task<IActionResult> AddAdminNote(string note, string orderId)
         {
-            
-
-			var result = await _orderService.AddAdminNoteAsync(note, orderId);
-
-			return Json(result);
+            try
+            {
+				var result = await _orderService.AddAdminNoteAsync(note, orderId);
+				return Json(result);
+			}
+            catch
+            {
+				return NotFound();
+            }
+			
         }
 
 	

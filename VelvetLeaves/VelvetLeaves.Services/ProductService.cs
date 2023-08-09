@@ -56,6 +56,7 @@ namespace VelvetLeaves.Services
 
         public async Task<bool> ExistsByIdAsync(int id)
         {
+            
             var result = await _context.Products.AnyAsync(p => p.Id == id && p.IsActive);
             return result;
         }
@@ -290,7 +291,7 @@ namespace VelvetLeaves.Services
         {
             if(!await ExistsByIdAsync(productId))
             {
-                throw new ArgumentException();
+                throw new InvalidOperationException();
             }
 
             var model = await _context.Products

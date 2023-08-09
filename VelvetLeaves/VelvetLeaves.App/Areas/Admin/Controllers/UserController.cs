@@ -23,27 +23,31 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 ;
         }
 
+        [HttpGet]
         public async Task<IActionResult> MakeModerator(string userId)
         {
-            if (!await _roleManager.RoleExistsAsync(ModeratorRoleName))
-            {
-                await _roleManager.CreateAsync(new IdentityRole(ModeratorRoleName));
-            }
+            
 
             try
             {
-            var user = await _userManager.FindByIdAsync(userId);
-            await _userManager.AddToRoleAsync(user, ModeratorRoleName);
+                if (!await _roleManager.RoleExistsAsync(ModeratorRoleName))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(ModeratorRoleName));
+                }
 
+                var user = await _userManager.FindByIdAsync(userId);
+                await _userManager.AddToRoleAsync(user, ModeratorRoleName);
+                return RedirectToAction("Promote", "User", new { Area = "Admin" });
             }
             catch
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            return RedirectToAction("Promote", "User", new { Area = "Admin" });
+            
         }
 
+        [HttpGet]
         public async Task<IActionResult> RemoveModerator(string userId)
         {
             
@@ -52,53 +56,65 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 await _userManager.RemoveFromRoleAsync(user, ModeratorRoleName);
+                return RedirectToAction("Promote", "User", new { Area = "Admin" });
 
             }
             catch
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            return RedirectToAction("Promote", "User", new { Area = "Admin" });
         }
 
+        [HttpGet]
         public async Task<IActionResult> MakeAdmin(string userId)
         {
             try
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 await _userManager.AddToRoleAsync(user, AdminRoleName);
+                return RedirectToAction("Promote", "User", new { Area = "Admin" });
+
             }
             catch
             {
-                return BadRequest();
+                return NotFound();
             }
 
             
 
-            return RedirectToAction("Promote", "User", new { Area = "Admin" });
         }
 
+        [HttpGet]
         public async Task<IActionResult> Promote()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var model = _userManager.Users
-                .Where(u=> u.Id != userId)
-                .Select(u => new UserPromoteViewModel()
-                {
-                    Email = u.Email,
-                    Username = u.UserName,
-                    UserId = u.Id,
-                }).ToList();
-
-            foreach(var user in model)
+            try
             {
-                var thisUser = await _userManager.FindByIdAsync(user.UserId);
-                user.IsModerator = await _userManager.IsInRoleAsync(thisUser, "Moderator");
-                user.IsAdmin = await _userManager.IsInRoleAsync(thisUser, "Admin");
-            }
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var model = _userManager.Users
+                    .Where(u => u.Id != userId)
+                    .Select(u => new UserPromoteViewModel()
+                    {
+                        Email = u.Email,
+                        Username = u.UserName,
+                        UserId = u.Id,
+                    }).ToList();
 
-            return View(model);
+                foreach (var user in model)
+                {
+                    var thisUser = await _userManager.FindByIdAsync(user.UserId);
+                    user.IsModerator = await _userManager.IsInRoleAsync(thisUser, "Moderator");
+                    user.IsAdmin = await _userManager.IsInRoleAsync(thisUser, "Admin");
+                }
+
+                return View(model);
+            }
+            catch(Exception)
+            {
+                return NotFound();
+            }
+            
+            
 
             
         }

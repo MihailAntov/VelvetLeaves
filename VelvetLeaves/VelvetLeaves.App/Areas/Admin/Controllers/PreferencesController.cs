@@ -22,9 +22,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Set()
         {
-            var model = await _helperService.GetCurrentPreferences();
-            
-            return View(model);
+            try
+            {
+                var model = await _helperService.GetCurrentPreferences();
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost]
@@ -34,22 +41,30 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 return View(model);
             }
-
-            if(model.Image != null)
+            try
             {
-                var backgroundImageId = await _imageService.CreateAsync(model.Image);
-                if (backgroundImageId == null)
+                if (model.Image != null)
                 {
-                    ModelState.AddModelError("image", "Image upload unsuccessful.");
-                    return View(model);
+                    var backgroundImageId = await _imageService.CreateAsync(model.Image);
+                    if (backgroundImageId == null)
+                    {
+                        ModelState.AddModelError("image", "Image upload unsuccessful.");
+                        return View(model);
+                    }
+                    model.ImageId = backgroundImageId!;
                 }
-                model.ImageId = backgroundImageId!;
+
+
+                await _helperService.SetCurrentPreferences(model);
+                return RedirectToAction("All", "Products", new { Area = "Admin" });
+
             }
-            
+            catch (Exception)
+            {
+                return NotFound();
+            }
 
-            await _helperService.SetCurrentPreferences(model);
 
-            return RedirectToAction("All", "Products", new { Area = "Admin" });
         }
     }
 }

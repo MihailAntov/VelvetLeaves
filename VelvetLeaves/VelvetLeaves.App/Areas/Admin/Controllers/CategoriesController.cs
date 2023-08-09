@@ -41,18 +41,27 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return View(model);
             }
 
+            try
+            {
+                string? imageId = await _imageService.CreateAsync(model.Image);
 
-            string? imageId = await _imageService.CreateAsync(model.Image);
+                if (imageId == null)
+                {
+                    ModelState.AddModelError("Image", "Image upload unsuccessful.");
+                }
 
-            if(imageId == null)
-			{
-                ModelState.AddModelError("Image", "Image upload unsuccessful.");
-			}
 
-            await _categoryService.AddCategoryAsync(model.Name, imageId!) ;
+                await _categoryService.AddCategoryAsync(model.Name, imageId!);
+
+
+                return RedirectToAction("All", "Products");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
             
-
-            return RedirectToAction("All","Products");
 
             
         }
@@ -80,10 +89,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			{
                 return View(model);
 			}
-            
-            await _categoryService.EditAsync(model);
 
-            return RedirectToAction("All", "Products");
+            try
+            {
+                await _categoryService.EditAsync(model);
+                return RedirectToAction("All", "Products");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
 		[HttpGet]
@@ -92,14 +108,14 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
             try
             {
-            await _categoryService.DeleteAsync(categoryId);
-
+                await _categoryService.DeleteAsync(categoryId);
+                return RedirectToAction("All", "Products");
             }
             catch(Exception ex)
             {
                 return NotFound();
             }
-            return RedirectToAction("All", "Products");
+            
         }
     }
 }

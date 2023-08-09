@@ -31,9 +31,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				return View(model);
             }
 
-			await _materialService.AddAsync(model);
+            try
+            {
+				await _materialService.AddAsync(model);
+				return RedirectToAction("All", "Products");
+			}
+            catch (Exception)
+            {
+				return NotFound();
+			}
 
-			return RedirectToAction("All", "Products");
+			
 		}
 
 		[HttpPost]
@@ -41,9 +49,8 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
             try
             {
-
-			await _materialService.DeleteAsync(materialId);
-			return RedirectToAction("All", "Products");
+				await _materialService.DeleteAsync(materialId);
+				return RedirectToAction("All", "Products");
             }
             catch (Exception)
             {

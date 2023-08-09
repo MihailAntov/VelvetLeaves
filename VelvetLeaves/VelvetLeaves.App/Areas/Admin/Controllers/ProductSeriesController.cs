@@ -46,10 +46,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				CategoryId = categoryId,
 				SubcategoryId = subcategoryId
 			};
-
-			model = await _productSeriesService.PopulateModel(model);
-
-			return View(model);
+            try
+            {
+				model = await _productSeriesService.PopulateModel(model);
+				return View(model);
+			}
+            catch (Exception)
+            {
+				return NotFound();
+            }
+			
 		}
 
 		[HttpPost]
@@ -60,25 +66,51 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				model = await _productSeriesService.PopulateModel(model);
 				return View(model);
 			}
-			
-			await _productSeriesService.AddAsync(model);
 
-			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
+			try
+			{
+				await _productSeriesService.AddAsync(model);
+				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+
+			
 		}
 
         [HttpGet]
 		public async Task<IActionResult> FetchProductSeries(int subcategoryId)
         {
-			var model = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(subcategoryId);
-			return Json(model);
+			try
+			{
+				var model = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(subcategoryId);
+				return Json(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+
+			
         }
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int productSeriesId)
 		{
-			var model = await _productSeriesService.GetProductSeriesByIdAsync(productSeriesId);
-			ViewData["id"] = productSeriesId;
-			return View(model);
+			try
+			{
+				var model = await _productSeriesService.GetProductSeriesByIdAsync(productSeriesId);
+				ViewData["id"] = productSeriesId;
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+
+			
 		}
 
 		[HttpPost]
@@ -86,25 +118,37 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-
 				model = await _productSeriesService.PopulateModel(model);
-
-
 				return View(model);
 			}
-			
-			await _productSeriesService.EditAsync(productSeriesId, model);
 
-			return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
+
+			try
+			{
+				await _productSeriesService.EditAsync(productSeriesId, model);
+				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+			
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(int productSeriesId, int subcategoryId, int categoryId)
 		{
-			await _productSeriesService.DeleteAsync(productSeriesId);
+			try
+			{
+				await _productSeriesService.DeleteAsync(productSeriesId);
+				return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}&subcategoryId={subcategoryId}");
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
 
-			return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}&subcategoryId={subcategoryId}");
-
+			
 		}
 	}
 }
