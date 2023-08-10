@@ -4,6 +4,7 @@
 using VelvetLeaves.ViewModels.Category;
 using VelvetLeaves.ViewModels.Colors;
 using VelvetLeaves.ViewModels.Material;
+using VelvetLeaves.ViewModels.Tag;
 
 namespace VelvetLeaves.ViewModels.Product
 {
@@ -17,9 +18,9 @@ namespace VelvetLeaves.ViewModels.Product
         
         public int? ProductSeriesId { get; set; }
 
-        public IEnumerable<ColorSelectViewModel> Colors { get; set; }
-        public IEnumerable<MaterialListViewModel> Materials { get; set; }
-        public IEnumerable<TagListViewModel> Tags { get; set; }
+        public IEnumerable<ColorSelectViewModel> Colors { get; set; } = new HashSet<ColorSelectViewModel>();
+        public IEnumerable<MaterialListViewModel> Materials { get; set; } = new HashSet<MaterialListViewModel>();
+        public IEnumerable<TagListViewModel> Tags { get; set; } = new HashSet<TagListViewModel>();
         
     }
 }

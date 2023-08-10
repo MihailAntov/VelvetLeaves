@@ -68,6 +68,7 @@ namespace VelvetLeaves.Services
             }
 
             var colors = await products.SelectMany(p => p.Colors).Distinct()
+                .Where(c=> c.IsActive)
                 .Select(c => new ColorSelectViewModel()
                 {
                     ColorValue = c.ColorValue,

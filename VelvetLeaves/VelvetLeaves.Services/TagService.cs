@@ -61,7 +61,9 @@ namespace VelvetLeaves.Services
                 products = products.Where(p => p.SubcategoryId == subcategoryId);
             }
 
-            var tags = await products.SelectMany(p => p.Tags.Select(t => new TagListViewModel()
+            var tags = await products.SelectMany(p => p.Tags
+            .Where(t => t.IsActive)
+            .Select(t => new TagListViewModel()
             {
                 Id = t.Id,
                 Name  = t.Name

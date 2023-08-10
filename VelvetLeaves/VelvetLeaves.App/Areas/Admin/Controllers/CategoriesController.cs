@@ -9,7 +9,7 @@ using static VelvetLeaves.Web.Infrastructure.Extensions.ControllerExtensions;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
     [Area(AdminAreaName)]
-    [Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+    [Authorize(Roles = AdminAndModeratorRoleNames)]
     public class CategoriesController : Controller
     {
         private readonly IImageService _imageService;

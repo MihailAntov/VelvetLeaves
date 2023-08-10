@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MaterialListViewModel>
+
+<div class="container-fluid">
+	<ul class="list-group">
+		@foreach (var material in Model)
+		{
+			<li class="list-group-item">
+				<div class="row">
+					<div class="color-displayer col-5 col-lg-2 d-flex rounded-pill bg-secondary text-white">@material.Name</div>
+					<a asp-controller="Materials" asp-action="Delete" asp-route-materialId="@material.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-secondary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+				</div>
+			</li>
+		}
+	</ul>
+</div>
+
+
+@section Scripts {
+	<script src="https://kit.fontawesome.com/2d34f22aab.js" crossorigin="anonymous"></script>
+	<script src="~/js/confirmDelete.js"></script>
+}

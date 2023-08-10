@@ -7,7 +7,7 @@ using static VelvetLeaves.Common.ApplicationConstants;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area(AdminAreaName)]
-	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+	[Authorize(Roles = AdminAndModeratorRoleNames)]
 	public class TagsController : Controller
 	{
 
@@ -43,13 +43,27 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 			
 		}
 
-		[HttpPost]
+		[HttpGet]
+		public async Task<IActionResult> All()
+		{
+			try
+			{
+				var model = await _tagService.GetAllTagsAsync();
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Delete(int tagId)
 		{
             try
             {
 				await _tagService.DeleteAsync(tagId);
-				return RedirectToAction("All", "Products");
+				return RedirectToAction("All", "Tags");
 			}
             catch (Exception)
             {

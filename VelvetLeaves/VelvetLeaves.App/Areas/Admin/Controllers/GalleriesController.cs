@@ -7,7 +7,7 @@ using static VelvetLeaves.Common.ApplicationConstants;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
     [Area(AdminAreaName)]
-    [Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+    [Authorize(Roles = AdminAndModeratorRoleNames)]
     public class GalleriesController : Controller
     {
         private readonly IImageService _imageService;

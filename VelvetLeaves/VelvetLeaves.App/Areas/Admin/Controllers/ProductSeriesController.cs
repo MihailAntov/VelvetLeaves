@@ -7,7 +7,7 @@ using static VelvetLeaves.Common.ApplicationConstants;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area(AdminAreaName)]
-	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+	[Authorize(Roles = AdminAndModeratorRoleNames)]
 	public class ProductSeriesController : Controller
 	{
 		private readonly ICategoryService _categoryService;

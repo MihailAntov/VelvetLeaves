@@ -80,13 +80,13 @@ namespace VelvetLeaves.Services
                     Price = p.Price,
                     IsAvailable = p.IsAvailable,
                     Images = p.Images.Select(i=> i.Id).ToArray(),
-                    Materials = p.Materials
+                    Materials = p.Materials.Where(m=> m.IsActive)
                         .Select(m=> new MaterialListViewModel()
                         {
                             Name = m.Name,
                             Id = m.Id
                         }).ToArray(),
-                    Tags = p.Tags
+                    Tags = p.Tags.Where(t=>t.IsActive)
                         .Select(t=> new TagListViewModel()
                         {
                             Name = t.Name,
@@ -101,7 +101,7 @@ namespace VelvetLeaves.Services
                                         Name = lp.Name,
                                         ImageId = lp.Images.Select(i=> i.Id).First(),
                                         Price =lp.Price,
-                                        Colors = lp.Colors.Select(c=>c.ColorValue).ToHashSet()
+                                        Colors = lp.Colors.Where(c=>c.IsActive).Select(c=>c.ColorValue).ToHashSet()
                                     })
                                     
                 }).FirstAsync();

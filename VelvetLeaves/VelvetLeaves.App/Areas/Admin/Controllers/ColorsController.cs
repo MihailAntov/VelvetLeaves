@@ -8,7 +8,7 @@ using static VelvetLeaves.Common.ApplicationConstants;
 namespace VelvetLeaves.App.Areas.Admin.Controllers
 {
 	[Area(AdminAreaName)]
-	[Authorize(Roles = $"{AdminRoleName},${ModeratorRoleName}")]
+	[Authorize(Roles = AdminAndModeratorRoleNames)]
 	public class ColorsController : Controller
 	{
 		private readonly IColorService _colorService;
@@ -44,12 +44,26 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> All()
+		{
+			try
+			{
+				var model = await _colorService.GetAllColorsAsync();
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return NotFound();
+			}
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Delete(int colorId)
 		{
             try
             {
 				await _colorService.DeleteAsync(colorId);
-				return RedirectToAction("All", "Products");
+				return RedirectToAction("All", "Colors");
 			}
             catch (Exception)
             {
