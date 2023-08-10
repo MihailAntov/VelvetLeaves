@@ -29,7 +29,7 @@ namespace VelvetLeaves.Web.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ShoppingCart()
         {
-            var cart = _shoppingCartService.GetShoppingCart();
+            var cart = await _shoppingCartService.GetShoppingCart();
             var model = await _orderService.GetShoppingCartForCheckoutAsync(cart);
 
             return View(model);

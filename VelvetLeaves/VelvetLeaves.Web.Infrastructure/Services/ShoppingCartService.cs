@@ -43,6 +43,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
                     Quantity = 0
                 };
                 cart.Items.Add(product);
+                
             }
 
             product.Quantity++;
@@ -53,14 +54,27 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             
         }
 
-        public ShoppingCart GetShoppingCart()
+        public async Task<ShoppingCart> GetShoppingCart()
         {
             ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
-            if(cart == null)
+            
+
+            var newCart = new ShoppingCart();
+
+            if(cart != null)
             {
-                cart = new ShoppingCart();
+                foreach(var item in cart.Items)
+                {
+                    if(await _productService.ExistsByIdAsync(item.Id))
+                    {
+                        newCart.Items.Add(item);
+                        
+                    }
+                }
             }
-            return cart;
+            
+           
+            return newCart;
         }
 
         public ShoppingCart RemoveOneItemFromShoppingCart(int productId)
@@ -80,6 +94,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
             if(product.Quantity > 1)
             {
                 product.Quantity--;
+                
 
             }
 
@@ -103,7 +118,7 @@ namespace VelvetLeaves.Web.Infrastructure.Services
                 throw new InvalidOperationException();
 
             }
-
+            
             cart.Items.Remove(product);
 
             _httpContextAccessor.HttpContext.Session.Set("cart", cart);
@@ -116,5 +131,15 @@ namespace VelvetLeaves.Web.Infrastructure.Services
 			var cart = new ShoppingCart();
             _httpContextAccessor.HttpContext.Session.Set("cart", cart);
 		}
+
+        public int TotalItems()
+		{
+            ShoppingCart? cart = _httpContextAccessor.HttpContext.Session.Get<ShoppingCart>("cart");
+            if(cart == null)
+			{
+                return 0;
+			}
+            return cart.Items.Select(i => i.Quantity).Sum();
+        }
 	}
 }

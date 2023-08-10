@@ -37,7 +37,12 @@ function increaseNumberInCart(e) {
             hiddenQuantity.value = newValues.quantity;
 
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
-                
+
+            const badge = document.querySelector('.cart-badge');
+            const cartItems = Array.from(response.items.map(item => item.quantity));
+            let count = cartItems.reduce((sum, current) => sum + current, 0);
+            badge.textContent = count > 0 ? count : '';
+            
                 
                 
 
@@ -84,6 +89,10 @@ function decreaseNumberInCart(e) {
 
             totalForThisItem.textContent = (newValues.quantity * newValues.price).toFixed(2);
 
+            const badge = document.querySelector('.cart-badge');
+            const cartItems = Array.from(response.items.map(item => item.quantity));
+            let count = cartItems.reduce((sum, current) => sum + current, 0);
+            badge.textContent = count > 0 ? count : '';
 
         },
         error: function (response) {
@@ -106,26 +115,17 @@ function deleteItemFromCart(e) {
         data: { "productId": productId }
         ,
         success: function (response) {
-            //document.getElementById('total').textContent = response.total.toFixed(2);
-            //document.getElementById('total-items').textContent = response.totalItems;
-            /*productRow.remove();*/
+            
             const items = document.querySelector('#cart-items');
-            console.log(items);
             items.innerHTML = response;
-            //if (response.items.length === 0) {
-            //    console.log(response.items.length);
-            //    const full = document.querySelector('.full-cart');
-            //    const empty = document.querySelector('.empty-cart');
-            //    const checkout = document.querySelector('.checkout-panel');
-            //    full.classList.remove('d-block');
-            //    full.classList.add('d-none');
-            //    empty.classList.remove('d-none');
-            //    empty.classList.add('d-block');
-            //    checkout.classList.remove('d-block');
-            //    checkout.classList.add('d-none');
-                
-                
-            //}
+
+            const badge = document.querySelector('.cart-badge');
+            const count = Array.from(document.querySelectorAll('.product-quantity')).map(e=>e.textContent).reduce((sum, current)=> Number(sum)+ Number(current), 0);
+            badge.textContent = count > 0 ? count : '';
+           
+            
+            
+            
         },
         error: function (response) {
             console.log(response);

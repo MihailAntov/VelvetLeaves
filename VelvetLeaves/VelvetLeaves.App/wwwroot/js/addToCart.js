@@ -16,7 +16,11 @@ function addTocart(e) {
         success: function (response) {
 
             toastr.success('Successfully added item to cart!');
-
+            const badge = document.querySelector('.cart-badge');
+            const items = Array.from(response.items.map(item=>item.quantity));
+            let count = items.reduce((sum, current) => sum + current, 0);
+            console.log(count);
+            badge.textContent = count;
 
 
         },

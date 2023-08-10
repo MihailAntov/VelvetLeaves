@@ -12,7 +12,9 @@ namespace VelvetLeaves.Web.Infrastructure.Services.Contracts
 
         ShoppingCart RemoveOneItemFromShoppingCart(int productId);
 
-        ShoppingCart GetShoppingCart();
+        Task<ShoppingCart> GetShoppingCart();
+
+        int TotalItems();
 
         ShoppingCart DeleteItemFromShoppingCart(int productId);
 
