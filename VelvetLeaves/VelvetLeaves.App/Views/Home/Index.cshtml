@@ -6,17 +6,32 @@
 <div class="row">
 
     
-<div id="carouselExampleSlidesOnly" class="shadow-lg p-0 m-0 carousel slide col-12 col-lg-7" data-bs-ride="carousel">
+<div id="carousel" class="shadow-lg p-0 m-0 carousel slide col-12 col-lg-7" data-bs-ride="carousel">
   <div class="carousel-inner">
         @for(int i = 0; i < Model.Count(); i++)
         {
             <div class="carousel-item @(i == 0 ? "active" : "")">
+                
+                
+                <a asp-area="" asp-controller="Galleries" asp-action="Show" asp-route-id="@Model.ToArray()[i].Id">
                 <img src="data:img/jpg;base64,@await imageService.GetAsync(Model.ToArray()[i].ImageId)" class="d-block w-100" >
+                <div class="carousel-caption d-none d-md-block ms-auto me-auto">
+                    <h3 class="text-light opacity-100" style="text-shadow:2px 2px 4px #000000">@Model.ToArray()[i].Name</h3>
+                </div>
+                </a>
+                
+                 
             </div>
         }
-        
- 
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
 <div class="col shadow-lg m-auto col-12 col-lg-4 text-center m-auto">

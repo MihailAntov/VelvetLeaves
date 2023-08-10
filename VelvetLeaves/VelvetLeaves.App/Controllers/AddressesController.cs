@@ -109,7 +109,8 @@ namespace VelvetLeaves.App.Controllers
 
         }
 
-        public async Task<IActionResult> DeleteAddress(string addressId)
+		[HttpGet]
+        public async Task<IActionResult> Delete(string addressId)
 		{
 			try
 			{

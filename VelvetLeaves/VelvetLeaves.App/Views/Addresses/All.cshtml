@@ -23,7 +23,7 @@
 			<div class="col col-md-2">@address.City</div>
 			<div class="col col-md-2">@address.Country</div>
 			<a asp-controller="Addresses" asp-action="Edit" asp-route-id="@address.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-primary text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-			<a onclick="return confirm('Are you sure?')" asp-controller="Addresses" asp-action="Delete" asp-route-id="@address.Id" asp-route-subcategoryId="@address.Id" asp-route-addressId="@address.Id" class=" col col-1 d-flex mt-auto mb-auto me-1 link-primary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
+			<a onclick="return confirm('Are you sure?')" asp-area="" asp-controller="Addresses" asp-action="Delete" asp-route-addressId="@address.Id" asp-route-subcategoryId="@address.Id" asp-route-addressId="@address.Id" class=" col col-1 d-flex mt-auto mb-auto me-1 link-primary text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 	</div>
 	</div>
 
