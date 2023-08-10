@@ -5,10 +5,14 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<div class="container">
+<div class="container mb-3">
 	<a asp-controller="Addresses" asp-action="Add" class="btn btn-success col-sm w-auto m-1 mb-3">Add New Address</a>
 	
 </div>
+@if (!Model.Any())
+{
+	<h4>You haven't added any addresses yet.</h4>
+}
 
 <div class="list-group ">
 

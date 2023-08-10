@@ -18,24 +18,8 @@
 	</ul>
 
 
-	@if (!User?.Identity?.IsAuthenticated ?? false)
-	{
-		<div class="container-fluid">
-
-
-			<div class="row mb-3">
-				<div class="col-6 col-md-4 mb-3">
-					<label asp-for="Email">Email</label>
-					<input class="form-control" asp-for="Email" />
-					<span asp-validation-for="Email"></span>
-				</div>
-			</div>
-
-		</div>
-
-		<partial name="_AddressForm" model="new AddressFormViewModel()"> </partial>
-	}
-	else
+	
+	@if((User?.Identity?.IsAuthenticated ?? false) && addressOptions.Any())
 	{
 		<div class="container-fluid">
 
@@ -62,8 +46,26 @@
 		<div  class="result-box">
 			
 		</div>
+	}else
+	{
+		@if(!User?.Identity?.IsAuthenticated ?? false)
+		{
+			<div class="container-fluid">
 
 
+			<div class="row mb-3">
+				<div class="col-6 col-md-4 mb-3">
+					<label asp-for="Email">Email</label>
+					<input class="form-control" asp-for="Email" />
+					<span asp-validation-for="Email"></span>
+				</div>
+			</div>
+
+		</div>
+		}
+		
+
+		<partial name="_AddressForm" model="new AddressFormViewModel()"> </partial>
 	}
 
 	<div class="container-fluid">

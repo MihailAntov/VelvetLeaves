@@ -7,7 +7,7 @@ connection.on("NewOrderPlaced", function () {
     const pendingOrdersButton = document.querySelector('.pending-orders-button');
     const pendingStatus = pendingOrdersButton.getAttribute('orderStatus');
 
-    if (pendingOrdersButton.classList.contains('btn-lg')) {
+    if (pendingOrdersButton.classList.contains('active')) {
         $.ajax({
             type: 'GET',
             url: 'FetchOrders/',

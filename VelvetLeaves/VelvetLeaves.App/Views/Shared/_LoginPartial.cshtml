@@ -8,57 +8,59 @@
 
 
 @{
-    var totalItems = shoppingCartService.TotalItems();
+	var totalItems = shoppingCartService.TotalItems();
 }
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item me-3">
-        
-            <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="ShoppingCart">            <span class="cart-badge badge text-light bg-danger rounded-circle ">@(totalItems > 0 ? totalItems : "")</span>
-<i class="fa-solid fa-cart-shopping"></i></a>
-        
-    </li>
-    <li class="nav-item me-3">
-        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Favorites"><i class="fa-regular fa-@(await helperService.FavoriteIcon())"></i></a>
-    </li>
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="" asp-controller="User" asp-action="Logout">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-    
-    
-    @if (User.IsInRole(AdminRoleName) || User.IsInRole(ModeratorRoleName))
-        {
-           <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="All" title="Admin">Admin Panel</a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="All" title="Orders">My Orders</a>
-    </li>
-        }
-    }
-else
-{
-    <li class="nav-item me-3">
-        <a class="nav-link" asp-area="" asp-controller="Orders" asp-action="ShoppingCart"><i class="fa-solid fa-cart-shopping"></i></a>
-        <span class='badge badge-warning' id='lblCartCount'> 5 </span>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-    </li>
-}
+	@if (SignInManager.IsSignedIn(User))
+	{
+		<li class="nav-item me-3">
+
+			<a class="nav-link" asp-area="" asp-controller="Orders" asp-action="ShoppingCart">
+				<span class="cart-badge badge text-light bg-danger rounded-circle ">@(totalItems > 0 ? totalItems : "")</span>
+				<i class="fa-solid fa-cart-shopping"></i>
+			</a>
+
+		</li>
+		<li class="nav-item me-3">
+			<a class="nav-link" asp-area="" asp-controller="User" asp-action="Favorites"><i class="fa-regular fa-@(await helperService.FavoriteIcon())"></i></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
+		</li>
+		<li class="nav-item">
+			<form class="form-inline" asp-area="" asp-controller="User" asp-action="Logout">
+				<button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+			</form>
+		</li>
+
+
+		@if (User.IsInRole(AdminRoleName) || User.IsInRole(ModeratorRoleName))
+		{
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="All" title="Admin">Admin Panel</a>
+			</li>
+		}
+		else
+		{
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="All" title="Orders">My Orders</a>
+			</li>
+		}
+	}
+	else
+	{
+		<a class="nav-link" asp-area="" asp-controller="Orders" asp-action="ShoppingCart">
+				<span class="cart-badge badge text-light bg-danger rounded-circle ">@(totalItems > 0 ? totalItems : "")</span>
+				<i class="fa-solid fa-cart-shopping"></i>
+		</a>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+		</li>
+	}
 </ul>
 
 

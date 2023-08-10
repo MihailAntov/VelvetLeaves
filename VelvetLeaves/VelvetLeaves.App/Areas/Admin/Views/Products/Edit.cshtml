@@ -47,7 +47,7 @@
 			<label>Images</label>
 			
 			<div class="row">
-			@foreach(var imageId in Model.ImageIds){
+			@foreach(var imageId in Model.ImageIds!){
 				<input hidden name=startingImageIds value="@imageId"/>
 				
 				<div class="col-md-2">

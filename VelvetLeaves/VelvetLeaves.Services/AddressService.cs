@@ -39,6 +39,22 @@ namespace VelvetLeaves.Services
 			await _context.SaveChangesAsync();
 		}
 
+		public async Task DeleteAsync(string addressId)
+		{
+			var address = await _context
+				.Addresses
+				.Where(a => a.Id.ToString() == addressId)
+				.FirstOrDefaultAsync();
+
+			if (address == null)
+			{
+				throw new InvalidOperationException();
+			}
+
+			_context.Addresses.Remove(address);
+			await _context.SaveChangesAsync();
+		}
+
 		public async Task<AddressFormViewModel?> GetAddressByIdAsync(string addressId)
 		{
 			

@@ -109,6 +109,19 @@ namespace VelvetLeaves.App.Controllers
 
         }
 
+        public async Task<IActionResult> DeleteAddress(string addressId)
+		{
+			try
+			{
+                await _addressService.DeleteAsync(addressId);
+                return RedirectToAction("All", "Addresses");
+			}
+			catch (Exception)
+			{
+                return NotFound();
+			}
+		}
+
         private IActionResult AddGeneralError()
         {
             TempData["ErrorMessage"] = "Unexpected error. Please try again later.";

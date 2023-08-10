@@ -15,5 +15,7 @@ namespace VelvetLeaves.Services.Contracts
         Task<AddressFormViewModel?> GetAddressByIdAsync(string addressId);   
 
         Task UpdateAsync(string id, AddressFormViewModel model);
+
+        Task DeleteAsync(string addressId);
     }
 }
