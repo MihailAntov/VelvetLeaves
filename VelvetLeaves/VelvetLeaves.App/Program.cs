@@ -73,7 +73,7 @@ var app = builder.Build();
 app.SeedAdmin();
 
 //Uncomment this to seed initial images and preferences
-app.SeedImages();
+//app.SeedImages();
 app.SeedAppPreferences();
 
 

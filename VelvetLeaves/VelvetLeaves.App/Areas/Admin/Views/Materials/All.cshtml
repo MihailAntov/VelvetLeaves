@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<MaterialListViewModel>
 
 <div class="container-fluid">
+
+		<a asp-controller="Materials" asp-action="All" class="btn btn-outline-dark col-sm w-auto m-1 mb-3">Add Material</a>
+
 	<ul class="list-group">
 		@foreach (var material in Model)
 		{

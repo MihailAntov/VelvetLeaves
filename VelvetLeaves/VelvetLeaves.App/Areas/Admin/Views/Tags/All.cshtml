@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<TagListViewModel>
 
 <div class="container-fluid">
+
+		<a asp-controller="Tags" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1 mb-3">Add Tag</a>
+
 	<ul class="list-group">
 		@foreach (var tag in Model)
 		{

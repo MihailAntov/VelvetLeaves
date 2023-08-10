@@ -34,7 +34,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             try
             {
 				await _colorService.AddAsync(model);
-				return RedirectToAction("All", "Products");
+				return RedirectToAction("All", "Colors");
 			}
             catch (Exception)
             {

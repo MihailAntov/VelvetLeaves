@@ -5,6 +5,9 @@
 
 
 <h1>@ViewData["Title"]</h1>
+
+	<a asp-controller="Colors" asp-action="Add" class="btn btn-outline-dark col-sm w-auto m-1 mb-3">Add Color</a>
+
 <div class="container-fluid">
 	<ul class="list-group">
 		@foreach(var color in Model)

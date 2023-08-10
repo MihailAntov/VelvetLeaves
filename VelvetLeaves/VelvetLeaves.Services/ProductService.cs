@@ -145,9 +145,14 @@ namespace VelvetLeaves.Services
             }
 
             int maxPages = (int)Math.Ceiling((double)products.Count() / (double)model.ProductsPerPage);
-            if(model.CurrentPage > maxPages && maxPages > 0)
+            if(model.CurrentPage > maxPages && maxPages > 0) 
             {
                 model.CurrentPage = maxPages;
+            }
+
+            if (model.CurrentPage < 1)
+            {
+                model.CurrentPage = 1;
             }
 
             var productsFiltered = await products

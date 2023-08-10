@@ -49,7 +49,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             try
             {
 				await _materialService.AddAsync(model);
-				return RedirectToAction("All", "Products");
+				return RedirectToAction("All", "Materials");
 			}
             catch (Exception)
             {
