@@ -3,6 +3,7 @@
 }
 @model ProductsQueryModel;
 @inject IImageService imageService;
+@inject IHelperService helperService;
 
 
 	<form method="get">
@@ -12,7 +13,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<!-- Sidebar with filters -->
-					<div class="card">
+					<div class="card mb-2">
 							<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filtersMenu" aria-expanded="false" aria-controls="multiCollapseExample2">Filters</button>
 						<div class="card-body collapse" id="filtersMenu">
 
@@ -100,7 +101,7 @@
 									<img src="data:img/jpg;base64,@await imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
 									<div class="card-body">
 										<h5 class="card-title">@product.Name</h5>
-										<p class="card-text">@product.Price BGN</p>
+										<p class="card-text">@product.Price @(await helperService.Currency())</p>
 									</div>
 								</div>
 								</a>

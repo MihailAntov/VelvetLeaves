@@ -6,7 +6,7 @@
 <div class="row">
 
     
-<div id="carouselExampleSlidesOnly" class="carousel slide col col-lg-6" data-bs-ride="carousel">
+<div id="carouselExampleSlidesOnly" class="shadow-lg p-0 m-0 carousel slide col-12 col-lg-7" data-bs-ride="carousel">
   <div class="carousel-inner">
         @for(int i = 0; i < Model.Count(); i++)
         {
@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div class="col col-lg-5 text-center m-auto">
+<div class="col shadow-lg m-auto col-12 col-lg-4 text-center m-auto">
     <h1 class="card-title">@await helperService.RootNavigationName()</h1>
     <p class="card-subtitle">@await helperService.Description()</p>
 </div>

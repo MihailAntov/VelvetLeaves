@@ -1,5 +1,6 @@
 ﻿@model GalleryViewModel
 @inject IImageService imageService
+@inject IHelperService helperService
 @{
 	ViewData["Title"] = @Model.Name;
 
@@ -17,7 +18,7 @@
 									<img src="data:img/jpeg;base64,@await imageService.GetAsync(product.ImageId)" class="card-img-top" alt="@product.Name">
 									<div class="card-body">
 										<h5 class="card-title">@product.Name</h5>
-										<p class="card-text">@product.Price BGN</p>
+										<p class="card-text">@product.Price @(await helperService.Currency())</p>
 									</div>
 								</div>
 								</a>

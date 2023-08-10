@@ -62,24 +62,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddApplicationServices();
-//builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<IProductService, ProductService>();
-//builder.Services.AddScoped<IMenuService, MenuService>();
-//builder.Services.AddScoped<IGalleryService, GalleryService>();
-//builder.Services.AddScoped<IMaterialService, MaterialService>();
-//builder.Services.AddScoped<ITagService, TagService>();
-//builder.Services.AddScoped<IColorService, ColorService>();
-//builder.Services.AddSingleton<IObjectDbContext, ObjectDbContext>();
-//builder.Services.AddScoped<IImageService, ImageService>();
-//builder.Services.AddScoped<ISubcategoryService, SubcategoryService>();
-//builder.Services.AddScoped<IProductSeriesService, ProductSeriesService>();
-//builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
-//builder.Services.AddScoped<IOrderService, OrderService>();
-//builder.Services.AddScoped<IAddressService, AddressService>();
-//builder.Services.AddScoped<IHelperService, HelperService>();
-//builder.Services.AddScoped<IFavoriteService, FavoriteService>();
-//builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
-//builder.Services.AddScoped<IUserService, UserService>();
+
 
 builder.Services.AddSignalR();
 var app = builder.Build();
@@ -90,7 +73,7 @@ var app = builder.Build();
 app.SeedAdmin();
 
 //Uncomment this to seed initial images and preferences
-//app.SeedImages();
+app.SeedImages();
 app.SeedAppPreferences();
 
 

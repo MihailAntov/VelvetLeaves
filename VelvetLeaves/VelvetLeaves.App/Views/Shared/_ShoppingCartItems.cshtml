@@ -47,8 +47,8 @@
 									<input hidden asp-for="Items[i].Name" value="@Model.Items[i].Name" />
 									<input hidden asp-for="Items[i].ImageId" value="@Model.Items[i].ImageId" />
 									<input hidden asp-for="Items[i].Quantity" size="1" class="product-quantity-hidden" productId="@Model.Items[i].Id" value="@Model.Items[i].Quantity">
-									<span>@Model.Items[i].Price.ToString()</span>
-									<span class="me-auto">@Model.Currency</span>
+									<span>@Model.Items[i].Price.ToString() @(await helperService.Currency())</span>
+									
 								</div>
 							</td>
 							<td class="col-lg-1 col-5 align-middle">
@@ -64,7 +64,7 @@
 								<div class="flex-md-row d-md-flex">
 									<span class="d-block d-md-none">Total: </span>
 									<span class="product-total" productId=@Model.Items[i].Id>@((Model.Items[i].Price * Model.Items[i].Quantity).ToString("f2")) @(await helperService.Currency())</span>
-									<span class="me-auto">@Model.Currency</span>
+
 								</div>
 							</td>
 							<td class="col-lg-1 col-1 me-auto">
