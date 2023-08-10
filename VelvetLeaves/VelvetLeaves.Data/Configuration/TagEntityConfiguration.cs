@@ -12,8 +12,15 @@ namespace VelvetLeaves.Data.Configuration
         {
             var tagList = new List<Tag>
             {
-                new Tag {Id = 1, Name = "Traditional Sewing Pattern"},
-                new Tag {Id = 2, Name = "Silk Cocoons"}
+                //old seed
+                //new Tag {Id = 1, Name = "Traditional Sewing Pattern"},
+                //new Tag {Id = 2, Name = "Silk Cocoons"}
+
+                
+
+                new Tag {Id = 1, Name = "Мак"},
+                new Tag {Id = 2, Name = "Цели пашкули"},
+                new Tag {Id = 3, Name = "Дълги"}
             };
 
             builder.HasData(tagList);
