@@ -36,7 +36,7 @@
 					<a asp-controller="Categories" asp-action="Edit" asp-route-categoryId="@category.Id" class="col-1 ms-auto d-flex mt-auto mb-auto link-success text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
 					<a onclick="return confirm('Are you sure? This will delete all of this category's subcategories, product series and products.')" asp-controller="Categories" asp-action="Delete" asp-route-categoryId="@category.Id" class="col-1 d-flex mt-auto mb-auto me-1 link-success text-decoration-none delete-button"><i class="fa-solid fa-trash"></i></a>
 				</div>
-				<div class="@(expandedCategory == category.Id ? "collapse.show" : "collapse")" id="@category.Anchor">
+				<div class="@(expandedCategory == category.Id ? "show" : "collapse")" id="@category.Anchor">
 
 						<h3>Subcategories:</h3>
 					<ul class="list-group">

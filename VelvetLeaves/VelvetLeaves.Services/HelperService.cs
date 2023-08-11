@@ -103,6 +103,5 @@ namespace VelvetLeaves.Services
 
 		protected virtual async Task FindOneAndreplaceInCollection(AppPreferences preferences) => await _preferences.FindOneAndReplaceAsync(p => p.Id == PreferencesKey, preferences);
 
-        
     }
 }

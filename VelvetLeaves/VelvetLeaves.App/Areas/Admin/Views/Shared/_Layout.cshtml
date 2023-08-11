@@ -1,5 +1,5 @@
 ﻿@inject IHelperService helperService
-
+@inject IConfiguration configuration
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,10 +33,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Orders" asp-action="All" asp-route-orderStatus="0">Orders</a>
                         </li>
+                        @if(User.IsAdmin()){
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="Promote" asp-route-orderStatus="0">Users</a>
                         </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Preferences" asp-action="Set">Preferences</a>

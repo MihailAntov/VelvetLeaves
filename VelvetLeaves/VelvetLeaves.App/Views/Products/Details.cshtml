@@ -62,7 +62,7 @@
 						<div class="row justify-content-center mb-3">
 							@foreach (var material in Model.Materials)
 							{
-								<div class="w-auto d-inline-flex justify-content-center me-2 rounded-start rounded-end bg-secondary text-white text-center">
+								<div class="w-auto mb-3 d-inline-flex justify-content-center me-2 rounded-start rounded-end bg-secondary text-white text-center">
 									<a class="text-decoration-none text-light" asp-area="" asp-controller="Products" asp-action="ProductsFiltered" asp-route-materials=@material.Id>@material.Name</a>
 									</div>
 

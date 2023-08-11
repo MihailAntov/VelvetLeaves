@@ -145,6 +145,7 @@ namespace VelvetLeaves.Services
             }
 
             int maxPages = (int)Math.Ceiling((double)products.Count() / (double)model.ProductsPerPage);
+            model.MaxPages = maxPages;
             if(model.CurrentPage > maxPages && maxPages > 0) 
             {
                 model.CurrentPage = maxPages;
@@ -200,7 +201,7 @@ namespace VelvetLeaves.Services
                 {
                     Id = c.Id,
                     Name = c.Name,
-                    Anchor = c.Name.Replace(" ", ""),
+                    Anchor = $"category{c.Id}",
                     ImageId = c.ImageId,
                     Subcategories = c.Subcategories
                     .Where(sc => sc.IsActive)
@@ -208,7 +209,7 @@ namespace VelvetLeaves.Services
                     {
                         Id = sc.Id,
                         Name = sc.Name,
-                        Anchor = sc.Name.Replace(" ", ""),
+                        Anchor = $"subcategory{sc.Id}",
                         ImageId = sc.ImageId,
                         ProductSeries = sc.ProductSeries
                         .Where(ps => ps.IsActive)
@@ -216,7 +217,7 @@ namespace VelvetLeaves.Services
                         {
                             Id = ps.Id,
                             Name = ps.Name,
-                            Anchor = ps.Name.Replace(" ", ""),
+                            Anchor = $"category{ps.Id}",
                             Products = ps.Products
                             .Where(p => p.IsActive)
                             .Select(p => new ProductListViewModel()

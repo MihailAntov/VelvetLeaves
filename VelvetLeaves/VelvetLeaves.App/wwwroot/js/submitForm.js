@@ -3,8 +3,13 @@ const prevpage = document.querySelector('.prev-page');
 const nextpage = document.querySelector('.next-page');
 itemsPerPage.addEventListener('change', submitForm);
 const currentPage = document.getElementById('current-page');
+if (prevpage) {
 prevpage.addEventListener('click', prevPage);
+}
+
+if (nextpage) {
 nextpage.addEventListener('click', nextPage);
+}
 
 
 function submitForm(e) {
@@ -22,6 +27,5 @@ function prevPage(e) {
 function nextPage(e) {
     
     currentPage.value++;
-    console.log(currentPage.value)
     currentPage.form.submit();
 }

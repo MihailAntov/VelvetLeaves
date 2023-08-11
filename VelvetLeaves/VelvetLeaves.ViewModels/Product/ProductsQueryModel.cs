@@ -15,6 +15,7 @@ namespace VelvetLeaves.ViewModels.Product
         public string? SearchString { get; set; }
         public int ProductsPerPage { get; set; } = 6;
         public int TotalProducts { get; set; }
+        public int MaxPages { get; set; }
         public int CurrentPage { get; set; } = 1;
         public int? CategoryId { get; set; }
         public int? SubCategoryId { get; set; }

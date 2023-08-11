@@ -212,22 +212,312 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             ProductId = 2,
-                            ColorId = 1
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            ColorId = 2
+                            ColorId = 7
                         },
                         new
                         {
                             ProductId = 3,
-                            ColorId = 3
+                            ColorId = 4
                         },
                         new
                         {
                             ProductId = 4,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            ColorId = 7
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            ColorId = 9
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            ColorId = 7
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            ColorId = 8
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            ColorId = 6
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            ColorId = 10
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            ColorId = 11
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            ColorId = 12
+                        },
+                        new
+                        {
+                            ProductId = 17,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 18,
+                            ColorId = 13
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 21,
+                            ColorId = 10
+                        },
+                        new
+                        {
+                            ProductId = 22,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 23,
+                            ColorId = 4
+                        },
+                        new
+                        {
+                            ProductId = 23,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 24,
+                            ColorId = 11
+                        },
+                        new
+                        {
+                            ProductId = 24,
+                            ColorId = 12
+                        },
+                        new
+                        {
+                            ProductId = 25,
+                            ColorId = 9
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            ColorId = 14
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            ColorId = 10
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            ColorId = 12
+                        },
+                        new
+                        {
+                            ProductId = 29,
+                            ColorId = 6
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            ColorId = 6
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            ColorId = 8
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            ColorId = 15
+                        },
+                        new
+                        {
+                            ProductId = 32,
                             ColorId = 2
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            ColorId = 11
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            ColorId = 14
+                        },
+                        new
+                        {
+                            ProductId = 34,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 34,
+                            ColorId = 7
+                        },
+                        new
+                        {
+                            ProductId = 35,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 35,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 35,
+                            ColorId = 4
+                        },
+                        new
+                        {
+                            ProductId = 36,
+                            ColorId = 4
+                        },
+                        new
+                        {
+                            ProductId = 36,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 37,
+                            ColorId = 10
+                        },
+                        new
+                        {
+                            ProductId = 38,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            ColorId = 4
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            ColorId = 5
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            ColorId = 8
+                        },
+                        new
+                        {
+                            ProductId = 41,
+                            ColorId = 11
+                        },
+                        new
+                        {
+                            ProductId = 42,
+                            ColorId = 8
+                        },
+                        new
+                        {
+                            ProductId = 43,
+                            ColorId = 3
+                        },
+                        new
+                        {
+                            ProductId = 44,
+                            ColorId = 1
+                        },
+                        new
+                        {
+                            ProductId = 44,
+                            ColorId = 15
                         });
                 });
 
@@ -253,6 +543,16 @@ namespace VelvetLeaves.Data.Migrations
                         },
                         new
                         {
+                            ProductId = 1,
+                            MaterialId = 2
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            MaterialId = 1
+                        },
+                        new
+                        {
                             ProductId = 2,
                             MaterialId = 2
                         },
@@ -263,28 +563,648 @@ namespace VelvetLeaves.Data.Migrations
                         },
                         new
                         {
+                            ProductId = 3,
+                            MaterialId = 2
+                        },
+                        new
+                        {
                             ProductId = 4,
                             MaterialId = 1
                         },
                         new
                         {
                             ProductId = 4,
-                            MaterialId = 3
+                            MaterialId = 2
                         },
                         new
                         {
                             ProductId = 5,
-                            MaterialId = 4
+                            MaterialId = 1
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            MaterialId = 2
                         },
                         new
                         {
                             ProductId = 6,
-                            MaterialId = 4
+                            MaterialId = 1
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            MaterialId = 2
                         },
                         new
                         {
                             ProductId = 7,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 9,
                             MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 17,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 17,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 18,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 18,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            MaterialId = 9
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            MaterialId = 6
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 21,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 21,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 21,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 22,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 22,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 22,
+                            MaterialId = 9
+                        },
+                        new
+                        {
+                            ProductId = 23,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 23,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 23,
+                            MaterialId = 9
+                        },
+                        new
+                        {
+                            ProductId = 24,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 24,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 24,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 25,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 25,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 25,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductId = 28,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 29,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 29,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 29,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductId = 29,
+                            MaterialId = 13
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductId = 32,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 32,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductId = 32,
+                            MaterialId = 13
+                        },
+                        new
+                        {
+                            ProductId = 32,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            MaterialId = 13
+                        },
+                        new
+                        {
+                            ProductId = 33,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 34,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 34,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 35,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 35,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 36,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 36,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 36,
+                            MaterialId = 14
+                        },
+                        new
+                        {
+                            ProductId = 37,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 37,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 37,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 38,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 38,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 38,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductId = 39,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductId = 41,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 41,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 41,
+                            MaterialId = 14
+                        },
+                        new
+                        {
+                            ProductId = 42,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 42,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductId = 42,
+                            MaterialId = 14
+                        },
+                        new
+                        {
+                            ProductId = 43,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 43,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductId = 44,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductId = 44,
+                            MaterialId = 3
                         });
                 });
 
@@ -310,6 +1230,16 @@ namespace VelvetLeaves.Data.Migrations
                         },
                         new
                         {
+                            ProductSeriesId = 1,
+                            MaterialId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 2,
+                            MaterialId = 1
+                        },
+                        new
+                        {
                             ProductSeriesId = 2,
                             MaterialId = 2
                         },
@@ -320,8 +1250,23 @@ namespace VelvetLeaves.Data.Migrations
                         },
                         new
                         {
+                            ProductSeriesId = 3,
+                            MaterialId = 2
+                        },
+                        new
+                        {
+                            ProductSeriesId = 4,
+                            MaterialId = 8
+                        },
+                        new
+                        {
                             ProductSeriesId = 4,
                             MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductSeriesId = 5,
+                            MaterialId = 8
                         },
                         new
                         {
@@ -330,8 +1275,228 @@ namespace VelvetLeaves.Data.Migrations
                         },
                         new
                         {
+                            ProductSeriesId = 5,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 6,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 6,
+                            MaterialId = 3
+                        },
+                        new
+                        {
                             ProductSeriesId = 6,
                             MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 6,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 7,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 7,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductSeriesId = 8,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 8,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 8,
+                            MaterialId = 9
+                        },
+                        new
+                        {
+                            ProductSeriesId = 8,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 8,
+                            MaterialId = 6
+                        },
+                        new
+                        {
+                            ProductSeriesId = 9,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 9,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 9,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 10,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 10,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 10,
+                            MaterialId = 9
+                        },
+                        new
+                        {
+                            ProductSeriesId = 11,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 11,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 11,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 12,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 12,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 12,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductSeriesId = 12,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductSeriesId = 13,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 13,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 13,
+                            MaterialId = 12
+                        },
+                        new
+                        {
+                            ProductSeriesId = 14,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 14,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductSeriesId = 15,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 15,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            ProductSeriesId = 15,
+                            MaterialId = 14
+                        },
+                        new
+                        {
+                            ProductSeriesId = 16,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 16,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 16,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 17,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 17,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            ProductSeriesId = 17,
+                            MaterialId = 10
+                        },
+                        new
+                        {
+                            ProductSeriesId = 17,
+                            MaterialId = 11
+                        },
+                        new
+                        {
+                            ProductSeriesId = 18,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 18,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            ProductSeriesId = 18,
+                            MaterialId = 14
+                        },
+                        new
+                        {
+                            ProductSeriesId = 19,
+                            MaterialId = 8
+                        },
+                        new
+                        {
+                            ProductSeriesId = 19,
+                            MaterialId = 3
                         });
                 });
 
@@ -352,28 +1517,8 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ProductSeriesId = 1,
-                            TagId = 2
-                        },
-                        new
-                        {
-                            ProductSeriesId = 2,
-                            TagId = 2
-                        },
-                        new
-                        {
-                            ProductSeriesId = 3,
-                            TagId = 2
-                        },
-                        new
-                        {
-                            ProductSeriesId = 5,
-                            TagId = 1
-                        },
-                        new
-                        {
                             ProductSeriesId = 6,
-                            TagId = 1
+                            TagId = 3
                         });
                 });
 
@@ -394,27 +1539,57 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = 1,
-                            TagId = 2
+                            ProductId = 9,
+                            TagId = 3
                         },
                         new
                         {
-                            ProductId = 2,
-                            TagId = 2
+                            ProductId = 10,
+                            TagId = 3
                         },
                         new
                         {
-                            ProductId = 3,
-                            TagId = 2
+                            ProductId = 15,
+                            TagId = 3
                         },
                         new
                         {
-                            ProductId = 5,
+                            ProductId = 16,
+                            TagId = 3
+                        },
+                        new
+                        {
+                            ProductId = 22,
                             TagId = 1
                         },
                         new
                         {
-                            ProductId = 6,
+                            ProductId = 23,
+                            TagId = 1
+                        },
+                        new
+                        {
+                            ProductId = 26,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 27,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 31,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            ProductId = 43,
                             TagId = 1
                         });
                 });
@@ -536,49 +1711,49 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4a1a0c6c-dd9c-49e0-8e35-d3c9738e8b11",
+                            Id = "497da242-65b3-4e4f-bb35-d8cb130eb9b0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3398a208-a57d-45ae-a762-f2344213c338",
+                            ConcurrencyStamp = "ca8662f1-d125-48da-a318-1c7589339165",
                             Email = "user@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@VLS.COM",
                             NormalizedUserName = "USER@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMEhcGWjaODxX9aq/0tmlPu41XCSt2npAnLM1ahvSEz1rdfXOjBKO6lkMDugOiiTQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJrL/8pVP2ic7i1CtkLYyXqBJpcunnIwCj4cfhPUB96HVsJ37G3F2cVqIMTskAhTeg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc0ca0b0-e04a-4310-a121-edfd5fee24f4",
+                            SecurityStamp = "9ef084f2-a0ef-4c26-82b1-be88fb4a5f3f",
                             TwoFactorEnabled = false,
                             UserName = "user@vls.com"
                         },
                         new
                         {
-                            Id = "c8e61ff6-0aff-4c34-9b42-042ef380b343",
+                            Id = "f3010072-8c38-41f1-ac7e-ae5810f4b1bd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d230b875-97fc-4371-bd10-02a3758eb245",
+                            ConcurrencyStamp = "c93a0161-7b98-4484-b4f0-63880e17ea2f",
                             Email = "moderator@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODERATOR@VLS.COM",
                             NormalizedUserName = "MODERATOR@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAB60EI90WEtPjEkKVKWg0H0sypHD25zPnqD9IiyBXDbHJHfPAN8/8Nv6dpvyUuD7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECTnbz3R/ZZdAFSJRHLD/c/hcf4IoFliUW3sraenZlDfPP6V6e767lsWVOZoudOruA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50135b2b-cd79-4a16-ab23-0a49c69c48a9",
+                            SecurityStamp = "06bca385-19d0-4ba9-a17d-cca08aee3c1b",
                             TwoFactorEnabled = false,
                             UserName = "moderator@vls.com"
                         },
                         new
                         {
-                            Id = "2b7fab5e-82de-417f-b7dd-90e81abcceda",
+                            Id = "e6a9b8a9-b386-4787-a39b-c8ee6a9c3a81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2007a09a-d8f2-4b48-8a08-b928d6eddb69",
+                            ConcurrencyStamp = "000e5ee2-4a39-42f6-b193-0350c7e5a805",
                             Email = "admin@vls.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@VLS.COM",
                             NormalizedUserName = "ADMIN@VLS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA+yYZj0Ii8spcmvxV3ixk0CWHJN/k0lzHHbtaS7deXvMeX7YpyEKY0j6Z5Fm5qcjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKeSIfl/Bxc9t/VEXrPNIFijay5HKH6a6rPUUa2eV/8HvFc+ErIiFMwhO8JecpBa6w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da7b0fcd-6609-43cf-9ac1-e0e0e14b8d09",
+                            SecurityStamp = "0ccb3310-feaa-46f7-b2c6-cfb0d7343fa7",
                             TwoFactorEnabled = false,
                             UserName = "admin@vls.com"
                         });
@@ -613,16 +1788,16 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ImageId = "64be89ae1409e5a61554e6ed",
+                            ImageId = "64d52335b30136c5a68bb051",
                             IsActive = true,
-                            Name = "Jewelry"
+                            Name = "Текстил"
                         },
                         new
                         {
                             Id = 2,
-                            ImageId = "64be8c9f41c19cda7ab19853",
+                            ImageId = "64d5238d2acacb9e2043c933",
                             IsActive = true,
-                            Name = "Textile"
+                            Name = "Бижута"
                         });
                 });
 
@@ -655,23 +1830,107 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ColorValue = "#ff0000",
+                            ColorValue = "#d0c442",
                             IsActive = true,
-                            Name = "Red"
+                            Name = "жълто"
                         },
                         new
                         {
                             Id = 2,
-                            ColorValue = "#0000ff",
+                            ColorValue = "#147b83",
                             IsActive = true,
-                            Name = "Blue"
+                            Name = "тюркоаз"
                         },
                         new
                         {
                             Id = 3,
-                            ColorValue = "#00ff00",
+                            ColorValue = "#d03844",
                             IsActive = true,
-                            Name = "Green"
+                            Name = "червено"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ColorValue = "#87cc4a",
+                            IsActive = true,
+                            Name = "светло зелено"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ColorValue = "#46761b",
+                            IsActive = true,
+                            Name = "тъмно зелено"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ColorValue = "#721cae",
+                            IsActive = true,
+                            Name = "лилаво"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ColorValue = "#154978",
+                            IsActive = true,
+                            Name = "тъмно синьо"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ColorValue = "#34b4df",
+                            IsActive = true,
+                            Name = "светло синьо"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ColorValue = "#e6c89f",
+                            IsActive = true,
+                            Name = "шампанско"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ColorValue = "#d8748c",
+                            IsActive = true,
+                            Name = "розово"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ColorValue = "#f0eddc",
+                            IsActive = true,
+                            Name = "бяло"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ColorValue = "#961243",
+                            IsActive = true,
+                            Name = "циклама"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ColorValue = "#904236",
+                            IsActive = true,
+                            Name = "кафяво"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ColorValue = "#000000",
+                            IsActive = true,
+                            Name = "черно"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ColorValue = "#fe7612",
+                            IsActive = true,
+                            Name = "оранжево"
                         });
                 });
 
@@ -709,18 +1968,26 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Handcrafted jewelry made of silk cocoons",
-                            ImageId = "64be8c870b7f086367ebb6a5",
+                            Description = "Колиета и обеци от серия \"Грозд\"",
+                            ImageId = "64d523b1a82f8b465badccfe",
                             IsActive = true,
-                            Name = "Silk Cocoons"
+                            Name = "Гроздове"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Handcrafted jewelry made of glass",
-                            ImageId = "64be8c9332b088f8d6063040",
+                            Description = "Бижута от серия \"Мак\"",
+                            ImageId = "64d524415910ab1c2728156e",
                             IsActive = true,
-                            Name = "Glass"
+                            Name = "Макове"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Разгледайте новите ни предложения",
+                            ImageId = "64d5241b4efab879d2b98106",
+                            IsActive = true,
+                            Name = "Нова колекция"
                         });
                 });
 
@@ -745,26 +2012,80 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             GalleryId = 1,
-                            ProductId = 1,
+                            ProductId = 9,
                             Position = 1
                         },
                         new
                         {
                             GalleryId = 1,
-                            ProductId = 2,
+                            ProductId = 10,
                             Position = 2
                         },
                         new
                         {
                             GalleryId = 1,
-                            ProductId = 3,
+                            ProductId = 11,
                             Position = 3
                         },
                         new
                         {
+                            GalleryId = 1,
+                            ProductId = 12,
+                            Position = 4
+                        },
+                        new
+                        {
+                            GalleryId = 1,
+                            ProductId = 13,
+                            Position = 5
+                        },
+                        new
+                        {
+                            GalleryId = 1,
+                            ProductId = 20,
+                            Position = 6
+                        },
+                        new
+                        {
                             GalleryId = 2,
-                            ProductId = 4,
+                            ProductId = 22,
                             Position = 1
+                        },
+                        new
+                        {
+                            GalleryId = 2,
+                            ProductId = 23,
+                            Position = 2
+                        },
+                        new
+                        {
+                            GalleryId = 2,
+                            ProductId = 43,
+                            Position = 3
+                        },
+                        new
+                        {
+                            GalleryId = 3,
+                            ProductId = 19,
+                            Position = 1
+                        },
+                        new
+                        {
+                            GalleryId = 3,
+                            ProductId = 34,
+                            Position = 2
+                        },
+                        new
+                        {
+                            GalleryId = 3,
+                            ProductId = 35,
+                            Position = 3
+                        },
+                        new
+                        {
+                            GalleryId = 3,
+                            ProductId = 36,
+                            Position = 4
                         });
                 });
 
@@ -786,83 +2107,698 @@ namespace VelvetLeaves.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "64be89ae1409e5a61554e6ed",
+                            Id = "64d52335b30136c5a68bb051",
                             ProductId = 1
                         },
                         new
                         {
-                            Id = "64be8c68cac3fdf11a06fbbb",
+                            Id = "64d52338464ff67d85ff46a5",
                             ProductId = 1
                         },
                         new
                         {
-                            Id = "64be8c6df878c3764a814981",
+                            Id = "64d5233c720097ef9dffa9ab",
                             ProductId = 1
                         },
                         new
                         {
-                            Id = "64be8c733df251037e15d70a",
+                            Id = "64d523401c23834259ea6b65",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = "64d52343c1a58e96abb5c206",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = "64d5234f5a69fa9f747e5f18",
                             ProductId = 2
                         },
                         new
                         {
-                            Id = "64be8c7a0ef21ca57c247498",
+                            Id = "64d5234ce3785f17243b411c",
                             ProductId = 2
                         },
                         new
                         {
-                            Id = "64be8c813d909293463359d6",
+                            Id = "64d52349d406df65ce4b4e72",
                             ProductId = 2
                         },
                         new
                         {
-                            Id = "64be8c870b7f086367ebb6a5",
+                            Id = "64d523475af695148db6b205",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = "64d5235bf6729604d509bc8a",
                             ProductId = 3
                         },
                         new
                         {
-                            Id = "64be8c8d7d5c466b820b73af",
+                            Id = "64d52359322458a957d81660",
                             ProductId = 3
                         },
                         new
                         {
-                            Id = "64be8c9332b088f8d6063040",
+                            Id = "64d523565b62f7aaf0663a98",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = "64d5235287a0f3693212c2a1",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = "64d5236abb6d8a6883aea6a5",
                             ProductId = 4
                         },
                         new
                         {
-                            Id = "64be8c99f991d074063b5098",
+                            Id = "64d52366fb8d548ef1e6a1cb",
                             ProductId = 4
                         },
                         new
                         {
-                            Id = "64be8c9f41c19cda7ab19853",
+                            Id = "64d52362ecdfe6871993e1e4",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = "64d5235f274fb0fcf347d1b3",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = "64d5237b623df2b2ac3fc610",
                             ProductId = 5
                         },
                         new
                         {
-                            Id = "64be8ca5b7f1ea12383c364a",
+                            Id = "64d523760ebe3629aa66effc",
                             ProductId = 5
                         },
                         new
                         {
-                            Id = "64be8caa293917f47210277e",
+                            Id = "64d52372fe1c9b730442e805",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = "64d5236e334387ef86d99937",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = "64d5237ebfa052d5f7b7e3cb",
                             ProductId = 6
                         },
                         new
                         {
-                            Id = "64be8cae1813d7aff61e173b",
+                            Id = "64d52385751a53bf32894fb4",
                             ProductId = 6
                         },
                         new
                         {
-                            Id = "64be8cb3b390e17c62039322",
+                            Id = "64d52381a7064dcc1dd461d5",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = "64d5238841449e1eef8fc29a",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = "64d5238d2acacb9e2043c933",
                             ProductId = 7
                         },
                         new
                         {
-                            Id = "64be8cb81a39dd6ed0351ebb",
+                            Id = "64d52392f6a5f8843a780460",
                             ProductId = 7
+                        },
+                        new
+                        {
+                            Id = "64d523961f6d033d54da856e",
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = "64d5239a46383aa6559ff15e",
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = "64d5239dfb4154fc78c1b5f2",
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = "64d523a091c723288ab2703f",
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = "64d523a27541d354f5185ecf",
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = "64d523a54482b6933b4b9641",
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = "64d523a8417674952ae911aa",
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = "64d523ac76b19d54b131024b",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = "64d523af7736cd67efd18bca",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = "64d523b1a82f8b465badccfe",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = "64d523b4aaae78c1fb2e0f19",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = "64d523c837c5cbc84815c6b2",
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = "64d523cbc940befd0ef0bbea",
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = "64d523ceda1ac0b8527ffd26",
+                            ProductId = 12
+                        },
+                        new
+                        {
+                            Id = "64d523d1c01dda3483251e4c",
+                            ProductId = 12
+                        },
+                        new
+                        {
+                            Id = "64d523d49319f1ab11955ee0",
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = "64d523e02eab219eca427579",
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = "64d523e30dd3878eccd3ea1e",
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = "64d523e7d30950cc175d4ee5",
+                            ProductId = 14
+                        },
+                        new
+                        {
+                            Id = "64d523e985893af2853dbaa4",
+                            ProductId = 14
+                        },
+                        new
+                        {
+                            Id = "64d523ed880a2cfea4e5a29a",
+                            ProductId = 14
+                        },
+                        new
+                        {
+                            Id = "64d523f115f347b097321f2a",
+                            ProductId = 15
+                        },
+                        new
+                        {
+                            Id = "64d523f45251d2a11816195f",
+                            ProductId = 15
+                        },
+                        new
+                        {
+                            Id = "64d523f7a6a8571b3eb12359",
+                            ProductId = 15
+                        },
+                        new
+                        {
+                            Id = "64d523fabe152a47636bae7d",
+                            ProductId = 16
+                        },
+                        new
+                        {
+                            Id = "64d523fdeb4444d63ab86a55",
+                            ProductId = 16
+                        },
+                        new
+                        {
+                            Id = "64d523ff4215c2646cc8163e",
+                            ProductId = 16
+                        },
+                        new
+                        {
+                            Id = "64d524022c22a7bf5d6fb592",
+                            ProductId = 17
+                        },
+                        new
+                        {
+                            Id = "64d52405dd648aaccb6de56f",
+                            ProductId = 17
+                        },
+                        new
+                        {
+                            Id = "64d524084074dd02c95d5612",
+                            ProductId = 17
+                        },
+                        new
+                        {
+                            Id = "64d5240c0d0a9f46840215f4",
+                            ProductId = 18
+                        },
+                        new
+                        {
+                            Id = "64d5240f1f6a4bf88ff5fe28",
+                            ProductId = 18
+                        },
+                        new
+                        {
+                            Id = "64d52413ca2cdb86d5dc5061",
+                            ProductId = 18
+                        },
+                        new
+                        {
+                            Id = "64d5241605cdc65069fb4e7c",
+                            ProductId = 19
+                        },
+                        new
+                        {
+                            Id = "64d524194292962f1698b35d",
+                            ProductId = 19
+                        },
+                        new
+                        {
+                            Id = "64d5241b4efab879d2b98106",
+                            ProductId = 19
+                        },
+                        new
+                        {
+                            Id = "64d5241ec70acdc88d85b2cf",
+                            ProductId = 19
+                        },
+                        new
+                        {
+                            Id = "64d52421cfb2a66f5536dbc6",
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            Id = "64d5242462bf6e246eef6de5",
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            Id = "64d5242760c55c37a36657d8",
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            Id = "64d5242b9278a4b37dcc630b",
+                            ProductId = 21
+                        },
+                        new
+                        {
+                            Id = "64d5242e5935e047dede6793",
+                            ProductId = 21
+                        },
+                        new
+                        {
+                            Id = "64d524315e7d9e628e279e40",
+                            ProductId = 21
+                        },
+                        new
+                        {
+                            Id = "64d52434e25395fb8679db94",
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = "64d5243d1a39817b5412e11d",
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = "64d524415910ab1c2728156e",
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = "64d524457ff5157cd75d74b1",
+                            ProductId = 23
+                        },
+                        new
+                        {
+                            Id = "64d52448f4eb7a0a7f25a51a",
+                            ProductId = 23
+                        },
+                        new
+                        {
+                            Id = "64d5244a9e32fb59f283d635",
+                            ProductId = 23
+                        },
+                        new
+                        {
+                            Id = "64d52455958cb65afbfd6ae8",
+                            ProductId = 24
+                        },
+                        new
+                        {
+                            Id = "64d5245377429792e179d3bf",
+                            ProductId = 24
+                        },
+                        new
+                        {
+                            Id = "64d524501bda417d5761bfca",
+                            ProductId = 24
+                        },
+                        new
+                        {
+                            Id = "64d5244e355f07301da86f9d",
+                            ProductId = 24
+                        },
+                        new
+                        {
+                            Id = "64d52464dac819b2d0d9651a",
+                            ProductId = 25
+                        },
+                        new
+                        {
+                            Id = "64d52461873681ea5d64d875",
+                            ProductId = 25
+                        },
+                        new
+                        {
+                            Id = "64d5245e9b617cd236346b63",
+                            ProductId = 25
+                        },
+                        new
+                        {
+                            Id = "64d5245b5f00130edb99f651",
+                            ProductId = 25
+                        },
+                        new
+                        {
+                            Id = "64d52468d463b9450c90da10",
+                            ProductId = 26
+                        },
+                        new
+                        {
+                            Id = "64d5246c78ebed5232e6790b",
+                            ProductId = 26
+                        },
+                        new
+                        {
+                            Id = "64d5246f1c85d65d8278ed46",
+                            ProductId = 27
+                        },
+                        new
+                        {
+                            Id = "64d52471ba01308173853a57",
+                            ProductId = 27
+                        },
+                        new
+                        {
+                            Id = "64d524758723c98b4517d0e4",
+                            ProductId = 28
+                        },
+                        new
+                        {
+                            Id = "64d52477d20e0caee58a1b13",
+                            ProductId = 28
+                        },
+                        new
+                        {
+                            Id = "64d52479338c4bae74412ae2",
+                            ProductId = 29
+                        },
+                        new
+                        {
+                            Id = "64d5247d00dfdad417f95d9a",
+                            ProductId = 29
+                        },
+                        new
+                        {
+                            Id = "64d5247fce219f6b15944ce6",
+                            ProductId = 29
+                        },
+                        new
+                        {
+                            Id = "64d5249591db48402680da4f",
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            Id = "64d524983f05edf1b19fbfcf",
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            Id = "64d5249cf2a4faf6783dcba7",
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            Id = "64d5249fbd5f98393548eaf3",
+                            ProductId = 31
+                        },
+                        new
+                        {
+                            Id = "64d524a14f2def8ce5fe2053",
+                            ProductId = 31
+                        },
+                        new
+                        {
+                            Id = "64d524a4d08826759b124b81",
+                            ProductId = 31
+                        },
+                        new
+                        {
+                            Id = "64d52481af9cd319228bc03e",
+                            ProductId = 32
+                        },
+                        new
+                        {
+                            Id = "64d524848355e8e0ca5c7c64",
+                            ProductId = 32
+                        },
+                        new
+                        {
+                            Id = "64d52490c7197f5948d686e0",
+                            ProductId = 33
+                        },
+                        new
+                        {
+                            Id = "64d5248ef11f97cf0d936c79",
+                            ProductId = 33
+                        },
+                        new
+                        {
+                            Id = "64d524894f0d449e6e7f0be5",
+                            ProductId = 33
+                        },
+                        new
+                        {
+                            Id = "64d524b586fa7d40023defa1",
+                            ProductId = 34
+                        },
+                        new
+                        {
+                            Id = "64d524b05db296b5147b774a",
+                            ProductId = 34
+                        },
+                        new
+                        {
+                            Id = "64d524ace356ce0f5b5e84c6",
+                            ProductId = 34
+                        },
+                        new
+                        {
+                            Id = "64d524a8a106e8030a0f5810",
+                            ProductId = 34
+                        },
+                        new
+                        {
+                            Id = "64d524b9579b4b54285e15ed",
+                            ProductId = 35
+                        },
+                        new
+                        {
+                            Id = "64d524bc9c0bf598bdbe9551",
+                            ProductId = 35
+                        },
+                        new
+                        {
+                            Id = "64d524bf2b882738a30506c5",
+                            ProductId = 35
+                        },
+                        new
+                        {
+                            Id = "64d524c23a6c7f3087010b63",
+                            ProductId = 36
+                        },
+                        new
+                        {
+                            Id = "64d524c58d113c6f7108c444",
+                            ProductId = 36
+                        },
+                        new
+                        {
+                            Id = "64d524c8d973ed6ecd116daf",
+                            ProductId = 36
+                        },
+                        new
+                        {
+                            Id = "64d524cb8237c4c8cab1c94d",
+                            ProductId = 37
+                        },
+                        new
+                        {
+                            Id = "64d524ce181e34c33340dd05",
+                            ProductId = 38
+                        },
+                        new
+                        {
+                            Id = "64d524d23b4f7df4df352f9f",
+                            ProductId = 39
+                        },
+                        new
+                        {
+                            Id = "64d524d540e46b0cea6cc523",
+                            ProductId = 39
+                        },
+                        new
+                        {
+                            Id = "64d524d99bb7990b020777b9",
+                            ProductId = 39
+                        },
+                        new
+                        {
+                            Id = "64d524db4c9f4a9647db7009",
+                            ProductId = 39
+                        },
+                        new
+                        {
+                            Id = "64d524de44d6b9ac55e41954",
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            Id = "64d524e1def6a193ed8df8f6",
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            Id = "64d524e404b5bd7f13be1c5b",
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            Id = "64d524e80992abcef8352a65",
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            Id = "64d524ebc6f3675710bbd9dd",
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            Id = "64d524fa4584a8013259e40d",
+                            ProductId = 41
+                        },
+                        new
+                        {
+                            Id = "64d52504405b952082fb05d1",
+                            ProductId = 41
+                        },
+                        new
+                        {
+                            Id = "64d52507173da7d7420d2657",
+                            ProductId = 41
+                        },
+                        new
+                        {
+                            Id = "64d5250a13661437bd07c952",
+                            ProductId = 41
+                        },
+                        new
+                        {
+                            Id = "64d5250e6b4ba5e401ed0500",
+                            ProductId = 42
+                        },
+                        new
+                        {
+                            Id = "64d52512e2aa2cc2c81f5b6e",
+                            ProductId = 42
+                        },
+                        new
+                        {
+                            Id = "64d52515302802a83f0af2e0",
+                            ProductId = 42
+                        },
+                        new
+                        {
+                            Id = "64d5251be13c2530fda92d19",
+                            ProductId = 43
+                        },
+                        new
+                        {
+                            Id = "64d5251e9c3ab859c753c597",
+                            ProductId = 43
+                        },
+                        new
+                        {
+                            Id = "64d52521e58195d2403b6e15",
+                            ProductId = 43
+                        },
+                        new
+                        {
+                            Id = "64d5252751ecfe48e09e1f15",
+                            ProductId = 44
+                        },
+                        new
+                        {
+                            Id = "64d5252abf960bb7827bb75b",
+                            ProductId = 44
+                        },
+                        new
+                        {
+                            Id = "64d5252d8c5ead2168fbd1cb",
+                            ProductId = 44
+                        },
+                        new
+                        {
+                            Id = "64d525319813433aa6afe1ac",
+                            ProductId = 44
                         });
                 });
 
@@ -891,25 +2827,79 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             IsActive = true,
-                            Name = "Silver"
+                            Name = "Лен"
                         },
                         new
                         {
                             Id = 2,
                             IsActive = true,
-                            Name = "Steel"
+                            Name = "Памук"
                         },
                         new
                         {
                             Id = 3,
                             IsActive = true,
-                            Name = "Glass"
+                            Name = "Стомана"
                         },
                         new
                         {
                             Id = 4,
                             IsActive = true,
-                            Name = "Textile"
+                            Name = "Сребро"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            Name = "Полускъпоценни камъни"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            Name = "Кристали Сваровски"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            Name = "Естествени копринени пашкули"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsActive = true,
+                            Name = "Посребрена тел"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsActive = true,
+                            Name = "Кожа"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsActive = true,
+                            Name = "Стоманена магнитна закопчалка"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsActive = true,
+                            Name = "Велур"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsActive = true,
+                            Name = "Дърво"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsActive = true,
+                            Name = "Речни перли"
                         });
                 });
 
@@ -1041,79 +3031,486 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Red earrings with silver frames.",
+                            Description = "Авторска ръчно изработена чанта от лен, с ръчна бродерия и памучна подплата. Всяка чанта е уникална и няма да бъде повторена в тази комбинация от модел и шевица.",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Red Silver Earrings",
-                            Price = 50.00m,
+                            Name = "Ленена чанта \"Слънце\"",
+                            Price = 140.00m,
                             ProductSeriesId = 1,
                             SubcategoryId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Red-blue earrings with steel frames.",
+                            Description = "Авторска ръчно изработена чанта от лен, с ръчна бродерия и памучна подплата. Всяка чанта е уникална и няма да бъде повторена в тази комбинация от модел и шевица.",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Red-Blue Steel Earrings",
-                            Price = 45.00m,
-                            ProductSeriesId = 2,
+                            Name = "Ленена чанта \" Синева\"",
+                            Price = 150.00m,
+                            ProductSeriesId = 1,
                             SubcategoryId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Green necklace with a silver frame.",
+                            Description = "Авторски ръчно изработен несесер от лен, с ръчна бродерия и памучна подплата. ",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Green Silver Necklace",
-                            Price = 35.00m,
-                            ProductSeriesId = 3,
+                            Name = "Ленен несесер ",
+                            Price = 40.00m,
+                            ProductSeriesId = 2,
                             SubcategoryId = 2
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Blue ring made out of glass and silver.",
+                            Description = "Авторски ръчно изработен несесер от лен, с ръчна бродерия и памучна подплата. ",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Blue Glass Ring",
-                            Price = 25.00m,
-                            ProductSeriesId = 4,
-                            SubcategoryId = 3
+                            Name = "Ленен несесер ",
+                            Price = 40.00m,
+                            ProductSeriesId = 2,
+                            SubcategoryId = 2
                         },
                         new
                         {
                             Id = 5,
-                            Description = "Hand bag with traditional sewing pattern.",
+                            Description = "Авторска ръчно изработенa подвързия за книга от лен, с ръчна бродерия и памучна подплата.",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Traditional Hand Bag",
-                            Price = 120.00m,
-                            ProductSeriesId = 5,
-                            SubcategoryId = 4
+                            Name = "Ленена подвързия за книга",
+                            Price = 45.00m,
+                            ProductSeriesId = 3,
+                            SubcategoryId = 3
                         },
                         new
                         {
                             Id = 6,
-                            Description = "Hand bag with traditional sewing pattern.",
+                            Description = "Авторска ръчно изработенa подвързия за електронна книга от лен, с ръчна бродерия и памучна подплата. ",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Traditional Hand Bag",
-                            Price = 120.00m,
+                            Name = "Ленена подвързия за Kindle",
+                            Price = 45.00m,
+                            ProductSeriesId = 3,
+                            SubcategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Обици \"Букет\"",
+                            Price = 25.00m,
+                            ProductSeriesId = 4,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Обици \"Букет\"",
+                            Price = 25.00m,
+                            ProductSeriesId = 4,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Големи обеци \"Грозд\"",
+                            Price = 60.00m,
                             ProductSeriesId = 5,
                             SubcategoryId = 4
                         },
                         new
                         {
-                            Id = 7,
-                            Description = "Blue book binding.",
+                            Id = 10,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
                             IsActive = true,
                             IsAvailable = true,
-                            Name = "Blue Book Binding",
-                            Price = 70.00m,
+                            Name = "Големи обеци \"Грозд\"",
+                            Price = 60.00m,
+                            ProductSeriesId = 5,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Средни обеци \"Грозд\"",
+                            Price = 60.00m,
+                            ProductSeriesId = 5,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Средни обеци \"Грозд\"",
+                            Price = 60.00m,
+                            ProductSeriesId = 5,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Малки обеци \"Грозд\"",
+                            Price = 35.00m,
+                            ProductSeriesId = 5,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Малки обеци \"Грозд\" ",
+                            Price = 35.00m,
+                            ProductSeriesId = 5,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, стоманена тел, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Дълги обеци",
+                            Price = 50.00m,
                             ProductSeriesId = 6,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, стоманена тел, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Дълги обеци",
+                            Price = 50.00m,
+                            ProductSeriesId = 6,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Обеци на синджир",
+                            Price = 25.00m,
+                            ProductSeriesId = 7,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Обеци на синджир",
+                            Price = 25.00m,
+                            ProductSeriesId = 7,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "Ръчно изработени обеци от естествени копринени пашкули, посребрена тел, сребро и кристали Сваровски",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Обеци \"Тромбон\"",
+                            Price = 35.00m,
+                            ProductSeriesId = 8,
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие малък \"Грозд\"",
+                            Price = 50.00m,
+                            ProductSeriesId = 9,
                             SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие малък \"Грозд\"",
+                            Price = 50.00m,
+                            ProductSeriesId = 9,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, посребрена тел и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на обръч \"Мак\"",
+                            Price = 45.00m,
+                            ProductSeriesId = 10,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, посребрена тел и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на обръч \"Мак\"",
+                            Price = 45.00m,
+                            ProductSeriesId = 10,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърно колие",
+                            Price = 50.00m,
+                            ProductSeriesId = 11,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърно колие",
+                            Price = 50.00m,
+                            ProductSeriesId = 11,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, кожа, полускъпоценни камъни и с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на кожа с цели пашкули",
+                            Price = 50.00m,
+                            ProductSeriesId = 12,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, кожа, полускъпоценни камъни и с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на кожа с цели пашкули",
+                            Price = 50.00m,
+                            ProductSeriesId = 12,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, кожа, полускъпоценни камъни и с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на кожа с цветя",
+                            Price = 50.00m,
+                            ProductSeriesId = 12,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, велур, ръчно изработен дървен елемент от орех, и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на велур с цветя",
+                            Price = 35.00m,
+                            ProductSeriesId = 13,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, велур и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на велур с цели пашкули",
+                            Price = 40.00m,
+                            ProductSeriesId = 13,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, велур и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на велур с цели пашкули",
+                            Price = 40.00m,
+                            ProductSeriesId = 13,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, велур и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на велур с цветя",
+                            Price = 35.00m,
+                            ProductSeriesId = 13,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, велур, ръчно изработен дървен елемент от орех, и полускъпоценни камъни",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие на велур с цветя",
+                            Price = 35.00m,
+                            ProductSeriesId = 13,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие \"Венец\"",
+                            Price = 50.00m,
+                            ProductSeriesId = 14,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Колие \"Венец\"",
+                            Price = 50.00m,
+                            ProductSeriesId = 14,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Description = "Ръчно изработено колие от естествени копринени пашкули, стомана и речни перли",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Стоманено колие",
+                            Price = 45.00m,
+                            ProductSeriesId = 15,
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Description = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и сребро",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърна гривна",
+                            Price = 45.00m,
+                            ProductSeriesId = 16,
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Description = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и сребро",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърна гривна",
+                            Price = 45.00m,
+                            ProductSeriesId = 16,
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Description = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и кожа, с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Кожена гривна",
+                            Price = 45.00m,
+                            ProductSeriesId = 17,
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Description = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и кожа, с магнитна закопчалка",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Кожена гривна",
+                            Price = 45.00m,
+                            ProductSeriesId = 17,
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Description = "Ръчно изработен пръстен от естествени копринени пашкули, сладководни перли и сребро",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърен пръстен с речна перла",
+                            Price = 35.00m,
+                            ProductSeriesId = 18,
+                            SubcategoryId = 7
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Description = "Ръчно изработен пръстен от естествени копринени пашкули, сладководни перли и сребро",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Сребърен пръстен с речна перла",
+                            Price = 35.00m,
+                            ProductSeriesId = 18,
+                            SubcategoryId = 7
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Description = "Ръчно изработен пръстен от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Стоманен пръстен",
+                            Price = 25.00m,
+                            ProductSeriesId = 19,
+                            SubcategoryId = 7
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Description = "Ръчно изработен пръстен от естествени копринени пашкули и стомана",
+                            IsActive = true,
+                            IsAvailable = true,
+                            Name = "Стоманен пръстен",
+                            Price = 25.00m,
+                            ProductSeriesId = 19,
+                            SubcategoryId = 7
                         });
                 });
 
@@ -1160,62 +3557,192 @@ namespace VelvetLeaves.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DefaultDescription = "Earrings with silver frames.",
-                            DefaultName = "Silver Earrings",
-                            DefaultPrice = 50.00m,
+                            DefaultDescription = "Авторска ръчно изработена чанта от лен, с ръчна бродерия и памучна подплата. Всяка чанта е уникална и няма да бъде повторена в тази комбинация от модел и шевица.",
+                            DefaultName = "Ленена чанта",
+                            DefaultPrice = 140.00m,
                             IsActive = true,
-                            Name = "Silver Earrings",
+                            Name = "Чанта",
                             SubcategoryId = 1
                         },
                         new
                         {
                             Id = 2,
-                            DefaultDescription = "Earrings with steel frames.",
-                            DefaultName = "Steel Earrings",
-                            DefaultPrice = 50.00m,
+                            DefaultDescription = "Авторска ръчно изработен несесер от лен, с ръчна бродерия и памучна подплата. ",
+                            DefaultName = "Ленен несесер ",
+                            DefaultPrice = 40.00m,
                             IsActive = true,
-                            Name = "Steel Earrings",
-                            SubcategoryId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DefaultDescription = "Necklace with a silver frame.",
-                            DefaultName = "Silver Necklace",
-                            DefaultPrice = 50.00m,
-                            IsActive = true,
-                            Name = "Silver Necklace",
+                            Name = "Несесер",
                             SubcategoryId = 2
                         },
                         new
                         {
-                            Id = 4,
-                            DefaultDescription = "Ring made out of glass and silver.",
-                            DefaultName = "Glass Ring",
-                            DefaultPrice = 50.00m,
+                            Id = 3,
+                            DefaultDescription = "Авторска ръчно изработенa подвързия за книга от лен, с ръчна бродерия и памучна подплата.",
+                            DefaultName = "Ленена подвързия",
+                            DefaultPrice = 45.00m,
                             IsActive = true,
-                            Name = "Glass Ring",
+                            Name = "Подвързия",
                             SubcategoryId = 3
                         },
                         new
                         {
-                            Id = 5,
-                            DefaultDescription = "Hand bag with traditional sewing pattern.",
-                            DefaultName = "Traditional Bag",
-                            DefaultPrice = 50.00m,
+                            Id = 4,
+                            DefaultDescription = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            DefaultName = "Обици \"Букет\"",
+                            DefaultPrice = 25.00m,
                             IsActive = true,
-                            Name = "Traditional Bag",
+                            Name = "3ка до ухо",
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DefaultDescription = "Ръчно изработени обеци от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            DefaultName = "Обеци \"Грозд\"",
+                            DefaultPrice = 60.00m,
+                            IsActive = true,
+                            Name = "Гроздове",
                             SubcategoryId = 4
                         },
                         new
                         {
                             Id = 6,
-                            DefaultDescription = "Book binding.",
-                            DefaultName = "Book Binding",
+                            DefaultDescription = "Ръчно изработени обеци от естествени копринени пашкули, стоманена тел, сребро и полускъпоценни камъни",
+                            DefaultName = "Дълги обеци",
                             DefaultPrice = 50.00m,
                             IsActive = true,
-                            Name = "Book Binding",
+                            Name = "Дълги",
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DefaultDescription = "Ръчно изработени обеци от естествени копринени пашкули и стомана",
+                            DefaultName = "Обеци на синджир",
+                            DefaultPrice = 25.00m,
+                            IsActive = true,
+                            Name = "На синджир",
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DefaultDescription = "Ръчно изработени обеци от естествени копринени пашкули, посребрена тел, сребро и кристали Сваровски",
+                            DefaultName = "Обеци \"Тромбон\"",
+                            DefaultPrice = 35.00m,
+                            IsActive = true,
+                            Name = "Тромбон",
+                            SubcategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            DefaultName = "Колие малък \"Грозд\"",
+                            DefaultPrice = 50.00m,
+                            IsActive = true,
+                            Name = "Гроздове",
                             SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, посребрена тел и полускъпоценни камъни",
+                            DefaultName = "Колие на обръч \"Мак\"",
+                            DefaultPrice = 45.00m,
+                            IsActive = true,
+                            Name = "На обръч",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, сребро и полускъпоценни камъни",
+                            DefaultName = "Сребърно колие",
+                            DefaultPrice = 50.00m,
+                            IsActive = true,
+                            Name = "Сребро",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, кожа, полускъпоценни камъни и с магнитна закопчалка",
+                            DefaultName = "Колие на кожа",
+                            DefaultPrice = 50.00m,
+                            IsActive = true,
+                            Name = "Кожа",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, велур и полускъпоценни камъни",
+                            DefaultName = "Колие на велур",
+                            DefaultPrice = 40.00m,
+                            IsActive = true,
+                            Name = "Велур",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули с магнитна закопчалка",
+                            DefaultName = "Колие \"Венец\"",
+                            DefaultPrice = 50.00m,
+                            IsActive = true,
+                            Name = "Въже",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DefaultDescription = "Ръчно изработено колие от естествени копринени пашкули, стомана и речни перли",
+                            DefaultName = "Стоманено колие",
+                            DefaultPrice = 45.00m,
+                            IsActive = true,
+                            Name = "Стомана",
+                            SubcategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DefaultDescription = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и сребро",
+                            DefaultName = "Сребърна гривна",
+                            DefaultPrice = 45.00m,
+                            IsActive = true,
+                            Name = "Сребро",
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DefaultDescription = "Ръчно изработена гривна от естествени копринени пашкули, полускъпоценни камъни и кожа, с магнитна закопчалка",
+                            DefaultName = "Кожена гривна",
+                            DefaultPrice = 45.00m,
+                            IsActive = true,
+                            Name = "Кожа",
+                            SubcategoryId = 6
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DefaultDescription = "Ръчно изработен пръстен от естествени копринени пашкули, сладководни перли и сребро",
+                            DefaultName = "Сребърен пръстен с речна перла",
+                            DefaultPrice = 35.00m,
+                            IsActive = true,
+                            Name = "Сребро",
+                            SubcategoryId = 7
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DefaultDescription = "Ръчно изработен пръстен от естествени копринени пашкули и стомана",
+                            DefaultName = "Стоманен пръстен",
+                            DefaultPrice = 25.00m,
+                            IsActive = true,
+                            Name = "Стомана",
+                            SubcategoryId = 7
                         });
                 });
 
@@ -1253,41 +3780,57 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            ImageId = "64be89ae1409e5a61554e6ed",
+                            ImageId = "64d52335b30136c5a68bb051",
                             IsActive = true,
-                            Name = "Earings"
+                            Name = "Чанти"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            ImageId = "64be8c870b7f086367ebb6a5",
+                            ImageId = "64d5235bf6729604d509bc8a",
                             IsActive = true,
-                            Name = "Necklaces"
+                            Name = "Несесери"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            ImageId = "64be8c9332b088f8d6063040",
+                            ImageId = "64d5237b623df2b2ac3fc610",
                             IsActive = true,
-                            Name = "Rings"
+                            Name = "Подвързии"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 2,
-                            ImageId = "64be8ca5b7f1ea12383c364a",
+                            ImageId = "64d5238d2acacb9e2043c933",
                             IsActive = true,
-                            Name = "Bags"
+                            Name = "Обеци"
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 2,
-                            ImageId = "64be8cb3b390e17c62039322",
+                            ImageId = "64d52421cfb2a66f5536dbc6",
                             IsActive = true,
-                            Name = "Book Bindings"
+                            Name = "Колиета"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            ImageId = "64d524cb8237c4c8cab1c94d",
+                            IsActive = true,
+                            Name = "Гривни"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 2,
+                            ImageId = "64d524fa4584a8013259e40d",
+                            IsActive = true,
+                            Name = "Пръстени"
                         });
                 });
 
@@ -1316,13 +3859,19 @@ namespace VelvetLeaves.Data.Migrations
                         {
                             Id = 1,
                             IsActive = true,
-                            Name = "Traditional Sewing Pattern"
+                            Name = "Мак"
                         },
                         new
                         {
                             Id = 2,
                             IsActive = true,
-                            Name = "Silk Cocoons"
+                            Name = "Цели пашкули"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Дълги"
                         });
                 });
 

@@ -79,7 +79,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                 Id = PreferencesKey,
                 RootNavigationName = "Velvet Leaves",
                 Currency = "лв.",
-                BackGroundImageId = "64cbe4e072b00421cdf31294",
+                BackGroundImageId = "64d55f3aa5226d52bc63e361",
                 FavoriteColor = "pink",
                 FavoriteIcon = "heart",
                 Description = "Бижута от естествени копринени пашкули"
@@ -92,7 +92,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
             return app;
         }
 
-        public static IApplicationBuilder SeedImages(this IApplicationBuilder app)
+        public static  IApplicationBuilder SeedImages(this IApplicationBuilder app)
         {
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
             var services = scopedServices.ServiceProvider;
@@ -101,6 +101,9 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 
             Dictionary<string, string> imagesToSeed = new Dictionary<string, string>
             {
+                            //background
+                            {"64d55f3aa5226d52bc63e361","000/bg.jpg" },
+
                 //Текстил
                     //чанти
                         //ленена чанта
@@ -312,6 +315,9 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                             {"64d5252abf960bb7827bb75b","044/2.jpg" },
                             {"64d5252d8c5ead2168fbd1cb","044/3.jpg" },
                             {"64d525319813433aa6afe1ac","044/4.jpg" }
+
+                
+                            
             };
 
             foreach (KeyValuePair<string, string> image in imagesToSeed)
@@ -324,13 +330,9 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 
                     string imgFolderNumber = args[0];
                     string imgName = args[1];
-                    string path = Path.Combine(hostingEnvironment.WebRootPath, "seed",imgFolderNumber, imgName, image.Value);
+                    string path = Path.Combine(hostingEnvironment.WebRootPath, "seed",imgFolderNumber, imgName);
                     byte[] bytes = await File.ReadAllBytesAsync(path);
                     string content = Convert.ToBase64String(bytes);
-
-
-
-
                     await imageService.CreateFromStringAsync(image.Key, content);
 
 
@@ -338,7 +340,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                 .GetResult();
             }
 
-
+            
 
             return app;
         }

@@ -20,7 +20,7 @@ namespace VelvetLeaves.Data.Configuration
             {
                 new Gallery {Id = 1, Name = "Гроздове",Description = "Колиета и обеци от серия \"Грозд\"",ImageId="64d523b1a82f8b465badccfe"},
                 new Gallery {Id = 2, Name = "Макове",Description = "Бижута от серия \"Мак\"",ImageId="64d524415910ab1c2728156e"},
-                new Gallery {Id = 2, Name = "Нова колекция",Description = "Разгледайте новите ни предложения",ImageId="64d5241b4efab879d2b98106"}
+                new Gallery {Id = 3, Name = "Нова колекция",Description = "Разгледайте новите ни предложения",ImageId="64d5241b4efab879d2b98106"}
             };
 
             builder.Entity<Gallery>()
