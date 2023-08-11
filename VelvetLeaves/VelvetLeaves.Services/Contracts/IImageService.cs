@@ -17,5 +17,7 @@ namespace VelvetLeaves.Services.Contracts
         public  Task UpdateAsync(string id, IFormFile content);
 
         public  Task<bool> RemoveAsync(string id);
+
+        public Task<bool> ExistsByIdAsync(string id);
     }
 }

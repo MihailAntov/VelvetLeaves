@@ -54,7 +54,6 @@ namespace VelvetLeaves.Services
 		public async Task<Image> CreateFromStringAsync(string id, string content)
 		{
 
-
             await _imagesCollection.FindOneAndDeleteAsync(i => i.Id == id);
             Image newImage = new Image { Id = id, Content = content };
             await _imagesCollection.InsertOneAsync(newImage);
@@ -148,5 +147,8 @@ namespace VelvetLeaves.Services
 
             }
         }
-	}
+
+        public async Task<bool> ExistsByIdAsync(string id) => (await _imagesCollection.FindAsync(i => i.Id == id)).Any();
+        
+    }
 }

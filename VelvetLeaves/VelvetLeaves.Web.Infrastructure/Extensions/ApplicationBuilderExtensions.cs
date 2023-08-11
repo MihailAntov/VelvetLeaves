@@ -327,13 +327,15 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                 Task.Run(async () =>
                 {
                     string[] args = image.Value.Split('/');
-
+                    if(!await imageService.ExistsByIdAsync(image.Key))
+                    {                    
                     string imgFolderNumber = args[0];
                     string imgName = args[1];
                     string path = Path.Combine(hostingEnvironment.WebRootPath, "seed",imgFolderNumber, imgName);
                     byte[] bytes = await File.ReadAllBytesAsync(path);
                     string content = Convert.ToBase64String(bytes);
                     await imageService.CreateFromStringAsync(image.Key, content);
+                    }
 
 
                 }).GetAwaiter()
