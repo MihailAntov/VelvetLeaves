@@ -39,13 +39,6 @@ namespace VelvetLeaves.Web.App.Controllers
                 return BadRequest();
             }
 
-            //ProductsFilteredAndPagedServiceModel serviceModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);
-
-            //queryModel.Products = serviceModel.Products;
-            //queryModel.TotalProducts = serviceModel.TotalProductCount;
-            //queryModel.ColorOptions = await _colorService.GetColorOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            //queryModel.MaterialOptions = await _materialService.GetMaterialOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
-            //queryModel.TagOptions = await _tagService.GetTagOptionsAsync(queryModel.CategoryId, queryModel.SubCategoryId);
             try
             {
                 queryModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);

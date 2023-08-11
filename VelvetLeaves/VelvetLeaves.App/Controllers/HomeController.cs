@@ -21,7 +21,7 @@ namespace VelvetLeaves.App.Controllers
             {
                 var model = await _galleryService.AllGalleriesAsync();
                 return View(model);
-                //TODO change index
+                
             }
             catch (Exception)
             {

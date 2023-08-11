@@ -61,14 +61,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(ProductSeriesFormViewModel model)
 		{
-            if (!ModelState.IsValid)
+			try
+			{
+
+				if (!ModelState.IsValid)
             {
 				model = await _productSeriesService.PopulateModel(model);
 				return View(model);
 			}
 
-			try
-			{
+			
 				await _productSeriesService.AddAsync(model);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
 			}
@@ -116,15 +118,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(int productSeriesId, ProductSeriesFormViewModel model)
 		{
-			if (!ModelState.IsValid)
+			try
+			{
+
+				if (!ModelState.IsValid)
 			{
 				model = await _productSeriesService.PopulateModel(model);
 				return View(model);
 			}
 
 
-			try
-			{
+			
 				await _productSeriesService.EditAsync(productSeriesId, model);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
 			}

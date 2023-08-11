@@ -104,7 +104,10 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ProductFormViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+
+                if (!ModelState.IsValid)
             {
                 var newOptions = await _productService.GetFormForAddAsync(model.CategoryId, model.SubcategoryId, model.ProductSeriesId);
                 model.CategoryOptions = newOptions.CategoryOptions;
@@ -116,8 +119,7 @@ namespace VelvetLeaves.Web.App.Areas.Admin.Controllers
 
                 return View(model);
             }
-            try
-            {
+            
                 var imageIds = await _imageService.CreateRangeAsync(model.Images);
                 if (imageIds.Any(id => id == null))
                 {

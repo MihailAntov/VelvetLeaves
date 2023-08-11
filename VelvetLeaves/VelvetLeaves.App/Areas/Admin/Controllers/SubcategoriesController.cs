@@ -44,14 +44,16 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(SubcategoryFormViewModel model)
 		{
-			if (!ModelState.IsValid)
+			try
+			{
+
+				if (!ModelState.IsValid)
 			{
 				model.CategoryOptions = await _categoryService.AllCategoriesAsync();
 				return View(model);
 			}
 
-            try
-            {
+            
 				string? imageId = await _imageService.CreateAsync(model.Image);
 
 				if (imageId == null)
