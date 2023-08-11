@@ -19,7 +19,7 @@ namespace VelvetLeaves.Services.UnitTests
         {
             // Create an in-memory database context (if applicable)
             var store = new Mock<IUserStore<ApplicationUser>>();
-            var roleValidator = new Mock<IRoleValidator<IdentityRole>>();
+            //var roleValidator = new Mock<IRoleValidator<IdentityRole>>();
             _mockUserManager = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null); // ?!?!
             _mockRoleManager = new Mock<RoleManager<IdentityRole>>(Mock.Of<IRoleStore<IdentityRole>>(), null, null, null, null); // ?!?!
             _userService = new UserService(_mockUserManager.Object, _mockRoleManager.Object);
@@ -79,7 +79,7 @@ namespace VelvetLeaves.Services.UnitTests
             _mockUserManager.Setup(u => u.Users).Returns(mockUserList.AsQueryable());
 
             _mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>()))
-                           .ReturnsAsync((string userId) => mockUserList.FirstOrDefault(u => u.Id == userId));
+                           .ReturnsAsync((string userId) => mockUserList.First(u => u.Id == userId));
             _mockUserManager.Setup(u => u.IsInRoleAsync(It.IsAny<ApplicationUser>(), "Moderator"))
                            .ReturnsAsync(false);
             _mockUserManager.Setup(u => u.IsInRoleAsync(It.IsAny<ApplicationUser>(), "Admin"))

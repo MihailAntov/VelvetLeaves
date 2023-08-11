@@ -276,7 +276,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task DetailsAsync_NonExistingOrderId_ShouldThrow()
+        public void DetailsAsync_NonExistingOrderId_ShouldThrow()
         {
             // Arrange
             var orderId = Guid.NewGuid().ToString();

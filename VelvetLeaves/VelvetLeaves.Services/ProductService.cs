@@ -189,9 +189,9 @@ namespace VelvetLeaves.Services
         {
             ProductTreeViewModel model = new ProductTreeViewModel()
             {
-                CategoryId = categoryId.HasValue ? categoryId.Value : null,
-                SubcategoryId = subcategoryId.HasValue ? subcategoryId.Value : null,
-                ProductSeriesId = productSeriesId.HasValue ? productSeriesId.Value : null,
+                CategoryId = categoryId ?? null,
+                SubcategoryId = subcategoryId ?? null,
+                ProductSeriesId = productSeriesId ?? null,
             };
 
             model.Products = await _context
@@ -359,12 +359,16 @@ namespace VelvetLeaves.Services
 			}
             //if(model.StartingImageIds != null && model.KeptImageIds != null)
             
-                var imgsToDelete = model.StartingImageIds.Where(i => !model.KeptImageIds.Contains(i));
-                foreach(var img in imgsToDelete)
-				{
+                if(model.KeptImageIds != null)
+            {
+                var imgsToDelete = model.StartingImageIds!.Where(i => !model.KeptImageIds.Contains(i));
+                foreach (var img in imgsToDelete)
+                {
                     await _imageService.RemoveAsync(img);
                     model.ImageIds.Remove(img);
-				}
+                }
+            }
+                
 			
 
             var product = await _context.Products
@@ -411,7 +415,7 @@ namespace VelvetLeaves.Services
 		{
             if(!await ExistsByIdAsync(productId))
             {
-                throw new ArgumentException();
+                throw new InvalidOperationException();
             }
             
             var product = await _context.Products

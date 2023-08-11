@@ -169,7 +169,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             var movedProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.ProductId == productIdToMove && gp.GalleryId == galleryId);
-            var previousProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.Position == movedProduct.Position - 1 && gp.GalleryId == galleryId);
+            var previousProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.Position == movedProduct!.Position - 1 && gp.GalleryId == galleryId);
             await _galleryService.MoveLeft(productIdToMove, galleryId);
             Assert.NotNull(movedProduct);
             Assert.NotNull(previousProduct);
@@ -204,7 +204,7 @@ namespace VelvetLeaves.Services.UnitTests
 
             // Assert
             var movedProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.ProductId == productIdToMove && gp.GalleryId == galleryId);
-            var nextProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.Position == movedProduct.Position + 1 && gp.GalleryId == galleryId);
+            var nextProduct = await _context.GalleriesProducts.FirstOrDefaultAsync(gp => gp.Position == movedProduct!.Position + 1 && gp.GalleryId == galleryId);
             await _galleryService.MoveRight(productIdToMove, galleryId);
             Assert.NotNull(movedProduct);
             Assert.NotNull(nextProduct);

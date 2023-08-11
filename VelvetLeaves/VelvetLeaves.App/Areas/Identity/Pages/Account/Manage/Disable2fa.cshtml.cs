@@ -33,7 +33,8 @@ namespace VelvetLeaves.App.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task<IActionResult> OnGet()
+        public  IActionResult OnGet()
+        //public async Task<IActionResult> OnGet()
         {
             //var user = await _userManager.GetUserAsync(User);
             //if (user == null)
@@ -51,7 +52,8 @@ namespace VelvetLeaves.App.Areas.Identity.Pages.Account.Manage
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public  IActionResult OnPostAsync()
+        //public async Task<IActionResult> OnPostAsync()
         {
             //var user = await _userManager.GetUserAsync(User);
             //if (user == null)

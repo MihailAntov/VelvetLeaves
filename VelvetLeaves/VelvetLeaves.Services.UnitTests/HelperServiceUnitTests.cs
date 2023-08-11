@@ -12,9 +12,9 @@ namespace VelvetLeaves.Services.UnitTests
 {
 	public class HelperServiceUnitTests
 	{
-        private Mock<IObjectDbContext> _mockContext;
-        private HelperService _helperService;
-        private Mock<IMongoCollection<AppPreferences>> _mockCollection;
+        private readonly Mock<IObjectDbContext> _mockContext;
+        private readonly HelperService _helperService;
+        private readonly Mock<IMongoCollection<AppPreferences>> _mockCollection;
 
 		public HelperServiceUnitTests()
 		{
@@ -72,15 +72,15 @@ namespace VelvetLeaves.Services.UnitTests
                 RootNavigationName = "Main"
             };
 
-            var preferences = new AppPreferences
-            {
-                Id = PreferencesKey,
-                Currency = model.Currency,
-                FavoriteColor = model.FavoriteColor,
-                FavoriteIcon = model.FavoriteIcon,
-                RootNavigationName = model.RootNavigationName,
-                BackGroundImageId = model.ImageId
-            };
+            //var preferences = new AppPreferences
+            //{
+            //    Id = PreferencesKey,
+            //    Currency = model.Currency,
+            //    FavoriteColor = model.FavoriteColor,
+            //    FavoriteIcon = model.FavoriteIcon,
+            //    RootNavigationName = model.RootNavigationName,
+            //    BackGroundImageId = model.ImageId
+            //};
 
             _mockContext.Setup(context => context.AppPreferences)
                 .Returns(_mockCollection.Object);
@@ -88,8 +88,6 @@ namespace VelvetLeaves.Services.UnitTests
             
 
             // Act
-            await _helperService.SetCurrentPreferences(model);
-
             await _helperService.SetCurrentPreferences(model);
 
             var currentPreferences = await _helperService.GetCurrentPreferences();
@@ -103,27 +101,29 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task SetCurrentPreferences_ModelWithoutImageId_CallsFindOneAndReplace()
+        public async Task SetCurrentPreferences_ModelWithoutImage_CallsFindOneAndReplace()
         {
             // Arrange
+            var id = Guid.NewGuid().ToString();
             var model = new AppPreferencesFormViewModel
             {
-                ImageId = null, // No image ID
+                Image = null,
+                ImageId = id, 
                 Currency = "USD",
                 FavoriteColor = "Blue",
                 FavoriteIcon = "star",
                 RootNavigationName = "Main"
             };
 
-            var preferences = new AppPreferences
-            {
-                Id = PreferencesKey,
-                Currency = model.Currency,
-                FavoriteColor = model.FavoriteColor,
-                FavoriteIcon = model.FavoriteIcon,
-                RootNavigationName = model.RootNavigationName,
-                BackGroundImageId = null // No image ID
-            };
+            //var preferences = new AppPreferences
+            //{
+            //    Id = PreferencesKey,
+            //    Currency = model.Currency,
+            //    FavoriteColor = model.FavoriteColor,
+            //    FavoriteIcon = model.FavoriteIcon,
+            //    RootNavigationName = model.RootNavigationName,
+            //    BackGroundImageId = id 
+            //};
 
 
 
@@ -146,12 +146,9 @@ namespace VelvetLeaves.Services.UnitTests
         public async Task GetBackGround_ReturnsCorrectValue()
 		{
             string background = "bgImageId";
-            string currency = "USD";
-            string favoriteColor = "Blue";
-            string favoriteIcon = "star";
-            string rootNavigationName = "Main";
             var result = await _helperService.Background();
             Assert.AreEqual(result, background);
+            
 
         }
 

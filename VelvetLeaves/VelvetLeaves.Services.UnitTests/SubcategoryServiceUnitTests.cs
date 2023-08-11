@@ -386,11 +386,7 @@ namespace VelvetLeaves.Services.UnitTests
             Assert.IsTrue(model.CategoryOptions.Any(o => o.Name == "c2"));
         }
 
-        [Test]
-        public async Task PopulateModel_InValidCategoryId_ReturnsDefaultOptions()
-        {
-
-        }
+        
 
     }
 }

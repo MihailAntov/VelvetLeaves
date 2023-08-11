@@ -111,7 +111,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _categoryService.DeleteAsync(categoryId);
                 return RedirectToAction("All", "Products");
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return NotFound();
             }

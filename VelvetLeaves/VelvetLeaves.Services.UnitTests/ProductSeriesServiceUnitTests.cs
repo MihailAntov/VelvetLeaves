@@ -221,7 +221,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task GetDefaultValues_ShouldThrowIfNonExistenId()
+        public  void GetDefaultValues_ShouldThrowIfNonExistenId()
         {
             // Arrange
             // Assume you have a ProductSeries with Id = 1 in the seeded data
@@ -251,7 +251,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task ProductSeriesBySubcategoryIdAsync_ShouldThrowIfNonExistentId()
+        public  void ProductSeriesBySubcategoryIdAsync_ShouldThrowIfNonExistentId()
         {
             // Arrange
             // Assume you have subcategory with Id = 1 in the seeded data
@@ -289,7 +289,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task GetProductSeriesByIdAsync_ShouldThrowIfNonExistendId()
+        public void GetProductSeriesByIdAsync_ShouldThrowIfNonExistendId()
         {
            
 
@@ -314,7 +314,7 @@ namespace VelvetLeaves.Services.UnitTests
         }
 
         [Test]
-        public async Task GetDefaultProductSeriesIdAsync_ShouldThrowIfNonExistentId()
+        public void GetDefaultProductSeriesIdAsync_ShouldThrowIfNonExistentId()
         {
             // Arrange
             // Assume you have a subcategory with Id = 1 in the seeded data

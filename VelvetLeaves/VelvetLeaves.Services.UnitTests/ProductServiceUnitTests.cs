@@ -938,7 +938,7 @@ namespace VelvetLeaves.Services.UnitTests
             
 
             // Assert
-            Assert.ThrowsAsync<ArgumentException>(async () => await _productService.DeleteAsync(nonExistentProductId));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _productService.DeleteAsync(nonExistentProductId));
         }
 
         [Test]
