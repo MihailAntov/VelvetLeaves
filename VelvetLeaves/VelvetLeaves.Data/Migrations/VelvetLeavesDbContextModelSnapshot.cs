@@ -34,7 +34,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("FavoritesId");
 
-                    b.ToTable("ApplicationUserProduct");
+                    b.ToTable("ApplicationUserProduct", (string)null);
                 });
 
             modelBuilder.Entity("ColorProductSeries", b =>
@@ -49,7 +49,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ProductSeriesId");
 
-                    b.ToTable("ColorProductSeries");
+                    b.ToTable("ColorProductSeries", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -201,7 +201,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.ToTable("ProductsColors");
+                    b.ToTable("ProductsColors", (string)null);
 
                     b.HasData(
                         new
@@ -533,7 +533,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("MaterialId");
 
-                    b.ToTable("ProductsMaterials");
+                    b.ToTable("ProductsMaterials", (string)null);
 
                     b.HasData(
                         new
@@ -1220,7 +1220,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("MaterialId");
 
-                    b.ToTable("ProductsSeriesMaterials");
+                    b.ToTable("ProductsSeriesMaterials", (string)null);
 
                     b.HasData(
                         new
@@ -1512,7 +1512,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProductsSeriesTags");
+                    b.ToTable("ProductsSeriesTags", (string)null);
 
                     b.HasData(
                         new
@@ -1534,7 +1534,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProductsTags");
+                    b.ToTable("ProductsTags", (string)null);
 
                     b.HasData(
                         new
@@ -1641,7 +1641,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.ApplicationUser", b =>
@@ -1782,7 +1782,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -1824,7 +1824,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
 
                     b.HasData(
                         new
@@ -1962,7 +1962,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Galleries");
+                    b.ToTable("Galleries", (string)null);
 
                     b.HasData(
                         new
@@ -2006,7 +2006,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("GalleriesProducts");
+                    b.ToTable("GalleriesProducts", (string)null);
 
                     b.HasData(
                         new
@@ -2102,7 +2102,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Image", (string)null);
 
                     b.HasData(
                         new
@@ -2820,7 +2820,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Materials", (string)null);
 
                     b.HasData(
                         new
@@ -2964,7 +2964,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.OrderProduct", b =>
@@ -2982,7 +2982,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProduct", (string)null);
                 });
 
             modelBuilder.Entity("VelvetLeaves.Data.Models.Product", b =>
@@ -3025,7 +3025,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("SubcategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -3551,7 +3551,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("SubcategoryId");
 
-                    b.ToTable("ProductSeries");
+                    b.ToTable("ProductSeries", (string)null);
 
                     b.HasData(
                         new
@@ -3773,7 +3773,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Subcategories");
+                    b.ToTable("Subcategories", (string)null);
 
                     b.HasData(
                         new
@@ -3852,7 +3852,7 @@ namespace VelvetLeaves.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
 
                     b.HasData(
                         new

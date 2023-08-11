@@ -1,17 +1,32 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using VelvetLeaves.Data.Configuration;
 using VelvetLeaves.Data.Models;
+using VelvetLeaves.Data.Seeding;
 
 namespace VelvetLeaves.Data
 {
     public class VelvetLeavesDbContext : IdentityDbContext<ApplicationUser>
     {
+        private bool seedDb;
+        private string? adminEmail;
+        private string? adminPassword;
+        public VelvetLeavesDbContext(DbContextOptions<VelvetLeavesDbContext> options, IOptions<VelvetLeavesDbContextConfiguration> configuration)
+            : base(options)
+        {
+            seedDb = configuration.Value.SeedDb;
+            adminEmail = configuration.Value.AdminEmail;
+            adminPassword = configuration.Value.AdminPassword;
+        }
+
         public VelvetLeavesDbContext(DbContextOptions<VelvetLeavesDbContext> options)
             : base(options)
         {
+
         }
 
+        
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Subcategory> Subcategories { get; set; } = null!;
@@ -24,24 +39,24 @@ namespace VelvetLeaves.Data
         public DbSet<Material> Materials { get; set; } = null!;
         public DbSet<ProductSeries> ProductSeries { get; set; } = null!;
 
-        
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<GalleryProduct>().HasKey(gp => new { gp.GalleryId, gp.ProductId });
 
-            builder.ApplyConfiguration(new CategoryEntityConfiguration());
-            builder.ApplyConfiguration(new SubCategoryEntityConfiguration());
-            builder.ApplyConfiguration(new ColorEntityConfiguration());
-            builder.ApplyConfiguration(new TagEntityConfiguration());
-            builder.ApplyConfiguration(new MaterialEntityConfiguration());
-            builder.ApplyConfiguration(new ProductSeriesEntityConfiguration());
-            builder.ApplyConfiguration(new ImageEntityConfiguration());
-            builder.SeedProductsAndRelations();
-            builder.SeedGalleries();
-            builder.SeedUsers();
+            builder.SeedAdmin(adminEmail, adminPassword);
+            if (seedDb)
+            {
+                builder.SeedDatabase();
+
+            }
+
+            builder.ConfigureRelations();
 
             base.OnModelCreating(builder);
+
+
+
         }
     }
 }

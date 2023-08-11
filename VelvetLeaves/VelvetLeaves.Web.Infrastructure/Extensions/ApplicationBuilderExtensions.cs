@@ -4,9 +4,11 @@ using Ganss.Xss;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using VelvetLeaves.Data.Configuration;
 using VelvetLeaves.Data.Models;
 using VelvetLeaves.Data.ObjectDatabase;
 using VelvetLeaves.Data.ObjectDatabase.Contracts;
@@ -20,13 +22,14 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder SeedAdmin(this IApplicationBuilder app)
+        public static IApplicationBuilder SeedAdminRole(this IApplicationBuilder app, string adminEmail)
         {
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();
 
             var services = scopedServices.ServiceProvider;
             UserManager<ApplicationUser> userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             RoleManager<IdentityRole> roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            
 
             Task.Run(async () =>
             {
@@ -40,8 +43,7 @@ namespace VelvetLeaves.Web.Infrastructure.Extensions
                     await roleManager.CreateAsync(role);
                 }
 
-
-                var admin = await userManager.FindByEmailAsync(AdminEmail);
+                var admin = await userManager.FindByEmailAsync(adminEmail);
 
                 await userManager.AddToRoleAsync(admin, role.Name);
             }).GetAwaiter()

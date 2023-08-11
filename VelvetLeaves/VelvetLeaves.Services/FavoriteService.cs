@@ -49,7 +49,7 @@ namespace VelvetLeaves.Services
                 return;
             }
 
-            user.Favorites.Add(product);
+            user!.Favorites.Add(product);
             await _context.SaveChangesAsync();
         }
 
@@ -67,7 +67,7 @@ namespace VelvetLeaves.Services
                 return;
             }
 
-            user.Favorites.Remove(product);
+            user!.Favorites.Remove(product);
             await _context.SaveChangesAsync();
         }
 
@@ -85,7 +85,7 @@ namespace VelvetLeaves.Services
                 return false;
             }
 
-            return user.Favorites.Contains(product);
+            return user!.Favorites.Contains(product);
         }
     }
 }
