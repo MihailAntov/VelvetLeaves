@@ -46,6 +46,7 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
+				model.CategoryOptions = await _categoryService.AllCategoriesAsync();
 				return View(model);
 			}
 

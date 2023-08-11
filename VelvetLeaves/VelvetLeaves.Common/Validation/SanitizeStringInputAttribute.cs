@@ -13,7 +13,7 @@ namespace VelvetLeaves.Common.Validation
             _sanitizer = new HtmlSanitizer();
         }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             if (value != null && value is string inputValue)
             {
@@ -21,14 +21,21 @@ namespace VelvetLeaves.Common.Validation
                 string sanitizedValue = _sanitizer.Sanitize(inputValue);
 
                 // Update the model with the sanitized value
-                var propertyInfo = validationContext.ObjectType.GetProperty(validationContext.MemberName);
-                propertyInfo.SetValue(validationContext.ObjectInstance, sanitizedValue);
+                if(validationContext != null)
+                {
+                var propertyInfo = validationContext.ObjectType.GetProperty(validationContext.MemberName!);
+                    if(propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(validationContext.ObjectInstance, sanitizedValue);
+
+                    }
+                }
                 
                 
             }
 
             // Always return success since we have updated the value
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
     }
 }

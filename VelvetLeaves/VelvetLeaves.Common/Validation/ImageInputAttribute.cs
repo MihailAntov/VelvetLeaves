@@ -19,7 +19,7 @@ namespace VelvetLeaves.Common.Validation
 
         private readonly int maxFileSizeBytes = 10 * 1024 * 1024; // 10MB
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             if (value != null && value is IEnumerable<IFormFile> files)
             {
@@ -70,7 +70,7 @@ namespace VelvetLeaves.Common.Validation
             }
 
             // Always return success since we have updated the value
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
 
         private bool IsValidExtension(string fileName)
