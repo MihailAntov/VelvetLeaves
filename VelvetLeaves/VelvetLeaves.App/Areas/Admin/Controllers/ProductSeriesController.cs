@@ -10,27 +10,17 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	[Authorize(Roles = AdminAndModeratorRoleNames)]
 	public class ProductSeriesController : Controller
 	{
-		private readonly ICategoryService _categoryService;
-		private readonly ISubcategoryService _subcategoryService;
-		private readonly IColorService _colorService;
-		private readonly IMaterialService _materialService;
-		private readonly ITagService _tagService;
+		
 		private readonly IProductSeriesService _productSeriesService;
+		private readonly ILogger<ProductSeriesController> _logger;
 
-        public ProductSeriesController
-			(ICategoryService categoryService,
-            ISubcategoryService subcategoryService,
-            IColorService colorService,
-            IMaterialService materialService,
-            ITagService tagService,
-            IProductSeriesService productSeriesService)
+		public ProductSeriesController
+			(
+            IProductSeriesService productSeriesService, ILogger<ProductSeriesController> logger)
         {
-            _categoryService = categoryService;
-            _subcategoryService = subcategoryService;
-            _colorService = colorService;
-            _materialService = materialService;
-            _tagService = tagService;
+            
             _productSeriesService = productSeriesService;
+			_logger = logger;
         }
 
 
@@ -51,8 +41,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				model = await _productSeriesService.PopulateModel(model);
 				return View(model);
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -74,8 +65,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _productSeriesService.AddAsync(model);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -90,8 +82,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _productSeriesService.ProductSeriesBySubcategoryIdAsync(subcategoryId);
 				return Json(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -107,8 +100,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				ViewData["id"] = productSeriesId;
 				return View(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -132,8 +126,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _productSeriesService.EditAsync(productSeriesId, model);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}&subcategoryId={model.SubcategoryId}");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 			
@@ -147,8 +142,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _productSeriesService.DeleteAsync(productSeriesId);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}&subcategoryId={subcategoryId}");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 

@@ -13,11 +13,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 		private readonly IImageService _imageService;
 		private readonly ISubcategoryService _subcategoryService;
 		private readonly ICategoryService _categoryService;
-		public SubcategoriesController(IImageService imageService, ISubcategoryService subcategoryService, ICategoryService categoryService)
+		private readonly ILogger<SubcategoriesController> _logger;
+		public SubcategoriesController(IImageService imageService, ISubcategoryService subcategoryService, ICategoryService categoryService, ILogger<SubcategoriesController> logger)
 		{
 			_imageService = imageService;
 			_subcategoryService = subcategoryService;
 			_categoryService = categoryService;	
+			_logger = logger;	
 		}
 
 		[HttpGet]
@@ -35,8 +37,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				model = await _subcategoryService.PopulateModel(model);
 				return View(model);
 			}
-            catch(Exception)
+            catch(Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 		}
@@ -66,8 +69,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -82,8 +86,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _subcategoryService.SubcategoriesByCategoryIdAsync(categoryId);
 				return Json(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -98,8 +103,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _subcategoryService.GetForEditAsync(subcategoryId);
 				return View(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -119,8 +125,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _subcategoryService.EditAsync(model);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={model.CategoryId}");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 
@@ -135,8 +142,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _subcategoryService.DeleteAsync(subcategoryId);
 				return LocalRedirect($"~/Admin/Products/All?categoryId={categoryId}");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 			

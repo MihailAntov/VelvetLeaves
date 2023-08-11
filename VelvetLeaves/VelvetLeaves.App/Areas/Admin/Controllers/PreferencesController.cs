@@ -13,10 +13,12 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     {
         private readonly IHelperService _helperService;
         private readonly IImageService _imageService;
-        public PreferencesController(IHelperService helperService, IImageService imageService)
+        private readonly ILogger<PreferencesController> _logger;
+        public PreferencesController(IHelperService helperService, IImageService imageService, ILogger<PreferencesController> logger)
         {
             _helperService = helperService;
             _imageService = imageService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -27,8 +29,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _helperService.GetCurrentPreferences();
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -59,8 +62,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 return RedirectToAction("All", "Products", new { Area = "Admin" });
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 

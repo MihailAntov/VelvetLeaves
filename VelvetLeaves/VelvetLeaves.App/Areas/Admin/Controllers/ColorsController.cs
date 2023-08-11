@@ -12,9 +12,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	public class ColorsController : Controller
 	{
 		private readonly IColorService _colorService;
-        public ColorsController(IColorService colorService)
+		private readonly ILogger<ColorsController> _logger;
+		public ColorsController(IColorService colorService, ILogger<ColorsController> logger)
         {
 			_colorService = colorService;
+			_logger = logger;
         }
 		
 		[HttpGet]
@@ -36,8 +38,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _colorService.AddAsync(model);
 				return RedirectToAction("All", "Colors");
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -51,8 +54,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _colorService.GetAllColorsAsync();
 				return View(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 		}
@@ -65,8 +69,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _colorService.DeleteAsync(colorId);
 				return RedirectToAction("All", "Colors");
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			

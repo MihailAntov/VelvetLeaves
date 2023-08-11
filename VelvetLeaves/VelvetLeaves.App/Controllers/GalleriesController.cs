@@ -9,9 +9,11 @@ namespace VelvetLeaves.Web.App.Controllers
     public class GalleriesController : Controller
     {
         private readonly IGalleryService galleryService;
-        public GalleriesController(IGalleryService galleryService)
+        private readonly ILogger<GalleriesController> _logger;
+        public GalleriesController(IGalleryService galleryService, ILogger<GalleriesController> logger)
         {
             this.galleryService = galleryService;
+            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -23,8 +25,9 @@ namespace VelvetLeaves.Web.App.Controllers
             var gallery = await galleryService.GetGalleryByIdAsync(id);
             return View(gallery);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -37,8 +40,9 @@ namespace VelvetLeaves.Web.App.Controllers
                 var galleries = await galleryService.AllGalleriesAsync();
                 return View(galleries);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }

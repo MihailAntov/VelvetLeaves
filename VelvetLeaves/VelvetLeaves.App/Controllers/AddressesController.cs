@@ -11,9 +11,11 @@ namespace VelvetLeaves.App.Controllers
     {
 
         private readonly IAddressService _addressService;
-        public AddressesController(IAddressService addressService)
+        private readonly ILogger<AddressesController> _logger;
+        public AddressesController(IAddressService addressService, ILogger<AddressesController> logger)
         {
             _addressService = addressService;
+            _logger = logger;
         }
         public async Task<IActionResult> All()
         {
@@ -23,8 +25,9 @@ namespace VelvetLeaves.App.Controllers
                 var model = await _addressService.GetAddressOptionsAsync(userId);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -50,8 +53,9 @@ namespace VelvetLeaves.App.Controllers
                 return RedirectToAction("All");
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -65,8 +69,9 @@ namespace VelvetLeaves.App.Controllers
                 return View(model);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -86,8 +91,9 @@ namespace VelvetLeaves.App.Controllers
                 await _addressService.UpdateAsync(id, model);
                 return RedirectToAction("All", "Addresses");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -102,8 +108,9 @@ namespace VelvetLeaves.App.Controllers
                 return PartialView("_AddressForm", model);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -117,8 +124,9 @@ namespace VelvetLeaves.App.Controllers
                 await _addressService.DeleteAsync(addressId);
                 return RedirectToAction("All", "Addresses");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
 			}
 		}

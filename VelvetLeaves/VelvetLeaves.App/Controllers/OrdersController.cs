@@ -16,14 +16,17 @@ namespace VelvetLeaves.Web.App.Controllers
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IOrderService _orderService;
         private readonly IHubContext<OrderTrackerHub> _hubContext;
+        private readonly ILogger<OrdersController> _logger;
         public OrdersController(
             IShoppingCartService shoppingCartService,
             IOrderService orderService,
-            IHubContext<OrderTrackerHub> hubContext)
+            IHubContext<OrderTrackerHub> hubContext,
+            ILogger<OrdersController> logger)
         {
             _shoppingCartService = shoppingCartService;
             _orderService = orderService;
             _hubContext = hubContext;
+            _logger = logger;   
         }
         [HttpGet]
         [AllowAnonymous]
@@ -36,8 +39,9 @@ namespace VelvetLeaves.Web.App.Controllers
 
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -56,8 +60,9 @@ namespace VelvetLeaves.Web.App.Controllers
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
             return Json(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -73,8 +78,9 @@ namespace VelvetLeaves.Web.App.Controllers
             var model = await _orderService.GetShoppingCartForCheckoutAsync(newCart);
             return Json(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -91,7 +97,9 @@ namespace VelvetLeaves.Web.App.Controllers
 
             return PartialView("ShoppingCart",model);
             }
-            catch(Exception){
+            catch(Exception e)
+            {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -104,16 +112,25 @@ namespace VelvetLeaves.Web.App.Controllers
             {
                 return View(model);
             }
-
-            if (!await _orderService.CartValidAsync(model))
+            try
             {
-                ModelState.AddModelError("cart", "Cart contents are not valid.");
-                return View(model);
+                if (!await _orderService.CartValidAsync(model))
+                {
+                    ModelState.AddModelError("cart", "Cart contents are not valid.");
+                    return View(model);
+                }
+
+                var checkOutModel = _orderService.GetCheckoutInfo(model);
+
+                return View("Checkout", checkOutModel);
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
+                return NotFound();
             }
 
-            var checkOutModel = _orderService.GetCheckoutInfo(model);
             
-            return View("Checkout", checkOutModel);
         }
 
         
@@ -150,8 +167,9 @@ namespace VelvetLeaves.Web.App.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -171,8 +189,9 @@ namespace VelvetLeaves.Web.App.Controllers
                 var model = await _orderService.AllByIdAsync(userId);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             

@@ -12,11 +12,13 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IGalleryService _galleryService;
+        private readonly ILogger<GalleriesController> _logger;
 
-        public GalleriesController(IImageService imageService, IGalleryService galleryService)
+        public GalleriesController(IImageService imageService, IGalleryService galleryService, ILogger<GalleriesController> logger)
         {
             _imageService = imageService;
             _galleryService = galleryService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -27,8 +29,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _galleryService.AllGalleriesAsync();
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -46,8 +49,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 await _galleryService.MoveLeft(productId, galleryId);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return;
             }
 
@@ -66,8 +70,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 await _galleryService.MoveRight(productId, galleryId);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return;
             }
         }
@@ -86,8 +91,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
             {
                 await _galleryService.DeleteItem(productId, galleryId);
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return;
             }
         }
@@ -100,8 +106,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _galleryService.GetGalleryEditFormAsync(galleryId);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -126,8 +133,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _galleryService.EditAsync(model);
                 return RedirectToAction("All", "Galleries");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -143,8 +151,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _galleryService.GetGalleryByIdAsync(galleryId);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -178,8 +187,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 
                 return RedirectToAction("All", "Galleries");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -192,8 +202,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _galleryService.GetItemsToAddAsync(galleryId);
                 return View(model);
             }
-            catch
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -211,8 +222,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _galleryService.AddItemsToGalleryAsync(model.GalleryId, model.ProductIds);
                 return LocalRedirect($"~/Admin/Galleries/Show?galleryId={model.GalleryId}");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -227,13 +239,15 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _galleryService.DeleteAsync(galleryId);
                 return RedirectToAction("All", "Galleries");
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
+
             }
-            
-            
-            
+
+
+
         }
     }
 }

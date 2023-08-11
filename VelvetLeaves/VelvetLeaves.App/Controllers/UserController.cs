@@ -21,26 +21,31 @@ namespace VelvetLeaves.App.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IFavoriteService _favoriteService;
-        
+        private readonly ILogger<UserController> _logger;
+
 
         public UserController(
             IUserStore<ApplicationUser> userStore,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IFavoriteService favoriteService)
+            IFavoriteService favoriteService,
+            ILogger<UserController> logger)
         {
             _userStore = userStore;
             _userManager = userManager;
             _signInManager = signInManager;
             _favoriteService = favoriteService;
+            _logger = logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
-            RegisterFormViewModel model = new RegisterFormViewModel();
-            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
+            RegisterFormViewModel model = new()
+            {
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToArray()
+            };
             return View(model);
         }
         [HttpPost]
@@ -58,7 +63,7 @@ namespace VelvetLeaves.App.Controllers
 
                 if (result.Succeeded)
                 {
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    //var userId = await _userManager.GetUserIdAsync(user);
                     //if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     //{
                     //    return RedirectToPage("RegisterConfirmation", new { email = model.Email, returnUrl = model.ReturnUrl });
@@ -110,7 +115,7 @@ namespace VelvetLeaves.App.Controllers
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { RememberMe = model.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
@@ -174,8 +179,9 @@ namespace VelvetLeaves.App.Controllers
 
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
@@ -189,8 +195,9 @@ namespace VelvetLeaves.App.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _favoriteService.AddToFavorites(userId, productId);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return;
             }
             
@@ -204,8 +211,9 @@ namespace VelvetLeaves.App.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _favoriteService.RemoveFromFavorites(userId, productId);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return;
             }
             

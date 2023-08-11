@@ -9,10 +9,12 @@ namespace VelvetLeaves.App.Controllers
     {
 
         private readonly IGalleryService _galleryService;
+        private readonly ILogger<HomeController> _logger;
 
-		public HomeController(IGalleryService galleryService)
+        public HomeController(IGalleryService galleryService, ILogger<HomeController> logger)
 		{
             _galleryService = galleryService;
+            _logger = logger;
 		}
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -23,8 +25,9 @@ namespace VelvetLeaves.App.Controllers
                 return View(model);
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             

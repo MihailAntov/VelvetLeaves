@@ -13,9 +13,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	{
 
 		private readonly IOrderService _orderService;
-		public OrdersController(IOrderService orderService)
+		private readonly ILogger<OrdersController> _logger;
+		public OrdersController(IOrderService orderService, ILogger<OrdersController> logger)
 		{
 			_orderService = orderService;
+			_logger = logger;	
 		}
 		[HttpGet]
 		public async Task<IActionResult> All(OrderStatus status = OrderStatus.Pending)
@@ -25,8 +27,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _orderService.AllAsync(status);
 				return View(model);
 			}
-            catch(Exception)
+            catch(Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -40,8 +43,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _orderService.DetailsAsync(orderId);
 				return View(model);
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -55,8 +59,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _orderService.ChangeStatusAsync(orderId, status);
 				return RedirectToAction("All", "Orders", new { Area = "Admin" });
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -71,8 +76,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _orderService.AllAsync(status);
 				return PartialView("_OrderList", model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
         }
@@ -85,8 +91,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var result = await _orderService.AddAdminNoteAsync(note, orderId);
 				return Json(result);
 			}
-            catch
+            catch(Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			

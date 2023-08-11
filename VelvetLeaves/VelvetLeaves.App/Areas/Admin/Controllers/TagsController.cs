@@ -12,9 +12,11 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 	{
 
 		private readonly ITagService _tagService;
-        public TagsController(ITagService tagService)
+		private readonly ILogger<TagsController> _logger;
+		public TagsController(ITagService tagService, ILogger<TagsController> logger)
         {
             _tagService = tagService;
+			_logger = logger;
         }
 
         [HttpGet]
@@ -36,8 +38,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _tagService.AddAsync(model);
 				return RedirectToAction("All", "Tags");
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			
@@ -51,8 +54,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				var model = await _tagService.GetAllTagsAsync();
 				return View(model);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
 			}
 		}
@@ -65,8 +69,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
 				await _tagService.DeleteAsync(tagId);
 				return RedirectToAction("All", "Tags");
 			}
-            catch (Exception)
+            catch (Exception e)
             {
+				_logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
 				return NotFound();
             }
 			

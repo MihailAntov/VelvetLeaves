@@ -12,22 +12,15 @@ namespace VelvetLeaves.Web.App.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
-        private readonly IColorService _colorService;
-        private readonly IMaterialService _materialService;
-        private readonly ITagService _tagService;
-        private readonly IFavoriteService _favoriteService;
+        
+        private readonly ILogger<ProductsController> _logger;
         public ProductsController(
             IProductService productService,
-            IColorService colorService,
-            IMaterialService materialService,
-            ITagService tagService,
-            IFavoriteService favoriteService)
+            ILogger<ProductsController> logger
+            )
         {
             _productService = productService;
-            _colorService = colorService;
-            _materialService = materialService;
-            _tagService = tagService;
-            _favoriteService = favoriteService;
+            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -44,8 +37,9 @@ namespace VelvetLeaves.Web.App.Controllers
                 queryModel = await _productService.ProductsFilteredAndPagedAsync(queryModel);
                 return View("Products", queryModel);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -60,8 +54,9 @@ namespace VelvetLeaves.Web.App.Controllers
                 var model = await _productService.DetailsByIdAsync(id);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         } 

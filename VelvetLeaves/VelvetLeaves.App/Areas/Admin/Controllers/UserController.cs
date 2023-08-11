@@ -14,10 +14,12 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
 
             _userService = userService;
+            _logger = logger;   
         }
 
         [HttpGet]
@@ -28,8 +30,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _userService.MakeModeratorAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }  
         }
@@ -42,8 +45,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _userService.RemoveModeratorAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
         }
@@ -56,8 +60,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 await _userService.MakeAdminAsync(userId);
                 return RedirectToAction("Promote", "User", new { Area = "Admin" });
             }
-            catch
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -74,8 +79,9 @@ namespace VelvetLeaves.App.Areas.Admin.Controllers
                 var model = await _userService.GetFormForPromoteAsync(userId);
                 return View(model);
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                _logger.LogError(e, "Exception thrown at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             
